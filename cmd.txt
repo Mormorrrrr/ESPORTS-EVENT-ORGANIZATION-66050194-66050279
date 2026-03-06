@@ -1,0 +1,8 @@
+สั่งstart
+docker compose up -d 
+
+ดูสถานะcontaner
+docker ps
+
+ปิดcontaner
+docker compose down
