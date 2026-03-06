@@ -6,6 +6,8 @@ app.get('/', (req, res) => {
     res.send('สวัสดี! Express พร้อมใช้งานแล้ว');
 });
 
+
+
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
