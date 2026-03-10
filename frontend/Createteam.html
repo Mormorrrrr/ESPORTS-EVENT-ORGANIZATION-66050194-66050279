@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Create Team</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #0b1b33;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+
+        .card {
+            background: #1f2f46;
+            padding: 40px;
+            border-radius: 10px;
+            width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 30px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #22c55e;
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #16a34a;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
+
+        .success {
+            color: lightgreen;
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="card">
+
+        <h2>Create Team</h2>
+
+        <form onsubmit="createTeam(event)">
+
+            <input id="team_name" placeholder="Team Name" required>
+
+            <input id="team_banner_url" placeholder="Team Banner URL">
+
+            <input id="leader_name" placeholder="Leader Name" required>
+
+            <input id="member1" placeholder="Member 1">
+
+            <input id="member2" placeholder="Member 2">
+
+            <input id="member3" placeholder="Member 3">
+
+            <input id="member4" placeholder="Member 4">
+
+            <input id="created_by" placeholder="Created By (User ID)" required>
+
+            <button type="submit">Create Team</button>
+
+        </form>
+
+        <div id="msg"></div>
+
+    </div>
+
+
+    <script>
+
+        async function createTeam(event) {
+
+            event.preventDefault()
+
+            const team_name = document.getElementById("team_name").value
+            const team_banner_url = document.getElementById("team_banner_url").value
+            const leader_name = document.getElementById("leader_name").value
+            const member_1 = document.getElementById("member1").value
+            const member_2 = document.getElementById("member2").value
+            const member_3 = document.getElementById("member3").value
+            const member_4 = document.getElementById("member4").value
+            const created_by = parseInt(document.getElementById("created_by").value)
+
+            try {
+
+                const res = await fetch("http://localhost:3000/teams", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        team_name,
+                        team_banner_url,
+                        leader_name,
+                        member_1,
+                        member_2,
+                        member_3,
+                        member_4,
+                        created_by
+                    })
+
+                })
+
+                const data = await res.json()
+
+                console.log(data)
+
+                if (res.ok) {
+
+                    document.getElementById("msg").innerHTML =
+                        "<p class='success'>สร้างทีมสำเร็จ</p>"
+
+                } else {
+
+                    document.getElementById("msg").innerHTML =
+                        "<p class='error'>" + data.error + "</p>"
+
+                }
+
+            } catch (err) {
+
+                document.getElementById("msg").innerHTML =
+                    "<p class='error'>เชื่อมต่อ server ไม่ได้</p>"
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>

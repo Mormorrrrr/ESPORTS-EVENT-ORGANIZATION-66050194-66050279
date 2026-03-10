@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Apply Tournament</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #0b1b33;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+
+        .card {
+            background: #1f2f46;
+            padding: 40px;
+            border-radius: 10px;
+            width: 400px;
+            text-align: center;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #22c55e;
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #msg {
+            margin-top: 15px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="card">
+
+        <h2>Apply Tournament</h2>
+
+        <form onsubmit="apply(event)">
+
+            <select id="tournament_type">
+                <option value="">Select Tournament Type</option>
+                <option value="Single">Single</option>
+                <option value="Double">Double</option>
+            </select>
+
+            <select id="team">
+                <option value="">Select Team</option>
+            </select>
+
+            <button type="submit">Apply</button>
+
+        </form>
+
+        <div id="msg"></div>
+
+    </div>
+
+
+    <script>
+
+        const API = "http://localhost:3000"
+
+
+        async function loadTeams() {
+
+            try {
+
+                const res = await fetch(API + "/teams")
+
+                const data = await res.json()
+
+                const select = document.getElementById("team")
+
+                data.forEach(t => {
+
+                    const option = document.createElement("option")
+
+                    option.value = t.team_id
+                    option.textContent = t.team_name
+
+                    select.appendChild(option)
+
+                })
+
+            } catch (err) {
+
+                console.error(err)
+                document.getElementById("msg").innerHTML = "โหลดทีมไม่ได้"
+
+            }
+
+        }
+
+
+        async function apply(event) {
+
+            event.preventDefault()
+
+            const tournament_type = document.getElementById("tournament_type").value
+            const team_id = parseInt(document.getElementById("team").value)
+
+            if (!tournament_type || !team_id) {
+
+                document.getElementById("msg").innerHTML = "กรุณาเลือก Tournament และ Team"
+                return
+
+            }
+
+            try {
+
+                const res = await fetch(API + "/applications", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        tournament_type,
+                        team_id
+                    })
+
+                })
+
+                const data = await res.json()
+
+                if (res.ok) {
+
+                    document.getElementById("msg").innerHTML = "สมัครสำเร็จ"
+
+                } else {
+
+                    document.getElementById("msg").innerHTML = data.error
+
+                }
+
+            } catch (err) {
+
+                console.error(err)
+                document.getElementById("msg").innerHTML = "Server Error"
+
+            }
+
+        }
+
+        loadTeams()
+
+    </script>
+
+</body>
+
+</html>
