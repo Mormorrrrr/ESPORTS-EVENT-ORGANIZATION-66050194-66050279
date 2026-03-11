@@ -55,7 +55,7 @@
                             </div>
                         </div>
                     </div>
-                    <form class="form" id="auth-form" novalidate>
+                    <form class="form" id="auth-form" novalidate onsubmit="event.preventDefault();">
                         <div class="container-5">
                             <div class="div-2"><label class="text-wrapper-4" for="input-0">Username</label></div>
                             <div class="div-2">
@@ -212,7 +212,11 @@
                     if(res.ok) {
                         alert(data.message);
                         localStorage.setItem('user', JSON.stringify(data.user));
-                        window.location.href = 'index.html';
+                        if(data.user.role === 'Admin') {
+                            window.location.href = '../Admin/Dashboard Page 8/Dashboard_8.html';
+                        } else {
+                            window.location.href = '../User/Tournament List Page1/userlogin_1.html';
+                        }
                     } else {
                         alert('ล้มเหลว: ' + data.error);
                     }
