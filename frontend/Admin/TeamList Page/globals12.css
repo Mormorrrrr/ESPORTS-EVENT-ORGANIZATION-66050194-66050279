@@ -41,10 +41,3 @@ a {
     font-family: "Be Vietnam Pro-Regular";
     src: local("Be Vietnam Pro-Regular");
 }
-
-/* @FONTWARNING[{"type": "restricted", "family": "Be Vietnam Pro-Black", "weight": "900", "style": "normal", "allowsCrossOrigin": false}] */
-
-@font-face {
-    font-family: "Be Vietnam Pro-Black";
-    src: local("Be Vietnam Pro-Black");
-}
