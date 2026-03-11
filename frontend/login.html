@@ -217,7 +217,7 @@
                         alert('ล้มเหลว: ' + data.error);
                     }
                 } catch (err) {
-                    alert('ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้');
+                    alert('ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้: ' + err.message);
                 }
             } else {
                 const email = emailInput.value;
@@ -247,7 +247,7 @@
                         alert('ล้มเหลว: ' + data.error);
                     }
                 } catch (err) {
-                    alert('ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้');
+                    alert('ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้: ' + err.message);
                 }
             }
         });
