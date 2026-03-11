@@ -1,0 +1,619 @@
+.register {
+    background-color: #f8f7f5;
+    width: 100%;
+    min-width: 1440px;
+    min-height: 1024px;
+    display: flex;
+}
+
+.register .container {
+    display: flex;
+    height: 1024px;
+    flex: 1;
+    position: relative;
+    width: 1440px;
+    align-items: flex-start;
+}
+
+.register .left-side-gaming {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    position: relative;
+    flex: 1;
+    align-self: stretch;
+    flex-grow: 1;
+    background-color: #231a0f;
+}
+
+.register .background-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    mix-blend-mode: screen;
+}
+
+.register .gradient {
+    background: linear-gradient(0deg,
+            rgba(35, 26, 15, 1) 0%,
+            rgba(35, 26, 15, 0.2) 50%,
+            rgba(35, 26, 15, 0) 100%);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.register .div {
+    background: linear-gradient(90deg,
+            rgba(35, 26, 15, 0.4) 0%,
+            rgba(35, 26, 15, 0) 100%);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.register .branding-floating {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 64px;
+    position: relative;
+    flex: 1;
+    align-self: stretch;
+    flex-grow: 1;
+}
+
+.register .container-2 {
+    position: relative;
+    width: 247px;
+    height: 32px;
+}
+
+.register .image {
+    position: relative;
+    width: 109px;
+    height: 73px;
+    aspect-ratio: 1.5;
+}
+
+.register .container-3 {
+    position: relative;
+    max-width: 448px;
+    width: 448px;
+    height: 338px;
+}
+
+.register .heading {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+}
+
+.register .master-your-game {
+    position: relative;
+    align-self: stretch;
+    margin-top: -1.00px;
+    font-family: "Be Vietnam Pro-Bold", Helvetica;
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 48px;
+    letter-spacing: 0;
+    line-height: 60px;
+}
+
+.register .the-most-powerful-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+    position: absolute;
+    top: 254px;
+    left: 0;
+}
+
+.register .the-most-powerful {
+    position: relative;
+    align-self: stretch;
+    margin-top: -1.00px;
+    font-family: "Be Vietnam Pro-Regular", Helvetica;
+    font-weight: 400;
+    color: #cbd5e1;
+    font-size: 18px;
+    letter-spacing: 0;
+    line-height: 28px;
+}
+
+.register .right-side {
+    position: relative;
+    flex: 1;
+    align-self: stretch;
+    flex-grow: 1;
+    background-color: #f8f7f5;
+}
+
+.register .container-4 {
+    display: flex;
+    flex-direction: column;
+    max-width: 480px;
+    width: calc(100% - 240px);
+    align-items: flex-start;
+    gap: 32px;
+    position: relative;
+    top: calc(50.00% - 334px);
+    left: 96px;
+}
+
+.register .header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+    background-color: transparent;
+}
+
+.register .div-2 {
+    position: relative;
+    align-self: stretch;
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+}
+
+.register .text-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    margin-top: -1.00px;
+    font-family: "Be Vietnam Pro-Bold", Helvetica;
+    font-weight: 700;
+    color: #0f172a;
+    font-size: 30px;
+    letter-spacing: -0.75px;
+    line-height: 36px;
+}
+
+.register .p {
+    position: relative;
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    margin-top: -1.00px;
+    font-family: "Be Vietnam Pro-Regular", Helvetica;
+    font-weight: 400;
+    color: #64748b;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: 24px;
+}
+
+.register .role-toggle {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 4px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+    background-color: #e2e8f0;
+    border-radius: 9999px;
+}
+
+.register .label {
+    display: flex;
+    flex: 1;
+    align-self: stretch;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+}
+
+.register .background-shadow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+    background-color: #ffffff;
+    border-radius: 9999px;
+    box-shadow: 0px 1px 2px #0000000d;
+}
+
+.register .text-wrapper-2 {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 94px;
+    height: 20px;
+    margin-top: -1.00px;
+    font-family: "Be Vietnam Pro-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #ff8c00;
+    font-size: 14px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 20px;
+    white-space: nowrap;
+}
+
+.register .div-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 0px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+    border-radius: 9999px;
+}
+
+.register .text-wrapper-3 {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 68.92px;
+    height: 20px;
+    margin-top: -1.00px;
+    font-family: "Be Vietnam Pro-SemiBold", Helvetica;
+    font-weight: 600;
+    color: #475569;
+    font-size: 14px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 20px;
+    white-space: nowrap;
+}
+
+.register .form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.register .container-5 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.register .text-wrapper-4 {
+    position: relative;
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    margin-top: -1.00px;
+    font-family: "Be Vietnam Pro-Medium", Helvetica;
+    font-weight: 500;
+    color: #334155;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 20px;
+}
+
+.register .input {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 14px 16px 14px 44px;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+    border-radius: 48px;
+    overflow: hidden;
+    border-color: #e2e8f0;
+    position: relative;
+    background-color: #ffffff;
+    border: 1px solid;
+}
+
+.register .container-6 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    flex: 1;
+    flex-grow: 1;
+}
+
+.register .text-wrapper-5 {
+    position: relative;
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+    margin-top: -1.00px;
+    font-family: "Be Vietnam Pro-Regular", Helvetica;
+    font-weight: 400;
+    color: #6b7280;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: normal;
+}
+
+.register .icon-wrapper {
+    display: inline-flex;
+    flex-direction: column;
+    height: 26.00%;
+    align-items: flex-start;
+    position: absolute;
+    top: 37.00%;
+    left: 16px;
+}
+
+.register .icon {
+    position: relative;
+    width: 13.33px;
+    height: 13.33px;
+    margin-bottom: -0.33px;
+}
+
+.register .container-7 {
+    position: relative;
+    flex-grow: 1;
+    border: none;
+    background: none;
+    align-self: stretch;
+    margin-top: -1.00px;
+    font-family: "Be Vietnam Pro-Regular", Helvetica;
+    font-weight: 400;
+    color: #6b7280;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: normal;
+    padding: 0;
+}
+
+.register .img-wrapper {
+    display: inline-flex;
+    flex-direction: column;
+    height: 26.00%;
+    align-items: flex-start;
+    position: absolute;
+    top: 37.00%;
+    left: 15px;
+}
+
+.register .img {
+    position: relative;
+    width: 16.67px;
+    height: 13.33px;
+    margin-bottom: -0.33px;
+}
+
+.register .container-8 {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 16px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.register .container-9 {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    position: relative;
+    flex: 1;
+    align-self: stretch;
+    flex-grow: 1;
+}
+
+.register .container-10 {
+    display: inline-flex;
+    flex-direction: column;
+    height: 44.00%;
+    align-items: flex-start;
+    position: absolute;
+    top: 33.00%;
+    left: 12px;
+}
+
+.register .icon-2 {
+    position: relative;
+    width: 13.33px;
+    height: 17.5px;
+}
+
+.register .container-11 {
+    display: inline-flex;
+    flex-direction: column;
+    height: 56.00%;
+    align-items: flex-start;
+    position: absolute;
+    top: 22.00%;
+    left: 12px;
+}
+
+.register .icon-3 {
+    position: relative;
+    width: 19.17px;
+    height: 10px;
+    margin-right: -0.17px;
+}
+
+.register .container-12 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 0px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.register .input-2 {
+    width: 16px;
+    height: 16px;
+    border-radius: 16px;
+    border-color: #cbd5e1;
+    position: relative;
+    background-color: #ffffff;
+    border: 1px solid;
+}
+
+.register .label-2 {
+    display: inline-flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+}
+
+.register .text {
+    width: 339.73px;
+    height: 20px;
+    color: transparent;
+    font-size: 14px;
+    line-height: 14px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-top: -1.00px;
+    font-family: "Be Vietnam Pro-Regular", Helvetica;
+    font-weight: 400;
+    letter-spacing: 0;
+}
+
+.register .span {
+    color: #475569;
+    line-height: 20px;
+}
+
+.register .text-wrapper-6 {
+    color: #ff8c00;
+}
+
+.register .button {
+    all: unset;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 0px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+    background-color: #ff8c00;
+    border-radius: 48px;
+}
+
+.register .button-shadow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #ffffff01;
+    border-radius: 48px;
+    box-shadow: 0px 4px 6px -4px #ff8c0040, 0px 10px 15px -3px #ff8c0040;
+}
+
+.register .text-wrapper-7 {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 167.55px;
+    height: 24px;
+    margin-top: -1.00px;
+    font-family: "Be Vietnam Pro-Bold", Helvetica;
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 16px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 24px;
+    white-space: nowrap;
+}
+
+.register .footer-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px 0px 0px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+    border-top-width: 1px;
+    border-top-style: solid;
+    border-color: #e2e8f0;
+}
+
+.register .already-have-an-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+.register .already-have-an {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 320px;
+    height: 24px;
+    margin-top: -1.00px;
+    font-family: "Be Vietnam Pro-Regular", Helvetica;
+    font-weight: 400;
+    color: transparent;
+    font-size: 16px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 16px;
+}
+
+.register .text-wrapper-8 {
+    color: #475569;
+    line-height: 24px;
+}
+
+.register .text-wrapper-9 {
+    font-family: "Be Vietnam Pro-Bold", Helvetica;
+    font-weight: 700;
+    color: #ff8c00;
+}
