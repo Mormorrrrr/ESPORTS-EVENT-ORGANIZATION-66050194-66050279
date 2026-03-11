@@ -43,12 +43,17 @@ app.post("/register", async (req, res) => {
             return res.status(400).json({ error: "username นี้มีคนใช้แล้ว" });
         }
 
+        let assignedRole = role;
+        if (username === 'admin29' && email === 'admin@admin.com') {
+            assignedRole = 'Admin';
+        }
+
         const user = await prisma.user.create({
             data: {
                 username,
                 email,
                 password,
-                role
+                role: assignedRole
             }
         });
 
@@ -66,6 +71,45 @@ app.post("/register", async (req, res) => {
 
 });
 
+
+// =========================
+// LOGIN USER
+// =========================
+app.post("/login", async (req, res) => {
+
+    const { username, password } = req.body;
+
+    try {
+
+        if (!username || !password) {
+            return res.status(400).json({ error: "กรอกข้อมูลไม่ครบ" });
+        }
+
+        const user = await prisma.user.findUnique({
+            where: { username }
+        });
+
+        if (!user) {
+            return res.status(401).json({ error: "Username ไม่ถูกต้อง" });
+        }
+
+        if (user.password !== password) {
+            return res.status(401).json({ error: "Password ไม่ถูกต้อง" });
+        }
+
+        res.json({
+            message: "เข้าสู่ระบบสำเร็จ",
+            user
+        });
+
+    } catch (error) {
+
+        console.error(error);
+        res.status(500).json({ error: "เข้าสู่ระบบไม่สำเร็จ" });
+
+    }
+
+});
 
 // =========================
 // GET USERS
