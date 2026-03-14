@@ -15,8 +15,7 @@
         <!-- Header Navigation -->
         <header class="header-top" role="banner">
             <nav class="container" aria-label="Main navigation">
-                <img class="chatgpt-image" src="img/chatgpt-image-4-2569-15-54-45-removebg-preview-1.png"
-                    alt="KMITL ESPORT Logo" />
+                <img class="logo-image" src="../../../icons/Logo.png" alt="KMITL ESPORT Logo" />
                 <div class="div">
                     <div class="div-2">
                         <span class="text-wrapper">KMITL ESPORT</span>
@@ -208,13 +207,13 @@
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const listContainer = document.getElementById('tournament-list-container');
-            
+
             try {
                 const res = await fetch('http://localhost:3000/tournaments');
                 const allTournaments = await res.json();
-                
+
                 listContainer.innerHTML = '';
-                
+
                 if (allTournaments.length === 0) {
                     listContainer.innerHTML = '<p style="color:white; padding: 20px;">No tournaments available.</p>';
                     return;
@@ -223,14 +222,14 @@
                 allTournaments.forEach(t => {
                     const article = document.createElement('article');
                     article.className = 'background-shadow';
-                    
+
                     // Format dates
                     const startDate = new Date(t.start_date).toLocaleDateString();
-                    
+
                     article.innerHTML = `
                         <div class="container-9">
                             <div class="div-3" style="background:#444; display:flex; align-items:center; justify-content:center;">
-                                <span style="font-size:24px; color:white;">${t.tournament_name.substring(0,3).toUpperCase()}</span>
+                                <span style="font-size:24px; color:white;">${t.tournament_name.substring(0, 3).toUpperCase()}</span>
                             </div>
                             <div class="gradient" aria-hidden="true"></div>
                         </div>

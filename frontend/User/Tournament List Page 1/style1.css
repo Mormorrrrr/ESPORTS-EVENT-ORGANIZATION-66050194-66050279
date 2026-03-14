@@ -29,7 +29,7 @@
     left: 24px;
 }
 
-.user-login .chatgpt-image {
+.user-login .logo-image {
     position: relative;
     width: 117px;
     height: 62px;
@@ -1340,4 +1340,3 @@
     line-height: 20px;
     white-space: nowrap;
 }
-
