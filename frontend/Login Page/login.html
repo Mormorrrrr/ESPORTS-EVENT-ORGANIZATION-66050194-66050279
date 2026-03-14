@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="globals.css" />
+    <link rel="stylesheet" href="styleguide.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="register">
+        <div class="container">
+            <div class="left-side-gaming">
+                <img class="background-image" src="img/background-image-mockup.png" />
+                <div class="gradient"></div>
+                <div class="div"></div>
+                <div class="branding-floating">
+                    <div class="container-2"></div>
+                    <img class="image" src="img/image-1.png" />
+                    <div class="container-3">
+                        <div class="heading">
+                            <div class="master-your-game">Master Your<br />Game, Lead the<br />Arena.</div>
+                        </div>
+                        <div class="the-most-powerful-wrapper">
+                            <p class="the-most-powerful">
+                                The most powerful platform for esports<br />professionals and aspiring champions to
+                                compete,<br />organize,
+                                and grow.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="right-side">
+                <div class="container-4">
+                    <header class="header">
+                        <div class="div-2">
+                            <div class="text-wrapper">Join KMITL ESPORT</div>
+                        </div>
+                        <div class="div-2">
+                            <p class="p">Create your account to start your competitive journey.</p>
+                        </div>
+                    </header>
+                    <div class="role-toggle">
+                        <div class="label" id="tab-register" style="cursor: pointer;">
+                            <div class="background-shadow">
+                                <div class="text-wrapper-2">Register</div>
+                            </div>
+                        </div>
+                        <div class="label" id="tab-login" style="cursor: pointer;">
+                            <div class="div-wrapper">
+                                <div class="text-wrapper-3">Log in</div>
+                            </div>
+                        </div>
+                    </div>
+                    <form class="form" id="auth-form" novalidate onsubmit="event.preventDefault();">
+                        <div class="container-5">
+                            <div class="div-2"><label class="text-wrapper-4" for="input-0">Username</label></div>
+                            <div class="div-2">
+                                <div class="input">
+                                    <input class="container-7" placeholder="GamerTag24" type="text" id="input-0" />
+                                </div>
+                                <div class="icon-wrapper"><img class="icon" src="img/icon.svg" /></div>
+                            </div>
+                        </div>
+                        <div class="container-5">
+                            <div class="div-2"><label class="text-wrapper-4" for="input-1">Email Address</label></div>
+                            <div class="div-2">
+                                <div class="input">
+                                    <input class="container-7" placeholder="email@arena-pro.com" type="email"
+                                        id="input-1" />
+                                </div>
+                                <div class="img-wrapper"><img class="img" src="img/image.svg" /></div>
+                            </div>
+                        </div>
+                        <div class="container-8">
+                            <div class="container-9">
+                                <div class="div-2"><label class="text-wrapper-4" for="input-2">Password</label></div>
+                                <div class="div-2">
+                                    <div class="input">
+                                        <input class="container-7" placeholder="••••••••" type="password" id="input-2" />
+                                    </div>
+                                    <div class="container-10"><img class="icon-2" src="img/icon-3.svg" /></div>
+                                </div>
+                            </div>
+                            <div class="container-9">
+                                <div class="div-2"><label class="text-wrapper-4" for="input-3">Confirm Password</label>
+                                </div>
+                                <div class="div-2">
+                                    <div class="input">
+                                        <input class="container-7" placeholder="••••••••" type="password" id="input-3" />
+                                    </div>
+                                    <div class="container-11"><img class="icon-3" src="img/icon-2.svg" /></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-12">
+                            <input type="checkbox" id="terms" class="input-2" style="cursor: pointer; width: 20px; height: 20px;" />
+                            <div class="label-2">
+                                <p class="text">
+                                    <span class="span">I agree to the </span>
+                                    <span class="text-wrapper-6">Terms of Service</span>
+                                    <span class="span"> and </span>
+                                    <span class="text-wrapper-6">Privacy Policy</span>
+                                    <span class="span">.</span>
+                                </p>
+                            </div>
+                        </div>
+                        <button class="button" type="submit">
+                            <div class="button-shadow"></div>
+                            <div class="text-wrapper-7">Create Account</div>
+                        </button>
+                    </form>
+                    <div class="footer-links">
+                        <div class="already-have-an-wrapper">
+                            <p class="already-have-an">
+                                <span class="text-wrapper-8">Already have an account? </span>
+                                <span class="text-wrapper-9" style="cursor: pointer;">Log In</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const tabRegister = document.getElementById('tab-register');
+        const tabLogin = document.getElementById('tab-login');
+        const formTitle = document.querySelector('.text-wrapper');
+        const formSubtitle = document.querySelector('.header .p');
+        const submitBtnText = document.querySelector('.text-wrapper-7');
+        const form = document.getElementById('auth-form');
+        
+        const usernameInput = document.getElementById('input-0');
+        const emailInput = document.getElementById('input-1');
+        const emailContainer = emailInput.closest('.container-5');
+        const passInput = document.getElementById('input-2');
+        const confirmPassInput = document.getElementById('input-3');
+        const confirmPassContainer = confirmPassInput.closest('.container-9');
+        const termsContainer = document.querySelector('.container-12');
+        
+        const footerLinksText = document.querySelector('.text-wrapper-8');
+        const footerLinksAction = document.querySelector('.text-wrapper-9');
+
+        let isLoginMode = false;
+
+        function setLoginMode() {
+            isLoginMode = true;
+            
+            tabLogin.firstElementChild.className = 'background-shadow';
+            tabLogin.firstElementChild.firstElementChild.className = 'text-wrapper-2';
+            
+            tabRegister.firstElementChild.className = 'div-wrapper';
+            tabRegister.firstElementChild.firstElementChild.className = 'text-wrapper-3';
+
+            emailContainer.style.display = 'none';
+            confirmPassContainer.style.display = 'none';
+            termsContainer.style.display = 'none';
+
+            formTitle.textContent = "Welcome Back";
+            formSubtitle.textContent = "Log in to continue your journey.";
+            submitBtnText.textContent = "Log In";
+            footerLinksText.textContent = "Don't have an account? ";
+            footerLinksAction.textContent = "Register";
+        }
+
+        function setRegisterMode() {
+            isLoginMode = false;
+            
+            tabRegister.firstElementChild.className = 'background-shadow';
+            tabRegister.firstElementChild.firstElementChild.className = 'text-wrapper-2';
+            
+            tabLogin.firstElementChild.className = 'div-wrapper';
+            tabLogin.firstElementChild.firstElementChild.className = 'text-wrapper-3';
+
+            emailContainer.style.display = '';
+            confirmPassContainer.style.display = '';
+            termsContainer.style.display = '';
+
+            formTitle.textContent = "Join KMITL ESPORT";
+            formSubtitle.textContent = "Create your account to start your competitive journey.";
+            submitBtnText.textContent = "Create Account";
+            footerLinksText.textContent = "Already have an account? ";
+            footerLinksAction.textContent = "Log In";
+        }
+
+        tabLogin.addEventListener('click', setLoginMode);
+        tabRegister.addEventListener('click', setRegisterMode);
+        footerLinksAction.addEventListener('click', () => {
+            if(isLoginMode) setRegisterMode();
+            else setLoginMode();
+        });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            console.log('Form submission prevented');
+            
+            const username = usernameInput.value;
+            const password = passInput.value;
+            
+            if(isLoginMode) {
+                try {
+                    const res = await fetch('http://localhost:3000/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, password })
+                    });
+                    const data = await res.json();
+                    if(res.ok) {
+                        alert(data.message);
+                        localStorage.setItem('user', JSON.stringify(data.user));
+                        if(data.user.role === 'Admin') {
+                            window.location.href = '../Admin/Dashboard Page 8/Dashboard_8.html';
+                        } else {
+                            window.location.href = '../User/Tournament List Page 1/userlogin_1.html';
+                        }
+                    } else {
+                        alert('ล้มเหลว: ' + data.error);
+                    }
+                } catch (err) {
+                    alert('ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้: ' + err.message);
+                }
+            } else {
+                const email = emailInput.value;
+                const confirmData = confirmPassInput.value;
+                const terms = document.getElementById('terms').checked;
+                
+                if(password !== confirmData) {
+                    alert('รหัสผ่านไม่ตรงกัน!');
+                    return;
+                }
+                if(!terms) {
+                    alert('กรุณายอมรับเงื่อนไขการใช้บริการ');
+                    return;
+                }
+                
+                try {
+                    const res = await fetch('http://localhost:3000/register', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, email, password, role: 'User' })
+                    });
+                    const data = await res.json();
+                    if(res.ok) {
+                        alert(data.message);
+                        setLoginMode();
+                    } else {
+                        alert('ล้มเหลว: ' + data.error);
+                    }
+                } catch (err) {
+                    alert('ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้: ' + err.message);
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
