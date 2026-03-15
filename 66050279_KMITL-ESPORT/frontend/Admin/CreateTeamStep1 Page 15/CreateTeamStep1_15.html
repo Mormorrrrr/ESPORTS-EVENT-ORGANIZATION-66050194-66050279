@@ -117,29 +117,59 @@
             </div>
             <div class="text-wrapper-3">Choose an active event</div>
             <div class="options" role="combobox" aria-haspopup="listbox" aria-expanded="false"
-                aria-label="Select tournaments" tabindex="0">
+                aria-label="Select tournaments" tabindex="0" id="tournament-dropdown" style="cursor: pointer; position: relative;">
                 <div class="container-wrapper">
                     <div class="container-2">
-                        <div class="text-wrapper-4">Select tournaments</div>
+                        <div class="text-wrapper-4" id="selected-tournament">Select tournaments</div>
                         <div class="icon-wrapper"><img class="icon" src="img/icon-12.svg" alt="Dropdown arrow" /></div>
+                    </div>
+                </div>
+                <div id="tournament-list" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #e2e8f0; border-radius: 12px; z-index: 1000; margin-top: 4px; max-height: 280px; overflow-y: auto; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);">
+                    <div class="format-selector" style="padding: 12px; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; gap: 10px; position: sticky; top: 0; background: white; border-top-left-radius: 12px; border-top-right-radius: 12px;">
+                        <label for="format-select" style="font-size: 12px; font-weight: 700; color: #475569; white-space: nowrap;">FORMAT:</label>
+                        <select id="format-select" style="flex: 1; padding: 8px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 12px; font-weight: 600; color: #0f172a; cursor: pointer; background: #f8fafc; outline: none;">
+                            <option value="Single">Single Elimination</option>
+                            <option value="Double">Double Elimination</option>
+                        </select>
+                    </div>
+                    <div id="tournaments-container">
+                        <!-- Tournaments will be injected here -->
                     </div>
                 </div>
             </div>
         </section>
         <!-- Upload Banner -->
-        <section class="overlay-border" aria-label="Upload team banner">
-            <img class="icon-2" src="img/icon-4.svg" alt="Upload icon" />
-            <div class="container-3">
-                <div class="div-wrapper">
-                    <p class="p">Click to upload or drag &amp; drop</p>
+        <section class="overlay-border" aria-label="Upload team banner" id="banner-dropzone" style="overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;">
+            <div id="upload-placeholder" style="display: contents;">
+                <img class="icon-2" src="img/icon-4.svg" alt="Upload icon" />
+                <div class="container-3">
+                    <div class="div-wrapper">
+                        <p class="p">Click button to enter Image URL</p>
+                    </div>
+                    <div class="div-wrapper">
+                        <p class="text-2">Recommended: 1200x400px (Direct Link)</p>
+                    </div>
                 </div>
-                <div class="div-wrapper">
-                    <p class="text-2">Recommended size: 1200x400px (JPG, PNG)</p>
-                </div>
+                <button class="button-2" type="button" aria-label="Enter image URL" id="select-url-btn">
+                    <div class="text-3">Select File</div>
+                </button>
             </div>
-            <button class="button-2" type="button" aria-label="Select file to upload">
-                <div class="text-3">Select File</div>
-            </button>
+            
+            <div id="url-input-container" style="display: none; width: 80%; padding: 20px; background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); z-index: 10;">
+                <div style="font-size: 14px; font-weight: 700; color: #475569; margin-bottom: 8px;">Paste Image URL:</div>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" id="banner-url-input" placeholder="https://example.com/image.jpg" style="flex: 1; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; outline: none; font-size: 14px;">
+                    <button id="confirm-url-btn" type="button" style="padding: 8px 16px; background: #ff8c00; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer;">Add</button>
+                </div>
+                <button id="cancel-url-btn" type="button" style="margin-top: 10px; background: none; border: none; color: #64748b; font-size: 12px; cursor: pointer; text-decoration: underline;">Cancel</button>
+            </div>
+
+            <div id="banner-preview-container" style="display: none; position: absolute; inset: 0; width: 100%; height: 100%;">
+                <img id="banner-preview-img" style="width: 100%; height: 100%; object-fit: cover;">
+                <button id="remove-banner-btn" style="position: absolute; top: 10px; right: 10px; background: rgba(255,140,0,0.9); color: white; border: none; padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 4px;">
+                    Change URL
+                </button>
+            </div>
         </section>
         <!-- Team Details Form -->
         <section class="section-step-team" aria-label="Team details form">
@@ -246,6 +276,137 @@
             <div class="text-wrapper-13">Support</div>
         </footer>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const dropdown = document.getElementById('tournament-dropdown');
+            const tournamentList = document.getElementById('tournament-list');
+            const tournamentsContainer = document.getElementById('tournaments-container');
+            const selectedTournamentText = document.getElementById('selected-tournament');
+            const formatSelect = document.getElementById('format-select');
+            
+            let allTournaments = [];
+            let currentFilter = 'Single';
+            let selectedTournamentId = null;
+
+            // Toggle dropdown
+            dropdown.addEventListener('click', (e) => {
+                const isExpanded = dropdown.getAttribute('aria-expanded') === 'true';
+                dropdown.setAttribute('aria-expanded', !isExpanded);
+                tournamentList.style.display = isExpanded ? 'none' : 'block';
+                e.stopPropagation();
+            });
+
+            // Close dropdown when clicking outside
+            document.addEventListener('click', () => {
+                dropdown.setAttribute('aria-expanded', 'false');
+                tournamentList.style.display = 'none';
+            });
+
+            // Prevent dropdown from closing when clicking inside the list (like the select)
+            tournamentList.addEventListener('click', (e) => e.stopPropagation());
+
+            function renderTournaments(tournaments) {
+                const filtered = tournaments.filter(t => 
+                    t.tournament_type.toLowerCase().includes(currentFilter.toLowerCase())
+                );
+
+                if (filtered.length === 0) {
+                    tournamentsContainer.innerHTML = `<div style="padding: 20px; color: #64748b; text-align: center; font-size: 14px;">No ${currentFilter} Elimination tournaments found</div>`;
+                } else {
+                    tournamentsContainer.innerHTML = filtered.map(t => `
+                        <div class="tournament-option" data-id="${t.tournament_id}" style="padding: 12px 20px; cursor: pointer; border-bottom: 1px solid #f1f5f9; transition: background 0.2s;">
+                            <div style="font-weight: 600; color: #0f172a;">${t.tournament_name}</div>
+                            <div style="font-size: 12px; color: #64748b;">${t.tournament_type}</div>
+                        </div>
+                    `).join('');
+
+                    // Add click listeners to options
+                    document.querySelectorAll('.tournament-option').forEach(option => {
+                        option.addEventListener('mouseover', () => option.style.backgroundColor = '#f8fafc');
+                        option.addEventListener('mouseout', () => option.style.backgroundColor = 'transparent');
+                        option.addEventListener('click', (e) => {
+                            selectedTournamentId = option.dataset.id;
+                            const name = option.querySelector('div').textContent;
+                            selectedTournamentText.textContent = name;
+                            selectedTournamentText.style.color = '#0f172a';
+                            dropdown.setAttribute('aria-expanded', 'false');
+                            tournamentList.style.display = 'none';
+                        });
+                    });
+                }
+            }
+
+            // Filter logic
+            formatSelect.addEventListener('change', (e) => {
+                currentFilter = e.target.value;
+                renderTournaments(allTournaments);
+            });
+
+            // Banner URL logic
+            const selectUrlBtn = document.getElementById('select-url-btn');
+            const urlInputContainer = document.getElementById('url-input-container');
+            const uploadPlaceholder = document.getElementById('upload-placeholder');
+            const bannerUrlInput = document.getElementById('banner-url-input');
+            const confirmUrlBtn = document.getElementById('confirm-url-btn');
+            const cancelUrlBtn = document.getElementById('cancel-url-btn');
+            const bannerPreviewContainer = document.getElementById('banner-preview-container');
+            const bannerPreviewImg = document.getElementById('banner-preview-img');
+            const removeBannerBtn = document.getElementById('remove-banner-btn');
+
+            selectUrlBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                uploadPlaceholder.style.display = 'none';
+                urlInputContainer.style.display = 'block';
+                bannerUrlInput.focus();
+            });
+
+            cancelUrlBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                urlInputContainer.style.display = 'none';
+                uploadPlaceholder.style.display = 'contents';
+            });
+
+            confirmUrlBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const url = bannerUrlInput.value.trim();
+                if (url) {
+                    bannerPreviewImg.src = url;
+                    urlInputContainer.style.display = 'none';
+                    bannerPreviewContainer.style.display = 'block';
+                }
+            });
+
+            removeBannerBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                bannerPreviewContainer.style.display = 'none';
+                uploadPlaceholder.style.display = 'contents';
+                bannerUrlInput.value = '';
+            });
+
+            // Prevent Enter key in URL input from reloading the page
+            bannerUrlInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    confirmUrlBtn.click();
+                }
+            });
+
+            // Fetch tournaments from backend
+            try {
+                const response = await fetch('http://localhost:3000/tournaments');
+                allTournaments = await response.json();
+                renderTournaments(allTournaments);
+            } catch (error) {
+                console.error('Error fetching tournaments:', error);
+                tournamentsContainer.innerHTML = '<div style="padding: 20px; color: #ef4444; text-align: center; font-size: 14px;">Failed to load tournaments</div>';
+            }
+        });
+    </script>
 </body>
 
 </html>
