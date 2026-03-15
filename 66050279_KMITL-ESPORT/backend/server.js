@@ -27,10 +27,10 @@ app.get("/", (req, res) => {
 // REGISTER USER
 // =========================
 app.post("/register", async (req, res) => {
-  const { username, email, password, role } = req.body;
+  const { username, email, password } = req.body; // Removed role from req.body
 
   try {
-    if (!username || !email || !password || !role) {
+    if (!username || !email || !password) {
       return res.status(400).json({ error: "กรอกข้อมูลไม่ครบ" });
     }
 
@@ -42,7 +42,7 @@ app.post("/register", async (req, res) => {
       return res.status(400).json({ error: "username นี้มีคนใช้แล้ว" });
     }
 
-    let assignedRole = role;
+    let assignedRole = "User"; // Default role to User
     if (username === "admin29" && email === "admin@admin.com") {
       assignedRole = "Admin";
     }
@@ -89,9 +89,15 @@ app.post("/login", async (req, res) => {
       return res.status(401).json({ error: "Password ไม่ถูกต้อง" });
     }
 
+    let redirectUrl = '../User/Tournament List Page 1/userlogin_1.html';
+    if (user.role === 'Admin') {
+      redirectUrl = '../Admin/Dashboard Page 8/Dashboard_8.html';
+    }
+
     res.json({
       message: "เข้าสู่ระบบสำเร็จ",
       user,
+      redirectUrl // Send redirectUrl to frontend
     });
   } catch (error) {
     console.error(error);
