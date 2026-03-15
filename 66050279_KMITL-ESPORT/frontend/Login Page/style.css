@@ -76,13 +76,6 @@
     height: 32px;
 }
 
-.register .image {
-    position: relative;
-    width: 109px;
-    height: 73px;
-    aspect-ratio: 1.5;
-}
-
 .register .container-3 {
     position: relative;
     max-width: 448px;
@@ -450,6 +443,7 @@
     position: relative;
     width: 13.33px;
     height: 17.5px;
+    left: 6px;
 }
 
 .register .container-11 {
@@ -464,9 +458,10 @@
 
 .register .icon-3 {
     position: relative;
-    width: 19.17px;
-    height: 10px;
-    margin-right: -0.17px;
+    width: 14.00px;
+    height: 17.5px;
+    top: 20.00%;
+    left: 6px;
 }
 
 .register .container-12 {
