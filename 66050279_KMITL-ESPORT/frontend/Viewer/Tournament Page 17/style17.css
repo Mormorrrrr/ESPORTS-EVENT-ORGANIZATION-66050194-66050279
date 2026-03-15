@@ -330,8 +330,7 @@ input[type="search"]::-webkit-search-cancel-button {
     position: relative;
     width: 20px;
     height: 20px;
-    filter: brightness(0) invert(1);
-}
+    }
 
 .viewer-tournament .text-6 {
     width: 48.81px;
