@@ -211,6 +211,29 @@ app.get("/tournaments", async (req, res) => {
 });
 
 // =========================
+// GET TOURNAMENT BY ID
+// =========================
+app.get("/tournaments/:id", async (req, res) => {
+  const id = parseInt(req.params.id);
+  try {
+    const tournament = await prisma.tournament.findUnique({
+      where: { tournament_id: id },
+      include: {
+        applications: {
+          include: { team: true },
+        },
+      },
+    });
+    if (!tournament) {
+      return res.status(404).json({ error: "ไม่พบ tournament" });
+    }
+    res.json(tournament);
+  } catch (error) {
+    res.status(500).json({ error: "โหลด tournament ไม่ได้" });
+  }
+});
+
+// =========================
 // APPLY TOURNAMENT
 // =========================
 app.post("/applications", async (req, res) => {
@@ -254,16 +277,51 @@ app.post("/applications", async (req, res) => {
 // =========================
 app.get("/applications", async (req, res) => {
   try {
+    const { tournament_id } = req.query;
+    const where = tournament_id ? { tournament_id: parseInt(tournament_id) } : {};
     const applications = await prisma.application.findMany({
+      where,
       include: {
         team: true,
         tournament: true,
       },
     });
-
     res.json(applications);
   } catch (error) {
     res.status(500).json({ error: "ดึงข้อมูลไม่สำเร็จ" });
+  }
+});
+
+// =========================
+// UPDATE APPLICATION STATUS
+// =========================
+app.patch("/applications/:id/status", async (req, res) => {
+  const id = parseInt(req.params.id);
+  const { status } = req.body;
+  try {
+    if (!["Pending", "Approved", "Rejected"].includes(status)) {
+      return res.status(400).json({ error: "status ไม่ถูกต้อง" });
+    }
+    const app = await prisma.application.update({
+      where: { app_id: id },
+      data: { status },
+    });
+    res.json({ message: "อัปเดต status สำเร็จ", app });
+  } catch (error) {
+    res.status(500).json({ error: "อัปเดต status ไม่สำเร็จ" });
+  }
+});
+
+// =========================
+// DELETE APPLICATION
+// =========================
+app.delete("/applications/:id", async (req, res) => {
+  const id = parseInt(req.params.id);
+  try {
+    await prisma.application.delete({ where: { app_id: id } });
+    res.json({ message: "ลบ application สำเร็จ" });
+  } catch (error) {
+    res.status(500).json({ error: "ลบ application ไม่สำเร็จ" });
   }
 });
 
