@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Tournament | KMITL ESPORT Admin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff8c00;
+            --primary-hover: #e67e00;
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-sub: #64748b;
+            --border: #e2e8f0;
+            --sidebar-width: 280px;
+            --header-height: 70px;
+        }
+
+        /* Reset and Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Be Vietnam Pro', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .admin-layout {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        .header-top {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 73px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 40px;
+        }
+
+        .container-20 { display: flex; align-items: center; gap: 32px; }
+        .chatgpt-image { width: 117px; height: 62px; object-fit: contain; }
+        .heading-wrapper { display: flex; align-items: center; gap: 12px; }
+        .text-wrapper-18 { font-family: "Be Vietnam Pro", Helvetica; font-weight: 700; color: #000000; font-size: 24px; letter-spacing: -0.60px; line-height: 32px; }
+
+        .container-21 { display: flex; align-items: center; gap: 32px; }
+        .text-7 { cursor: pointer; display: flex; align-items: center; height: 20px; font-family: "Be Vietnam Pro", Helvetica; font-weight: 700; color: #0f172a; font-size: 14px; line-height: 20px; }
+        .text-8, .text-9 { cursor: pointer; display: flex; align-items: center; height: 20px; font-family: "Be Vietnam Pro", Helvetica; font-weight: 500; color: #64748b; font-size: 14px; line-height: 20px; }
+
+        .container-22 { display: flex; align-items: center; gap: 24px; }
+        .label { display: flex; min-width: 160px; max-width: 256px; height: 40px; background-color: #f1f5f9; border-radius: 9999px; overflow: hidden; padding-left: 16px; align-items: center; }
+        .container-23 { display: flex; align-items: center; flex: 1; gap: 12px; }
+        .icon-10 { width: 15px; height: 15px; }
+        .text-10 { flex: 1; border: none; background: transparent; font-family: "Be Vietnam Pro", Helvetica; font-size: 14px; color: #94a3b8; outline: none; padding-right: 12px; }
+
+        .iconstack-io-plus-wrapper { width: 40px; height: 40px; background-color: #ff8c00; border-radius: 9999px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .image-background { width: 40px; height: 40px; border-radius: 50%; }
+
+        
+
+        .header-left { display: flex; align-items: center; gap: 12px; }
+        .header-logo { height: 40px; }
+        .header-title { font-size: 20px; font-weight: 800; }
+
+        .main-body {
+            display: flex;
+            margin-top: var(--header-height);
+            min-height: calc(100vh - var(--header-height));
+        }
+
+        /* Sidebar */
+        .sidebar-modern {
+            width: var(--sidebar-width);
+            background: white;
+            border-right: 1px solid var(--border);
+            padding: 24px;
+            position: fixed;
+            top: var(--header-height);
+            bottom: 0;
+            left: 0;
+        }
+
+        .nav-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+        .nav-item { text-decoration: none; display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; color: var(--text-sub); font-weight: 500; }
+        .nav-item.active { background: var(--primary); color: white; }
+        .nav-icon { width: 20px; }
+        .nav-item.active .nav-icon { filter: brightness(0) invert(1); }
+
+        /* Content Area */
+        .content-modern {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-section {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        .form-header { margin-bottom: 32px; }
+        .form-header h1 { font-size: 28px; font-weight: 800; }
+
+        .form-group { margin-bottom: 24px; }
+        .label-modern { display: block; font-size: 14px; font-weight: 700; color: #475569; margin-bottom: 8px; }
+        
+        .input-modern {
+            width: 100%;
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-size: 16px;
+            outline: none;
+        }
+        .input-modern:focus { border-color: var(--primary); background: white; }
+
+        /* Footer */
+        .footer-modern {
+            margin-top: 40px;
+            padding: 32px 0;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-sub);
+            font-size: 14px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        /* Format Options */
+        .format-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .format-card {
+            cursor: pointer;
+            border: 2px solid var(--border);
+            background: white;
+            padding: 16px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s;
+        }
+        .format-card.active { border-color: var(--primary); background: #fff7ed; }
+        .inner-dot { width: 12px; height: 12px; border-radius: 50%; background: var(--primary); display: none; }
+        .format-card.active .inner-dot { display: block; }
+        .indicator { width: 24px; height: 24px; border-radius: 50%; border: 2px solid #cbd5e1; display: flex; align-items: center; justify-content: center; }
+        .format-card.active .indicator { border-color: var(--primary); }
+
+        /* Actions */
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 16px;
+            margin-top: 40px;
+            padding: 0 10px;
+        }
+
+        .btn-cancel {
+            background: #f1f5f9;
+            color: #475569;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 999px; /* Pill shape */
+            font-weight: 800; /* Bolder */
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-submit {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 999px; /* Pill shape */
+            font-weight: 800; /* Bolder */
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        /* Footer */
+        .footer-modern {
+            width: 100%;
+            max-width: 600px;
+            margin-top: 80px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-sub);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Header -->
+        <header class="header-top" role="banner">
+            <div class="container-20">
+                <img class="chatgpt-image" src="img/chatgpt-image-4-2569-15-54-45-removebg-preview-1.png" alt="KMITL ESPORT Logo" />
+                <div class="heading-wrapper">
+                    <div class="div-2">
+                        <div class="text-wrapper-18">KMITL ESPORT</div>
+                    </div>
+                </div>
+                <nav class="container-21" aria-label="Primary navigation">
+                    <div class="div-2"><span class="text-7">Home</span></div>
+                    <div class="div-2"><span class="text-8">Explore</span></div>
+                    <div class="div-2"><span class="text-9">News</span></div>
+                </nav>
+            </div>
+            <div class="container-22">
+                <label class="label" aria-label="Search tournaments">
+                    <div class="container-23">
+                        <img class="icon-10" src="img/icon.svg" alt="Search icon" />
+                        <input class="text-10" placeholder="Search tournaments..." type="search" aria-label="Search tournaments" />
+                    </div>
+                </label>
+                <div class="iconstack-io-plus-wrapper" role="button" aria-label="Add new" tabindex="0">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                </div>
+                <img class="image-background" src="img/image-background-border.svg" alt="User avatar" />
+            </div>
+        </header>
+
+        <div class="main-body">
+            <aside class="sidebar-modern">
+                <nav class="nav-list">
+                    <a href="../Dashboard Page 8/Dashboard_8.html" class="nav-item">
+                        <img src="img/uis-graph-bar.svg" class="nav-icon" alt="">
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="../TournamentList Page 9/TournamentList_9.html" class="nav-item active">
+                        <img src="img/icon-3.svg" class="nav-icon" alt="">
+                        <span>Tournament</span>
+                    </a>
+                    <a href="../TeamList Page 12/TeamList_12.html" class="nav-item">
+                        <img src="img/icon-10.svg" class="nav-icon" alt="">
+                        <span>Teams</span>
+                    </a>
+                </nav>
+            </aside>
+
+            <main class="content-modern">
+                <section class="form-section">
+                    <div class="form-header">
+                        <h1>Edit Tournament</h1>
+                        <p>Update the details for your esport event.</p>
+                    </div>
+
+                    <form id="edit-tournament-form">
+                        <div class="form-group">
+                            <label class="label-modern">Tournament Name</label>
+                            <input class="input-modern" id="tournament-name" type="text" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="label-modern">Tournament Type</label>
+                            <div class="format-grid">
+                                <label class="format-option format-card" data-type="single-elimination">
+                                    <div class="indicator"><div class="inner-dot"></div></div>
+                                    <input type="radio" name="tournament-type" value="single-elimination" style="display: none;">
+                                    <span style="font-weight: 700;">Single Elimination</span>
+                                </label>
+                                <label class="format-option format-card" data-type="double-elimination">
+                                    <div class="indicator"><div class="inner-dot"></div></div>
+                                    <input type="radio" name="tournament-type" value="double-elimination" style="display: none;">
+                                    <span style="font-weight: 700;">Double Elimination</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                            <div class="form-group">
+                                <label class="label-modern">Start Date</label>
+                                <input class="input-modern" id="start-date" type="date" required />
+                            </div>
+                            <div class="form-group">
+                                <label class="label-modern">End Date</label>
+                                <input class="input-modern" id="end-date" type="date" required />
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button class="btn-cancel" type="button" onclick="location.href='../TournamentList Page 9/TournamentList_9.html'">Cancel</button>
+                            <button class="btn-submit" type="button" id="submit-edit-btn">Update Tournament</button>
+                        </div>
+                    </form>
+                </section>
+
+                <footer class="footer-modern">
+                    <p>© 2026 KMITL ESPORT</p>
+                    <div style="display: flex; gap: 24px;">
+                        <a href="#" style="color: inherit; text-decoration: none;">Documentation</a>
+                        <a href="#" style="color: inherit; text-decoration: none;">API Reference</a>
+                        <a href="#" style="color: inherit; text-decoration: none;">Support</a>
+                    </div>
+                </footer>
+            </main>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const tournamentId = urlParams.get('id');
+            if(!tournamentId) {
+                alert('No Tournament ID specified');
+                location.href = '../TournamentList Page 9/TournamentList_9.html';
+                return;
+            }
+
+            const formatOptions = document.querySelectorAll('.format-option');
+            const setActiveType = (type) => {
+                formatOptions.forEach(opt => {
+                    const isMatch = opt.getAttribute('data-type') === (type === 'Double' ? 'double-elimination' : 'single-elimination');
+                    const radio = opt.querySelector('input');
+                    radio.checked = isMatch;
+                    if(isMatch) opt.classList.add('active');
+                    else opt.classList.remove('active');
+                });
+            };
+
+            // Load Data
+            try {
+                const res = await fetch(`http://localhost:3000/tournaments/${tournamentId}`);
+                if(!res.ok) throw new Error('Not found');
+                const t = await res.json();
+
+                document.getElementById('tournament-name').value = t.tournament_name;
+                document.getElementById('start-date').value = t.start_date.substring(0, 10);
+                document.getElementById('end-date').value = t.end_date.substring(0, 10);
+                setActiveType(t.tournament_type);
+            } catch (err) { alert('Error loading tournament'); }
+
+            // Type Switching
+            formatOptions.forEach(opt => {
+                opt.addEventListener('click', () => {
+                    setActiveType(opt.getAttribute('data-type') === 'double-elimination' ? 'Double' : 'Single');
+                });
+            });
+
+            // Update
+            document.getElementById('submit-edit-btn').addEventListener('click', async () => {
+                const name = document.getElementById('tournament-name').value;
+                const startDate = document.getElementById('start-date').value;
+                const endDate = document.getElementById('end-date').value;
+                const typeInput = document.querySelector('input[name="tournament-type"]:checked').value;
+                const finalType = typeInput === 'double-elimination' ? 'Double' : 'Single';
+
+                if(!name || !startDate || !endDate) return alert('Please fill all fields');
+
+                try {
+                    const res = await fetch(`http://localhost:3000/tournaments/${tournamentId}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            tournament_name: name,
+                            tournament_type: finalType,
+                            start_date: startDate,
+                            end_date: endDate
+                        })
+                    });
+                    if(res.ok) {
+                        alert('Updated successfully');
+                        location.href = '../TournamentList Page 9/TournamentList_9.html';
+                    } else {
+                        const err = await res.json();
+                        alert('Update failed: ' + err.error);
+                    }
+                } catch (err) { alert('Network error'); }
+            });
+        });
+    </script>
+</body>
+</html>
