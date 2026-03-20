@@ -87,17 +87,17 @@
             <article class="summary-card">
                 <!-- Tournament Header -->
                 <div class="tournament-header">
-                    <img class="image" src="https://placehold.co/1200x400?text=Tournament+Banner" alt="Tournament banner" />
+                    <img class="image" id="summary-banner" src="https://placehold.co/1200x400?text=Tournament+Banner" alt="Tournament banner" />
                     <div class="container-3">
                         <div class="overlay-2">
                             <span class="text">TOURNAMENT SELECTED</span>
                         </div>
                         <div class="div-wrapper">
-                            <h2 class="text-wrapper-6">Rov KMITL Cup</h2>
+                            <h2 class="text-wrapper-6" id="summary-tournament-name">Rov KMITL Cup</h2>
                         </div>
                         <div class="container-4">
                             <div class="div-2"><img class="icon" src="img/icon-5.svg" alt="Calendar icon" /></div>
-                            <p class="text-wrapper-7">Starts Apr 08, 2026 • Sci 01</p>
+                            <p class="text-wrapper-7" id="summary-tournament-date">Starts Apr 08, 2026 • Sci 01</p>
                         </div>
                     </div>
                 </div>
@@ -118,7 +118,7 @@
                                     <img class="rectangle" src="../../../icons/users.svg" alt="Team logo" style="width: 48px; height: 48px; object-fit: contain;" />
                                     <div class="background-2">
                                         <span class="text-wrapper-8">Team Name</span>
-                                        <span class="text-wrapper-9">A</span>
+                                        <span class="text-wrapper-9" id="summary-team-name">A</span>
                                     </div>
                                 </div>
                             </div>
@@ -126,9 +126,8 @@
                                 <div class="background-3">
                                     <span class="text-wrapper-8">Team Leader</span>
                                     <div class="container-5">
-                                        <div class="background-4" aria-label="JD initials"><span
-                                                class="text-3">JD</span></div>
-                                        <div class="div-2"><span class="text-4">John Doe</span></div>
+                                        <div class="background-4" aria-label="JD initials"><span class="text-3" id="summary-leader-initials">JD</span></div>
+                                        <div class="div-2"><span class="text-4" id="summary-leader-name">John Doe</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -145,19 +144,19 @@
                             <ul class="container-7" aria-label="Team member list">
                                 <li class="background-5">
                                     <div class="container-8"><span class="text-6">1</span></div>
-                                    <div class="div-2"><span class="text-7">Alice Smith</span></div>
+                                    <div class="div-2"><span class="text-7" id="summary-member-1">Alice Smith</span></div>
                                 </li>
                                 <li class="background-5">
                                     <div class="container-8"><span class="text-8">2</span></div>
-                                    <div class="div-2"><span class="text-9">Bob Johnson</span></div>
+                                    <div class="div-2"><span class="text-9" id="summary-member-2">Bob Johnson</span></div>
                                 </li>
                                 <li class="background-5">
                                     <div class="container-8"><span class="text-10">3</span></div>
-                                    <div class="div-2"><span class="text-11">Charlie Brown</span></div>
+                                    <div class="div-2"><span class="text-11" id="summary-member-3">Charlie Brown</span></div>
                                 </li>
                                 <li class="background-5">
                                     <div class="container-8"><span class="text-12">4</span></div>
-                                    <div class="div-2"><span class="text-13">David Wilson</span></div>
+                                    <div class="div-2"><span class="text-13" id="summary-member-4">David Wilson</span></div>
                                 </li>
                             </ul>
                         </div>
@@ -169,7 +168,7 @@
                 <button class="button" type="button" aria-label="Cancel registration" onclick="location.href='../CreateTeamStep1 Page 15/CreateTeamStep1_15.html'">
                     <span class="text-wrapper-10">Back</span>
                 </button>
-                <button class="button-2" type="submit" aria-label="Confirm registration" onclick="location.href='../TeamList Page 12/TeamList_12.html'">
+                <button class="button-2" type="button" id="btn-confirm-submit" aria-label="Confirm registration">
                     <span class="text-wrapper-11">Confirm</span>
                 </button>
             </div>
@@ -182,6 +181,86 @@
             <span class="text-wrapper-3">Support</span>
         </footer>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dataStr = sessionStorage.getItem('teamCreationData');
+            if (!dataStr) {
+                alert('No team data found. Please complete Step 1 first.');
+                location.href = '../CreateTeamStep1 Page 15/CreateTeamStep1_15.html';
+                return;
+            }
+            const data = JSON.parse(dataStr);
+
+            // Populate DOM
+            document.getElementById('summary-tournament-name').textContent = data.tournamentName;
+            document.getElementById('summary-banner').src = data.bannerUrl;
+            document.getElementById('summary-team-name').textContent = data.teamName;
+            document.getElementById('summary-leader-name').textContent = data.leaderName;
+            document.getElementById('summary-leader-initials').textContent = data.leaderName.substring(0, 2).toUpperCase();
+            
+            document.getElementById('summary-member-1').textContent = data.member1 || '-';
+            document.getElementById('summary-member-2').textContent = data.member2 || '-';
+            document.getElementById('summary-member-3').textContent = data.member3 || '-';
+            document.getElementById('summary-member-4').textContent = data.member4 || '-';
+
+            document.getElementById('summary-tournament-date').textContent = 'Depends on Tournament';
+
+            // Handle submission
+            const confirmBtn = document.getElementById('btn-confirm-submit');
+            confirmBtn.addEventListener('click', async () => {
+                confirmBtn.disabled = true;
+                confirmBtn.innerHTML = '<span class="text-wrapper-11">Submitting...</span>';
+                
+                try {
+                    const payload = {
+                        team_name: data.teamName,
+                        team_banner_url: data.bannerUrl,
+                        leader_name: data.leaderName,
+                        member_1: data.member1,
+                        member_2: data.member2,
+                        member_3: data.member3,
+                        member_4: data.member4,
+                        created_by: 1 // Default admin user ID for testing
+                    };
+                    
+                    const res = await fetch('http://localhost:3000/teams', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (res.ok) {
+                        const newTeam = await res.json();
+                        // Also apply to tournament if we have tournamentId
+                        if (data.tournamentId) {
+                            await fetch('http://localhost:3000/applications', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    team_id: newTeam.team_id,
+                                    tournament_id: parseInt(data.tournamentId)
+                                })
+                            });
+                        }
+                        
+                        sessionStorage.removeItem('teamCreationData');
+                        alert('Team Created Successfully!');
+                        location.href = '../TeamList Page 12/TeamList_12.html';
+                    } else {
+                        const err = await res.json();
+                        alert('Error: ' + err.error);
+                        confirmBtn.disabled = false;
+                        confirmBtn.innerHTML = '<span class="text-wrapper-11">Confirm</span>';
+                    }
+                } catch (e) {
+                    console.error(e);
+                    alert('Network error while creating team');
+                    confirmBtn.disabled = false;
+                    confirmBtn.innerHTML = '<span class="text-wrapper-11">Confirm</span>';
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

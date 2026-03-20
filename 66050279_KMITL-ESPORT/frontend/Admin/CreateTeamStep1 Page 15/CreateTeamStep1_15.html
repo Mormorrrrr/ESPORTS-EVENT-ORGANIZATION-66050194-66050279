@@ -102,13 +102,7 @@
                     </div>
                 </div>
                 <div id="tournament-list" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #e2e8f0; border-radius: 12px; z-index: 1000; margin-top: 4px; max-height: 280px; overflow-y: auto; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);">
-                    <div class="format-selector" style="padding: 12px; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; gap: 10px; position: sticky; top: 0; background: white; border-top-left-radius: 12px; border-top-right-radius: 12px;">
-                        <label for="format-select" style="font-size: 12px; font-weight: 700; color: #475569; white-space: nowrap;">FORMAT:</label>
-                        <select id="format-select" style="flex: 1; padding: 8px; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 12px; font-weight: 600; color: #0f172a; cursor: pointer; background: #f8fafc; outline: none;">
-                            <option value="Single">Single Elimination</option>
-                            <option value="Double">Double Elimination</option>
-                        </select>
-                    </div>
+<!-- Filter removed for simpler UX -->
                     <div id="tournaments-container">
                         <!-- Tournaments will be injected here -->
                     </div>
@@ -194,7 +188,7 @@
                     <div class="container-10">
                         <div class="div-3">
                             <div class="input-3">
-                                <input class="container-11" placeholder="Member 1 Name" type="text"
+                                <input class="container-11" id="member-1-name" placeholder="Member 1 Name" type="text"
                                     aria-label="Member 1 name" />
                             </div>
                             <div class="container-12"><img class="icon-5" src="../../../icons/users.svg" alt="Member icon" />
@@ -202,7 +196,7 @@
                         </div>
                         <div class="div-3">
                             <div class="input-3">
-                                <input class="container-11" placeholder="Member 2 Name" type="text"
+                                <input class="container-11" id="member-2-name" placeholder="Member 2 Name" type="text"
                                     aria-label="Member 2 name" />
                             </div>
                             <div class="container-12"><img class="icon-5" src="../../../icons/users.svg" alt="Member icon" />
@@ -210,14 +204,14 @@
                         </div>
                         <div class="div-3">
                             <div class="input-3">
-                                <input class="container-11" placeholder="Member 3 Name" type="text"
+                                <input class="container-11" id="member-3-name" placeholder="Member 3 Name" type="text"
                                     aria-label="Member 3 name" />
                             </div>
                             <div class="container-12"><img class="icon-5" src="../../../icons/users.svg" alt="Member icon" /></div>
                         </div>
                         <div class="div-3">
                             <div class="input-3">
-                                <input class="container-11" placeholder="Member 4 Name" type="text"
+                                <input class="container-11" id="member-4-name" placeholder="Member 4 Name" type="text"
                                     aria-label="Member 4 name" />
                             </div>
                             <div class="container-12"><img class="icon-5" src="../../../icons/users.svg" alt="Member icon" />
@@ -233,9 +227,9 @@
                 </div>
                 <div class="container-13">
                     <button class="button-3" type="button" aria-label="Cancel team creation" onclick="location.href='../TeamList Page 12/TeamList_12.html'">
-                        <div class="text-wrapper-9">Cancle</div>
+                        <div class="text-wrapper-9">Cancel</div>
                     </button>
-                    <button class="button-4" type="button" aria-label="Continue to step 2" onclick="location.href='../CreateTeamStep2 Page 16/CreateTeamStep2_16.html'">
+                    <button class="button-4" id="btn-continue-step2" type="button" aria-label="Continue to step 2">
                         <div class="button-shadow"></div>
                         <div class="text-6">Continue to Step 2</div>
                         <div class="container-14"><img class="icon-6" src="../../../icons/arrow-right.svg" alt="Arrow icon" /></div>
@@ -260,10 +254,6 @@
             const tournamentList = document.getElementById('tournament-list');
             const tournamentsContainer = document.getElementById('tournaments-container');
             const selectedTournamentText = document.getElementById('selected-tournament');
-            const formatSelect = document.getElementById('format-select');
-            
-            let allTournaments = [];
-            let currentFilter = 'Single';
             let selectedTournamentId = null;
 
             // Toggle dropdown
@@ -284,17 +274,12 @@
             tournamentList.addEventListener('click', (e) => e.stopPropagation());
 
             function renderTournaments(tournaments) {
-                const filtered = tournaments.filter(t => 
-                    t.tournament_type.toLowerCase().includes(currentFilter.toLowerCase())
-                );
-
-                if (filtered.length === 0) {
-                    tournamentsContainer.innerHTML = `<div style="padding: 20px; color: #64748b; text-align: center; font-size: 14px;">No ${currentFilter} Elimination tournaments found</div>`;
+                if (tournaments.length === 0) {
+                    tournamentsContainer.innerHTML = `<div style="padding: 20px; color: #64748b; text-align: center; font-size: 14px;">No tournaments found</div>`;
                 } else {
-                    tournamentsContainer.innerHTML = filtered.map(t => `
-                        <div class="tournament-option" data-id="${t.tournament_id}" style="padding: 12px 20px; cursor: pointer; border-bottom: 1px solid #f1f5f9; transition: background 0.2s;">
-                            <div style="font-weight: 600; color: #0f172a;">${t.tournament_name}</div>
-                            <div style="font-size: 12px; color: #64748b;">${t.tournament_type}</div>
+                    tournamentsContainer.innerHTML = tournaments.map(t => `
+                        <div class="tournament-option" data-id="${t.tournament_id}" data-name="${t.tournament_type}" style="padding: 16px 20px; cursor: pointer; border-bottom: 1px solid #f1f5f9; transition: background 0.2s;">
+                            <div style="font-family: 'Be Vietnam Pro-Medium', Helvetica, sans-serif; font-weight: 500; font-size: 16px; color: #0f172a; pointer-events: none;">${t.tournament_type}</div>
                         </div>
                     `).join('');
 
@@ -304,7 +289,7 @@
                         option.addEventListener('mouseout', () => option.style.backgroundColor = 'transparent');
                         option.addEventListener('click', (e) => {
                             selectedTournamentId = option.dataset.id;
-                            const name = option.querySelector('div').textContent;
+                            const name = option.dataset.name;
                             selectedTournamentText.textContent = name;
                             selectedTournamentText.style.color = '#0f172a';
                             dropdown.setAttribute('aria-expanded', 'false');
@@ -313,12 +298,6 @@
                     });
                 }
             }
-
-            // Filter logic
-            formatSelect.addEventListener('change', (e) => {
-                currentFilter = e.target.value;
-                renderTournaments(allTournaments);
-            });
 
             // Banner URL logic
             const selectUrlBtn = document.getElementById('select-url-btn');
@@ -382,6 +361,41 @@
                 console.error('Error fetching tournaments:', error);
                 tournamentsContainer.innerHTML = '<div style="padding: 20px; color: #ef4444; text-align: center; font-size: 14px;">Failed to load tournaments</div>';
             }
+
+            // Map data to Step 2
+            const continueBtn = document.getElementById('btn-continue-step2');
+            continueBtn.addEventListener('click', () => {
+                const teamName = document.getElementById('team-name').value.trim();
+                const leaderName = document.getElementById('input-1').value.trim();
+                const member1 = document.getElementById('member-1-name').value.trim();
+                const member2 = document.getElementById('member-2-name').value.trim();
+                const member3 = document.getElementById('member-3-name').value.trim();
+                const member4 = document.getElementById('member-4-name').value.trim();
+                const bannerUrl = document.getElementById('banner-url-input').value.trim() || 'https://placehold.co/1200x400?text=Tournament+Banner';
+                
+                if (!selectedTournamentId) {
+                    alert('Please select a tournament');
+                    return;
+                }
+                if (!teamName || !leaderName) {
+                    alert('Please enter Team Name and Leader Name');
+                    return;
+                }
+
+                const teamData = {
+                    tournamentId: selectedTournamentId,
+                    tournamentName: selectedTournamentText.textContent,
+                    teamName,
+                    leaderName,
+                    member1,
+                    member2,
+                    member3,
+                    member4,
+                    bannerUrl
+                };
+                sessionStorage.setItem('teamCreationData', JSON.stringify(teamData));
+                location.href = '../CreateTeamStep2 Page 16/CreateTeamStep2_16.html';
+            });
         });
     </script>
 </body>

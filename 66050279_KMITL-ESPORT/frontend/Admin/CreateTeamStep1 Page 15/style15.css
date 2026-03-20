@@ -700,7 +700,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 160px;
+    width: 220px;
     height: 54px;
     padding: 0 32px;
     background-color: #f1f5f9;
@@ -715,7 +715,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 85.92px;
+    width: 100%;
     height: 24px;
     margin-top: -1.00px;
     font-family: "Be Vietnam Pro-Bold", Helvetica;
@@ -734,7 +734,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 160px;
+    width: 220px;
     height: 54px;
     padding: 0 32px;
     background-color: #ff8c00;
@@ -757,7 +757,7 @@
 
 .admin-create-team .text-6 {
     justify-content: center;
-    width: 150.06px;
+    width: 100%;
     height: 24px;
     font-family: "Be Vietnam Pro-Bold", Helvetica;
     font-weight: 700;
@@ -2844,11 +2844,15 @@ body, html, .admin-create, .admin-create-team, .admin-team, .frame, .group {
 }
 
 /* 2. Button Size: Reduce thickness and font size */
-.button-2, .button-3, .button-submit {
+.button-2, .button-3, .button-4, .button-submit {
     padding: 12px 32px !important; /* Reduced from 16px 40px */
     height: auto !important;
+    min-width: 180px !important; /* Consistent minimum width */
+    display: inline-flex !important;
+    justify-content: center !important;
+    align-items: center !important;
 }
-.button-2 span, .button-3 span, .button-submit span {
+.button-2 span, .button-3 span, .button-4 div, .button-submit span {
     font-size: 14px !important; /* Reduced from 16px */
     line-height: 20px !important;
 }
