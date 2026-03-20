@@ -154,21 +154,23 @@
             <main class="summary-card" aria-label="Team registration summary">
                 <!-- Tournament Header -->
                 <header class="tournament-header">
-                    <img class="image" src="img/image.png" alt="Rov KMITL Cup tournament banner" />
+                    <div class="image-wrapper" style="position: absolute; top: calc(50% - 64px); left: 32px; width: 192px; height: 128px; background: #333; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #f1f5f9;">
+                        <img class="image" src="img/image.png" alt="Tournament banner" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=\'color:white; font-size:12px; text-align:center; padding:10px;\'>Tournament Banner</span>';" />
+                    </div>
                     <div class="container-8">
-                        <div class="div-wrapper">
-                            <h1 class="text-wrapper-9">Rov KMITL Cup</h1>
+                        <div class="div-wrapper" style="display: flex; align-items: center; gap: 10px;">
+                            <h1 class="text-wrapper-9" id="tournament-display-name">Loading Tournament...</h1>
                         </div>
                         <div class="container-9">
                             <div class="div-2">
                                 <img class="icon-3" src="img/icon-19.svg" alt="Calendar icon" />
                             </div>
-                            <p class="p">Starts Apr 08, 2026 • Sci 01</p>
+                            <p class="p" id="tournament-date-display">-</p>
                         </div>
                     </div>
-                    <button class="button-3" type="button" aria-label="Registration status: Pending">
-                        <span class="text-wrapper-10">Pending</span>
-                    </button>
+                    <div class="button-3" id="status-badge" style="display: none;">
+                        <span class="text-wrapper-10">...</span>
+                    </div>
                 </header>
                 <!-- Registration Details -->
                 <section class="registration-details" aria-label="Registration details">
@@ -185,10 +187,12 @@
                         <div class="frame">
                             <div class="group">
                                 <div class="frame-2">
-                                    <img class="rectangle" src="img/rectangle-2.png" alt="Team logo" />
+                                    <div class="logo-wrapper" style="position: relative; width: 131px; height: 98px; background: #222; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #f1f5f9;">
+                                        <div id="team-logo-initial" style="font-size: 32px; color: white; font-weight: bold;">-</div>
+                                    </div>
                                     <div class="background-2">
-                                        <div class="div-wrapper"><span class="text-wrapper-11">Team Name</span></div>
-                                        <div class="div-wrapper"><span class="text-wrapper-12">A</span></div>
+                                        <div class="div-wrapper"><span class="text-wrapper-11" id="team-name-display">Loading Team...</span></div>
+                                        <div class="div-wrapper"><span class="text-wrapper-12" id="team-initial-display">-</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -196,8 +200,8 @@
                                 <div class="background-3">
                                     <div class="div-wrapper"><span class="text-wrapper-11">Team Leader</span></div>
                                     <div class="container-10">
-                                        <div class="background-4"><span class="text-2">JD</span></div>
-                                        <div class="div-2"><span class="text-3">John Doe</span></div>
+                                        <div class="background-4" id="leader-initial-display">-</div>
+                                        <div class="div-2"><span class="text-3" id="leader-name-display">Loading...</span></div>
                                     </div>
                                 </div>
                             </div>
@@ -212,23 +216,8 @@
                                 </div>
                                 <span class="text-4">TEAM MEMBERS</span>
                             </div>
-                            <ul class="container-12" aria-label="Team members list">
-                                <li class="background-5">
-                                    <div class="container-13"><span class="text-5">1</span></div>
-                                    <div class="div-2"><span class="text-6">Alice Smith</span></div>
-                                </li>
-                                <li class="background-5">
-                                    <div class="container-13"><span class="text-7">2</span></div>
-                                    <div class="div-2"><span class="text-8">Bob Johnson</span></div>
-                                </li>
-                                <li class="background-5">
-                                    <div class="container-13"><span class="text-9">3</span></div>
-                                    <div class="div-2"><span class="text-10">Charlie Brown</span></div>
-                                </li>
-                                <li class="background-5">
-                                    <div class="container-13"><span class="text-11">4</span></div>
-                                    <div class="div-2"><span class="text-12">David Wilson</span></div>
-                                </li>
+                            <ul class="container-12" id="member-list-container" aria-label="Team members list">
+                                <!-- Members will be injected here -->
                             </ul>
                         </div>
                     </div>
@@ -258,33 +247,64 @@
                 </div>
             </nav>
             <!-- Header (user view) -->
-            <header class="header-top" aria-label="Site header">
-                <div class="container-18">
-                    <img class="chatgpt-image" src="img/chatgpt-image-4-2569-15-54-45-removebg-preview-1.png"
-                        alt="KMITL ESPORT logo" />
-                    <div class="container-19">
-                        <div class="div-2"><span class="text-wrapper-17">KMITL ESPORT</span></div>
+        <!-- Detail Overlay Layer -->
+        <article class="user-edit-team">
+            <header class="header-top" role="banner">
+                <div class="container">
+                    <img class="chatgpt-image" src="../../../icons/Logo.png" alt="KMITL ESPORT Logo" />
+                    <div class="heading-wrapper">
+                        <div class="div-2">
+                            <span class="text-wrapper-8">KMITL ESPORT</span>
+                        </div>
                     </div>
-                    <nav class="container-20" aria-label="Main navigation">
-                        <div class="div-2"><span class="text-13">Home</span></div>
-                        <div class="div-2"><span class="text-14">Explore</span></div>
-                        <div class="div-2"><span class="text-15">News</span></div>
+                    <nav class="container-7" aria-label="Main navigation">
+                        <div class="div-2"><a class="text" href="../Dashboard Page 8/Dashboard_8.html" style="text-decoration: none; color: inherit;">Home</a></div>
+                        <div class="div-2"><a class="text-11" href="#">Explore</a></div>
+                        <div class="div-2"><a class="text-12" href="#">News</a></div>
                     </nav>
                 </div>
-                <div class="container-21">
+                <div class="container-10">
                     <div class="label">
-                        <div class="container-22">
-                            <div class="background-6">
-                                <div class="div-2"><img class="icon-9" src="img/icon-4.svg" alt="Search icon" /></div>
+                        <div class="container-11">
+                            <div class="background-3">
+                                <div class="div-2"><img class="icon-3" src="../../../icons/search.svg" alt="Search icon" /></div>
                             </div>
                             <div class="input">
-                                <div class="container-23">
-                                    <input class="text-16" placeholder="Search tournaments..." type="search"
-                                        aria-label="Search tournaments" />
+                                <div class="container-12">
+                                    <input class="text-4" placeholder="Search tournaments..." type="search" aria-label="Search tournaments" />
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <img class="image-background" src="../../../icons/user.svg" alt="User avatar" />
+                </div>
+            </header>
+            <aside class="aside-sidebar" aria-label="Sidebar navigation">
+                <nav class="container-13">
+                    <a class="link" href="../Dashboard Page 8/Dashboard_8.html" aria-label="Dashboard">
+                        <div class="uis-graph-bar-wrapper">
+                            <img class="uis-graph-bar" src="../../../icons/stats.svg" alt="Dashboard" />
+                        </div>
+                        <div class="div-2"><span class="text-wrapper-13">Dashboard</span></div>
+                    </a>
+                    <a class="link" href="../TournamentList Page 9/TournamentList_9.html" aria-label="Tournaments">
+                        <div class="div-2"><img class="img-2" src="../../../icons/trophy-star.svg" alt="Tournaments" /></div>
+                        <div class="container-14"><span class="text-wrapper-14">Tournament</span></div>
+                    </a>
+                    <a class="link-2" href="../TeamList Page 12/TeamList_12.html" aria-current="page" aria-label="Teams">
+                        <div class="div-2"><img class="icon-4" src="../../../icons/users.svg" alt="Teams" /></div>
+                        <div class="div-2"><span class="text-wrapper-15">Teams</span></div>
+                    </a>
+                    <a class="link-3" href="#" aria-label="About">
+                        <div class="div-2"><img class="icon-5" src="../../../icons/info.svg" alt="About" /></div>
+                        <div class="div-2"><span class="text-11">About</span></div>
+                    </a>
+                    <a class="link-3" href="#" aria-label="Settings">
+                        <div class="div-2"><img class="icon-6" src="../../../icons/settings.svg" alt="Settings" /></div>
+                        <div class="div-2"><span class="text-12">Settings</span></div>
+                    </a>
+                </nav>
+            </aside>
                     <div class="container-24">
                         <div class="iconstack-io-plus-wrapper">
                             <div class="iconstack-io-plus" aria-hidden="true">
@@ -301,9 +321,9 @@
         <button class="button-4" type="button" aria-label="Edit team details">
             <div class="icon-wrapper"><img class="img" src="img/icon-6.svg" alt="Edit icon" /></div>
         </button>
-        <!-- Cancel button -->
+        <!-- Cancel button only -->
         <div class="container-25">
-            <button class="button-5" type="button">
+            <button class="button-5" type="button" onclick="window.history.back()">
                 <span class="text-wrapper-18">Cancle</span>
             </button>
         </div>
@@ -316,7 +336,7 @@
                     <div class="div-2"><span class="text-wrapper-17">KMITL ESPORT</span></div>
                 </div>
                 <nav class="container-20" aria-label="Main navigation">
-                    <div class="div-2"><span class="text-13">Home</span></div>
+                    <div class="div-2"><a class="text-13" href="../Dashboard Page 8/Dashboard_8.html" style="text-decoration: none; color: inherit;">Home</a></div>
                     <div class="div-2"><span class="text-14">Explore</span></div>
                     <div class="div-2"><span class="text-15">News</span></div>
                 </nav>
@@ -341,25 +361,25 @@
         <!-- Fixed Sidebar (admin view) -->
         <nav class="aside-sidebar-2" aria-label="Admin navigation">
             <div class="container-26">
-                <a class="link-3" href="#dashboard">
+                <a class="link-3" href="../Dashboard Page 8/Dashboard_8.html">
                     <div class="uis-graph-bar-wrapper">
                         <img class="uis-graph-bar" src="img/uis-graph-bar.svg" alt="Dashboard icon" />
                     </div>
                     <div class="div-2"><span class="text-wrapper-19">Dashboard</span></div>
                 </a>
-                <a class="link-3" href="#tournament">
+                <a class="link-3" href="../TournamentList Page 9/TournamentList_9.html">
                     <div class="div-2"><img class="img" src="img/icon-5.svg" alt="Tournament icon" /></div>
                     <div class="container-27"><span class="text-wrapper-20">Tournament</span></div>
                 </a>
-                <a class="link-2" href="#teams" aria-current="page">
+                <a class="link-2" href="../TeamList Page 12/TeamList_12.html" aria-current="page">
                     <div class="div-2"><img class="icon-6" src="img/icon-3.svg" alt="Teams icon" /></div>
                     <div class="div-2"><span class="text-wrapper-21">Teams</span></div>
                 </a>
-                <a class="link" href="#about">
+                <a class="link" href="#">
                     <div class="div-2"><img class="icon-7" src="img/icon-14.svg" alt="About icon" /></div>
                     <div class="div-2"><span class="text-17">About</span></div>
                 </a>
-                <a class="link" href="#settings">
+                <a class="link" href="#">
                     <div class="div-2"><img class="icon-8" src="img/icon-22.svg" alt="Settings icon" /></div>
                     <div class="div-2"><span class="text-wrapper-16">Settings</span></div>
                 </a>
@@ -375,6 +395,128 @@
             <span class="text-wrapper-3">Support</span>
         </footer>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const teamId = urlParams.get('id');
+            console.log('Team Detail ID:', teamId);
+
+            // --- Load Real Team Data ---
+            async function loadTeamData() {
+                if (!teamId) return;
+                try {
+                    const res = await fetch(`http://localhost:3000/teams/${teamId}`);
+                    const data = await res.json();
+                    
+                    if (res.ok && data.team) {
+                        const team = data.team;
+                        // Update Team Name
+                        document.querySelector('.text-wrapper-11').textContent = team.team_name;
+                        document.querySelector('.text-wrapper-12').textContent = team.team_name.substring(0, 2).toUpperCase();
+                        
+                        // Update Leader
+                        document.querySelector('.background-4').textContent = team.leader_name.substring(0, 2).toUpperCase();
+                        document.querySelector('.text-3').textContent = team.leader_name;
+                        
+                        // Update Members List
+                        const memberList = document.querySelector('.container-12');
+                        if (memberList) {
+                            memberList.innerHTML = ''; // Clear static members
+                            const members = [team.member_1, team.member_2, team.member_3, team.member_4].filter(m => m);
+                            members.forEach((m, index) => {
+                                const li = document.createElement('li');
+                                li.className = 'background-5';
+                                li.innerHTML = `
+                                    <div class="container-13"><span class="text-5">${index + 1}</span></div>
+                                    <div class="div-2"><span class="text-6">${m}</span></div>
+                                `;
+                                memberList.appendChild(li);
+                            });
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error fetching team data:', error);
+                }
+            }
+            loadTeamData();
+
+            
+            // Redirection for the edit icon next to the title
+            const editIcon = document.querySelector('.edit-icon');
+            if (editIcon && teamId) {
+                editIcon.style.cursor = 'pointer';
+                editIcon.addEventListener('click', (e) => {
+                    console.log('Edit icon clicked');
+                    window.location.href = `../EditTeamDetail Page 14/EditTeam_14.html?id=${teamId}`;
+                });
+            }
+
+            // Redirection for the floating edit button (.button-4)
+            const floatingEditBtn = document.querySelector('.button-4');
+            if (floatingEditBtn && teamId) {
+                floatingEditBtn.addEventListener('click', () => {
+                    console.log('Floating edit button clicked');
+                    window.location.href = `../EditTeamDetail Page 14/EditTeam_14.html?id=${teamId}`;
+                });
+            }
+
+            // --- Team Approval Logic ---
+            const statusBadge = document.querySelector('.button-3'); // This is the "Pending" badge
+            console.log('Status badge element:', statusBadge);
+            
+            if (statusBadge && teamId) {
+                statusBadge.style.cursor = 'pointer';
+                console.log('Attaching click listener for Team Approval (ID Context):', teamId);
+                
+                statusBadge.addEventListener('click', async (e) => {
+                    console.log('Status badge clicked! Looking for application associated with team:', teamId);
+                    e.preventDefault();
+                    
+                    if (confirm('Do you want to approve this team?')) {
+                        try {
+                            // Step 1: Find the application for this team
+                            const appRes = await fetch(`http://localhost:3000/applications?team_id=${teamId}`);
+                            const applications = await appRes.json();
+                            console.log('Found applications for team:', applications);
+
+                            if (!applications || applications.length === 0) {
+                                alert('This team has not applied for any tournament yet.');
+                                return;
+                            }
+
+                            // Use the first application found for this team
+                            const appId = applications[0].app_id;
+                            console.log('Processing approval for application ID:', appId);
+
+                            // Step 2: Update the application status
+                            const response = await fetch(`http://localhost:3000/applications/${appId}/status`, {
+                                method: 'PATCH',
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify({ status: 'Approved' })
+                            });
+
+                            console.log('Response status:', response.status);
+                            const result = await response.json();
+                            
+                            if (response.ok) {
+                                alert('Application approved successfully!');
+                                window.location.reload();
+                            } else {
+                                alert(`Failed to approve application: ${result.error || 'Unknown error'}`);
+                            }
+                        } catch (error) {
+                            console.error('Error during application status update fetch:', error);
+                            alert('An error occurred. Please check the console for details.');
+                        }
+                    }
+                });
+            } else {
+                console.warn('Status badge or teamId missing:', { statusBadge: !!statusBadge, teamId });
+            }
+        });
+    </script>
 </body>
 
 </html>

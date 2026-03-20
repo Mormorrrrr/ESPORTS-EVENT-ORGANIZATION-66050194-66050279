@@ -1,20 +1,29 @@
 .admin-team-detail {
     position: relative;
     width: 1440px;
-    height: 1024px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     background-color: #ffffff;
 }
 
 .admin-team-detail .footer-footer {
-    position: absolute;
-    top: 929px;
-    left: 0;
     width: 1440px;
     height: 95px;
     display: flex;
     border-top-width: 1px;
     border-top-style: solid;
     border-color: #e2e8f0;
+    margin-top: auto;
+    position: relative;
+}
+
+.admin-team-detail .tournaments-list-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+    width: 1440px;
+    position: relative;
 }
 
 .admin-team-detail .container {
@@ -93,11 +102,12 @@
 }
 
 .admin-team-detail .tournaments-list {
-    position: absolute;
-    width: calc(100% - 512px);
-    top: 165px;
-    left: 339px;
-    height: 517px;
+    position: relative;
+    width: 1440px;
+    padding-left: 320px;
+    padding-right: 128px;
+    margin-top: 97px;
+    flex: 0 0 auto;
 }
 
 .admin-team-detail .container-2 {
@@ -487,12 +497,12 @@
 }
 
 .admin-team-detail .user-edit-team {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
     width: 1440px;
-    height: 1024px;
+    flex: 1 0 auto;
     background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
 }
 
 .admin-team-detail .container-7 {
@@ -618,40 +628,28 @@
 }
 
 .admin-team-detail .button-3 {
-    all: unset;
-    box-sizing: border-box;
     display: flex;
-    flex-direction: column;
-    width: 112px;
-    height: 38px;
-    padding: 16px 32px;
+    width: 100px;
+    height: 32px;
     position: absolute;
-    top: 113px;
-    left: 715px;
-    background-color: #fffb95;
-    border-radius: 48px;
+    top: 100px;
+    right: 40px;
+    background-color: #fef08a; /* Soft Yellow */
+    border-radius: 9999px;
     align-items: center;
     justify-content: center;
+    border: none;
 }
 
 .admin-team-detail .text-wrapper-10 {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 85.92px;
-    height: 24px;
-    margin-top: -10.00px;
-    margin-bottom: -8.00px;
-    margin-left: -18.96px;
-    margin-right: -18.96px;
     font-family: "Be Vietnam Pro-Bold", Helvetica;
     font-weight: 700;
-    color: #eab308;
-    font-size: 16px;
+    color: #a16207; /* Darker Gold for visibility */
+    font-size: 14px;
     text-align: center;
     letter-spacing: 0;
-    line-height: 24px;
+    line-height: 1;
     white-space: nowrap;
 }
 
@@ -662,7 +660,7 @@
     flex: 1;
     max-height: 312px;
     position: relative;
-    width: 894px;
+    width: 100%;
     height: 312px;
     align-items: flex-start;
     justify-content: center;

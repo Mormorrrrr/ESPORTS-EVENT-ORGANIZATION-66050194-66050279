@@ -1,20 +1,29 @@
 .admin-edit-team {
     position: relative;
     width: 1440px;
-    height: 1024px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     background-color: #ffffff;
 }
 
 .admin-edit-team .footer-footer {
-    position: absolute;
-    top: 929px;
-    left: 0;
     width: 1440px;
     height: 95px;
     display: flex;
     border-top-width: 1px;
     border-top-style: solid;
     border-color: #e2e8f0;
+    margin-top: auto;
+    position: relative;
+}
+
+.admin-edit-team .tournaments-list-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+    width: 1440px;
+    position: relative;
 }
 
 .admin-edit-team .container {
@@ -93,11 +102,12 @@
 }
 
 .admin-edit-team .tournaments-list {
-    position: absolute;
-    width: calc(100% - 512px);
-    top: 165px;
-    left: 339px;
-    height: 517px;
+    position: relative;
+    width: 1440px;
+    padding-left: 320px;
+    padding-right: 128px;
+    margin-top: 97px;
+    flex: 0 0 auto;
 }
 
 .admin-edit-team .container-2 {
@@ -487,11 +497,9 @@
 }
 
 .admin-edit-team .user-edit-team {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
     width: 1440px;
-    height: 1024px;
+    flex: 1 0 auto;
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
@@ -902,10 +910,37 @@
 
 .admin-edit-team .group {
     position: absolute;
-    width: calc(100% - 544px);
-    top: 145px;
-    left: 392px;
-    height: 635px;
+    top: 73px; /* Below header */
+    left: 217px; /* After sidebar */
+    width: calc(100% - 217px);
+    height: calc(100% - 73px);
+    background-color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.admin-edit-team .tournaments-list {
+    display: none; /* Hide background list to match Page 13's clean look */
+}
+
+.admin-edit-team .summary-card {
+    display: flex;
+    flex-direction: column;
+    width: 1000px; /* Slightly wider for Page 14's content */
+    max-width: 95%;
+    height: auto;
+    max-height: 85vh;
+    align-items: center;
+    padding: 0px 0px 32px;
+    position: relative;
+    background-color: #ffffff;
+    border-radius: 48px;
+    overflow-y: auto;
+    border: 1px solid;
+    border-color: #f1f5f9;
+    box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .admin-edit-team .summary-card {
@@ -1034,7 +1069,7 @@
     align-items: flex-start;
     justify-content: center;
     gap: 40px;
-    padding: 32px;
+    padding: 32px 40px;
     position: relative;
     align-self: stretch;
     width: 100%;
@@ -1663,16 +1698,15 @@
     background-color: #ffffff;
 }
 
-.admin-edit-team .footer-footer {
-    position: absolute;
-    top: 929px;
-    left: 0;
+.admin-edit-team .footer-footer-2 {
     width: 1440px;
     height: 95px;
     display: flex;
     border-top-width: 1px;
     border-top-style: solid;
     border-color: #e2e8f0;
+    margin-top: auto;
+    position: relative;
 }
 
 .admin-edit-team .container {

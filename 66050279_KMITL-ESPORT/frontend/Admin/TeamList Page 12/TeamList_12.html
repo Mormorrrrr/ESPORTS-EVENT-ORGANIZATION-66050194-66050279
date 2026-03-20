@@ -15,7 +15,7 @@
         <!-- Header -->
         <header class="header-top" role="banner">
             <div class="container">
-                <img class="chatgpt-image" src="img/chatgpt-image-4-2569-15-54-45-removebg-preview-1.png"
+                <img class="chatgpt-image" src="../../../icons/Logo.png"
                     alt="KMITL ESPORT Logo" />
                 <div class="heading-wrapper">
                     <div class="div">
@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <nav class="container-2" aria-label="Main navigation">
-                    <div class="div"><a class="text" href="../Dashboard Page 8/Dashboard_8.html">Home</a></div>
+                    <div class="div"><a class="text" href="../Dashboard Page 8/Dashboard_8.html" style="text-decoration: none; color: inherit;">Home</a></div>
                     <div class="div"><a class="text-2" href="#">Explore</a></div>
                     <div class="div"><a class="text-3" href="#">News</a></div>
                 </nav>
@@ -52,7 +52,7 @@
             <nav class="container-5">
                 <a class="link" href="../Dashboard Page 8/Dashboard_8.html" aria-label="Dashboard">
                     <div class="uis-graph-bar-wrapper">
-                        <img class="uis-graph-bar" src="img/uis-graph-bar.svg" alt="" aria-hidden="true" />
+                        <img class="uis-graph-bar" src="../../../icons/stats.svg" alt="" aria-hidden="true" />
                     </div>
                     <div class="div">
                         <span class="text-wrapper-2">Dashboard</span>
@@ -60,7 +60,7 @@
                 </a>
                 <a class="link" href="../TournamentList Page 9/TournamentList_9.html" aria-label="Tournament">
                     <div class="div">
-                        <img class="img" src="img/icon-15.svg" alt="" aria-hidden="true" />
+                        <img class="img" src="../../../icons/trophy-star.svg" alt="" aria-hidden="true" />
                     </div>
                     <div class="container-6">
                         <span class="text-wrapper-3">Tournament</span>
@@ -68,7 +68,7 @@
                 </a>
                 <a class="link-2" href="../TeamList Page 12/TeamList_12.html" aria-current="page" aria-label="Teams">
                     <div class="div">
-                        <img class="icon-2" src="img/icon-16.svg" alt="" aria-hidden="true" />
+                        <img class="icon-2" src="../../../icons/users.svg" alt="" aria-hidden="true" />
                     </div>
                     <div class="div">
                         <span class="text-wrapper-4">Teams</span>
@@ -76,7 +76,7 @@
                 </a>
                 <a class="link-3" href="#" aria-label="About">
                     <div class="div">
-                        <img class="icon-3" src="img/icon-8.svg" alt="" aria-hidden="true" />
+                        <img class="icon-3" src="../../../icons/info.svg" alt="" aria-hidden="true" />
                     </div>
                     <div class="div">
                         <span class="text-5">About</span>
@@ -84,7 +84,7 @@
                 </a>
                 <a class="link-3" href="#" aria-label="Settings">
                     <div class="div">
-                        <img class="icon-4" src="img/icon-11.svg" alt="" aria-hidden="true" />
+                        <img class="icon-4" src="../../../icons/settings.svg" alt="" aria-hidden="true" />
                     </div>
                     <div class="div">
                         <span class="text-6">Settings</span>
@@ -93,12 +93,22 @@
             </nav>
         </aside>
         <!-- Main Content -->
-        <main class="tournaments-list" aria-label="Team List">
-            <div class="container-7">
-                <div class="div">
-                    <h1 class="text-wrapper-5">Team List</h1>
+        <main class="tournaments-list-wrapper">
+            <section class="tournaments-list" aria-label="Team List">
+                <div class="container-7" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                    <div class="div">
+                        <h1 class="text-wrapper-5">Team List</h1>
+                    </div>
+                    <div class="button-wrapper" style="margin: 0;">
+                        <button class="button-plus" type="button" aria-label="Add new team" onclick="alert('Funcationality to add team is coming soon!')">
+                            <span class="iconstack-io-plus" aria-hidden="true">
+                                <img class="vector-plus" src="img/vector.svg" alt="" />
+                                <img class="vector-plus-2" src="img/vector-2.svg" alt="" />
+                            </span>
+                        </button>
+                    </div>
                 </div>
-            </div>
+            </section>
             <!-- Dynamic Team List Container -->
             <div class="container-8" id="admin-team-list-container" style="flex-direction: column; gap: 20px;">
                 <!-- Cards injected via JS -->
@@ -137,7 +147,22 @@
                     return;
                 }
 
-                allTeams.forEach(team => {
+                allTeams.forEach(async (team) => {
+                    // Fetch application status for this team
+                    let status = 'No Apply';
+                    let statusColor = '#94a3b8'; // Grey
+                    try {
+                        const appRes = await fetch(`http://localhost:3000/applications?team_id=${team.team_id}`);
+                        const apps = await appRes.json();
+                        if (apps.length > 0) {
+                            status = apps[0].status.toUpperCase();
+                            if (status === 'APPROVED') statusColor = '#4ade80'; // Green
+                            else if (status === 'PENDING') statusColor = '#fbbf24'; // Yellow
+                        }
+                    } catch (e) {
+                        console.error('Error fetching status for team', team.team_id, e);
+                    }
+
                     const article = document.createElement('article');
                     article.className = 'tournament-card';
                     article.innerHTML = `
@@ -159,15 +184,15 @@
                             </div>
                         </div>
                         <div class="container-11">
-                            <div class="approve-wrapper">
-                                <span class="approve">APPROVE</span>
+                            <div class="approve-wrapper" style="background-color: ${statusColor};">
+                                <span class="approve">${status}</span>
                             </div>
-                            <button class="button" type="button" aria-label="Edit">
+                            <button class="button" type="button" aria-label="Edit" onclick="editTeam(${team.team_id})">
                                 <div class="icon-wrapper">
                                     <span style="color:white; font-size:12px;">Edit</span>
                                 </div>
                             </button>
-                            <button class="button" type="button" aria-label="Delete">
+                            <button class="button" type="button" aria-label="Delete" onclick="deleteTeam(${team.team_id})">
                                 <div class="icon-wrapper">
                                     <span style="color:red; font-size:12px;">Del</span>
                                 </div>
@@ -181,6 +206,29 @@
                 listContainer.innerHTML = '<p style="color:white; padding: 20px;">Error loading teams.</p>';
             }
         });
+
+        async function deleteTeam(teamId) {
+            if (!confirm('Are you sure you want to delete this team?')) return;
+            try {
+                const res = await fetch(`http://localhost:3000/teams/${teamId}`, {
+                    method: 'DELETE'
+                });
+                if (res.ok) {
+                    alert('Team deleted successfully');
+                    location.reload();
+                } else {
+                    const err = await res.json();
+                    alert('Delete failed: ' + err.error);
+                }
+            } catch (error) {
+                console.error('Error deleting team:', error);
+                alert('Network error while deleting team');
+            }
+        }
+
+        function editTeam(teamId) {
+            location.href = `../TeamDetail Page 13/TeamDetail_13.html?id=${teamId}`;
+        }
     </script>
 </body>
 

@@ -1,7 +1,7 @@
 .admin-team-list {
     position: relative;
     width: 1440px;
-    height: 1024px;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
@@ -412,26 +412,32 @@
     letter-spacing: 0;
 }
 
+.admin-team-list .tournaments-list-wrapper {
+    z-index: 2;
+    margin-left: 320px;
+    margin-right: 128px;
+    flex: 1 0 auto;
+    margin-top: 91px;
+    display: flex;
+    flex-direction: column;
+}
+
 .admin-team-list .tournaments-list {
     z-index: 1;
-    margin-left: 339px;
-    margin-right: 173px;
-    flex: 1;
-    max-height: 517px;
+    flex: 0 0 auto;
     position: relative;
-    margin-top: 165px;
+    margin-top: 0px;
+    margin-bottom: 24px;
+    display: flex;
 }
 
 .admin-team-list .container-7 {
     display: flex;
-    width: calc(100% - 174px);
+    width: 928px;
     height: 28px;
     align-items: center;
-    justify-content: space-around;
-    gap: 663.75px;
-    position: absolute;
-    top: 0;
-    left: 0;
+    justify-content: space-between;
+    position: relative;
 }
 
 .admin-team-list .text-wrapper-5 {
@@ -733,26 +739,24 @@
     white-space: nowrap;
 }
 
-.admin-team-list .container-12 {
-    position: absolute;
-    top: -6px;
-    left: 768px;
-    width: 40px;
-    height: 40px;
-    background-color: #ffffff;
+/* Plus Button Styles sync with Tournament List */
+.admin-team-list .button-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.admin-team-list .iconstack-io-plus-wrapper {
-    display: flex;
-    width: 40px;
-    height: 40px;
+.admin-team-list .button-plus {
+    all: unset;
+    box-sizing: border-box;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    position: absolute;
-    top: -6px;
-    left: 889px;
+    width: 40px;
+    height: 40px;
     background-color: #ff8c00;
     border-radius: 9999px;
+    cursor: pointer;
 }
 
 .admin-team-list .iconstack-io-plus {
@@ -761,7 +765,7 @@
     height: 24px;
 }
 
-.admin-team-list .vector {
+.admin-team-list .vector-plus {
     position: absolute;
     width: 54.17%;
     height: 83.33%;
@@ -769,7 +773,7 @@
     left: 45.83%;
 }
 
-.admin-team-list .vector-2 {
+.admin-team-list .vector-plus-2 {
     position: absolute;
     width: 83.33%;
     height: 54.17%;
@@ -781,7 +785,7 @@
     z-index: 2;
     width: 1440px;
     height: 95px;
-    margin-top: 247px;
+    margin-top: auto;
     display: flex;
     border-top-width: 1px;
     border-top-style: solid;

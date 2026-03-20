@@ -23,9 +23,8 @@ app.get("/", (req, res) => {
   res.send("Express + Prisma API ทำงานแล้ว");
 });
 
-// =========================
 // REGISTER USER
-// =========================
+
 app.post("/register", async (req, res) => {
   const { username, email, password } = req.body; // Removed role from req.body
 
@@ -66,9 +65,8 @@ app.post("/register", async (req, res) => {
   }
 });
 
-// =========================
 // LOGIN USER
-// =========================
+
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
@@ -105,9 +103,8 @@ app.post("/login", async (req, res) => {
   }
 });
 
-// =========================
 // GET USERS
-// =========================
+
 app.get("/users", async (req, res) => {
   try {
     const users = await prisma.user.findMany();
@@ -117,9 +114,8 @@ app.get("/users", async (req, res) => {
   }
 });
 
-// =========================
 // CREATE TEAM
-// =========================
+
 app.post("/teams", async (req, res) => {
   const {
     team_name,
@@ -160,21 +156,57 @@ app.post("/teams", async (req, res) => {
   }
 });
 
-// =========================
-// GET TEAMS
-// =========================
-app.get("/teams", async (req, res) => {
+// GET TEAM BY ID
+app.get("/teams/:id", async (req, res) => {
+  const { id } = req.params;
   try {
-    const teams = await prisma.team.findMany();
-    res.json(teams);
+    const team = await prisma.team.findUnique({
+      where: { team_id: parseInt(id) },
+    });
+    if (!team) return res.status(404).json({ error: "ไม่พบทีม" });
+    res.json({ team });
   } catch (error) {
-    res.status(500).json({ error: "ดึงข้อมูลทีมไม่สำเร็จ" });
+    res.status(500).json({ error: "เกิดข้อผิดพลาดในการดึงข้อมูลทีม" });
   }
 });
 
-// =========================
+// UPDATE TEAM
+app.patch("/teams/:id", async (req, res) => {
+  const id = parseInt(req.params.id);
+  const data = req.body;
+  try {
+    const team = await prisma.team.update({
+      where: { team_id: id },
+      data,
+    });
+    res.json({ message: "อัปเดตทีมสำเร็จ", team });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "อัปเดตทีมไม่สำเร็จ" });
+  }
+});
+
+// DELETE TEAM
+app.delete("/teams/:id", async (req, res) => {
+  const id = parseInt(req.params.id);
+  try {
+    // Delete related applications first
+    await prisma.application.deleteMany({
+      where: { team_id: id }
+    });
+    
+    await prisma.team.delete({
+      where: { team_id: id },
+    });
+    res.json({ message: "ลบทีมสำเร็จ" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "ลบทีมไม่สำเร็จ" });
+  }
+});
+
 // CREATE TOURNAMENT
-// =========================
+
 app.post("/tournaments", async (req, res) => {
   const { tournament_name, tournament_type, start_date, end_date } = req.body;
 
@@ -198,9 +230,8 @@ app.post("/tournaments", async (req, res) => {
   }
 });
 
-// =========================
 // GET TOURNAMENTS
-// =========================
+
 app.get("/tournaments", async (req, res) => {
   try {
     const tournaments = await prisma.tournament.findMany();
@@ -210,9 +241,8 @@ app.get("/tournaments", async (req, res) => {
   }
 });
 
-// =========================
 // GET TOURNAMENT BY ID
-// =========================
+
 app.get("/tournaments/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   try {
@@ -233,9 +263,54 @@ app.get("/tournaments/:id", async (req, res) => {
   }
 });
 
-// =========================
+// UPDATE TOURNAMENT
+
+app.put("/tournaments/:id", async (req, res) => {
+  const id = parseInt(req.params.id);
+  const { tournament_name, tournament_type, start_date, end_date } = req.body;
+  
+  try {
+    const data = {};
+    if (tournament_name) data.tournament_name = tournament_name;
+    if (tournament_type) data.tournament_type = tournament_type;
+    if (start_date) data.start_date = new Date(start_date);
+    if (end_date) data.end_date = new Date(end_date);
+
+    const tournament = await prisma.tournament.update({
+      where: { tournament_id: id },
+      data,
+    });
+    res.json({ message: "อัปเดต Tournament สำเร็จ", tournament });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "อัปเดต Tournament ไม่สำเร็จ" });
+  }
+});
+
+// DELETE TOURNAMENT
+
+app.delete("/tournaments/:id", async (req, res) => {
+  const id = parseInt(req.params.id);
+  
+  try {
+    // Delete related applications first to prevent foreign key errors
+    await prisma.application.deleteMany({
+      where: { tournament_id: id },
+    });
+    
+    await prisma.tournament.delete({
+      where: { tournament_id: id },
+    });
+    
+    res.json({ message: "ลบ Tournament สำเร็จ" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: "ลบ Tournament ไม่สำเร็จ" });
+  }
+});
+
 // APPLY TOURNAMENT
-// =========================
+
 app.post("/applications", async (req, res) => {
   const { tournament_type, team_id } = req.body;
 
@@ -272,13 +347,15 @@ app.post("/applications", async (req, res) => {
   }
 });
 
-// =========================
 // GET APPLICATIONS
-// =========================
+
 app.get("/applications", async (req, res) => {
   try {
-    const { tournament_id } = req.query;
-    const where = tournament_id ? { tournament_id: parseInt(tournament_id) } : {};
+    const { tournament_id, team_id } = req.query;
+    const where = {};
+    if (tournament_id) where.tournament_id = parseInt(tournament_id);
+    if (team_id) where.team_id = parseInt(team_id);
+
     const applications = await prisma.application.findMany({
       where,
       include: {
@@ -292,9 +369,8 @@ app.get("/applications", async (req, res) => {
   }
 });
 
-// =========================
 // UPDATE APPLICATION STATUS
-// =========================
+
 app.patch("/applications/:id/status", async (req, res) => {
   const id = parseInt(req.params.id);
   const { status } = req.body;
@@ -312,9 +388,8 @@ app.patch("/applications/:id/status", async (req, res) => {
   }
 });
 
-// =========================
 // DELETE APPLICATION
-// =========================
+
 app.delete("/applications/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   try {

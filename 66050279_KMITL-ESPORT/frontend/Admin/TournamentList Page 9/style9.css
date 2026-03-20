@@ -1,7 +1,7 @@
 .admin-tournament {
     position: relative;
     width: 1440px;
-    height: 1024px;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
@@ -416,8 +416,7 @@
     z-index: 2;
     margin-left: 320px;
     margin-right: 128px;
-    flex: 1;
-    max-height: 538px;
+    flex: 1 0 auto;
     margin-top: 97px;
     display: flex;
 }
@@ -707,7 +706,7 @@
     z-index: 1;
     width: 1440px;
     height: 95px;
-    margin-top: 294px;
+    margin-top: auto;
     display: flex;
     border-top-width: 1px;
     border-top-style: solid;
