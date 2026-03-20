@@ -261,16 +261,16 @@
 .admin-tournament .uis-graph-bar-wrapper {
     display: flex;
     flex-direction: column;
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     align-items: flex-start;
     position: relative;
 }
 
 .admin-tournament .uis-graph-bar {
     position: relative;
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
     aspect-ratio: 1;
 }
 
@@ -305,8 +305,8 @@
 
 .admin-tournament .img {
     position: relative;
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
 }
 
 .admin-tournament .container-6 {
@@ -348,8 +348,8 @@
 
 .admin-tournament .icon-2 {
     position: relative;
-    width: 24px;
-    height: 12px;
+    width: 20px;
+    height: 20px;
 }
 
 .admin-tournament .text-5 {
@@ -392,7 +392,7 @@
 
 .admin-tournament .icon-4 {
     position: relative;
-    width: 20.1px;
+    width: 20px;
     height: 20px;
 }
 
@@ -1599,4 +1599,182 @@
     letter-spacing: 0;
     line-height: 20px;
     white-space: nowrap;
+}
+
+/* Admin UI Consistency Overrides - Standardized Sidebars & Add Buttons */
+[class*="aside-sidebar"] img, 
+[class*="aside-sidebar"] .uis-graph-bar, 
+[class*="aside-sidebar"] [class*="icon-"], 
+[class*="aside-sidebar"] .img {
+    width: 16px !important;
+    height: 16px !important;
+    object-fit: contain !important;
+    max-width: 16px !important;
+    max-height: 16px !important;
+}
+
+/* Specific "Add" buttons in list views to avoid affecting Page 16 buttons */
+.button-plus, 
+.iconstack-io-plus {
+    width: 30px !important;
+    height: 30px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 9999px !important;
+}
+
+.button-plus svg, 
+.iconstack-io-plus svg {
+    width: 20px !important;
+    height: 20px !important;
+}
+
+
+
+/* --- ROBUST SIDEBAR & CONTENT LAYOUT --- */
+.aside-sidebar {
+    display: flex !important;
+    width: 260px !important;
+    height: calc(100vh - 73px) !important;
+    position: fixed !important;
+    top: 73px !important;
+    left: 0 !important;
+    z-index: 1000 !important;
+    background-color: #ffffff !important;
+    border-right: 1px solid #e2e8f0 !important;
+    padding: 24px !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+}
+.sidebar-nav-container {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 12px !important;
+}
+.sidebar-nav-container .link, .sidebar-nav-container .link-2 {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 12px 16px !important;
+    border-radius: 48px !important;
+    text-decoration: none !important;
+    width: 100% !important;
+}
+.sidebar-nav-container .sidebar-text {
+    font-family: "Be Vietnam Pro", sans-serif !important;
+    font-size: 16px !important;
+    line-height: 24px !important;
+}
+.sidebar-nav-container .link { background-color: #ff8c00 !important; }
+.sidebar-nav-container .link .sidebar-text { color: #ffffff !important; font-weight: 700 !important; }
+.sidebar-nav-container .link img { filter: brightness(0) invert(1) !important; }
+.sidebar-nav-container .link-2 { background-color: transparent !important; }
+.sidebar-nav-container .link-2 .sidebar-text { color: #475569 !important; font-weight: 500 !important; }
+.sidebar-nav-container .link-2 img { filter: none !important; }
+
+
+/* Header z-index to stay above sidebar */
+header.header-top { 
+    z-index: 1001 !important;
+}
+
+
+
+
+/* --- ISOLATED NAMESPACED HEADER CSS --- */
+header.namespaced-header {
+    width: 100% !important;
+    height: 73px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 1000 !important;
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    padding: 0 24px !important;
+    box-sizing: border-box !important;
+}
+/* Left Section */
+header.namespaced-header .ns-header-left {
+    display: flex !important;
+    align-items: center !important;
+    gap: 32px !important;
+    margin-left: 16px !important; /* Left: 40px equivalent (24px padding + 16px) */
+}
+header.namespaced-header .ns-logo-img {
+    width: 117px !important;
+    height: 62px !important;
+    object-fit: contain !important;
+}
+header.namespaced-header .ns-title-text {
+    font-family: "Be Vietnam Pro-Bold", Helvetica !important;
+    font-weight: 700 !important;
+    color: #000000 !important;
+    font-size: 24px !important;
+    letter-spacing: -0.60px !important;
+}
+header.namespaced-header .ns-main-nav {
+    display: flex !important;
+    gap: 24px !important;
+}
+header.namespaced-header .ns-nav-link {
+    font-family: "Be Vietnam Pro-SemiBold", Helvetica !important;
+    font-weight: 600 !important;
+    color: #334155 !important;
+    font-size: 14px !important;
+    text-decoration: none !important;
+}
+/* Right Section */
+header.namespaced-header .ns-header-right {
+    display: flex !important;
+    align-items: center !important;
+    gap: 24px !important;
+}
+header.namespaced-header .ns-search-box {
+    display: flex !important;
+    align-items: center !important;
+    background-color: #f1f5f9 !important;
+    border-radius: 48px !important;
+    padding: 8px 16px !important;
+    gap: 8px !important;
+}
+header.namespaced-header .ns-search-bg {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+header.namespaced-header .ns-search-icon {
+    width: 16px !important;
+    height: 16px !important;
+}
+header.namespaced-header .ns-search-input {
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    font-family: "Be Vietnam Pro-Medium", Helvetica !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    color: #0f172a !important;
+    width: 200px !important;
+}
+header.namespaced-header .ns-user-avatar {
+    width: 40px !important;
+    height: 40px !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+}
+/* Disable any native global overrides affecting header-top */
+header.header-top * {
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    border: none;
 }

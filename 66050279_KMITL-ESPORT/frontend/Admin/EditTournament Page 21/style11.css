@@ -2948,3 +2948,81 @@
     white-space: nowrap;
     text-decoration: none;
 }
+
+/* Admin UI Consistency Overrides - Standardized Sidebars & Add Buttons */
+[class*="aside-sidebar"] img, 
+[class*="aside-sidebar"] .uis-graph-bar, 
+[class*="aside-sidebar"] [class*="icon-"], 
+[class*="aside-sidebar"] .img {
+    width: 16px !important;
+    height: 16px !important;
+    object-fit: contain !important;
+    max-width: 16px !important;
+    max-height: 16px !important;
+}
+
+/* Specific "Add" buttons in list views to avoid affecting Page 16 buttons */
+.button-plus, 
+.iconstack-io-plus {
+    width: 30px !important;
+    height: 30px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 9999px !important;
+}
+
+.button-plus svg, 
+.iconstack-io-plus svg {
+    width: 20px !important;
+    height: 20px !important;
+}
+
+
+/* --- GOLD STANDARD SIDEBAR OVERRIDES --- */
+.aside-sidebar {
+    width: 260px !important;
+}
+.aside-sidebar .container-5 {
+    width: 212px !important;
+    gap: 12px !important;
+}
+.aside-sidebar .link, .aside-sidebar .link-2 {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 12px 16px !important;
+    border-radius: 48px !important;
+    text-decoration: none !important;
+    transition: all 0.2s ease !important;
+}
+.aside-sidebar .sidebar-text {
+    font-family: "Be Vietnam Pro", sans-serif !important;
+    font-size: 16px !important;
+    line-height: 24px !important;
+}
+/* Active State */
+.aside-sidebar .link {
+    background-color: #ff8c00 !important;
+}
+.aside-sidebar .link .sidebar-text {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+.aside-sidebar .link img {
+    filter: brightness(0) invert(1) !important;
+}
+/* Inactive State */
+.aside-sidebar .link-2 {
+    background-color: transparent !important;
+}
+.aside-sidebar .link-2:hover {
+    background-color: #f8fafc !important;
+}
+.aside-sidebar .link-2 .sidebar-text {
+    color: #475569 !important;
+    font-weight: 500 !important;
+}
+.aside-sidebar .link-2 img {
+    filter: none !important;
+}

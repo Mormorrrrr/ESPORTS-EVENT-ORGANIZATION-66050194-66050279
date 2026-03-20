@@ -13,78 +13,55 @@
 <body>
     <div class="admin-create-team">
         <!-- Header -->
-        <header class="header-top" role="banner">
-            <div class="container-16">
-                <img class="chatgpt-image" src="img/chatgpt-image-4-2569-15-54-45-removebg-preview-1.png"
-                    alt="KMITL ESPORT Logo" />
-                <div class="heading-wrapper">
-                    <div class="div-2">
-                        <div class="text-wrapper-14">KMITL ESPORT</div>
-                    </div>
-                </div>
-                <nav class="container-17" aria-label="Main navigation">
-                    <div class="div-2">
-                        <div class="text-7"><a href="../Dashboard Page 8/Dashboard_8.html" style="text-decoration: none; color: inherit;">Home</a></div>
-                    </div>
-                    <div class="div-2">
-                        <div class="text-8">Explore</div>
-                    </div>
-                    <div class="div-2">
-                        <div class="text-9">News</div>
-                    </div>
-                </nav>
+        <header class="header-top namespaced-header" role="banner">
+    <div class="ns-header-left">
+        <img class="ns-logo-img" src="../../../icons/Logo.png" alt="KMITL ESPORT Logo" />
+        <div class="ns-title-wrap">
+            <span class="ns-title-text">KMITL ESPORT</span>
+        </div>
+        <nav class="ns-main-nav" aria-label="Main navigation">
+            <a href="../TournamentList Page 9/TournamentList_9.html" class="ns-nav-link">Home</a>
+            <a href="#" class="ns-nav-link">Explore</a>
+            <a href="#" class="ns-nav-link">News</a>
+        </nav>
+    </div>
+    <div class="ns-header-right">
+        <label class="ns-search-box" aria-label="Search tournaments">
+            <div class="ns-search-bg">
+                <img class="ns-search-icon" src="../../../icons/search.svg" alt="Search icon" />
             </div>
-            <div class="container-18">
-                <label class="label" aria-label="Search tournaments">
-                    <div class="container-19">
-                        <div class="background-2">
-                            <div class="div-2"><img class="icon-7" src="img/icon-8.svg" alt="Search icon" /></div>
-                        </div>
-                        <div class="input-4">
-                            <div class="container-20">
-                                <input class="text-10" placeholder="Search tournaments..." type="search"
-                                    aria-label="Search tournaments" />
-                            </div>
-                        </div>
-                    </div>
-                </label>
-                <img class="image-background" src="img/image-background-border.svg" alt="User avatar" />
-            </div>
-        </header>
+            <input class="ns-search-input" placeholder="Search tournaments..." type="search" aria-label="Search tournaments" />
+        </label>
+        <img class="ns-user-avatar" src="../../../icons/user.svg" alt="User profile" />
+    </div>
+</header>
         <!-- Sidebar -->
+        
+        
+        
+        
+        
         <aside class="aside-sidebar" aria-label="Sidebar navigation">
-            <nav class="container-21">
-                <a class="link" href="../Dashboard Page 8/Dashboard_8.html" aria-label="Dashboard">
-                    <div class="uis-graph-bar-wrapper">
-                        <img class="uis-graph-bar" src="img/uis-graph-bar.svg" alt="Dashboard icon" />
-                    </div>
-                    <div class="div-2">
-                        <div class="text-wrapper-15">Dashboard</div>
-                    </div>
+            <nav class="sidebar-nav-container">
+                <a class="link-2" href="../Dashboard Page 8/Dashboard_8.html" aria-label="Dashboard">
+                    <img src="../../../icons/stats.svg" alt="Dashboard icon" style="width:20px; height:20px;" />
+                    <span class="sidebar-text">Dashboard</span>
                 </a>
-                <a class="link" href="../TournamentList Page 9/TournamentList_9.html" aria-label="Tournament">
-                    <div class="div-2"><img class="icon-8" src="img/icon.svg" alt="Tournament icon" /></div>
-                    <div class="container-22">
-                        <div class="text-wrapper-16">Tournament</div>
-                    </div>
+                <a class="link-2" href="../TournamentList Page 9/TournamentList_9.html" aria-label="Tournament">
+                    <img src="../../../icons/trophy-star.svg" alt="Tournament icon" style="width:20px; height:20px;" />
+                    <span class="sidebar-text">Tournament</span>
                 </a>
-                <a class="link-2" href="../TeamList Page 12/TeamList_12.html" aria-label="Teams" aria-current="page">
-                    <div class="div-2"><img class="icon-3" src="img/icon-9.svg" alt="Teams icon" /></div>
-                    <div class="div-2">
-                        <div class="text-wrapper-17">Teams</div>
-                    </div>
+                <a class="link" href="../TeamList Page 12/TeamList_12.html" aria-label="Teams">
+                    <img src="../../../icons/users.svg" alt="Teams icon" style="width:20px; height:20px;" />
+                    <span class="sidebar-text">Teams</span>
                 </a>
-                <a class="link-3" href="#" aria-label="About">
-                    <div class="div-2"><img class="icon-9" src="img/icon-7.svg" alt="About icon" /></div>
-                    <div class="div-2">
-                        <div class="text-11">About</div>
-                    </div>
+                <a class="link-2" href="#" aria-label="About">
+                    <img src="../../../icons/info.svg" alt="About icon" style="width:20px; height:20px;" />
+                    <span class="sidebar-text">About</span>
                 </a>
-                <a class="link-3" href="#" aria-label="Settings">
-                    <div class="div-2"><img class="icon-10" src="img/icon-13.svg" alt="Settings icon" /></div>
-                    <div class="div-2">
-                        <div class="text-12">Settings</div>
-                    </div>
+                <a class="link-2" href="#" aria-label="Settings">
+                    <img src="../../../icons/settings.svg" alt="Settings icon" style="width:20px; height:20px;" />
+                    <span class="sidebar-text">Settings</span>
                 </a>
             </nav>
         </aside>
@@ -112,7 +89,7 @@
         <section class="group" aria-label="Tournament selection">
             <div class="rectangle"></div>
             <div class="frame">
-                <div class="button" aria-hidden="true"><img class="img" src="img/icon-14.svg" alt="" /></div>
+                <div class="button" aria-hidden="true"><img class="img" src="../../../icons/users.svg" alt="" /></div>
                 <div class="text-wrapper-5">Select Tournament</div>
             </div>
             <div class="text-wrapper-3">Choose an active event</div>
@@ -121,7 +98,7 @@
                 <div class="container-wrapper">
                     <div class="container-2">
                         <div class="text-wrapper-4" id="selected-tournament">Select tournaments</div>
-                        <div class="icon-wrapper"><img class="icon" src="img/icon-12.svg" alt="Dropdown arrow" /></div>
+                        <div class="icon-wrapper"><img class="icon" src="../../../icons/arrow-right.svg" alt="Dropdown arrow" style="transform: rotate(90deg);" /></div>
                     </div>
                 </div>
                 <div id="tournament-list" style="display: none; position: absolute; top: 100%; left: 0; width: 100%; background: white; border: 1px solid #e2e8f0; border-radius: 12px; z-index: 1000; margin-top: 4px; max-height: 280px; overflow-y: auto; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);">
@@ -141,7 +118,7 @@
         <!-- Upload Banner -->
         <section class="overlay-border" aria-label="Upload team banner" id="banner-dropzone" style="overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;">
             <div id="upload-placeholder" style="display: contents;">
-                <img class="icon-2" src="img/icon-4.svg" alt="Upload icon" />
+                <img class="icon-2" src="../../../icons/cloud-upload-alt.svg" alt="Upload icon" />
                 <div class="container-3">
                     <div class="div-wrapper">
                         <p class="p">Click button to enter Image URL</p>
@@ -174,7 +151,7 @@
         <!-- Team Details Form -->
         <section class="section-step-team" aria-label="Team details form">
             <div class="container-4">
-                <div class="img-wrapper"><img class="icon-3" src="img/icon-10.svg" alt="Team icon" /></div>
+                <div class="img-wrapper"><img class="icon-3" src="../../../icons/users.svg" alt="Team icon" /></div>
                 <div class="div-2">
                     <div class="text-4">Team Details</div>
                 </div>
@@ -205,7 +182,7 @@
                                 <input class="container-8" placeholder="Full name of leader" type="text" id="input-1"
                                     aria-label="Team leader full name" />
                             </div>
-                            <div class="container-9"><img class="icon-4" src="img/icon-5.svg" alt="Leader icon" /></div>
+                            <div class="container-9"><img class="icon-4" src="../../../icons/users.svg" alt="Leader icon" /></div>
                         </div>
                     </div>
                 </fieldset>
@@ -220,7 +197,7 @@
                                 <input class="container-11" placeholder="Member 1 Name" type="text"
                                     aria-label="Member 1 name" />
                             </div>
-                            <div class="container-12"><img class="icon-5" src="img/icon-11.svg" alt="Member icon" />
+                            <div class="container-12"><img class="icon-5" src="../../../icons/users.svg" alt="Member icon" />
                             </div>
                         </div>
                         <div class="div-3">
@@ -228,7 +205,7 @@
                                 <input class="container-11" placeholder="Member 2 Name" type="text"
                                     aria-label="Member 2 name" />
                             </div>
-                            <div class="container-12"><img class="icon-5" src="img/icon-2.svg" alt="Member icon" />
+                            <div class="container-12"><img class="icon-5" src="../../../icons/users.svg" alt="Member icon" />
                             </div>
                         </div>
                         <div class="div-3">
@@ -236,14 +213,14 @@
                                 <input class="container-11" placeholder="Member 3 Name" type="text"
                                     aria-label="Member 3 name" />
                             </div>
-                            <div class="container-12"><img class="icon-5" src="img/image.svg" alt="Member icon" /></div>
+                            <div class="container-12"><img class="icon-5" src="../../../icons/users.svg" alt="Member icon" /></div>
                         </div>
                         <div class="div-3">
                             <div class="input-3">
                                 <input class="container-11" placeholder="Member 4 Name" type="text"
                                     aria-label="Member 4 name" />
                             </div>
-                            <div class="container-12"><img class="icon-5" src="img/icon-3.svg" alt="Member icon" />
+                            <div class="container-12"><img class="icon-5" src="../../../icons/users.svg" alt="Member icon" />
                             </div>
                         </div>
                     </div>
@@ -255,13 +232,13 @@
                     <p class="text-5">* All members must be registered on the platform to play.</p>
                 </div>
                 <div class="container-13">
-                    <button class="button-3" type="button" aria-label="Cancel team creation">
+                    <button class="button-3" type="button" aria-label="Cancel team creation" onclick="location.href='../TeamList Page 12/TeamList_12.html'">
                         <div class="text-wrapper-9">Cancle</div>
                     </button>
-                    <button class="button-4" type="submit" aria-label="Continue to step 2">
+                    <button class="button-4" type="button" aria-label="Continue to step 2" onclick="location.href='../CreateTeamStep2 Page 16/CreateTeamStep2_16.html'">
                         <div class="button-shadow"></div>
                         <div class="text-6">Continue to Step 2</div>
-                        <div class="container-14"><img class="icon-6" src="img/icon-6.svg" alt="Arrow icon" /></div>
+                        <div class="container-14"><img class="icon-6" src="../../../icons/arrow-right.svg" alt="Arrow icon" /></div>
                     </button>
                 </div>
             </div>

@@ -697,15 +697,17 @@
 .admin-create-team .button-3 {
     all: unset;
     box-sizing: border-box;
-    flex-direction: column;
-    padding: 16px 32px;
-    background-color: #f1f5f9;
-    border-radius: 48px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    min-width: 160px;
+    height: 54px;
+    padding: 0 32px;
+    background-color: #f1f5f9;
+    border-radius: 9999px;
     position: relative;
-    flex: 0 0 auto;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .admin-create-team .text-wrapper-9 {
@@ -729,15 +731,17 @@
 .admin-create-team .button-4 {
     all: unset;
     box-sizing: border-box;
-    gap: 8px;
-    padding: 16px 48px;
-    background-color: #ff8c00;
-    border-radius: 48px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    min-width: 160px;
+    height: 54px;
+    padding: 0 32px;
+    background-color: #ff8c00;
+    border-radius: 9999px;
     position: relative;
-    flex: 0 0 auto;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .admin-create-team .button-shadow {
@@ -2013,16 +2017,17 @@
 .admin-create-team .button-3 {
     all: unset;
     box-sizing: border-box;
-    flex-direction: column;
-    padding: 16px 32px;
-    background-color: #f1f5f9;
-    border-radius: 48px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    min-width: 160px;
+    height: 54px;
+    padding: 0 32px;
+    background-color: #f1f5f9;
+    border-radius: 9999px;
     position: relative;
-    flex: 0 0 auto;
     cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .admin-create-team .text-wrapper-9 {
@@ -2046,16 +2051,17 @@
 .admin-create-team .button-4 {
     all: unset;
     box-sizing: border-box;
-    gap: 8px;
-    padding: 16px 48px;
-    background-color: #ff8c00;
-    border-radius: 48px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    min-width: 160px;
+    height: 54px;
+    padding: 0 32px;
+    background-color: #ff8c00;
+    border-radius: 9999px;
     position: relative;
-    flex: 0 0 auto;
     cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .admin-create-team .button-shadow {
@@ -2583,4 +2589,266 @@
     display: flex;
     align-items: center;
     margin-top: -1.00px;
+}
+
+/* Admin UI Consistency Overrides - Standardized Sidebars & Add Buttons */
+[class*="aside-sidebar"] img, 
+[class*="aside-sidebar"] .uis-graph-bar, 
+[class*="aside-sidebar"] [class*="icon-"], 
+[class*="aside-sidebar"] .img {
+    width: 16px !important;
+    height: 16px !important;
+    object-fit: contain !important;
+    max-width: 16px !important;
+    max-height: 16px !important;
+}
+
+/* Specific "Add" buttons in list views to avoid affecting Page 16 buttons */
+.button-plus, 
+.iconstack-io-plus {
+    width: 30px !important;
+    height: 30px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: 9999px !important;
+}
+
+.button-plus svg, 
+.iconstack-io-plus svg {
+    width: 20px !important;
+    height: 20px !important;
+}
+
+
+
+/* --- ROBUST SIDEBAR & CONTENT LAYOUT --- */
+.aside-sidebar {
+    display: flex !important;
+    width: 260px !important;
+    height: calc(100vh - 73px) !important;
+    position: fixed !important;
+    top: 73px !important;
+    left: 0 !important;
+    z-index: 1000 !important;
+    background-color: #ffffff !important;
+    border-right: 1px solid #e2e8f0 !important;
+    padding: 24px !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+}
+.sidebar-nav-container {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 12px !important;
+}
+.sidebar-nav-container .link, .sidebar-nav-container .link-2 {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 12px 16px !important;
+    border-radius: 48px !important;
+    text-decoration: none !important;
+    width: 100% !important;
+}
+.sidebar-nav-container .sidebar-text {
+    font-family: "Be Vietnam Pro", sans-serif !important;
+    font-size: 16px !important;
+    line-height: 24px !important;
+}
+.sidebar-nav-container .link { background-color: #ff8c00 !important; }
+.sidebar-nav-container .link .sidebar-text { color: #ffffff !important; font-weight: 700 !important; }
+.sidebar-nav-container .link img { filter: brightness(0) invert(1) !important; }
+.sidebar-nav-container .link-2 { background-color: transparent !important; }
+.sidebar-nav-container .link-2 .sidebar-text { color: #475569 !important; font-weight: 500 !important; }
+.sidebar-nav-container .link-2 img { filter: none !important; }
+
+
+/* Header z-index to stay above sidebar */
+header.header-top { 
+    z-index: 1001 !important;
+}
+
+
+
+
+/* --- ISOLATED NAMESPACED HEADER CSS --- */
+header.namespaced-header {
+    width: 100% !important;
+    height: 73px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 1000 !important;
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    padding: 0 24px !important;
+    box-sizing: border-box !important;
+}
+/* Left Section */
+header.namespaced-header .ns-header-left {
+    display: flex !important;
+    align-items: center !important;
+    gap: 32px !important;
+    margin-left: 16px !important; /* Left: 40px equivalent (24px padding + 16px) */
+}
+header.namespaced-header .ns-logo-img {
+    width: 117px !important;
+    height: 62px !important;
+    object-fit: contain !important;
+}
+header.namespaced-header .ns-title-text {
+    font-family: "Be Vietnam Pro-Bold", Helvetica !important;
+    font-weight: 700 !important;
+    color: #000000 !important;
+    font-size: 24px !important;
+    letter-spacing: -0.60px !important;
+}
+header.namespaced-header .ns-main-nav {
+    display: flex !important;
+    gap: 24px !important;
+}
+header.namespaced-header .ns-nav-link {
+    font-family: "Be Vietnam Pro-SemiBold", Helvetica !important;
+    font-weight: 600 !important;
+    color: #334155 !important;
+    font-size: 14px !important;
+    text-decoration: none !important;
+}
+/* Right Section */
+header.namespaced-header .ns-header-right {
+    display: flex !important;
+    align-items: center !important;
+    gap: 24px !important;
+}
+header.namespaced-header .ns-search-box {
+    display: flex !important;
+    align-items: center !important;
+    background-color: #f1f5f9 !important;
+    border-radius: 48px !important;
+    padding: 8px 16px !important;
+    gap: 8px !important;
+}
+header.namespaced-header .ns-search-bg {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+header.namespaced-header .ns-search-icon {
+    width: 16px !important;
+    height: 16px !important;
+}
+header.namespaced-header .ns-search-input {
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    font-family: "Be Vietnam Pro-Medium", Helvetica !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    color: #0f172a !important;
+    width: 200px !important;
+}
+header.namespaced-header .ns-user-avatar {
+    width: 40px !important;
+    height: 40px !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    object-fit: cover !important;
+    border-radius: 50% !important;
+}
+/* Disable any native global overrides affecting header-top */
+header.header-top * {
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    border: none;
+}
+
+
+/* --- FORM FIELD SPACING FIX --- */
+/* Fix radio buttons overlapping texts */
+.format-option .div, .input-4 .container-13, .input-4 {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    height: auto !important;
+}
+.format-option .div-2, .input-4 .div-2, .icon-wrapper {
+    height: auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+/* Ensure texts scale naturally to prevent overlaps */
+.format-option span, .format-option p, 
+.input-4 input, .input-5 select {
+    height: auto !important;
+    line-height: normal !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+/* Fix Duration input icon alignment */
+.input-4 {
+    flex-direction: row !important;
+    align-items: center !important;
+    padding-right: 12px !important;
+}
+.input-4 .container-13 {
+    flex: 1 !important;
+}
+.icon-wrapper {
+    margin: 0 !important;
+    position: relative !important;
+}
+
+
+/* --- FORM SECTION FLEXIBILITY FIX --- */
+/* Completely remove brittle rigid heights that cause vertical overlaps */
+.form-section, .basic-info, .banner-upload, .format-rules, 
+.admin-create-team .div, .progress-stepper-2, .summary-card, 
+.team-identity, .team-members, .registration-details, .contact-info,
+.container-10, .container-11, .container-12 {
+    height: auto !important;
+    max-height: none !important;
+    min-height: min-content !important;
+}
+
+/* Allow the main wrapper to expand smoothly */
+body, html, .admin-create, .admin-create-team, .admin-team, .frame, .group {
+    height: auto !important;
+    min-height: 100vh !important;
+}
+
+/* Ensure sections push other elements down naturally */
+.banner-upload, .format-rules, .basic-info {
+    flex: none !important; /* Stop them from crunching up into proportions */
+}
+
+
+/* --- FORM SPACING & BUTTON SIZE REFINEMENTS --- */
+/* 1. Spacing: Prevent sections from sticking together */
+.container-8 {
+    gap: 32px !important; /* Main wrapper for form sections */
+}
+.basic-info, .banner-upload, .format-rules, .progress-stepper-2, .summary-card, .team-identity, .team-members {
+    margin-bottom: 32px !important;
+}
+.container-10 {
+    gap: 16px !important; /* Spacing between label and input */
+}
+
+/* 2. Button Size: Reduce thickness and font size */
+.button-2, .button-3, .button-submit {
+    padding: 12px 32px !important; /* Reduced from 16px 40px */
+    height: auto !important;
+}
+.button-2 span, .button-3 span, .button-submit span {
+    font-size: 14px !important; /* Reduced from 16px */
+    line-height: 20px !important;
 }

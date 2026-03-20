@@ -13,83 +13,56 @@
 <body>
     <div class="admin-dashboard">
         <!-- Header -->
-        <header class="header-top" role="banner">
-            <div class="container">
-                <img class="chatgpt-image" src="../../../icons/Logo.png"
-                    alt="KMITL ESPORT Logo" />
-                <div class="div">
-                    <div class="div-2">
-                        <span class="text-wrapper">KMITL ESPORT</span>
-                    </div>
-                </div>
-                <nav class="container-2" aria-label="Main navigation">
-                    <div class="div-2"><a class="text" href="Dashboard_8.html" style="text-decoration: none; color: inherit;">Home</a></div>
-                    <div class="div-2"><span class="text-2">Explore</span></div>
-                    <div class="div-2"><span class="text-3">News</span></div>
-                </nav>
+        <header class="header-top namespaced-header" role="banner">
+    <div class="ns-header-left">
+        <img class="ns-logo-img" src="../../../icons/Logo.png" alt="KMITL ESPORT Logo" />
+        <div class="ns-title-wrap">
+            <span class="ns-title-text">KMITL ESPORT</span>
+        </div>
+        <nav class="ns-main-nav" aria-label="Main navigation">
+            <a href="../TournamentList Page 9/TournamentList_9.html" class="ns-nav-link">Home</a>
+            <a href="#" class="ns-nav-link">Explore</a>
+            <a href="#" class="ns-nav-link">News</a>
+        </nav>
+    </div>
+    <div class="ns-header-right">
+        <label class="ns-search-box" aria-label="Search tournaments">
+            <div class="ns-search-bg">
+                <img class="ns-search-icon" src="../../../icons/search.svg" alt="Search icon" />
             </div>
-            <div class="container-3">
-                <label class="label" aria-label="Search tournaments">
-                    <div class="container-4">
-                        <div class="background">
-                            <div class="div-2">
-                                <img class="icon" src="img/icon.svg" alt="Search icon" />
-                            </div>
-                        </div>
-                        <div class="input">
-                            <div class="div-wrapper">
-                                <input class="text-4" placeholder="Search tournaments..." type="search"
-                                    aria-label="Search tournaments" />
-                            </div>
-                        </div>
-                    </div>
-                </label>
-                <img class="image-background" src="img/image-background-border.svg" alt="User avatar" />
-            </div>
-        </header>
+            <input class="ns-search-input" placeholder="Search tournaments..." type="search" aria-label="Search tournaments" />
+        </label>
+        <img class="ns-user-avatar" src="../../../icons/user.svg" alt="User profile" />
+    </div>
+</header>
 
         <!-- Sidebar -->
+        
+        
+        
+        
+        
         <aside class="aside-sidebar" aria-label="Sidebar navigation">
-            <nav class="container-5">
-                <a class="link" href="Dashboard_8.html" aria-current="page">
-                    <div class="uis-graph-bar-wrapper">
-                        <img class="uis-graph-bar" src="../../../icons/stats.svg" alt="Dashboard icon" />
-                    </div>
-                    <div class="div-2">
-                        <span class="text-wrapper-2">Dashboard</span>
-                    </div>
+            <nav class="sidebar-nav-container">
+                <a class="link" href="Dashboard_8.html" aria-label="Dashboard">
+                    <img src="../../../icons/stats.svg" alt="Dashboard icon" style="width:20px; height:20px;" />
+                    <span class="sidebar-text">Dashboard</span>
                 </a>
-                <a class="link-2" href="../TournamentList Page 9/TournamentList_9.html">
-                    <div class="div-2">
-                        <img class="img" src="../../../icons/trophy-star.svg" alt="Tournament icon" />
-                    </div>
-                    <div class="container-6">
-                        <span class="text-wrapper-3">Tournament</span>
-                    </div>
+                <a class="link-2" href="../TournamentList Page 9/TournamentList_9.html" aria-label="Tournament">
+                    <img src="../../../icons/trophy-star.svg" alt="Tournament icon" style="width:20px; height:20px;" />
+                    <span class="sidebar-text">Tournament</span>
                 </a>
-                <a class="link-2" href="../TeamList Page 12/TeamList_12.html">
-                    <div class="div-2">
-                        <img class="icon-2" src="../../../icons/users.svg" alt="Teams icon" />
-                    </div>
-                    <div class="div-2">
-                        <span class="text-5">Teams</span>
-                    </div>
+                <a class="link-2" href="../TeamList Page 12/TeamList_12.html" aria-label="Teams">
+                    <img src="../../../icons/users.svg" alt="Teams icon" style="width:20px; height:20px;" />
+                    <span class="sidebar-text">Teams</span>
                 </a>
-                <a class="link-2" href="#">
-                    <div class="div-2">
-                        <img class="icon-3" src="../../../icons/info.svg" alt="About icon" />
-                    </div>
-                    <div class="div-2">
-                        <span class="text-6">About</span>
-                    </div>
+                <a class="link-2" href="#" aria-label="About">
+                    <img src="../../../icons/info.svg" alt="About icon" style="width:20px; height:20px;" />
+                    <span class="sidebar-text">About</span>
                 </a>
-                <a class="link-2" href="#">
-                    <div class="div-2">
-                        <img class="icon-4" src="../../../icons/settings.svg" alt="Settings icon" />
-                    </div>
-                    <div class="div-2">
-                        <span class="text-7">Settings</span>
-                    </div>
+                <a class="link-2" href="#" aria-label="Settings">
+                    <img src="../../../icons/settings.svg" alt="Settings icon" style="width:20px; height:20px;" />
+                    <span class="sidebar-text">Settings</span>
                 </a>
             </nav>
         </aside>
@@ -98,10 +71,10 @@
         <main class="frame">
             <div class="container-7">
                 <!-- Stats Grid -->
-                <section class="stats-grid" aria-label="Statistics overview">
+                                <section class="stats-grid" aria-label="Statistics overview">
                     <article class="background-border" onclick="window.location.href='../TournamentList Page 9/TournamentList_9.html'" style="cursor: pointer;">
                         <div class="overlay">
-                            <img class="icon-5" src="img/icon-5.svg" alt="Tournaments icon" />
+                            <img class="icon-5" src="../../../icons/trophy-star.svg" alt="Tournaments icon" />
                         </div>
                         <div class="container-8">
                             <span class="text-wrapper-4">Total Tournaments</span>
@@ -112,24 +85,24 @@
                     </article>
                     <article class="background-border" onclick="window.location.href='../TeamList Page 12/TeamList_12.html'" style="cursor: pointer;">
                         <div class="overlay">
-                            <img class="icon-6" src="img/icon-9.svg" alt="Teams icon" />
+                            <img class="icon-5" src="../../../icons/users.svg" alt="Teams icon" />
                         </div>
                         <div class="container-8">
-                            <span class="text-9">Total Teams</span>
+                            <span class="text-wrapper-4">Total Teams</span>
                         </div>
                         <div class="heading">
-                            <span class="text-10" id="total-teams">0</span>
+                            <span class="text-8" id="total-teams">0</span>
                         </div>
                     </article>
-                    <article class="background-border-2">
+                    <article class="background-border">
                         <div class="overlay">
-                            <img class="icon-3" src="img/icon-7.svg" alt="Players icon" />
+                            <img class="icon-5" src="../../../icons/users.svg" alt="Players icon" />
                         </div>
                         <div class="container-8">
-                            <span class="text-11">Total Players</span>
+                            <span class="text-wrapper-4">Total Players</span>
                         </div>
                         <div class="heading">
-                            <span class="text-12" id="total-players">0</span>
+                            <span class="text-8" id="total-players">0</span>
                         </div>
                     </article>
                 </section>
@@ -139,13 +112,13 @@
                     <div class="matches-header">
                         <div class="heading-2">
                             <div class="icon-wrapper">
-                                <img class="icon-7" src="img/icon-2.svg" alt="Upcoming matches icon" />
+                                <img class="icon-7" src="../../../icons/calendar-day.svg" alt="Upcoming matches icon" />
                             </div>
                             <h2 class="text-wrapper-5">Upcoming Matches</h2>
                         </div>
                         <button class="button" type="button" onclick="window.location.href='../MatchViewAll Page 19/matchviewall_19.html'">
                             <span class="text-wrapper-7">View All</span>
-                            <img class="icon-8" src="img/image.svg" alt="Arrow" />
+                            <img class="icon-8" src="../../../icons/arrow-right.svg" alt="Arrow" />
                         </button>
                     </div>
                     
