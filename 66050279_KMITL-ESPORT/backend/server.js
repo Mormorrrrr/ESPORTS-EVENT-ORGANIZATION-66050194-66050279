@@ -299,26 +299,69 @@ app.put("/tournaments/:id", async (req, res) => {
 });
 
 // DELETE TOURNAMENT
-
 app.delete("/tournaments/:id", async (req, res) => {
   const id = parseInt(req.params.id);
-  
   try {
-    // Delete related applications first to prevent foreign key errors
+    // Delete related applications first
     await prisma.application.deleteMany({
       where: { tournament_id: id },
     });
-    
+    // Delete related matches
+    await prisma.match.deleteMany({
+      where: { tournament_id: id },
+    });
     await prisma.tournament.delete({
       where: { tournament_id: id },
     });
-    
     res.json({ message: "ลบ Tournament สำเร็จ" });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "ลบ Tournament ไม่สำเร็จ" });
   }
 });
+
+// GET MATCHES BY TOURNAMENT
+app.get("/tournaments/:id/matches", async (req, res) => {
+  const tournamentId = parseInt(req.params.id);
+  try {
+    const matches = await prisma.match.findMany({
+      where: { tournament_id: tournamentId },
+      orderBy: [{ round: 'asc' }, { position: 'asc' }]
+    });
+    res.json(matches);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "ดึงข้อมูลการแข่งขันไม่สำเร็จ" });
+  }
+});
+
+// SAVE/UPDATE MATCHES FOR TOURNAMENT
+app.post("/tournaments/:id/matches/save", async (req, res) => {
+  const tournamentId = parseInt(req.params.id);
+  const { matches } = req.body; 
+
+  try {
+    await prisma.match.deleteMany({ where: { tournament_id: tournamentId } });
+    if (matches && matches.length > 0) {
+      await prisma.match.createMany({
+        data: matches.map(m => ({
+          tournament_id: tournamentId,
+          team1_name: m.team1_name,
+          team2_name: m.team2_name,
+          score1: m.score1,
+          score2: m.score2,
+          round: m.round,
+          position: m.position
+        }))
+      });
+    }
+    res.json({ message: "บันทึกข้อมูลการแข่งขันสำเร็จ" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "บันทึกข้อมูลการแข่งขันไม่สำเร็จ" });
+  }
+});
+
 
 // APPLY TOURNAMENT
 

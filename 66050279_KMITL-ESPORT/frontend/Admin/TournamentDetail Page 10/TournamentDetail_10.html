@@ -8,6 +8,130 @@
     <link rel="stylesheet" href="globals10.css" />
     <link rel="stylesheet" href="styleguide10.css" />
     <link rel="stylesheet" href="style10.css" />
+    <!-- jQuery Bracket -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Custom Bracket Styles */
+        .match-row {
+            display: flex;
+            align-items: center;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            padding: 8px 12px;
+            width: 250px;
+            justify-content: space-between;
+        }
+        .team-name {
+            font-weight: 600;
+            color: #1e293b;
+            flex-grow: 1;
+        }
+        .score-input {
+            width: 40px;
+            text-align: center;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            padding: 4px;
+            font-weight: 700;
+            color: #2563eb;
+        }
+        .round-column {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            min-height: 400px;
+        }
+        .bracket-flex {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            overflow-x: auto;
+            padding: 20px;
+        }
+    </style>
+    <style>
+        /* Modernized jQuery Bracket Styles */
+        #bracket {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background: transparent;
+        }
+
+        .jBracket .round {
+            margin-right: 40px;
+        }
+
+        .jBracket .match {
+            margin-bottom: 20px;
+        }
+
+        .jBracket .team {
+            background-color: #f8fafc !important;
+            border: 1px solid #e2e8f0 !important;
+            border-radius: 8px !important;
+            color: #1e293b !important;
+            padding: 8px 12px !important;
+            font-weight: 500 !important;
+        }
+
+        .jBracket .team.win {
+            background-color: #fff7ed !important;
+            border-color: #fdba74 !important;
+            color: #c2410c !important;
+        }
+
+        .jBracket .team b {
+            color: #64748b !important;
+            font-weight: 600 !important;
+        }
+
+        .jBracket .team.win b {
+            color: #ea580c !important;
+        }
+
+        .jBracket .connector {
+            border-color: #cbd5e1 !important;
+        }
+
+        .jBracket .match.win .connector {
+            border-color: #fb923c !important;
+        }
+
+        /* Centering the bracket content */
+        .gracket {
+            margin: 0 auto;
+        }
+
+        .bracket-container {
+            position: absolute !important;
+            top: 950px !important;
+            left: 337px !important;
+            width: calc(100% - 700px) !important;
+            background: white !important;
+            padding: 40px !important;
+            border-radius: 20px !important;
+            border: 1px solid #e2e8f0 !important;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1) !important;
+            min-height: 500px !important;
+            display: block !important;
+            overflow: visible !important;
+            z-index: 10 !important;
+        }
+        /* Force bracket visibility */
+        .jBracket * {
+            color: #1e293b !important;
+            font-family: inherit !important;
+        }
+        .jBracket .team {
+            background-color: #f8fafc !important;
+            border: 1px solid #cbd5e1 !important;
+        }
+        .jBracket .score {
+            background-color: #e2e8f0 !important;
+            color: #2563eb !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -141,51 +265,192 @@
         <!-- Tournament Bracket Heading -->
         <div class="heading-2">
             <div class="div">
-                <img class="streamline-ultimate" src="../../../icons/users.svg" alt="Fistbump icon" style="width: 48px; height: 48px;" />
-                    alt="Tournament bracket icon" />
+                <img class="streamline-ultimate" src="../../../icons/users.svg" alt="Tournament bracket icon" style="width: 48px; height: 48px;" />
             </div>
-            <h2 class="text-wrapper">Tournament Backet</h2>
+            <h2 class="text-wrapper">Tournament Bracket</h2>
         </div>
-        <div id="match-list-container">
-            <!-- Matches will be dynamically loaded here -->
-            <p style="text-align:center; color:#94a3b8; padding: 40px;">Tournament Bracket and Matches will appear here.</p>
+        <div class="bracket-container" id="match-list-container">
+            <div id="bracket-diagnostic" style="margin-bottom:10px; font-size:12px; color:#94a3b8;"></div>
+            <div id="bracket" style="margin:0; padding:0;"></div>
+            <div style="margin-top:20px; text-align:right;">
+                <span id="save-status" style="margin-right:15px; font-weight:600; font-size:14px;"></span>
+                <button id="save-bracket-btn" style="background:#2563eb; color:white; border:none; padding:10px 24px; border-radius:10px; font-weight:600; cursor:pointer; transition:all 0.2s;">
+                    Save Match Results
+                </button>
+            </div>
         </div>
 
+        <script>
+            document.addEventListener('DOMContentLoaded', async () => {
+                const urlParams = new URLSearchParams(window.location.search);
+                const tournamentId = urlParams.get('id');
+                const $bracket = $('#bracket');
+                
+                // Debug: Highlight the container
+                $bracket.parent().css('border', '1px dashed #ccc');
 
-        <!-- Championship Match -->
-        <section class="background-5" aria-label="Championship Match">
-            <div class="overlay-shadow" aria-hidden="true"></div>
-            <div class="background-6">
-                <div class="horizontal-border">
-                    <div class="div"><span class="text-26">WINNER OF MATCH 5</span></div>
-                    <div class="container-11">
-                        <div class="div"><span class="text-27">TBD</span></div>
-                        <div class="div"><span class="text-28">0</span></div>
-                    </div>
-                </div>
-                <div class="container-12">
-                    <div class="div"><span class="text-29">WINNER OF MATCH 6</span></div>
-                    <div class="container-11">
-                        <div class="div"><span class="text-27">TBD</span></div>
-                        <div class="div"><span class="text-28">0</span></div>
-                    </div>
-                </div>
-                <div class="background-7"><span class="text-30">CHAMPIONSHIP MATCH</span></div>
-            </div>
-            <div class="trophy-icon" aria-hidden="true"><span class="text-31">emoji_events</span></div>
-        </section>
-        <!-- Bracket Connectors -->
-        <div class="border" aria-hidden="true">
-            <div class="background-8"></div>
-        </div>
-        <div class="background-wrapper" aria-hidden="true">
-            <div class="background-9"></div>
-        </div>
-        <div class="connectors-SF-to-f" aria-hidden="true">
-            <div class="overlay-border">
-                <div class="background-shadow"></div>
-            </div>
-        </div>
+                if (!tournamentId) {
+                    $bracket.html('<p style="text-align:center; color:#94a3b8; padding: 40px;">No tournament ID provided. Please use ?id=1</p>');
+                    return;
+                }
+
+                try {
+                    console.log('Fetching tournament:', tournamentId);
+                    const res = await fetch(`http://localhost:3000/tournaments/${tournamentId}`);
+                    const tournament = await res.json();
+                    
+                    $('.rov-KMITL-cup').text(tournament.tournament_name || 'Tournament');
+                    
+                    const teams = (tournament.applications || [])
+                        .filter(app => app.status === 'Approved')
+                        .map(app => app.team.team_name);
+
+                    if (teams.length === 0) {
+                        $bracket.html('<p style="text-align:center; color:#94a3b8; padding: 40px;">No approved teams yet.</p>');
+                        return;
+                    }
+
+                    const bracketTeams = [];
+                    for (let i = 0; i < teams.length; i += 2) {
+                        bracketTeams.push([teams[i], teams[i+1] || "TBD"]);
+                    }
+
+                    const matchesRes = await fetch(`http://localhost:3000/tournaments/${tournamentId}/matches`);
+                    const matches = await matchesRes.json();
+                    
+                    const bracketData = { 
+                        teams: bracketTeams,
+                        results: [] 
+                    };
+
+                    // Prepare results structure based on number of rounds
+                    const numRounds = Math.max(1, Math.ceil(Math.log2(teams.length)));
+                    for (let r = 0; r < numRounds; r++) {
+                        const round = [];
+                        const expectedMatches = Math.pow(2, numRounds - r - 1);
+                        for (let m = 0; m < expectedMatches; m++) round.push([null, null]);
+                        bracketData.results.push(round);
+                    }
+
+                    // Map existing matches from DB
+                    if (matches && matches.length > 0) {
+                        matches.forEach(m => {
+                            if (m.round <= numRounds && bracketData.results[m.round - 1]) {
+                                bracketData.results[m.round - 1][m.position] = [m.score1, m.score2];
+                            }
+                        });
+                    }
+
+                    console.log('Rendering Custom Interactive Bracket');
+                    $('#bracket-diagnostic').text(`Loaded ${teams.length} teams, ${matches.length} matches.`);
+
+                    const renderCustomBracket = () => {
+                        const numRounds = Math.max(1, Math.ceil(Math.log2(teams.length)));
+                        let html = '<div class="bracket-flex">';
+                        
+                        // ROUND 1
+                        html += '<div class="round-column"><h3>ROUND 1</h3>';
+                        for (let i = 0; i < teams.length; i += 2) {
+                            const team1 = teams[i];
+                            const team2 = teams[i+1] || "BYE";
+                            // Find existing scores
+                            const matchData = matches.find(m => m.round === 1 && m.position === (i/2));
+                            const score1 = matchData ? (matchData.score1 ?? "") : "";
+                            const score2 = matchData ? (matchData.score2 ?? "") : "";
+
+                            html += `
+                                <div class="match-container" data-round="1" data-pos="${i/2}">
+                                    <div class="match-row">
+                                        <span class="team-name">${team1}</span>
+                                        <input type="number" class="score-input s1" value="${score1}" placeholder="0">
+                                    </div>
+                                    <div class="match-row">
+                                        <span class="team-name">${team2}</span>
+                                        <input type="number" class="score-input s2" value="${score2}" placeholder="0">
+                                    </div>
+                                </div>
+                            `;
+                        }
+                        html += '</div>';
+
+                        // FINAL ROUND (Simplified for 4 teams demo or dynamically if needed)
+                        if (numRounds > 1) {
+                            html += '<div style="font-size: 24px; color: #cbd5e1;">▶</div>';
+                            html += '<div class="round-column"><h3>FINAL</h3>';
+                            const finalMatch = matches.find(m => m.round === 2 && m.position === 0);
+                            const fs1 = finalMatch ? (finalMatch.score1 ?? "") : "";
+                            const fs2 = finalMatch ? (finalMatch.score2 ?? "") : "";
+
+                            html += `
+                                <div class="match-container" data-round="2" data-pos="0">
+                                    <div class="match-row" style="background: #fff7ed; border-color: #fdba74;">
+                                        <span class="team-name" style="color: #c2410c;">TBD</span>
+                                        <input type="number" class="score-input s1" value="${fs1}" style="border-color: #fdba74;">
+                                    </div>
+                                    <div class="match-row" style="background: #fff7ed; border-color: #fdba74;">
+                                        <span class="team-name" style="color: #c2410c;">TBD</span>
+                                        <input type="number" class="score-input s2" value="${fs2}" style="border-color: #fdba74;">
+                                    </div>
+                                </div>
+                            `;
+                            html += '</div>';
+                        }
+
+                        html += '</div>';
+                        $bracket.html(html);
+                    };
+
+                    renderCustomBracket();
+
+                    // Manual Save Handling
+                    $('#save-bracket-btn').on('click', function() {
+                        const $status = $('#save-status');
+                        $status.text('Saving...').css('color', '#6b7280');
+
+                        const matchesToSave = [];
+                        $('.match-container').each(function() {
+                            const round = $(this).data('round');
+                            const pos = $(this).data('pos');
+                            const s1 = $(this).find('.s1').val();
+                            const s2 = $(this).find('.s2').val();
+
+                            if (s1 !== "" || s2 !== "") {
+                                matchesToSave.push({
+                                    score1: s1 === "" ? null : parseInt(s1),
+                                    score2: s2 === "" ? null : parseInt(s2),
+                                    round: round,
+                                    position: pos
+                                });
+                            }
+                        });
+
+                        console.log('Saving matches:', matchesToSave);
+
+                        fetch(`http://localhost:3000/tournaments/${tournamentId}/matches/save`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ matches: matchesToSave })
+                        })
+                        .then(res => res.json())
+                        .then(res => {
+                            $status.text('Saved successfully!').css('color', '#10b981');
+                            setTimeout(() => $status.text(''), 3000);
+                        })
+                        .catch(err => {
+                            $status.text('Save failed: ' + err.message).css('color', '#ef4444');
+                        });
+                    });
+
+                } catch (error) {
+                    console.error('Bracket Error:', error);
+                    $bracket.html('<p style="color:red; text-align:center; padding: 20px;">Error: ' + error.message + '</p>');
+                }
+            });
+        </script>
+
+
+        <!-- Removed manual bracket elements as they are now handled by jQuery Bracket -->
+
         <!-- Footer -->
         <footer class="footer-footer" role="contentinfo">
             <div class="container-13"><span class="text-wrapper-7">© 2026 KMITL ESPORT</span></div>

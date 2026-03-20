@@ -41,6 +41,7 @@ model Tournament {
   end_date        DateTime
 
   applications Application[]
+  matches      Match[]
 }
 
 model Application {
@@ -51,4 +52,16 @@ model Application {
 
   tournament Tournament @relation(fields: [tournament_id], references: [tournament_id])
   team       Team       @relation(fields: [team_id], references: [team_id])
+}
+
+model Match {
+  match_id      Int     @id @default(autoincrement())
+  tournament_id Int
+  team1_name    String?
+  team2_name    String?
+  score1        Int?
+  score2        Int?
+  round         Int     // Round number (1, 2, 3...)
+  position      Int     // Vertical position in the round (0, 1, 2...)
+  tournament    Tournament @relation(fields: [tournament_id], references: [tournament_id], onDelete: Cascade)
 }
