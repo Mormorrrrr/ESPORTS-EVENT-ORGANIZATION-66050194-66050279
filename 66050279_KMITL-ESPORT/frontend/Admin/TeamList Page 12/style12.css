@@ -463,9 +463,8 @@
     width: 100%;
     align-items: flex-start;
     gap: 16px;
-    position: absolute;
-    top: 47px;
-    left: 0;
+    position: relative;
+    margin-top: 24px;
 }
 
 .admin-team-list .tournament-card {

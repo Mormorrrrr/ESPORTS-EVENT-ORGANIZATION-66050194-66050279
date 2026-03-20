@@ -114,6 +114,17 @@ app.get("/users", async (req, res) => {
   }
 });
 
+// GET TEAMS
+
+app.get("/teams", async (req, res) => {
+  try {
+    const teams = await prisma.team.findMany();
+    res.json(teams);
+  } catch (error) {
+    res.status(500).json({ error: "ดึงข้อมูลทีมไม่ได้" });
+  }
+});
+
 // CREATE TEAM
 
 app.post("/teams", async (req, res) => {
