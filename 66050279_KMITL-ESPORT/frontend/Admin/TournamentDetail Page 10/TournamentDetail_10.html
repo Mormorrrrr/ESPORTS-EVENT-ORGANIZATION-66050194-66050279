@@ -11,125 +11,223 @@
     <!-- jQuery Bracket -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        /* Custom Bracket Styles */
-        .match-row {
-            display: flex;
-            align-items: center;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            padding: 8px 12px;
-            width: 250px;
-            justify-content: space-between;
-        }
-        .team-name {
-            font-weight: 600;
-            color: #1e293b;
-            flex-grow: 1;
-        }
-        .score-input {
-            width: 40px;
-            text-align: center;
-            border: 1px solid #cbd5e1;
-            border-radius: 4px;
-            padding: 4px;
-            font-weight: 700;
-            color: #2563eb;
-        }
+        /* Modern Tree-like Bracket Styles */
         .round-column {
             display: flex;
             flex-direction: column;
             justify-content: space-around;
-            min-height: 400px;
-        }
-        .bracket-flex {
-            display: flex;
-            gap: 40px;
-            align-items: center;
-            overflow-x: auto;
-            padding: 20px;
-        }
-    </style>
-    <style>
-        /* Modernized jQuery Bracket Styles */
-        #bracket {
-            font-family: 'Be Vietnam Pro', sans-serif;
-            background: transparent;
+            min-width: 250px;
         }
 
-        .jBracket .round {
-            margin-right: 40px;
-        }
-
-        .jBracket .match {
+        .round-column h3 {
+            text-align: center;
+            font-size: 14px;
+            color: #64748b;
             margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .jBracket .team {
-            background-color: #f8fafc !important;
-            border: 1px solid #e2e8f0 !important;
-            border-radius: 8px !important;
-            color: #1e293b !important;
-            padding: 8px 12px !important;
-            font-weight: 500 !important;
+        .match-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 10px 0;
+            width: 100%;
         }
 
-        .jBracket .team.win {
-            background-color: #fff7ed !important;
-            border-color: #fdba74 !important;
-            color: #c2410c !important;
+        .match-box {
+            display: flex;
+            flex-direction: column;
+            width: 200px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            z-index: 2;
         }
 
-        .jBracket .team b {
-            color: #64748b !important;
-            font-weight: 600 !important;
+        .team-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            border-bottom: 1px solid #f1f5f9;
+            height: 40px;
         }
 
-        .jBracket .team.win b {
-            color: #ea580c !important;
+        .team-row:last-child {
+            border-bottom: none;
         }
 
-        .jBracket .connector {
-            border-color: #cbd5e1 !important;
+        .team-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #334155;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex-grow: 1;
         }
 
-        .jBracket .match.win .connector {
-            border-color: #fb923c !important;
+        .score-input {
+            width: 35px;
+            height: 24px;
+            text-align: center;
+            border: 1px solid #cbd5e1;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #2563eb;
+            background: #f8fafc;
         }
 
-        /* Centering the bracket content */
-        .gracket {
-            margin: 0 auto;
+        .team-row.winner .team-name {
+            color: #15803d;
+            font-weight: 700;
+        }
+
+        .team-row.winner .score-input {
+            background: #dcfce7;
+            border-color: #86efac;
+            color: #15803d;
+        }
+
+        .team-row.bye,
+        .team-row.tbd {
+            background-color: #f8fafc;
+        }
+
+        .team-row.bye .team-name,
+        .team-row.tbd .team-name {
+            color: #94a3b8;
+            font-style: italic;
+        }
+
+        /* Premium touches */
+        .match-box {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .match-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-color: #2563eb;
+        }
+
+        /* Bracket Controls Style */
+        .bracket-controls {
+            position: absolute;
+            top: 60px;
+            left: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            z-index: 10;
+        }
+
+        .control-btn {
+            width: 32px;
+            height: 32px;
+            background: #475569;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .control-btn:hover {
+            background: #1e293b;
+            transform: scale(1.05);
+        }
+
+        .control-btn:active {
+            transform: scale(0.95);
+        }
+
+        .control-btn.de {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* Connectors */
+        .connector-right {
+            position: absolute;
+            right: 0;
+            width: 25px; /* Half of the 50px space between columns */
+            border-right: 2px solid #cbd5e1;
+            z-index: 1;
+        }
+
+        .match-wrapper:nth-child(odd) .connector-right {
+            top: 50%;
+            height: 50%;
+            border-top: 2px solid #cbd5e1;
+            border-radius: 0 12px 0 0;
+        }
+
+        .match-wrapper:nth-child(even) .connector-right {
+            top: 0;
+            height: 50%;
+            border-bottom: 2px solid #cbd5e1;
+            border-radius: 0 0 12px 0;
+        }
+
+        /* Special case for last round */
+        .round-column:last-child .connector-right {
+            display: none;
+        }
+
+        /* Input for next round */
+        .connector-left {
+            position: absolute;
+            left: 0;
+            width: 25px;
+            height: 2px;
+            background: #cbd5e1;
+            top: calc(50% - 1px);
+            z-index: 1;
+        }
+
+        .round-column:first-child .connector-left {
+            display: none;
+        }
+
+        .bracket-section {
+            position: absolute !important;
+            top: 910px !important;
+            left: 351px !important;
+            width: calc(100% - 380px) !important;
+            min-height: 600px !important;
+            z-index: 5 !important;
+            /* Reverting white box styling to allow bracket to float freely like original */
+            background: transparent !important;
+            border: none !important;
+            padding: 0 !important;
         }
 
         .bracket-container {
-            position: absolute !important;
-            top: 950px !important;
-            left: 337px !important;
-            width: calc(100% - 700px) !important;
-            background: white !important;
-            padding: 40px !important;
-            border-radius: 20px !important;
-            border: 1px solid #e2e8f0 !important;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1) !important;
-            min-height: 500px !important;
-            display: block !important;
-            overflow: visible !important;
-            z-index: 10 !important;
+            position: relative !important;
+            width: 100% !important;
+            overflow-x: auto !important;
+            min-height: 400px !important;
         }
-        /* Force bracket visibility */
-        .jBracket * {
-            color: #1e293b !important;
-            font-family: inherit !important;
-        }
-        .jBracket .team {
-            background-color: #f8fafc !important;
-            border: 1px solid #cbd5e1 !important;
-        }
-        .jBracket .score {
-            background-color: #e2e8f0 !important;
-            color: #2563eb !important;
+
+        /* Score input disabled for BYE */
+        .score-input:disabled {
+            background: #e2e8f0;
+            color: #94a3b8;
+            cursor: not-allowed;
+            border-color: #cbd5e1;
         }
     </style>
 </head>
@@ -138,40 +236,36 @@
     <div class="admin-tournament">
         <!-- Header -->
         <header class="header-top namespaced-header" role="banner">
-    <div class="ns-header-left">
-        <img class="ns-logo-img" src="../../../icons/Logo.png" alt="KMITL ESPORT Logo" />
-        <div class="ns-title-wrap">
-            <span class="ns-title-text">KMITL ESPORT</span>
-        </div>
-        <nav class="ns-main-nav" aria-label="Main navigation">
-            <a href="../Dashboard Page 8/Dashboard_8.html" class="ns-nav-link">Home</a>
-            <a href="#" class="ns-nav-link">Explore</a>
-            <a href="#" class="ns-nav-link">News</a>
-        </nav>
-    </div>
-    <div class="ns-header-right">
-        <label class="ns-search-box" aria-label="Search tournaments">
-            <div class="ns-search-bg">
-                <img class="ns-search-icon" src="../../../icons/search.svg" alt="Search icon" />
+            <div class="ns-header-left">
+                <img class="ns-logo-img" src="../../../icons/Logo.png" alt="KMITL ESPORT Logo" />
+                <div class="ns-title-wrap">
+                    <span class="ns-title-text">KMITL ESPORT</span>
+                </div>
+                <nav class="ns-main-nav" aria-label="Main navigation">
+                    <a href="../Dashboard Page 8/Dashboard_8.html" class="ns-nav-link">Home</a>
+                    <a href="#" class="ns-nav-link">Explore</a>
+                    <a href="#" class="ns-nav-link">News</a>
+                </nav>
             </div>
-            <input class="ns-search-input" placeholder="Search tournaments..." type="search" aria-label="Search tournaments" />
-        </label>
-        <img class="ns-user-avatar" src="../../../icons/user.svg" alt="User profile" />
-    </div>
-</header>
+            <div class="ns-header-right">
+                <label class="ns-search-box" aria-label="Search tournaments">
+                    <div class="ns-search-bg">
+                        <img class="ns-search-icon" src="../../../icons/search.svg" alt="Search icon" />
+                    </div>
+                    <input class="ns-search-input" placeholder="Search tournaments..." type="search" aria-label="Search tournaments" />
+                </label>
+                <img class="ns-user-avatar" src="../../../icons/user.svg" alt="User profile" />
+            </div>
+        </header>
+
         <!-- Sidebar -->
-        
-        
-        
-        
-        
         <aside class="aside-sidebar" aria-label="Sidebar navigation">
             <nav class="sidebar-nav-container">
-                <a class="link-2" href="../Dashboard Page 8/Dashboard_8.html" aria-label="Dashboard">
+                <a class="link" href="../Dashboard Page 8/Dashboard_8.html" aria-label="Dashboard">
                     <img src="../../../icons/stats.svg" alt="Dashboard icon" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Dashboard</span>
                 </a>
-                <a class="link" href="../TournamentList Page 9/TournamentList_9.html" aria-label="Tournament">
+                <a class="link-2" href="../TournamentList Page 9/TournamentList_9.html" aria-label="Tournament">
                     <img src="../../../icons/trophy-star.svg" alt="Tournament icon" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Tournament</span>
                 </a>
@@ -189,11 +283,13 @@
                 </a>
             </nav>
         </aside>
+
         <!-- Banner Image Preview -->
         <section class="banner-image-preview" aria-label="Tournament banner">
-            <img class="image-2" src="https://placehold.co/800x200?text=Rov+KMITL+Cup+2026" alt="Rov KMITL Cup 2026 banner" />
+            <img class="image-2" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=1200"
+                alt="Tournament banner background" />
             <div class="rov-KMITL-cup-wrapper">
-                <h1 class="rov-KMITL-cup">Rov KMITL&nbsp;&nbsp;Cup 2026</h1>
+                <h1 class="rov-KMITL-cup">Tournament</h1>
             </div>
         </section>
         <!-- Tournament Details Section -->
@@ -205,7 +301,8 @@
             <div class="container">
                 <div class="container-2">
                     <div class="background" aria-hidden="true">
-                        <div class="div"><img class="img" src="../../../icons/gamepad.svg" alt="Tournament type icon" /></div>
+                        <div class="div"><img class="img" src="../../../icons/gamepad.svg" alt="Tournament type icon" />
+                        </div>
                     </div>
                     <div class="container-3">
                         <div class="div-wrapper"><span class="text">TOURNAMENT TYPE</span></div>
@@ -214,7 +311,8 @@
                 </div>
                 <div class="container-4">
                     <div class="background" aria-hidden="true">
-                        <div class="div"><img class="icon-2" src="../../../icons/calendar-day.svg" alt="Duration icon" /></div>
+                        <div class="div"><img class="icon-2" src="../../../icons/calendar-day.svg"
+                                alt="Duration icon" /></div>
                     </div>
                     <div class="container-3">
                         <div class="div-wrapper"><span class="text-3">DURATION</span></div>
@@ -223,7 +321,8 @@
                 </div>
                 <div class="container-5">
                     <div class="background" aria-hidden="true">
-                        <div class="div"><img class="icon-3" src="../../../icons/pencil.svg" alt="Age range icon" /></div>
+                        <div class="div"><img class="icon-3" src="../../../icons/pencil.svg" alt="Age range icon" />
+                        </div>
                     </div>
                     <div class="container-3">
                         <div class="div-wrapper"><span class="text-5">AGE RANGE</span></div>
@@ -234,7 +333,8 @@
                 </div>
                 <div class="container-6">
                     <div class="background" aria-hidden="true">
-                        <div class="div"><img class="icon-4" src="../../../icons/trophy-star.svg" alt="Format icon" /></div>
+                        <div class="div"><img class="icon-4" src="../../../icons/trophy-star.svg" alt="Format icon" />
+                        </div>
                     </div>
                     <div class="container-3">
                         <div class="div-wrapper"><span class="text-6">FORMAT</span></div>
@@ -262,22 +362,31 @@
                 </div>
             </div>
         </section>
-        <!-- Tournament Bracket Heading -->
-        <div class="heading-2">
-            <div class="div">
-                <img class="streamline-ultimate" src="../../../icons/users.svg" alt="Tournament bracket icon" style="width: 48px; height: 48px;" />
+        <!-- Tournament Bracket Section -->
+        <div class="bracket-section">
+            <div class="heading-2" style="position: relative; top: 0; left: 0; margin-bottom: 24px;">
+                <div class="div">
+                    <img class="streamline-ultimate" src="../../../icons/users.svg" alt="Tournament bracket icon"
+                        style="width: 48px; height: 48px;" />
+                </div>
+                <h2 class="text-wrapper" style="font-size: 24px;">Tournament Bracket</h2>
             </div>
-            <h2 class="text-wrapper">Tournament Bracket</h2>
-        </div>
-        <div class="bracket-container" id="match-list-container">
-            <div id="bracket-diagnostic" style="margin-bottom:10px; font-size:12px; color:#94a3b8;"></div>
-            <div id="bracket" style="margin:0; padding:0;"></div>
+            <div class="bracket-container" id="match-list-container">
+            <div id="bracket-diagnostic" style="margin-bottom:10px; font-size:12px; color:#94a3b8; padding-left: 60px;"></div>
+            <div class="bracket-controls">
+                <button class="control-btn" id="btn-plus" title="Add Team">+</button>
+                <button class="control-btn" id="btn-minus" title="Remove Team">-</button>
+                <button class="control-btn de" id="btn-reset" title="Reset to Defaults">de</button>
+            </div>
+            <div id="bracket" style="margin:0; padding:0; padding-left: 60px;"></div>
             <div style="margin-top:20px; text-align:right;">
                 <span id="save-status" style="margin-right:15px; font-weight:600; font-size:14px;"></span>
-                <button id="save-bracket-btn" style="background:#2563eb; color:white; border:none; padding:10px 24px; border-radius:10px; font-weight:600; cursor:pointer; transition:all 0.2s;">
+                <button id="save-bracket-btn"
+                    style="background:#2563eb; color:white; border:none; padding:10px 24px; border-radius:10px; font-weight:600; cursor:pointer; transition:all 0.2s;">
                     Save Match Results
                 </button>
             </div>
+        </div>
         </div>
 
         <script>
@@ -285,7 +394,7 @@
                 const urlParams = new URLSearchParams(window.location.search);
                 const tournamentId = urlParams.get('id');
                 const $bracket = $('#bracket');
-                
+
                 // Debug: Highlight the container
                 $bracket.parent().css('border', '1px dashed #ccc');
 
@@ -298,9 +407,9 @@
                     console.log('Fetching tournament:', tournamentId);
                     const res = await fetch(`http://localhost:3000/tournaments/${tournamentId}`);
                     const tournament = await res.json();
-                    
+
                     $('.rov-KMITL-cup').text(tournament.tournament_name || 'Tournament');
-                    
+
                     const teams = (tournament.applications || [])
                         .filter(app => app.status === 'Approved')
                         .map(app => app.team.team_name);
@@ -312,15 +421,15 @@
 
                     const bracketTeams = [];
                     for (let i = 0; i < teams.length; i += 2) {
-                        bracketTeams.push([teams[i], teams[i+1] || "TBD"]);
+                        bracketTeams.push([teams[i], teams[i + 1] || "TBD"]);
                     }
 
                     const matchesRes = await fetch(`http://localhost:3000/tournaments/${tournamentId}/matches`);
                     const matches = await matchesRes.json();
-                    
-                    const bracketData = { 
+
+                    const bracketData = {
                         teams: bracketTeams,
-                        results: [] 
+                        results: []
                     };
 
                     // Prepare results structure based on number of rounds
@@ -344,71 +453,155 @@
                     console.log('Rendering Custom Interactive Bracket');
                     $('#bracket-diagnostic').text(`Loaded ${teams.length} teams, ${matches.length} matches.`);
 
-                    const renderCustomBracket = () => {
-                        const numRounds = Math.max(1, Math.ceil(Math.log2(teams.length)));
-                        let html = '<div class="bracket-flex">';
-                        
-                        // ROUND 1
-                        html += '<div class="round-column"><h3>ROUND 1</h3>';
-                        for (let i = 0; i < teams.length; i += 2) {
-                            const team1 = teams[i];
-                            const team2 = teams[i+1] || "BYE";
-                            // Find existing scores
-                            const matchData = matches.find(m => m.round === 1 && m.position === (i/2));
-                            const score1 = matchData ? (matchData.score1 ?? "") : "";
-                            const score2 = matchData ? (matchData.score2 ?? "") : "";
+                    // Store local matches to allow real-time updates
+                    let localMatches = [...matches];
+                    let currentTeamLimit = teams.length;
 
-                            html += `
-                                <div class="match-container" data-round="1" data-pos="${i/2}">
-                                    <div class="match-row">
-                                        <span class="team-name">${team1}</span>
-                                        <input type="number" class="score-input s1" value="${score1}" placeholder="0">
-                                    </div>
-                                    <div class="match-row">
-                                        <span class="team-name">${team2}</span>
-                                        <input type="number" class="score-input s2" value="${score2}" placeholder="0">
-                                    </div>
-                                </div>
-                            `;
-                        }
-                        html += '</div>';
+                    const renderTreeBracket = () => {
+                        const activeElementId = document.activeElement ? `${$(document.activeElement).closest('.match-container').data('round')}-${$(document.activeElement).closest('.match-container').data('pos')}-${$(document.activeElement).hasClass('s1') ? 's1' : 's2'}` : null;
 
-                        // FINAL ROUND (Simplified for 4 teams demo or dynamically if needed)
-                        if (numRounds > 1) {
-                            html += '<div style="font-size: 24px; color: #cbd5e1;">▶</div>';
-                            html += '<div class="round-column"><h3>FINAL</h3>';
-                            const finalMatch = matches.find(m => m.round === 2 && m.position === 0);
-                            const fs1 = finalMatch ? (finalMatch.score1 ?? "") : "";
-                            const fs2 = finalMatch ? (finalMatch.score2 ?? "") : "";
+                        const numRounds = Math.max(1, Math.ceil(Math.log2(currentTeamLimit)));
+                        const totalSlots = Math.pow(2, numRounds);
 
-                            html += `
-                                <div class="match-container" data-round="2" data-pos="0">
-                                    <div class="match-row" style="background: #fff7ed; border-color: #fdba74;">
-                                        <span class="team-name" style="color: #c2410c;">TBD</span>
-                                        <input type="number" class="score-input s1" value="${fs1}" style="border-color: #fdba74;">
-                                    </div>
-                                    <div class="match-row" style="background: #fff7ed; border-color: #fdba74;">
-                                        <span class="team-name" style="color: #c2410c;">TBD</span>
-                                        <input type="number" class="score-input s2" value="${fs2}" style="border-color: #fdba74;">
-                                    </div>
-                                </div>
-                            `;
-                            html += '</div>';
+                        const bracketState = [];
+                        for (let r = 0; r <= numRounds; r++) bracketState.push([]);
+
+                        let round1Participants = [];
+                        for (let i = 0; i < currentTeamLimit; i++) {
+                            round1Participants.push(teams[i] || `Team ${i + 1}`);
                         }
 
-                        html += '</div>';
-                        $bracket.html(html);
+                        while (round1Participants.length < totalSlots) round1Participants.push("BYE");
+                        for (let i = 0; i < totalSlots; i += 2) bracketState[1].push([round1Participants[i], round1Participants[i + 1]]);
+
+                        // Propagate winners through rounds
+                        for (let r = 1; r < numRounds; r++) {
+                            const currentRoundMatches = bracketState[r];
+                            const nextRoundMatches = [];
+                            for (let m = 0; m < currentRoundMatches.length; m += 2) {
+                                let winnerA = "TBD", winnerB = "TBD";
+                                const teamsA = currentRoundMatches[m];
+                                const teamsB = currentRoundMatches[m + 1] || ["TBD", "TBD"];
+
+                                // Winner A logic
+                                const mA = localMatches.find(match => match.round == r && match.position == m);
+                                if (teamsA[1] === "BYE") winnerA = teamsA[0];
+                                else if (mA && (mA.score1 != null || mA.score2 != null)) {
+                                    const s1 = (mA.score1 != null && mA.score1 !== "") ? parseInt(mA.score1) : 0;
+                                    const s2 = (mA.score2 != null && mA.score2 !== "") ? parseInt(mA.score2) : 0;
+                                    if (s1 > s2) winnerA = teamsA[0];
+                                    else if (s2 > s1) winnerA = teamsA[1];
+                                }
+
+                                // Winner B logic
+                                const mB = localMatches.find(match => match.round == r && match.position == m + 1);
+                                if (teamsB[1] === "BYE") winnerB = teamsB[0];
+                                else if (mB && (mB.score1 != null || mB.score2 != null)) {
+                                    const s1 = (mB.score1 != null && mB.score1 !== "") ? parseInt(mB.score1) : 0;
+                                    const s2 = (mB.score2 != null && mB.score2 !== "") ? parseInt(mB.score2) : 0;
+                                    if (s1 > s2) winnerB = teamsB[0];
+                                    else if (s2 > s1) winnerB = teamsB[1];
+                                }
+                                nextRoundMatches.push([winnerA, winnerB]);
+                            }
+                            bracketState[r + 1] = nextRoundMatches;
+                        }
+
+                        let html = '<div class="bracket-flex" style="display: flex; align-items: stretch; width: max-content; padding-bottom: 40px;">';
+                        for (let r = 1; r <= numRounds; r++) {
+                            const roundMatches = bracketState[r];
+                            const roundName = r === numRounds ? "รอบชิงชนะเลิศ" : (r === numRounds - 1 && numRounds > 1 ? "รอบรองชนะเลิศ" : `รอบที่ ${r}`);
+                            html += `<div class="round-column"><h3>${roundName}</h3>`;
+                            html += `<div class="round-matches" style="display: flex; flex-direction: column; flex: 1;">`;
+                            roundMatches.forEach((teamsArr, m) => {
+                                let s1 = "", s2 = "";
+                                const mData = localMatches.find(match => match.round == r && match.position == m);
+                                if (mData) { s1 = mData.score1 ?? ""; s2 = mData.score2 ?? ""; }
+                                const isWinner1 = s1 !== "" && s2 !== "" && parseInt(s1) > parseInt(s2);
+                                const isWinner2 = s1 !== "" && s2 !== "" && parseInt(s2) > parseInt(s1);
+                                html += `
+                                    <div class="match-wrapper" style="display: flex; flex: 1; align-items: center; position: relative;">
+                                        <div class="connector-left"></div>
+                                        <div class="match-container" data-round="${r}" data-pos="${m}" style="flex: 1;">
+                                            <div class="match-box">
+                                                <div class="team-row ${teamsArr[0] === 'BYE' ? 'bye' : ''} ${teamsArr[0] === 'TBD' ? 'tbd' : ''} ${isWinner1 ? 'winner' : ''}">
+                                                    <span class="team-name" title="${teamsArr[0]}">${teamsArr[0]}</span>
+                                                    <input type="number" class="score-input s1" value="${s1}" placeholder="0" ${teamsArr[0] === 'TBD' || teamsArr[0] === 'BYE' || teamsArr[1] === 'BYE' ? 'disabled' : ''}>
+                                                </div>
+                                                <div class="team-row ${teamsArr[1] === 'BYE' ? 'bye' : ''} ${teamsArr[1] === 'TBD' ? 'tbd' : ''} ${isWinner2 ? 'winner' : ''}">
+                                                    <span class="team-name" title="${teamsArr[1]}">${teamsArr[1]}</span>
+                                                    <input type="number" class="score-input s2" value="${s2}" placeholder="0" ${teamsArr[1] === 'TBD' || teamsArr[1] === 'BYE' || teamsArr[0] === 'BYE' || teamsArr[1] === 'BYE' ? 'disabled' : ''}>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="connector-right"></div>
+                                    </div>
+                                `;
+                            });
+                            html += '</div></div>';
+                        }
+                        $bracket.html(html + '</div>');
+
+                        // Restore focus
+                        if (activeElementId) {
+                            const [r, p, s] = activeElementId.split('-');
+                            const $el = $(`.match-container[data-round="${r}"][data-pos="${p}"]`).find(`.${s}`);
+                            if ($el.length) {
+                                try {
+                                    $el.focus();
+                                    const val = $el.val();
+                                    $el.val('').val(val);
+                                } catch (e) { }
+                            }
+                        }
                     };
 
-                    renderCustomBracket();
+                    // Real-time propagation with multiple event triggers
+                    $bracket.on('input change keyup', '.score-input', function () {
+                        const $container = $(this).closest('.match-container');
+                        const round = $container.data('round');
+                        const pos = $container.data('pos');
+                        const score1 = $container.find('.s1').val();
+                        const score2 = $container.find('.s2').val();
+
+                        let m = localMatches.find(match => match.round == round && match.position == pos);
+                        if (!m) {
+                            m = { round, position: pos, score1: null, score2: null };
+                            localMatches.push(m);
+                        }
+                        m.score1 = score1 === "" ? null : parseInt(score1);
+                        m.score2 = score2 === "" ? null : parseInt(score2);
+
+                        renderTreeBracket();
+                    });
+
+                    renderTreeBracket();
+
+                    // Control Button Handlers
+                    $('#btn-plus').on('click', () => {
+                        currentTeamLimit++;
+                        renderTreeBracket();
+                    });
+
+                    $('#btn-minus').on('click', () => {
+                        if (currentTeamLimit > 2) {
+                            currentTeamLimit--;
+                            renderTreeBracket();
+                        }
+                    });
+
+                    $('#btn-reset').on('click', () => {
+                        currentTeamLimit = teams.length;
+                        renderTreeBracket();
+                    });
 
                     // Manual Save Handling
-                    $('#save-bracket-btn').on('click', function() {
+                    $('#save-bracket-btn').on('click', function () {
                         const $status = $('#save-status');
                         $status.text('Saving...').css('color', '#6b7280');
 
                         const matchesToSave = [];
-                        $('.match-container').each(function() {
+                        $('.match-container').each(function () {
                             const round = $(this).data('round');
                             const pos = $(this).data('pos');
                             const s1 = $(this).find('.s1').val();
@@ -431,14 +624,14 @@
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ matches: matchesToSave })
                         })
-                        .then(res => res.json())
-                        .then(res => {
-                            $status.text('Saved successfully!').css('color', '#10b981');
-                            setTimeout(() => $status.text(''), 3000);
-                        })
-                        .catch(err => {
-                            $status.text('Save failed: ' + err.message).css('color', '#ef4444');
-                        });
+                            .then(res => res.json())
+                            .then(res => {
+                                $status.text('Saved successfully!').css('color', '#10b981');
+                                setTimeout(() => $status.text(''), 3000);
+                            })
+                            .catch(err => {
+                                $status.text('Save failed: ' + err.message).css('color', '#ef4444');
+                            });
                     });
 
                 } catch (error) {
