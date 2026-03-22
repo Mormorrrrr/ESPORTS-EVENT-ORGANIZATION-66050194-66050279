@@ -1,31 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
-    <title>Admin Edit Team - KMITL ESPORT</title>
+    <title>Edit Team - KMITL ESPORT</title>
     <link rel="stylesheet" href="globals14.css" />
     <link rel="stylesheet" href="styleguide14.css" />
     <link rel="stylesheet" href="style14.css" />
 </head>
-
 <body>
-    <div class="admin-edit-team">
-        <!-- Fixed Top Navigation Header (Admin View) -->
-        <header class="header-top-2" role="banner">
-            <div class="container-7">
-                <img class="chatgpt-image" src="../../../icons/Logo.png"
-                    alt="KMITL ESPORT Logo" />
-                <img class="image-background" src="../../../icons/user.svg" alt="User avatar" />
+    <!-- Standardized Universal Header -->
+    <header class="header-top namespaced-header" role="banner">
+        <div class="ns-header-left">
+            <img class="ns-logo-img" src="../../../icons/Logo.png" alt="KMITL ESPORT Logo" />
+            <div class="ns-title-wrap">
+                <span class="ns-title-text">KMITL ESPORT</span>
             </div>
-        </header>
-        <!-- Fixed Left Sidebar (Admin View) -->
-        
-        
-        
-        
-        
+            <nav class="ns-main-nav" aria-label="Main navigation">
+                <a href="../Dashboard Page 8/Dashboard_8.html" class="ns-nav-link">Home</a>
+                <a href="#" class="ns-nav-link">Explore</a>
+                <a href="#" class="ns-nav-link">News</a>
+            </nav>
+        </div>
+        <div class="ns-header-right">
+            <label class="ns-search-box" aria-label="Search tournaments">
+                <div class="ns-search-bg">
+                    <img class="ns-search-icon" src="../../../icons/search.svg" alt="Search icon" />
+                </div>
+                <input class="ns-search-input" placeholder="Search tournaments..." type="search" />
+            </label>
+            <img class="ns-user-avatar" src="../../../icons/user.svg" alt="User profile" />
+        </div>
+    </header>
+
+    <div class="layout-wrapper">
+        <!-- Standardized Universal Sidebar -->
         <aside class="aside-sidebar" aria-label="Sidebar navigation">
             <nav class="sidebar-nav-container">
                 <a class="link-2" href="../Dashboard Page 8/Dashboard_8.html" aria-label="Dashboard">
@@ -50,302 +59,214 @@
                 </a>
             </nav>
         </aside>
-        <!-- User Edit Team Panel (inner layout with its own header/sidebar/footer) -->
-        <div class="user-edit-team">
-            <!-- Inner Header -->
-        <header class="header-top namespaced-header" role="banner">
-    <div class="ns-header-left">
-        <img class="ns-logo-img" src="../../../icons/Logo.png" alt="KMITL ESPORT Logo" />
-        <div class="ns-title-wrap">
-            <span class="ns-title-text">KMITL ESPORT</span>
-        </div>
-        <nav class="ns-main-nav" aria-label="Main navigation">
-            <a href="../Dashboard Page 8/Dashboard_8.html" class="ns-nav-link">Home</a>
-            <a href="#" class="ns-nav-link">Explore</a>
-            <a href="#" class="ns-nav-link">News</a>
-        </nav>
-    </div>
-    <div class="ns-header-right">
-        <label class="ns-search-box" aria-label="Search tournaments">
-            <div class="ns-search-bg">
-                <img class="ns-search-icon" src="../../../icons/search.svg" alt="Search icon" />
-            </div>
-            <input class="ns-search-input" placeholder="Search tournaments..." type="search" aria-label="Search tournaments" />
-        </label>
-        <img class="ns-user-avatar" src="../../../icons/user.svg" alt="User profile" />
-    </div>
-</header>
-        <!-- Sidebar -->
-        
-        
-        
-        
-        
-        <aside class="aside-sidebar" aria-label="Sidebar navigation">
-            <nav class="sidebar-nav-container">
-                <a class="link-2" href="../Dashboard Page 8/Dashboard_8.html" aria-label="Dashboard">
-                    <img src="../../../icons/stats.svg" alt="Dashboard icon" style="width:20px; height:20px;" />
-                    <span class="sidebar-text">Dashboard</span>
-                </a>
-                <a class="link-2" href="../TournamentList Page 9/TournamentList_9.html" aria-label="Tournament">
-                    <img src="../../../icons/trophy-star.svg" alt="Tournament icon" style="width:20px; height:20px;" />
-                    <span class="sidebar-text">Tournament</span>
-                </a>
-                <a class="link" href="../TeamList Page 12/TeamList_12.html" aria-label="Teams">
-                    <img src="../../../icons/users.svg" alt="Teams icon" style="width:20px; height:20px;" />
-                    <span class="sidebar-text">Teams</span>
-                </a>
-                <a class="link-2" href="#" aria-label="About">
-                    <img src="../../../icons/info.svg" alt="About icon" style="width:20px; height:20px;" />
-                    <span class="sidebar-text">About</span>
-                </a>
-                <a class="link-2" href="#" aria-label="Settings">
-                    <img src="../../../icons/settings.svg" alt="Settings icon" style="width:20px; height:20px;" />
-                    <span class="sidebar-text">Settings</span>
-                </a>
-            </nav>
-        </aside>
-            <!-- Inner Footer -->
-            <footer class="footer-footer-2" role="contentinfo">
-                <div class="container-17"><span class="text-wrapper">© 2026 KMITL ESPORT</span></div>
-                <span class="text-wrapper-13">Documentation</span>
-                <span class="text-wrapper-2">API Reference</span>
-                <span class="text-wrapper-3">Support</span>
-            </footer>
-        </div>
-        <!-- Team List Section -->
-        <section class="tournaments-list" aria-label="Team list">
-            <div class="container-2">
-                <div class="div-2">
-                    <h2 class="text-wrapper-4">Team List</h2>
-                </div>
-                <button class="button" type="button" onclick="window.history.back()">
-                    <span class="text-wrapper-5">View All</span>
-                </button>
-            </div>
-            <!-- Single card row (first) -->
-            <div class="container-3" style="top: 47px">
-                <article class="tournament-card">
-                    <div class="valorant-tournament-wrapper" aria-hidden="true">
-                        <div class="valorant-tournament"></div>
-                    </div>
-                    <div class="container-4">
-                        <div class="div-wrapper">
-                            <span class="text-wrapper-6">Team A</span>
+
+        <!-- Main Column -->
+        <div class="main-column">
+            <main class="content-body">
+                <div class="summary-card">
+                    <!-- Tournament Context (Read Only) -->
+                    <header class="card-header">
+                        <div class="banner-box">
+                            <img id="tournament-banner" class="tournament-banner" src="" alt="" onerror="this.style.display='none';" />
                         </div>
-                        <div class="container-wrapper">
-                            <div class="container-5">
-                                <div class="div-2"><img class="icon" src="img/icon-4.svg" alt="Tournament icon" /></div>
-                                <div class="div-2"><span class="text-wrapper-7">Rov KMITL Cup 2026</span></div>
+                        <div class="header-info">
+                            <span class="ov-label">RESGISTRATION EDIT</span>
+                            <h1 class="tournament-title" id="tournament-name">Loading...</h1>
+                            <div class="meta-row">
+                                <img class="meta-icon" src="../../../icons/calendar-day.svg" alt="" />
+                                <span id="tournament-date">...</span>
                             </div>
                         </div>
-                    </div>
-                    <div class="container-6">
-                        <div class="background" role="status" aria-label="Status: Approved">
-                            <span class="approve">APPROVE</span>
-                        </div>
-                        <button class="button-2" type="button" aria-label="Edit team">
-                            <div class="icon-wrapper"><img class="img" src="img/icon-3.svg" alt="Edit" /></div>
-                        </button>
-                        <button class="button-2" type="button" aria-label="Delete team">
-                            <div class="icon-wrapper"><img class="icon-2" src="img/icon-18.svg" alt="Delete" /></div>
-                        </button>
-                    </div>
-                </article>
-            </div>
-            <!-- Multiple card rows -->
-            <div class="container-3" style="top: 160px">
-                <article class="tournament-card">
-                    <div class="valorant-tournament-wrapper" aria-hidden="true">
-                        <div class="valorant-tournament-2"></div>
-                    </div>
-                    <div class="container-4">
-                        <div class="div-wrapper">
-                            <span class="text-wrapper-6">Team A</span>
-                        </div>
-                        <div class="container-wrapper">
-                            <div class="container-5">
-                                <div class="div-2"><img class="icon" src="img/icon-8.svg" alt="Tournament icon" /></div>
-                                <div class="div-2"><span class="text-wrapper-7">Rov KMITL Cup 2026</span></div>
+                    </header>
+
+                    <!-- Edit Form -->
+                    <div class="details-grid">
+                        <!-- Left: Identity -->
+                        <div class="column">
+                            <div class="section-label">
+                                <img src="../../../icons/users.svg" class="label-icon" alt="" />
+                                <span>TEAM IDENTITY</span>
                             </div>
-                        </div>
-                    </div>
-                    <div class="container-6">
-                        <div class="background" role="status" aria-label="Status: Approved">
-                            <span class="approve">APPROVE</span>
-                        </div>
-                        <button class="button-2" type="button" aria-label="Edit team">
-                            <div class="icon-wrapper"><img class="img" src="img/icon-12.svg" alt="Edit" /></div>
-                        </button>
-                        <button class="button-2" type="button" aria-label="Delete team">
-                            <div class="icon-wrapper"><img class="icon-2" src="img/icon-20.svg" alt="Delete" /></div>
-                        </button>
-                    </div>
-                </article>
-                <article class="tournament-card">
-                    <div class="valorant-tournament-wrapper" aria-hidden="true">
-                        <div class="valorant-tournament-3"></div>
-                    </div>
-                    <div class="container-4">
-                        <div class="div-wrapper">
-                            <span class="text-wrapper-6">Team B</span>
-                        </div>
-                        <div class="container-wrapper">
-                            <div class="container-5">
-                                <div class="div-2"><img class="icon" src="img/icon-15.svg" alt="Tournament icon" />
+                            
+                            <div class="identity-row">
+                                <div class="logo-box" id="logo-trigger" title="Click to change logo URL">
+                                    <img id="team-logo-preview" src="" alt="Logo" onerror="this.style.display='none';" />
+                                    <div class="logo-overlay">EDIT</div>
                                 </div>
-                                <div class="div-2"><span class="text-wrapper-7">Rov KMITL Cup 2026</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container-6">
-                        <div class="pending-wrapper" role="status" aria-label="Status: Pending">
-                            <span class="pending">PENDING</span>
-                        </div>
-                        <button class="button-2" type="button" aria-label="Edit team">
-                            <div class="icon-wrapper"><img class="img" src="img/icon-5.svg" alt="Edit" /></div>
-                        </button>
-                        <button class="button-2" type="button" aria-label="Delete team">
-                            <div class="icon-wrapper"><img class="icon-2" src="img/icon-6.svg" alt="Delete" /></div>
-                        </button>
-                    </div>
-                </article>
-                <article class="tournament-card">
-                    <div class="valorant-tournament-wrapper" aria-hidden="true">
-                        <div class="valorant-tournament-4"></div>
-                    </div>
-                    <div class="container-4">
-                        <div class="div-wrapper">
-                            <span class="text-wrapper-6">Team C</span>
-                        </div>
-                        <div class="container-wrapper">
-                            <div class="container-5">
-                                <div class="div-2"><img class="icon" src="img/icon-9.svg" alt="Tournament icon" /></div>
-                                <div class="div-2"><span class="text-wrapper-7">Rov KMITL Cup 2026</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container-6">
-                        <div class="reject-wrapper" role="status" aria-label="Status: Rejected">
-                            <span class="reject">REJECT</span>
-                        </div>
-                        <button class="button-2" type="button" aria-label="Edit team">
-                            <div class="icon-wrapper"><img class="img" src="img/icon-10.svg" alt="Edit" /></div>
-                        </button>
-                        <button class="button-2" type="button" aria-label="Delete team">
-                            <div class="icon-wrapper"><img class="icon-2" src="img/icon-11.svg" alt="Delete" /></div>
-                        </button>
-                    </div>
-                </article>
-            </div>
-            <!-- Add Team Button -->
-            <div class="button-wrapper">
-            </div>
-        </section>
-        <!-- Summary Card / Team Edit Group -->
-        <div class="group">
-            <div class="summary-card">
-                <!-- Tournament Header -->
-                <div class="tournament-header">
-                    <div class="image-wrapper" style="position: absolute; top: calc(50% - 64px); left: 32px; width: 192px; height: 128px; background: #333; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #f1f5f9;">
-                        <img class="image" src="img/image.png" alt="Tournament banner" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=\'color:white; font-size:12px; text-align:center; padding:10px;\'>Tournament Banner</span>';" />
-                    </div>
-                    <div class="container-18">
-                        <div class="overlay">
-                            <span class="text-5">TOURNAMENT SELECTED</span>
-                        </div>
-                        <div class="div-wrapper">
-                            <h2 class="text-wrapper-14">Rov KMITL Cup</h2>
-                        </div>
-                        <div class="container-19">
-                            <div class="div-2"><img class="icon-7" src="img/icon-7.svg" alt="Calendar icon" /></div>
-                            <p class="p">Starts Apr 08, 2026 • Sci 01</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Registration Details -->
-                <div class="registration-details">
-                    <!-- Team Identity -->
-                    <section class="team-identity" aria-label="Team identity">
-                        <div class="container-20">
-                            <div class="heading">
-                                <div class="div-2"><img class="icon-8" src="img/icon-13.svg" alt="Team identity icon" />
-                                </div>
-                                <span class="text-6">TEAM IDENTITY</span>
-                            </div>
-                        </div>
-                        <div class="frame">
-                            <div class="frame-wrapper">
-                                <div class="frame-2">
-                                    <div class="logo-wrapper" style="position: relative; width: 131px; height: 98px; background: #222; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #f1f5f9;">
-                                        <img class="rectangle" src="img/rectangle-2.png" alt="Team logo" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=\'color:white; font-size:12px; text-align:center; padding:10px;\'>Team Logo</span>';" />
-                                    </div>
-                                    <div class="background-3">
-                                        <div class="div-wrapper"><span class="text-wrapper-15">Team Name</span></div>
-                                        <div class="div-wrapper"><span class="text-wrapper-16">A</span></div>
-                                    </div>
+                                <div class="edit-box" style="flex:1;">
+                                    <span class="input-label">Team Name</span>
+                                    <input type="text" id="input-team-name" class="edit-input" placeholder="Team Name" />
                                 </div>
                             </div>
-                            <div class="background-wrapper">
-                                <div class="background-4">
-                                    <div class="div-wrapper"><span class="text-wrapper-15">Team Leader</span></div>
-                                    <div class="container-21">
-                                        <div class="background-5" aria-hidden="true"><span class="text-7">JD</span>
-                                        </div>
-                                        <div class="div-2"><span class="text-8">John Doe</span></div>
-                                    </div>
-                                </div>
+
+                            <div class="edit-box">
+                                <span class="input-label">Team Leader</span>
+                                <input type="text" id="input-leader-name" class="edit-input" placeholder="Leader Name" />
                             </div>
                         </div>
-                    </section>
-                    <!-- Team Members -->
-                    <section class="team-members" aria-label="Team members">
-                        <div class="container-22">
-                            <div class="heading">
-                                <div class="div-2"><img class="icon-9" src="img/icon-19.svg" alt="Team members icon" />
-                                </div>
-                                <span class="text-9">TEAM MEMBERS</span>
+
+                        <!-- Right: Members -->
+                        <div class="column">
+                            <div class="section-label">
+                                <img src="../../../icons/users.svg" class="label-icon" alt="" />
+                                <span>TEAM MEMBERS</span>
                             </div>
-                            <ul class="container-23" aria-label="Member list">
-                                <li class="background-6">
-                                    <div class="container-24"><span class="text-10">1</span></div>
-                                    <div class="div-2"><span class="text-11">Alice Smith</span></div>
+                            <ul class="member-list">
+                                <li class="member-input-item">
+                                    <span class="member-rank">1</span>
+                                    <input type="text" id="member-1" class="edit-input" placeholder="Member 1" />
                                 </li>
-                                <li class="background-6">
-                                    <div class="container-24"><span class="text-12">2</span></div>
-                                    <div class="div-2"><span class="text-13">Bob Johnson</span></div>
+                                <li class="member-input-item">
+                                    <span class="member-rank">2</span>
+                                    <input type="text" id="member-2" class="edit-input" placeholder="Member 2" />
                                 </li>
-                                <li class="background-6">
-                                    <div class="container-24"><span class="text-14">3</span></div>
-                                    <div class="div-2"><span class="text-15">Charlie Brown</span></div>
+                                <li class="member-input-item">
+                                    <span class="member-rank">3</span>
+                                    <input type="text" id="member-3" class="edit-input" placeholder="Member 3" />
                                 </li>
-                                <li class="background-6">
-                                    <div class="container-24"><span class="text-16">4</span></div>
-                                    <div class="div-2"><span class="text-17">David Wilson</span></div>
+                                <li class="member-input-item">
+                                    <span class="member-rank">4</span>
+                                    <input type="text" id="member-4" class="edit-input" placeholder="Member 4" />
                                 </li>
                             </ul>
                         </div>
-                    </section>
-                </div>
-            </div>
-            <!-- Action Buttons -->
-            <div class="container-25">
-                <button class="button-3" type="button" onclick="window.history.back()">
-                    <span class="text-wrapper-17">Cancle</span>
-                </button>
-                <button class="button-4" type="button" onclick="window.location.href='../TeamList Page 12/TeamList_12.html'">
-                    <span class="text-wrapper-18">Confirm</span>
-                </button>
-            </div>
-        </div>
-        <!-- Outer Footer -->
-        <footer class="footer-footer" role="contentinfo">
-            <div class="container"><span class="text-wrapper">© 2026 KMITL ESPORT</span></div>
-            <span class="div">Documentation</span>
-            <span class="text-wrapper-2">API Reference</span>
-            <span class="text-wrapper-3">Support</span>
-        </footer>
-    </div>
-</body>
+                    </div>
 
+                    <!-- Footer Actions -->
+                    <footer class="card-footer">
+                        <button class="btn btn-cancel" id="btn-cancel">Cancel</button>
+                        <button class="btn btn-confirm" id="btn-confirm">Confirm Changes</button>
+                    </footer>
+                </div>
+            </main>
+
+            <!-- Global Footer -->
+            <footer class="global-footer">
+                <div class="footer-left">
+                    <span class="copyright">© 2026 KMITL ESPORT</span>
+                </div>
+                <div class="footer-right">
+                    <a href="#" class="footer-link">Documentation</a>
+                    <a href="#" class="footer-link">API Reference</a>
+                    <a href="#" class="footer-link">Support</a>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const teamId = urlParams.get('id');
+            const apiBase = 'http://localhost:3000';
+
+            if (!teamId) {
+                alert('No Team ID found');
+                window.location.href = '../TeamList Page 12/TeamList_12.html';
+                return;
+            }
+
+            let currentLogoUrl = "";
+
+            // --- 1. Load Data ---
+            async function loadData() {
+                try {
+                    const res = await fetch(`${apiBase}/teams/${teamId}`);
+                    const data = await res.json();
+                    
+                    if (res.ok && data.team) {
+                        const team = data.team;
+                        
+                        // Populate Inputs
+                        document.getElementById('input-team-name').value = team.team_name || '';
+                        document.getElementById('input-leader-name').value = team.leader_name || '';
+                        document.getElementById('member-1').value = team.member_1 || '';
+                        document.getElementById('member-2').value = team.member_2 || '';
+                        document.getElementById('member-3').value = team.member_3 || '';
+                        document.getElementById('member-4').value = team.member_4 || '';
+                        
+                        // Logo Preview
+                        currentLogoUrl = team.team_banner_url || '';
+                        updateLogoPreview();
+
+                        // Tournament Context
+                        if (data.applications && data.applications.length > 0) {
+                            const tournament = data.applications[0].tournament;
+                            document.getElementById('tournament-name').textContent = tournament.tournament_name;
+                            document.getElementById('tournament-date').textContent = new Date(tournament.start_date).toLocaleDateString();
+                            if (tournament.tournament_banner) {
+                                const tBanner = document.getElementById('tournament-banner');
+                                const fallbackT = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200';
+                                tBanner.src = tournament.tournament_banner;
+                                tBanner.onerror = () => tBanner.src = fallbackT;
+                                tBanner.style.display = 'block';
+                            }
+                        }
+                    }
+                } catch (e) { console.error('Load Error:', e); }
+            }
+
+            function updateLogoPreview() {
+                const img = document.getElementById('team-logo-preview');
+                const fallbackLogo = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400';
+                if (currentLogoUrl) {
+                    img.src = currentLogoUrl;
+                    img.onerror = () => img.src = fallbackLogo;
+                    img.style.display = 'block';
+                }
+ else {
+                    img.style.display = 'none';
+                }
+            }
+
+            // Logo Trigger
+            document.getElementById('logo-trigger').addEventListener('click', () => {
+                const newUrl = prompt('Enter New Logo URL:', currentLogoUrl);
+                if (newUrl !== null) {
+                    currentLogoUrl = newUrl;
+                    updateLogoPreview();
+                }
+            });
+
+            // --- 2. Update Data ---
+            document.getElementById('btn-confirm').addEventListener('click', async () => {
+                const payload = {
+                    team_name: document.getElementById('input-team-name').value,
+                    leader_name: document.getElementById('input-leader-name').value,
+                    member_1: document.getElementById('member-1').value,
+                    member_2: document.getElementById('member-2').value,
+                    member_3: document.getElementById('member-3').value,
+                    member_4: document.getElementById('member-4').value,
+                    team_banner_url: currentLogoUrl
+                };
+
+                try {
+                    const res = await fetch(`${apiBase}/teams/${teamId}`, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (res.ok) {
+                        alert('Team updated successfully!');
+                        window.location.href = `../TeamDetail Page 13/TeamDetail_13.html?id=${teamId}`;
+                    } else {
+                        const err = await res.json();
+                        alert('Update failed: ' + (err.error || 'Unknown error'));
+                    }
+                } catch (e) {
+                    console.error('Update Error:', e);
+                    alert('Could not connect to server.');
+                }
+            });
+
+            // Cancel
+            document.getElementById('btn-cancel').addEventListener('click', () => {
+                window.history.back();
+            });
+
+            loadData();
+        });
+    </script>
+</body>
 </html>

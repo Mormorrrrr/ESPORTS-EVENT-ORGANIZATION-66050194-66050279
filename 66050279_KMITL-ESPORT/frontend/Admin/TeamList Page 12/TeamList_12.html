@@ -140,12 +140,16 @@
                     article.style.width = '100%';
                     article.style.boxSizing = 'border-box';
                     
+                    const logoHtml = team.team_banner_url 
+                        ? `<img src="${team.team_banner_url}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.parentElement.innerHTML='<span style=\\'font-size: 20px; color: white; font-weight: bold;\\'>${team.team_name.substring(0,2).toUpperCase()}</span>'" />`
+                        : `<span style="font-size: 20px; color: white; font-weight: bold;">${team.team_name.substring(0,2).toUpperCase()}</span>`;
+
                     // Left Side: Logo and Text
                     const leftSide = `
                         <div style="display:flex; align-items:center; gap: 24px;">
                             <!-- Circle Avatar -->
                             <div style="width: 64px; height: 64px; border-radius: 50%; background-color: #333; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-                                <span style="font-size: 20px; color: white; font-weight: bold;">${team.team_name.substring(0,2).toUpperCase()}</span>
+                                ${logoHtml}
                             </div>
                             <!-- Text Details -->
                             <div style="display:flex; flex-direction:column; gap:4px;">

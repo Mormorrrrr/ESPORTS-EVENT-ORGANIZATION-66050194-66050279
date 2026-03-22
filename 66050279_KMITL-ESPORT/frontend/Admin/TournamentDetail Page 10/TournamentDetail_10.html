@@ -452,8 +452,11 @@
 
                 // Dynamic Data Binding
                 $('.rov-KMITL-cup').text(tournament.tournament_name || 'Tournament');
+                const fallbackBanner = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200';
                 if (tournament.tournament_banner) {
-                    $('.banner-image-preview .image-2').attr('src', tournament.tournament_banner);
+                    $('.banner-image-preview .image-2').attr('src', tournament.tournament_banner).on('error', function() {
+                        $(this).attr('src', fallbackBanner);
+                    });
                 }
                 $('.section .text-2').text(tournament.tournament_type || 'Single Elimination');
                 $('.section .text-4').text(tournament.duration || 'TBD');

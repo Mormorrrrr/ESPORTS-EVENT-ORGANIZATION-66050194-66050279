@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
@@ -8,18 +7,19 @@
     <link rel="stylesheet" href="globals13.css" />
     <link rel="stylesheet" href="styleguide13.css" />
     <link rel="stylesheet" href="style13.css" />
+</head>
 <body>
-    <!-- Standardized Universal Header -->
-    <header class="namespaced-header" role="banner">
+    <!-- Standardized Universal Header from Dashboard -->
+    <header class="header-top namespaced-header" role="banner">
         <div class="ns-header-left">
             <img class="ns-logo-img" src="../../../icons/Logo.png" alt="KMITL ESPORT Logo" />
             <div class="ns-title-wrap">
-                <span class="ns-title-text" style="font-family: 'Be Vietnam Pro', sans-serif; font-weight: 700; font-size: 24px; color: #000; letter-spacing: -0.6px;">KMITL ESPORT</span>
+                <span class="ns-title-text">KMITL ESPORT</span>
             </div>
             <nav class="ns-main-nav" aria-label="Main navigation">
-                <a href="../Dashboard Page 8/Dashboard_8.html" class="ns-nav-link" style="color:#000; font-weight: 600; text-decoration: none;">Home</a>
-                <a href="#" class="ns-nav-link" style="color:#64748b; font-weight: 500; text-decoration: none;">Explore</a>
-                <a href="#" class="ns-nav-link" style="color:#64748b; font-weight: 500; text-decoration: none;">News</a>
+                <a href="../Dashboard Page 8/Dashboard_8.html" class="ns-nav-link active">Home</a>
+                <a href="#" class="ns-nav-link">Explore</a>
+                <a href="#" class="ns-nav-link">News</a>
             </nav>
         </div>
         <div class="ns-header-right">
@@ -33,174 +33,127 @@
         </div>
     </header>
 
-    <!-- Standardized Universal Sidebar -->
-    <aside class="aside-sidebar" aria-label="Main Navigation">
-        <nav class="sidebar-nav-container">
-            <a class="link-2" href="../Dashboard Page 8/Dashboard_8.html" aria-label="Dashboard">
-                <img src="../../../icons/stats.svg" alt="Dashboard icon" style="width:20px; height:20px;" />
-                <span class="sidebar-text">Dashboard</span>
-            </a>
-            <a class="link-2" href="../TournamentList Page 9/TournamentList_9.html" aria-label="Tournament">
-                <img src="../../../icons/trophy-star.svg" alt="Tournament icon" style="width:20px; height:20px;" />
-                <span class="sidebar-text">Tournament</span>
-            </a>
-            <a class="link" href="../TeamList Page 12/TeamList_12.html" aria-label="Teams" aria-current="page">
-                <img src="../../../icons/users.svg" alt="Teams icon" style="width:20px; height:20px; filter: brightness(0) invert(1);" />
-                <span class="sidebar-text" style="color:#fff; font-weight:700;">Teams</span>
-            </a>
-            <a class="link-2" href="#" aria-label="About">
-                <img src="../../../icons/info.svg" alt="About icon" style="width:20px; height:20px;" />
-                <span class="sidebar-text">About</span>
-            </a>
-            <a class="link-2" href="#" aria-label="Settings">
-                <img src="../../../icons/settings.svg" alt="Settings icon" style="width:20px; height:20px;" />
-                <span class="sidebar-text">Settings</span>
-            </a>
-        </nav>
-    </aside>
+    <div class="layout-wrapper">
+        <!-- Standardized Universal Sidebar from TournamentList_9.html -->
+        <aside class="aside-sidebar" aria-label="Sidebar navigation">
+            <nav class="sidebar-nav-container">
+                <a class="link-2" href="../Dashboard Page 8/Dashboard_8.html" aria-label="Dashboard">
+                    <img src="../../../icons/stats.svg" alt="Dashboard icon" style="width:20px; height:20px;" />
+                    <span class="sidebar-text">Dashboard</span>
+                </a>
+                <a class="link-2" href="../TournamentList Page 9/TournamentList_9.html" aria-label="Tournament">
+                    <img src="../../../icons/trophy-star.svg" alt="Tournament icon" style="width:20px; height:20px;" />
+                    <span class="sidebar-text">Tournament</span>
+                </a>
+                <a class="link" href="../TeamList Page 12/TeamList_12.html" aria-label="Teams">
+                    <img src="../../../icons/users.svg" alt="Teams icon" style="width:20px; height:20px;" />
+                    <span class="sidebar-text">Teams</span>
+                </a>
+                <a class="link-2" href="#" aria-label="About">
+                    <img src="../../../icons/info.svg" alt="About icon" style="width:20px; height:20px;" />
+                    <span class="sidebar-text">About</span>
+                </a>
+                <a class="link-2" href="#" aria-label="Settings">
+                    <img src="../../../icons/settings.svg" alt="Settings icon" style="width:20px; height:20px;" />
+                    <span class="sidebar-text">Settings</span>
+                </a>
+            </nav>
+        </aside>
 
-    <div class="admin-team-detail" style="margin-left: 260px; margin-top: 73px; position: relative; width: calc(100% - 260px); min-height: calc(100vh - 73px); background: #f1f5f9;">
-        <style>
-            /* Correcting Figma's brittle absolute positions for integration with sidebar */
-            .admin-team-detail .user-edit-team {
-                position: relative !important;
-                top: auto !important;
-                left: auto !important;
-                width: 100% !important;
-                height: auto !important;
-                min-height: calc(100vh - 73px) !important;
-                background-color: transparent !important;
-            }
-            .admin-team-detail .summary-card {
-                position: relative !important;
-                top: 40px !important;
-                left: 50% !important;
-                transform: translateX(-50%) !important;
-                margin-bottom: 80px !important;
-            }
-            .admin-team-detail .button-4 {
-                /* Float edit button to the right of the centered card */
-                position: absolute !important;
-                top: 40px !important;
-                left: calc(50% + 420px) !important;
-            }
-            .admin-team-detail .container-25 {
-                /* Cancel button placement */
-                position: absolute !important;
-                bottom: 40px !important;
-                left: calc(50% + 280px) !important;
-            }
-        </style>
-        <!-- User Edit Team View (overlay layer) -->
-        <div class="user-edit-team">
-            <!-- Footer inside user-edit-team -->
-            <footer class="footer-footer" aria-label="Site footer">
-                <div class="container-7">
-                    <span class="text-wrapper">© 2026 KMITL ESPORT</span>
+        <!-- Main Content area -->
+        <div class="main-column">
+            <main class="content-body">
+                <div class="summary-card">
+                    <!-- Tournament Header -->
+                    <header class="card-header">
+                        <div class="banner-box">
+                            <img id="tournament-banner-img" class="tournament-banner" src="https://placehold.co/400x300?text=Banner" alt="" onerror="this.style.display='none'; this.parentElement.classList.add('placeholder');" />
+                        </div>
+                        <div class="header-info">
+                            <div class="title-row">
+                                <h1 class="tournament-title" id="tournament-display-name">Loading Tournament...</h1>
+                                <button class="edit-icon-btn" id="edit-team-btn" title="Edit Team">
+                                    <img src="../../../icons/pencil.svg" alt="Edit" />
+                                </button>
+                            </div>
+                            <div class="meta-row">
+                                <img class="meta-icon" src="../../../icons/calendar-day.svg" alt="" />
+                                <span class="meta-text" id="tournament-date-display">Loading Date...</span>
+                            </div>
+                            <div class="status-badge-container">
+                                <div class="status-badge-pill" id="status-badge">
+                                    <span class="status-text">Pending</span>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+
+                    <!-- Details Section -->
+                    <section class="registration-details">
+                        <div class="details-grid">
+                            <!-- Left: Team Identity -->
+                            <div class="column team-identity">
+                                <div class="section-label">
+                                    <img src="../../../icons/users.svg" alt="" class="label-icon" />
+                                    <span>TEAM IDENTITY</span>
+                                </div>
+                                <div class="identity-content">
+                                    <div class="team-logo-box">
+                                        <div id="team-logo-initial" class="logo-initial">-</div>
+                                        <img id="team-logo-img" src="" alt="Team Logo" style="display: none;" onerror="this.style.display='none';" />
+                                    </div>
+                                    <div class="team-name-box">
+                                        <span class="box-label">Team Name</span>
+                                        <span class="box-value" id="team-name-display">Loading...</span>
+                                    </div>
+                                </div>
+                                <div class="leader-box">
+                                    <span class="box-label">Team Leader</span>
+                                    <div class="leader-info">
+                                        <div class="leader-icon" id="leader-initial-display">-</div>
+                                        <span class="leader-name" id="leader-name-display">Loading...</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right: Team Members -->
+                            <div class="column team-members">
+                                <div class="section-label">
+                                    <img src="../../../icons/users.svg" alt="" class="label-icon" />
+                                    <span>TEAM MEMBERS</span>
+                                </div>
+                                <ul class="member-list" id="member-list-container">
+                                    <!-- Populated by JS -->
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Footer Action -->
+                        <div class="card-footer">
+                            <button class="cancel-btn" id="cancel-action-btn">Cancel</button>
+                        </div>
+                    </section>
                 </div>
-                <span class="text-wrapper-8">Documentation</span>
-                <span class="text-wrapper-2">API Reference</span>
-                <span class="text-wrapper-3">Support</span>
-            </footer>
-            <!-- Summary Card -->
-            <main class="summary-card" aria-label="Team registration summary">
-                <!-- Tournament Header -->
-                <header class="tournament-header">
-                    <div class="image-wrapper" style="position: absolute; top: calc(50% - 64px); left: 32px; width: 192px; height: 128px; background: #333; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #f1f5f9;">
-                        <img class="image" src="https://placehold.co/1200x400?text=Tournament+Banner" alt="Tournament banner" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=\'color:white; font-size:12px; text-align:center; padding:10px;\'>Tournament Banner</span>';" />
-                    </div>
-                    <div class="container-8">
-                        <div class="div-wrapper" style="display: flex; align-items: center; gap: 10px;">
-                            <h1 class="text-wrapper-9" id="tournament-display-name">Loading Tournament...</h1>
-                        </div>
-                        <div class="container-9">
-                            <div class="div-2">
-                                <img class="icon-3" src="../../../icons/calendar-day.svg" alt="Calendar icon" />
-                            </div>
-                            <p class="p" id="tournament-date-display">-</p>
-                        </div>
-                    </div>
-                    <div class="button-3" id="status-badge" style="display: none;">
-                        <span class="text-wrapper-10">...</span>
-                    </div>
-                </header>
-                <!-- Registration Details -->
-                <section class="registration-details" aria-label="Registration details">
-                    <!-- Team Identity -->
-                    <div class="team-identity">
-                        <div class="heading-wrapper">
-                            <div class="heading">
-                                <div class="div-2">
-                                    <img class="rectangle" src="../../../icons/users.svg" alt="Team logo" style="width: 48px; height: 48px; object-fit: contain;" aria-hidden="true" />
-                                </div>
-                                <span class="text">TEAM IDENTITY</span>
-                            </div>
-                        </div>
-                        <div class="frame">
-                            <div class="group">
-                                <div class="frame-2">
-                                    <div class="logo-wrapper" style="position: relative; width: 131px; height: 98px; background: #222; border-radius: 12px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #f1f5f9;">
-                                        <div id="team-logo-initial" style="font-size: 32px; color: white; font-weight: bold;">-</div>
-                                    </div>
-                                    <div class="background-2">
-                                        <div class="div-wrapper"><span class="text-wrapper-11" id="team-name-display">Loading Team...</span></div>
-                                        <div class="div-wrapper"><span class="text-wrapper-12" id="team-initial-display">-</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="background-wrapper">
-                                <div class="background-3">
-                                    <div class="div-wrapper"><span class="text-wrapper-11">Team Leader</span></div>
-                                    <div class="container-10">
-                                        <div class="background-4" id="leader-initial-display">-</div>
-                                        <div class="div-2"><span class="text-3" id="leader-name-display">Loading...</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Team Members -->
-                    <div class="team-members">
-                        <div class="container-11">
-                            <div class="heading">
-                                <div class="div-2">
-                                    <img class="icon-5" src="../../../icons/users.svg" alt="" aria-hidden="true" />
-                                </div>
-                                <span class="text-4">TEAM MEMBERS</span>
-                            </div>
-                            <ul class="container-12" id="member-list-container" aria-label="Team members list">
-                                <!-- Members will be injected here -->
-                            </ul>
-                        </div>
-                    </div>
-                </section>
             </main>
 
-        <!-- Edit button -->
-        <button class="button-4" type="button" aria-label="Edit team details">
-            <div class="icon-wrapper"><img class="img" src="../../../icons/pencil.svg" alt="Edit icon" /></div>
-        </button>
-        <!-- Cancel button only -->
-        <div class="container-25">
-            <button class="button-5" type="button" onclick="window.history.back()">
-                <span class="text-wrapper-18">Cancel</span>
-            </button>
+            <!-- Global Footer -->
+            <footer class="global-footer">
+                <div class="footer-left">
+                    <span class="copyright">© 2026 KMITL ESPORT</span>
+                </div>
+                <div class="footer-right">
+                    <a href="#" class="footer-link">Documentation</a>
+                    <a href="#" class="footer-link">API Reference</a>
+                    <a href="#" class="footer-link">Support</a>
+                </div>
+            </footer>
         </div>
-
-        <footer class="footer-footer" aria-label="Site footer">
-            <div class="container">
-                <span class="text-wrapper">© 2026 KMITL ESPORT</span>
-            </div>
-            <span class="div">Documentation</span>
-            <span class="text-wrapper-2">API Reference</span>
-            <span class="text-wrapper-3">Support</span>
-        </footer>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
             const teamId = urlParams.get('id');
-            console.log('Team Detail ID:', teamId);
 
             // --- Load Real Team Data ---
             async function loadTeamData() {
@@ -211,199 +164,120 @@
                     
                     if (res.ok && data.team) {
                         const team = data.team;
-                        // Update Team Name
-                        document.querySelector('.text-wrapper-11').textContent = team.team_name;
-                        document.querySelector('.text-wrapper-12').textContent = team.team_name.substring(0, 2).toUpperCase();
+                        // Update Identity
+                        document.getElementById('team-name-display').textContent = team.team_name;
+                        
+                        const logoImg = document.getElementById('team-logo-img');
+                        const logoInitial = document.getElementById('team-logo-initial');
+                        const fallbackLogo = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400';
+                        if (team.team_banner_url && logoImg) {
+                            logoImg.src = team.team_banner_url;
+                            logoImg.onerror = () => logoImg.src = fallbackLogo;
+                            logoImg.style.display = 'block';
+                            if (logoInitial) logoInitial.style.display = 'none';
+                        } else if (logoInitial) {
+                            logoInitial.textContent = team.team_name.substring(0, 1).toUpperCase();
+                            logoInitial.style.display = 'flex';
+                            if (logoImg) logoImg.style.display = 'none';
+                        }
                         
                         // Update Leader
-                        document.querySelector('.background-4').textContent = team.leader_name.substring(0, 2).toUpperCase();
-                        document.querySelector('.text-3').textContent = team.leader_name;
+                        document.getElementById('leader-initial-display').textContent = team.leader_name ? team.leader_name.charAt(0).toUpperCase() : '-';
+                        document.getElementById('leader-name-display').textContent = team.leader_name || 'No Leader';
                         
-                        // Update Members List
-                        const memberList = document.querySelector('.container-12');
+                        // Update Members
+                        const memberList = document.getElementById('member-list-container');
                         if (memberList) {
-                            memberList.innerHTML = ''; // Clear static members
+                            memberList.innerHTML = '';
                             const members = [team.member_1, team.member_2, team.member_3, team.member_4].filter(m => m);
                             members.forEach((m, index) => {
                                 const li = document.createElement('li');
-                                li.className = 'background-5';
-                                li.innerHTML = `
-                                    <div class="container-13"><span class="text-5">${index + 1}</span></div>
-                                    <div class="div-2"><span class="text-6">${m}</span></div>
-                                `;
+                                li.className = 'member-bar';
+                                li.innerHTML = `<span class="member-rank">${index + 1}</span><span class="member-name">${m}</span>`;
                                 memberList.appendChild(li);
                             });
+                            for(let i = members.length; i < 4; i++) {
+                                const li = document.createElement('li');
+                                li.className = 'member-bar';
+                                li.innerHTML = `<span class="member-rank">${i+1}</span><span class="member-name">-</span>`;
+                                memberList.appendChild(li);
+                            }
                         }
 
-                        // Update Tournament context if available
+                        // Tournament Context
                         if (data.applications && data.applications.length > 0) {
                             const app = data.applications[0];
                             const tournament = app.tournament;
-                            const tNameDisplay = document.getElementById('tournament-display-name');
-                            if (tNameDisplay) tNameDisplay.textContent = tournament.tournament_name;
+                            document.getElementById('tournament-display-name').textContent = tournament.tournament_name;
                             
-                            const tBannerDisplay = document.querySelector('.tournament-header .image');
-                            if (tBannerDisplay && tournament.tournament_banner) {
-                                tBannerDisplay.src = tournament.tournament_banner;
+                            const tBanner = document.getElementById('tournament-banner-img');
+                            const fallbackTournament = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200';
+                            if (tBanner && tournament.tournament_banner) {
+                                tBanner.src = tournament.tournament_banner;
+                                tBanner.onerror = () => tBanner.src = fallbackTournament;
+                                tBanner.style.display = 'block';
                             }
                             
-                            const tDateDisplay = document.getElementById('tournament-date-display');
-                            if (tDateDisplay && tournament.start_date) {
-                                const sDate = new Date(tournament.start_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-                                tDateDisplay.textContent = sDate;
+                            const tDate = document.getElementById('tournament-date-display');
+                            if (tDate && tournament.start_date) {
+                                tDate.textContent = new Date(tournament.start_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
                             }
                             
-                            // Status Badge (Pending / Approved / Rejected)
+                            // Badge Status
                             const statusBadge = document.getElementById('status-badge');
                             if (statusBadge) {
-                                statusBadge.style.display = 'flex';
-                                const badgeText = statusBadge.querySelector('.text-wrapper-10');
+                                const badgeText = statusBadge.querySelector('.status-text');
                                 if (badgeText) badgeText.textContent = app.status;
-                                
-                                // Reset colors to ensure readability depending on background
                                 if (app.status === 'Approved') {
-                                    statusBadge.style.background = '#dcfce7'; // green
-                                    if (badgeText) badgeText.style.color = '#15803d';
+                                    statusBadge.style.background = '#dcfce7'; statusBadge.style.color = '#15803d';
                                 } else if (app.status === 'Rejected') {
-                                    statusBadge.style.background = '#fee2e2'; // red
-                                    if (badgeText) badgeText.style.color = '#b91c1c';
+                                    statusBadge.style.background = '#fee2e2'; statusBadge.style.color = '#b91c1c';
                                 } else {
-                                    statusBadge.style.background = '#fef08a'; // yellow
-                                    if (badgeText) badgeText.style.color = '#a16207';
+                                    statusBadge.style.background = '#fef08a'; statusBadge.style.color = '#a16207';
                                 }
                             }
                         }
                     }
-                } catch (error) {
-                    console.error('Error fetching team data:', error);
-                }
+                } catch (error) { console.error('Error:', error); }
             }
             loadTeamData();
 
-
-            
-            // Redirection for the edit icon next to the title
-            const editIcon = document.querySelector('.edit-icon');
-            if (editIcon && teamId) {
-                editIcon.style.cursor = 'pointer';
-                editIcon.addEventListener('click', (e) => {
-                    console.log('Edit icon clicked');
+            // Navigation
+            const editBtn = document.getElementById('edit-team-btn');
+            if (editBtn && teamId) {
+                editBtn.addEventListener('click', () => {
                     window.location.href = `../EditTeamDetail Page 14/EditTeam_14.html?id=${teamId}`;
                 });
             }
-
-            // Redirection for the floating edit button (.button-4)
-            const floatingEditBtn = document.querySelector('.button-4');
-            if (floatingEditBtn && teamId) {
-                floatingEditBtn.addEventListener('click', () => {
-                    console.log('Floating edit button clicked');
-                    window.location.href = `../EditTeamDetail Page 14/EditTeam_14.html?id=${teamId}`;
+            const cancelBtn = document.getElementById('cancel-action-btn');
+            if (cancelBtn) {
+                cancelBtn.addEventListener('click', () => {
+                    window.location.href = '../TeamList Page 12/TeamList_12.html';
                 });
             }
 
-            // --- Team Approval Logic ---
-            const statusBadge = document.querySelector('.button-3'); // This is the "Pending" badge
-            console.log('Status badge element:', statusBadge);
-            
-            if (statusBadge && teamId) {
-                statusBadge.style.cursor = 'pointer';
-                console.log('Attaching click listener for Team Approval (ID Context):', teamId);
-                
-                statusBadge.addEventListener('click', async (e) => {
-                    console.log('Status badge clicked! Looking for application associated with team:', teamId);
-                    e.preventDefault();
-                    
-                    if (confirm('Do you want to approve this team?')) {
+            // Approval Interaction
+            const badge = document.getElementById('status-badge');
+            if (badge && teamId) {
+                badge.style.cursor = 'pointer';
+                badge.addEventListener('click', async () => {
+                    if (confirm('Approve this team?')) {
                         try {
-                            // Step 1: Find the application for this team
                             const appRes = await fetch(`http://localhost:3000/applications?team_id=${teamId}`);
-                            const applications = await appRes.json();
-                            console.log('Found applications for team:', applications);
-
-                            if (!applications || applications.length === 0) {
-                                alert('This team has not applied for any tournament yet.');
-                                return;
-                            }
-
-                            // Use the first application found for this team
-                            const appId = applications[0].app_id;
-                            console.log('Processing approval for application ID:', appId);
-
-                            // Step 2: Update the application status
-                            const response = await fetch(`http://localhost:3000/applications/${appId}/status`, {
-                                method: 'PATCH',
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify({ status: 'Approved' })
-                            });
-
-                            console.log('Response status:', response.status);
-                            const result = await response.json();
-                            
-                            if (response.ok) {
-                                alert('Application approved successfully!');
+                            const apps = await appRes.json();
+                            if (apps.length > 0) {
+                                await fetch(`http://localhost:3000/applications/${apps[0].app_id}/status`, {
+                                    method: 'PATCH',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({ status: 'Approved' })
+                                });
                                 window.location.reload();
-                            } else {
-                                alert(`Failed to approve application: ${result.error || 'Unknown error'}`);
                             }
-                        } catch (error) {
-                            console.error('Error during application status update fetch:', error);
-                            alert('An error occurred. Please check the console for details.');
-                        }
+                        } catch (e) { console.error(e); }
                     }
                 });
-            } else {
-                console.warn('Status badge or teamId missing:', { statusBadge: !!statusBadge, teamId });
             }
         });
     </script>
 </body>
-
 </html>
-<style>
-/* --- PERFECT ARCHITECTURAL ALIGNMENT --- */
-header.header-top {
-    width: 100% !important;
-    max-width: none !important;
-    display: flex !important;
-    align-items: center !important;
-}
-/* Logo & Brand Area */
-header.header-top .container, 
-header.header-top .container-10, 
-header.header-top .container-14,
-header.header-top .heading-wrapper,
-header.header-top .div,
-header.header-top .chatgpt-image {
-    left: 284px !important; /* Fixed offset from sidebar */
-    position: absolute !important;
-}
-/* Main Navigation (Home, Explore, News) */
-header.header-top .container-2,
-header.header-top .container-11,
-header.header-top .container-15 {
-    left: 620px !important; /* Offset far enough to clear logo (284 + ~310) */
-    position: absolute !important;
-}
-/* Search & Profile Area - PIN TO RIGHT */
-header.header-top .container-3, 
-header.header-top .container-13, 
-header.header-top .container-16 {
-    left: auto !important;
-    right: 24px !important; 
-    position: absolute !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 24px !important;
-}
-/* Profile Icon Visibility Fix */
-.image-background {
-    width: 40px !important;
-    height: 40px !important;
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    object-fit: contain !important;
-}
-</style>

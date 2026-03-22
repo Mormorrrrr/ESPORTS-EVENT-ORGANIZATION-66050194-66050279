@@ -194,8 +194,18 @@ app.get("/teams/:id", async (req, res) => {
 
 app.patch("/teams/:id", async (req, res) => {
   const id = parseInt(req.params.id);
-  const data = req.body;
+  const { team_name, team_banner_url, leader_name, member_1, member_2, member_3, member_4 } = req.body;
+  
   try {
+    const data = {};
+    if (team_name) data.team_name = team_name;
+    if (team_banner_url !== undefined) data.team_banner_url = team_banner_url;
+    if (leader_name) data.leader_name = leader_name;
+    if (member_1 !== undefined) data.member_1 = member_1;
+    if (member_2 !== undefined) data.member_2 = member_2;
+    if (member_3 !== undefined) data.member_3 = member_3;
+    if (member_4 !== undefined) data.member_4 = member_4;
+
     const team = await prisma.team.update({
       where: { team_id: id },
       data,
