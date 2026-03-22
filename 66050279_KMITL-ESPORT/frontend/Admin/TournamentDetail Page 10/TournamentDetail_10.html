@@ -131,8 +131,10 @@
         }
 
         .control-btn {
-            width: 32px;
-            height: 32px;
+            min-width: 28px;
+            width: auto;
+            padding: 0 6px;
+            height: 28px;
             background: #475569;
             color: white;
             border: none;
@@ -140,25 +142,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            font-size: 18px;
+            font-weight: 600;
+            font-size: 12px;
             cursor: pointer;
             transition: all 0.2s;
             user-select: none;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
-        .control-btn:hover {
-            background: #1e293b;
-            transform: scale(1.05);
-        }
-
-        .control-btn:active {
-            transform: scale(0.95);
-        }
-
-        .control-btn.de {
-            font-size: 12px;
-            font-weight: 600;
+        .control-btn#btn-plus, .control-btn#btn-minus {
+            font-size: 16px;
+            font-weight: 700;
         }
 
         /* Connectors */
@@ -424,7 +418,7 @@
             <div class="bracket-controls" id="single-controls">
                 <button class="control-btn" id="btn-plus" title="Add Team">+</button>
                 <button class="control-btn" id="btn-minus" title="Remove Team">-</button>
-                <button class="control-btn de" id="btn-reset" title="Reset to Defaults">de</button>
+                <button class="control-btn" id="btn-reset" title="Reset to Defaults">Reset</button>
             </div>
             <div id="bracket" style="margin:0; padding:0; padding-left: 60px;"></div>
             <div style="margin-top:20px; text-align:right;">
@@ -497,7 +491,10 @@
                 $('#bracket-diagnostic').text(`Loaded ${teams.length} teams, ${matches.length} matches.`);
 
                 let localMatches = [...matches];
-                let currentTeamLimit = teams.length;
+                const teamLimits = {
+                    'Single Elimination': teams.length,
+                    'Double Elimination': teams.length
+                };
 
                 // Support Format Toggle
                 let currentFormat = tournament.tournament_type || 'Single Elimination';
@@ -530,28 +527,24 @@
 
                 const renderDoubleBracket = () => {
                     $bracket.empty();
+                    $('#single-controls').css('display', 'flex');
+                    $('#save-bracket-btn').show();
 
-                    $('#single-controls').css('display', 'flex'); // Show controls for mocking sizes
-                    const saveBtn = document.getElementById('save-bracket-btn');
-                    if (saveBtn) saveBtn.style.display = "none";
-
-                    // Enforce power of 2 for double elimination based on dynamic currentTeamLimit
                     let nTeams = 1;
-                    while (nTeams < currentTeamLimit) nTeams *= 2;
-                    if (nTeams < 4) nTeams = 4; // Minimum 4 teams for Double Elim
+                    const limit = teamLimits['Double Elimination'];
+                    while (nTeams < limit) nTeams *= 2;
+                    if (nTeams < 4) nTeams = 4;
 
                     let bracketTeams = [];
                     for (let i = 0; i < nTeams; i += 2) {
                         bracketTeams.push([teams[i] || "BYE", teams[i + 1] || "BYE"]);
                     }
 
-                    // Generate Results Array Dimensions
                     const wbRoundsCount = Math.log2(nTeams);
                     const wb = [];
                     for (let r = 0; r < wbRoundsCount; r++) {
-                        let matchesInRound = nTeams / Math.pow(2, r + 1);
                         let roundArr = [];
-                        for (let m = 0; m < matchesInRound; m++) roundArr.push([null, null]);
+                        for (let m = 0; m < nTeams / Math.pow(2, r + 1); m++) roundArr.push([null, null]);
                         wb.push(roundArr);
                     }
 
@@ -565,289 +558,147 @@
                         if (r % 2 === 1) mCount /= 2;
                     }
 
-                    const finals = [[[null, null]]]; // 1 or 2 matches
+                    const finals = [[[null, null]]];
 
-                    // Populate existing match data
                     localMatches.forEach(m => {
-                        if (m.round > 0 && m.round < 100) { // Winners Bracket
-                            if (wb[m.round - 1] && wb[m.round - 1][m.position]) {
-                                wb[m.round - 1][m.position] = [m.score1, m.score2];
-                            }
-                        } else if (m.round < 0) { // Losers Bracket
+                        if (m.round > 0 && m.round < 100) {
+                            if (wb[m.round - 1] && wb[m.round - 1][m.position]) wb[m.round - 1][m.position] = [m.score1, m.score2];
+                        } else if (m.round < 0) {
                             let rIdx = Math.abs(m.round) - 1;
-                            if (lb[rIdx] && lb[rIdx][m.position]) {
-                                lb[rIdx][m.position] = [m.score1, m.score2];
-                            }
-                        } else if (m.round > 100) { // Finals
+                            if (lb[rIdx] && lb[rIdx][m.position]) lb[rIdx][m.position] = [m.score1, m.score2];
+                        } else if (m.round > 100) {
                             let rIdx = m.round - 101;
-                            if (finals[rIdx] && finals[rIdx][m.position]) {
-                                finals[rIdx][m.position] = [m.score1, m.score2];
-                            }
+                            if (finals[rIdx] && finals[rIdx][m.position]) finals[rIdx][m.position] = [m.score1, m.score2];
                         }
                     });
 
-                    const doubleData = {
-                        teams: bracketTeams,
-                        results: [wb, lb, finals]
-                    };
+                    const doubleData = { teams: bracketTeams, results: [wb, lb, finals] };
+                    injectBracketIframe(doubleData, true);
+                };
 
-                    // Use an IFRAME with srcdoc to isolate jquery-bracket from any global CSS rules
-                    // Use hexadecimal escapes for < and > to prevent the HTML parser from seeing these as tags
+                const renderSingleBracket = () => {
+                    $bracket.empty();
+                    $('#single-controls').css('display', 'flex');
+                    $('#save-bracket-btn').show();
+
+                    const nTeams = Math.pow(2, Math.ceil(Math.log2(teamLimits['Single Elimination'])));
+                    const bracketTeams = [];
+                    for (let i = 0; i < nTeams; i += 2) {
+                        bracketTeams.push([teams[i] || "BYE", teams[i + 1] || "BYE"]);
+                    }
+
+                    const wbRoundsCount = Math.log2(nTeams);
+                    const results = [];
+                    for (let r = 0; r < wbRoundsCount; r++) {
+                        let roundArr = [];
+                        for (let m = 0; m < nTeams / Math.pow(2, r + 1); m++) {
+                            const matchData = localMatches.find(mat => mat.round === (r + 1) && mat.position === m);
+                            roundArr.push(matchData ? [matchData.score1, matchData.score2] : [null, null]);
+                        }
+                        results.push(roundArr);
+                    }
+
+                    const singleData = { teams: bracketTeams, results: results };
+                    injectBracketIframe(singleData, false);
+                };
+
+                const injectBracketIframe = (data, isDouble) => {
                     const iframeHtml = `\x3C!DOCTYPE html\x3E
 \x3Chtml\x3E
 \x3Chead\x3E
     \x3Cmeta charset="utf-8"\x3E
-    \x3Clink rel="preconnect" href="https://fonts.googleapis.com"\x3E
-    \x3Clink rel="preconnect" href="https://fonts.gstatic.com" crossorigin\x3E
-    \x3Clink href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&display=swap" rel="stylesheet"\x3E
-    \x3Cscript src="https://code.jquery.com/jquery-3.6.0.min.js"\x3E\x3C/script\x3E
     \x3Clink rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.css" /\x3E
+    \x3Cscript src="https://code.jquery.com/jquery-3.6.0.min.js"\x3E\x3C/script\x3E
     \x3Cscript src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.js"\x3E\x3C/script\x3E
     \x3Cstyle\x3E
-        body { margin: 0; padding: 0; font-family: 'Be Vietnam Pro', sans-serif; background: transparent; }
-        .jQBracket { margin-top: 10px; }
-        .jQBracket * { box-sizing: content-box !important; }
-        .jQBracket .team { background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 4px; color: #334155; }
-        .jQBracket .win { color: #15803d; background-color: #dcfce7; border-color: #86efac; font-weight: 700; }
-        .jQBracket .score { color: #2563eb; background: #f8fafc; font-weight: 600; }
-        .jQBracket .connector { border-color: #cbd5e1; }
+        body { margin: 0; padding: 20px 0; font-family: 'Be Vietnam Pro', sans-serif; background: transparent; overflow-x: auto; }
+        .jQBracket { margin-top: 10px; border: none; }
+        /* Hide library internal tools */
         .jQBracket .tools { display: none !important; }
+        ::-webkit-scrollbar { height: 8px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
     \x3C/style\x3E
 \x3C/head\x3E
 \x3Cbody\x3E
-    \x3Cdiv id="bracket-container" style="padding-top: 20px;"\x3E\x3C/div\x3E
-    \x3Cscript\x3E
-        $(function() {
-            $('#bracket-container').bracket({
-                init: ${JSON.stringify(doubleData)},
-                skipConsolationRound: true,
-                save: function(data, userData) {
-                    let matchesToSave = [];
-                    if (data.results[0]) {
-                        data.results[0].forEach((round, r) => {
-                            round.forEach((match, m) => {
-                                if (match[0] !== null || match[1] !== null) {
-                                    matchesToSave.push({ round: r + 1, position: m, score1: match[0], score2: match[1] });
-                                }
-                            });
-                        });
-                    }
-                    if (data.results[1]) {
-                        data.results[1].forEach((round, r) => {
-                            round.forEach((match, m) => {
-                                if (match[0] !== null || match[1] !== null) {
-                                    matchesToSave.push({ round: -(r + 1), position: m, score1: match[0], score2: match[1] });
-                                }
-                            });
-                        });
-                    }
-                    if (data.results[2]) {
-                        data.results[2].forEach((round, r) => {
-                            round.forEach((match, m) => {
-                                if (match[0] !== null || match[1] !== null) {
-                                    matchesToSave.push({ round: 101 + r, position: m, score1: match[0], score2: match[1] });
-                                }
-                            });
-                        });
-                    }
-                    if (window.parent && window.parent.saveMatchesToDB) {
-                        window.parent.saveMatchesToDB(matchesToSave);
-                    }
-                }
-            });
-        });
-    \x3C/script\x3E
+    \x3Cdiv id="bracket-container" style="display: inline-block; min-width: 100%;"\x3E\x3C/div\x3E
 \x3C/body\x3E
 \x3C/html\x3E`;
 
-                    // Make the save endpoint accessible to iframe
-                    window.saveMatchesToDB = saveMatchesToDB;
-
                     const iframe = document.createElement('iframe');
+                    iframe.id = 'bracket-iframe';
                     iframe.srcdoc = iframeHtml;
-                    iframe.style.width = '1000px';
-                    iframe.style.height = '800px';
+                    iframe.style.width = '100%';
+                    iframe.style.height = '800px'; // Larger height to avoid clipping
                     iframe.style.border = 'none';
                     iframe.style.background = 'transparent';
-                    iframe.style.overflow = 'hidden';
 
                     $bracket.empty().append(iframe);
 
-                    $('#bracket-diagnostic').text(`Loaded ${teams.length} teams, viewing Double Elimination format.`);
-                };
-
-                const renderSingleBracket = () => {
-                    $('#single-controls').css('display', 'flex');
-                    $('#save-bracket-btn').show();
-
-                    const activeElementId = document.activeElement ? `${$(document.activeElement).closest('.match-container').data('round')}-${$(document.activeElement).closest('.match-container').data('pos')}-${$(document.activeElement).hasClass('s1') ? 's1' : 's2'}` : null;
-
-                    const numRounds = Math.max(1, Math.ceil(Math.log2(currentTeamLimit)));
-                    const totalSlots = Math.pow(2, numRounds);
-
-                    const bracketState = [];
-                    for (let r = 0; r <= numRounds; r++) bracketState.push([]);
-
-                    let round1Participants = [];
-                    for (let i = 0; i < currentTeamLimit; i++) {
-                        round1Participants.push(teams[i] || `Team ${i + 1}`);
-                    }
-
-                    while (round1Participants.length < totalSlots) round1Participants.push("BYE");
-                    for (let i = 0; i < totalSlots; i += 2) bracketState[1].push([round1Participants[i], round1Participants[i + 1]]);
-
-                    // Propagate winners through rounds
-                    for (let r = 1; r < numRounds; r++) {
-                        const currentRoundMatches = bracketState[r];
-                        const nextRoundMatches = [];
-                        for (let m = 0; m < currentRoundMatches.length; m += 2) {
-                            let winnerA = "TBD", winnerB = "TBD";
-                            const teamsA = currentRoundMatches[m];
-                            const teamsB = currentRoundMatches[m + 1] || ["TBD", "TBD"];
-
-                            // Winner A logic
-                            const mA = localMatches.find(match => match.round == r && match.position == m);
-                            if (teamsA[1] === "BYE") winnerA = teamsA[0];
-                            else if (mA && (mA.score1 != null || mA.score2 != null)) {
-                                const s1 = (mA.score1 != null && mA.score1 !== "") ? parseInt(mA.score1) : 0;
-                                const s2 = (mA.score2 != null && mA.score2 !== "") ? parseInt(mA.score2) : 0;
-                                if (s1 > s2) winnerA = teamsA[0];
-                                else if (s2 > s1) winnerA = teamsA[1];
-                            }
-
-                            // Winner B logic
-                            const mB = localMatches.find(match => match.round == r && match.position == m + 1);
-                            if (teamsB[1] === "BYE") winnerB = teamsB[0];
-                            else if (mB && (mB.score1 != null || mB.score2 != null)) {
-                                const s1 = (mB.score1 != null && mB.score1 !== "") ? parseInt(mB.score1) : 0;
-                                const s2 = (mB.score2 != null && mB.score2 !== "") ? parseInt(mB.score2) : 0;
-                                if (s1 > s2) winnerB = teamsB[0];
-                                else if (s2 > s1) winnerB = teamsB[1];
-                            }
-                            nextRoundMatches.push([winnerA, winnerB]);
+                    iframe.onload = () => {
+                        const win = iframe.contentWindow;
+                        if (win && win.jQuery) {
+                            win.jQuery('#bracket-container').bracket({
+                                init: data,
+                                save: (newData) => {
+                                    console.log('Bracket updated', newData);
+                                }
+                            });
+                            // Automatically adjust height based on content if possible
+                            setTimeout(() => {
+                                const h = win.document.body.scrollHeight;
+                                if (h > 0) iframe.style.height = (h + 50) + 'px';
+                            }, 500);
                         }
-                        bracketState[r + 1] = nextRoundMatches;
-                    }
-
-                    let html = '<div class="bracket-flex" style="display: flex; align-items: stretch; width: max-content; padding-bottom: 40px;">';
-                    for (let r = 1; r <= numRounds; r++) {
-                        const roundMatches = bracketState[r];
-                        const roundName = r === numRounds ? "รอบชิงชนะเลิศ" : (r === numRounds - 1 && numRounds > 1 ? "รอบรองชนะเลิศ" : `รอบที่ ${r}`);
-                        html += `<div class="round-column"><h3>${roundName}</h3>`;
-                        html += `<div class="round-matches" style="display: flex; flex-direction: column; flex: 1;">`;
-                        roundMatches.forEach((teamsArr, m) => {
-                            let s1 = "", s2 = "";
-                            const mData = localMatches.find(match => match.round == r && match.position == m);
-                            if (mData) { s1 = mData.score1 ?? ""; s2 = mData.score2 ?? ""; }
-                            const isWinner1 = s1 !== "" && s2 !== "" && parseInt(s1) > parseInt(s2);
-                            const isWinner2 = s1 !== "" && s2 !== "" && parseInt(s2) > parseInt(s1);
-                            html += `
-                                    <div class="match-wrapper" style="display: flex; flex: 1; align-items: center; position: relative;">
-                                        <div class="connector-left"></div>
-                                        <div class="match-container" data-round="${r}" data-pos="${m}" style="flex: 1;">
-                                            <div class="match-box">
-                                                <div class="team-row ${teamsArr[0] === 'BYE' ? 'bye' : ''} ${teamsArr[0] === 'TBD' ? 'tbd' : ''} ${isWinner1 ? 'winner' : ''}">
-                                                    <span class="team-name" title="${teamsArr[0]}">${teamsArr[0]}</span>
-                                                    <input type="number" class="score-input s1" value="${s1}" placeholder="0" ${teamsArr[0] === 'TBD' || teamsArr[0] === 'BYE' || teamsArr[1] === 'BYE' ? 'disabled' : ''}>
-                                                </div>
-                                                <div class="team-row ${teamsArr[1] === 'BYE' ? 'bye' : ''} ${teamsArr[1] === 'TBD' ? 'tbd' : ''} ${isWinner2 ? 'winner' : ''}">
-                                                    <span class="team-name" title="${teamsArr[1]}">${teamsArr[1]}</span>
-                                                    <input type="number" class="score-input s2" value="${s2}" placeholder="0" ${teamsArr[1] === 'TBD' || teamsArr[1] === 'BYE' || teamsArr[0] === 'BYE' || teamsArr[1] === 'BYE' ? 'disabled' : ''}>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="connector-right"></div>
-                                    </div>
-                                `;
-                        });
-                        html += '</div></div>';
-                    }
-                    $bracket.html(html + '</div>');
-
-                    // Restore focus
-                    if (activeElementId) {
-                        const [r, p, s] = activeElementId.split('-');
-                        const $el = $(`.match-container[data-round="${r}"][data-pos="${p}"]`).find(`.${s}`);
-                        if ($el.length) {
-                            try {
-                                $el.focus();
-                                const val = $el.val();
-                                $el.val('').val(val);
-                            } catch (e) { }
-                        }
-                    }
-                    $('#bracket-diagnostic').text(`Loaded ${teams.length} teams, ${localMatches.filter(m => m.round > 0 && m.round < 100).length} matches.`);
+                    };
                 };
 
                 const renderCurrentBracket = () => {
-                    if (currentFormat === 'Double Elimination') {
-                        renderDoubleBracket();
-                    } else {
-                        renderSingleBracket();
-                    }
+                    if (currentFormat === 'Double Elimination') renderDoubleBracket();
+                    else renderSingleBracket();
                 };
 
                 // Events
-                $bracket.on('input change keyup', '.score-input', function () {
-                    if (currentFormat === 'Double Elimination') return; // Handled by jquery-bracket
-
-                    const $container = $(this).closest('.match-container');
-                    const round = $container.data('round');
-                    const pos = $container.data('pos');
-                    const score1 = $container.find('.s1').val();
-                    const score2 = $container.find('.s2').val();
-
-                    let m = localMatches.find(match => match.round == round && match.position == pos);
-                    if (!m) {
-                        m = { round, position: pos, score1: null, score2: null };
-                        localMatches.push(m);
-                    }
-                    m.score1 = score1 === "" ? null : parseInt(score1);
-                    m.score2 = score2 === "" ? null : parseInt(score2);
-
-                    renderSingleBracket();
-                });
+                // Removed old $bracket.on('input change keyup', '.score-input', ...) as iframe handles it
 
                 // Initial Render
                 renderCurrentBracket();
 
-                // Control Button Handlers (Shared)
+                // Control Button Handlers
                 $('#btn-plus').on('click', () => {
-                    currentTeamLimit++;
+                    teamLimits[currentFormat]++;
                     renderCurrentBracket();
                 });
 
                 $('#btn-minus').on('click', () => {
-                    if (currentTeamLimit > 2) {
-                        currentTeamLimit--;
+                    if (teamLimits[currentFormat] > 2) {
+                        teamLimits[currentFormat]--;
                         renderCurrentBracket();
                     }
                 });
 
                 $('#btn-reset').on('click', () => {
-                    currentTeamLimit = teams.length;
+                    teamLimits[currentFormat] = teams.length;
                     renderCurrentBracket();
                 });
 
-                // Manual Save Handling (Single Elim Only)
+                // Manual Save Handling (Shared)
                 $('#save-bracket-btn').on('click', function () {
-                    const matchesToSave = [];
-                    $('.match-container').each(function () {
-                        const round = $(this).data('round');
-                        const pos = $(this).data('pos');
-                        const s1 = $(this).find('.s1').val();
-                        const s2 = $(this).find('.s2').val();
+                    const iframe = document.getElementById('bracket-iframe');
+                    if (iframe && iframe.contentWindow && iframe.contentWindow.jQuery) {
+                        const win = iframe.contentWindow;
+                        const data = win.jQuery('#bracket-container').bracket('data');
+                        const flatMatches = [];
 
-                        if (s1 !== "" || s2 !== "") {
-                            matchesToSave.push({
-                                score1: s1 === "" ? null : parseInt(s1),
-                                score2: s2 === "" ? null : parseInt(s2),
-                                round: round,
-                                position: pos
-                            });
+                        if (currentFormat === 'Double Elimination') {
+                            const [wb, lb, finals] = data.results;
+                            wb.forEach((round, r) => round.forEach((m, p) => flatMatches.push({ round: r + 1, position: p, score1: m[0], score2: m[1] })));
+                            lb.forEach((round, r) => round.forEach((m, p) => flatMatches.push({ round: -(r + 1), position: p, score1: m[0], score2: m[1] })));
+                            finals.forEach((round, r) => round.forEach((m, p) => flatMatches.push({ round: 101 + r, position: p, score1: m[0], score2: m[1] })));
+                        } else {
+                            data.results.forEach((round, r) => round.forEach((m, p) => flatMatches.push({ round: r + 1, position: p, score1: m[0], score2: m[1] })));
                         }
-                    });
-                    saveMatchesToDB(matchesToSave);
+                        saveMatchesToDB(flatMatches);
+                    }
                 });
 
             } catch (error) {
