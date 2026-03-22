@@ -1,27 +1,41 @@
-@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
 
-* {
-    -webkit-font-smoothing: antialiased;
-    box-sizing: border-box;
+
+.user-edit-team .link {
+    background-color: #ff8c00;
 }
 
-html,
-body {
-    margin: 0px;
-    height: 100%;
+.user-edit-team .link .sidebar-text {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-weight: 500; /* Weight 500 for active white text */
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 24px;
 }
 
-/* a blue color as a generic focus style */
-button:focus-visible {
-    outline: 2px solid #4a90e2 !important;
-    outline: -webkit-focus-ring-color auto 5px !important;
+/* Inactive Link State - Mirror of .link in style9.css */
+.user-edit-team .link-2 {
+    background-color: transparent;
 }
 
-a {
-    text-decoration: none;
+.user-edit-team .link-2:hover {
+    background-color: #f1f5f9;
 }
 
-/* @FONTWARNING[{"type": "restricted", "family": "Be Vietnam Pro-Regular", "weight": "400", "style": "normal", "allowsCrossOrigin": false}] */
+.user-edit-team .link-2 .sidebar-text {
+    font-family: 'Be Vietnam Pro', sans-serif;
+    font-weight: 700; /* Weight 700 for inactive gray text */
+    color: #475569;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.user-edit-team .section-margin, .user-edit-team .main-content, .user-edit-team .tournaments-list-wrapper {
+    margin-left: 320px !important;
+    margin-top: 97px !important;
+}
+
+
+
 
 @font-face {
     font-family: "Be Vietnam Pro-Regular";
@@ -41,3 +55,40 @@ a {
     font-family: "Be Vietnam Pro-Medium";
     src: local("Be Vietnam Pro-Medium");
 }
+
+/* ==========================================================================
+   UNIFIED HEADER & SIDEBAR CSS (ADMIN STYLE)
+   ========================================================================== */
+
+/* Header Styles */
+
+
+
+
+
+
+
+
+
+
+
+
+/* Sidebar Styles */
+
+
+
+
+
+
+
+/* Adjust Main Content for Sidebar */
+.group {
+    left: 264px !important;
+    width: calc(100% - 288px) !important;
+    transform: none !important;
+}
+.footer-footer {
+    padding-left: 264px !important;
+}
+
+

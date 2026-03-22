@@ -6,98 +6,94 @@
     <meta charset="utf-8" />
     <title>KMITL ESPORT - My History Team</title>
     <link rel="stylesheet" href="globals6.css" />
-    <link rel="stylesheet" href="styleguide6.css" />
-    <link rel="stylesheet" href="style6.css" />
+    
+    
+    
+    <link rel="stylesheet" href="../../../shared-admin.css" />
+    <link rel="stylesheet" href="../../Admin/TournamentList Page 9/globals9.css" />
+    <link rel="stylesheet" href="../../Admin/TournamentList Page 9/styleguide9.css" />
+    <link rel="stylesheet" href="../../Admin/TournamentList Page 9/style9.css" />
+    
+
+    
+    
+    <style>
+        /* Admin-Style Layout Correction */
+        .admin-tournament .tournaments-list-wrapper, 
+        .admin-tournament .section-margin, 
+        .admin-tournament .section-2,
+        .admin-tournament .banner-image-preview,
+        .admin-tournament .section,
+        .admin-tournament .background-border,
+        .admin-tournament .heading-2,
+        .admin-tournament .match-view-all,
+        .admin-tournament .create-team-content {
+            margin-left: 320px !important;
+            margin-top: 97px !important;
+            width: calc(100% - 352px) !important; /* Responsive width adjustment */
+        }
+        .admin-tournament .section-2, .admin-tournament .background-border {
+            margin-top: 24px !important; /* Secondary sections don't need top margin */
+        }
+    </style>
+
+
+
 </head>
 
 <body>
-    <div class="user-team">
-        <!-- Header -->
-        <header class="header-top" role="banner">
-            <div class="container-9">
-                <img class="chatgpt-image" src="img/chatgpt-image-4-2569-15-54-45-removebg-preview-1.png"
-                    alt="KMITL ESPORT Logo" />
-                <div class="heading-wrapper">
-                    <div class="div-2">
-                        <h1 class="text-wrapper-10">KMITL ESPORT</h1>
-                    </div>
+    <div class="admin-tournament">
+                                                        <!-- Header -->
+        <header class="header-top namespaced-header" role="banner">
+            <div class="ns-header-left">
+                <img class="ns-logo-img" src="../../../icons/Logo.png" alt="KMITL ESPORT Logo" />
+                <div class="ns-title-wrap">
+                    <span class="ns-title-text">KMITL ESPORT</span>
                 </div>
-                <nav class="container-10" aria-label="Main navigation">
-                    <div class="div-2"><span class="text-2">Home</span></div>
-                    <div class="div-2"><span class="text-3">Explore</span></div>
-                    <div class="div-2"><span class="text-4">News</span></div>
+                <nav class="ns-main-nav" aria-label="Main navigation">
+                    <a href="../Tournament List Page 1/userlogin_1.html" class="ns-nav-link active">Home</a>
+                    <a href="#" class="ns-nav-link">Explore</a>
+                    <a href="#" class="ns-nav-link">News</a>
                 </nav>
             </div>
-            <div class="container-11">
-                <label class="label" aria-label="Search tournaments">
-                    <div class="container-12">
-                        <div class="background">
-                            <div class="div-2">
-                                <img class="icon-5" src="img/image.svg" alt="Search icon" />
-                            </div>
-                        </div>
-                        <div class="input">
-                            <div class="container-13">
-                                <input class="text-5" placeholder="Search tournaments..." type="search"
-                                    aria-label="Search tournaments" />
-                            </div>
-                        </div>
+            <div class="ns-header-right">
+                <label class="ns-search-box" aria-label="Search tournaments">
+                    <div class="ns-search-bg">
+                        <img class="ns-search-icon" src="../../../icons/search.svg" alt="Search icon" />
                     </div>
+                    <input class="ns-search-input" placeholder="Search tournaments..." type="search" aria-label="Search tournaments" />
                 </label>
-                <div class="container-14">
-                    <button class="iconstack-io-plus-wrapper" aria-label="Add new item" type="button">
-                        <div class="iconstack-io-plus" aria-hidden="true">
-                            <img class="vector" src="img/vector.svg" alt="" />
-                            <img class="vector-2" src="img/vector-2.svg" alt="" />
-                        </div>
-                    </button>
-                </div>
-                <img class="image-background" src="img/image-background-border.svg" alt="User profile" />
+                <img class="ns-user-avatar" src="../../../icons/user.svg" alt="User profile" />
             </div>
         </header>
-        <!-- Sidebar -->
+                                                        <!-- Sidebar -->
         <aside class="aside-sidebar" aria-label="Sidebar navigation">
-            <nav class="container-5" aria-label="Section navigation">
-                <a class="link" href="#tournaments" aria-label="Tournaments">
-                    <img class="icon" src="img/icon-3.svg" alt="" aria-hidden="true" />
-                    <div class="container-6">
-                        <span class="text-wrapper-6">Tournaments</span>
-                    </div>
+            <nav class="sidebar-nav-container">
+                <a class="link-2" href="../Tournament List Page 1/userlogin_1.html" aria-label="Tournament">
+                    <img src="../../../icons/trophy-star.svg" alt="Tournament icon" style="width:20px; height:20px;" />
+                    <span class="sidebar-text">Tournament</span>
                 </a>
-                <a class="link-2" href="#teams" aria-label="Teams" aria-current="page">
-                    <div class="div-2">
-                        <div class="div-2">
-                            <img class="icon-2" src="img/icon-6.svg" alt="" aria-hidden="true" />
-                        </div>
-                    </div>
-                    <div class="container-7">
-                        <span class="text-wrapper-7">Teams</span>
-                    </div>
+                <a class="link" href="../Team(noHave) Page 3/Teamnohave_3.html" aria-label="Teams">
+                    <img src="../../../icons/users.svg" alt="Teams icon" style="width:20px; height:20px;" />
+                    <span class="sidebar-text">Teams</span>
                 </a>
-                <a class="link" href="#about" aria-label="About">
-                    <div class="div-2">
-                        <img class="icon-3" src="img/icon-2.svg" alt="" aria-hidden="true" />
-                    </div>
-                    <div class="container-8">
-                        <span class="text-wrapper-8">About</span>
-                    </div>
+                <a class="link-2" href="#" aria-label="About">
+                    <img src="../../../icons/info.svg" alt="About icon" style="width:20px; height:20px;" />
+                    <span class="sidebar-text">About</span>
                 </a>
-                <a class="link" href="#settings" aria-label="Settings">
-                    <div class="div-2">
-                        <img class="icon-4" src="img/icon.svg" alt="" aria-hidden="true" />
-                    </div>
-                    <div class="div-2">
-                        <span class="text-wrapper-9">Settings</span>
-                    </div>
+                <a class="link-2" href="#" aria-label="Settings">
+                    <img src="../../../icons/settings.svg" alt="Settings icon" style="width:20px; height:20px;" />
+                    <span class="sidebar-text">Settings</span>
                 </a>
             </nav>
         </aside>
         <!-- Main Content -->
-        <main class="tournaments-list-wrapper" role="main">
+        <main class="tournaments-list-wrapper standardized-main-content" role="main">
             <section class="tournaments-list" aria-labelledby="history-team-heading">
                 <div class="container-2">
-                    <div class="div-2">
-                        <h2 id="history-team-heading" class="my-history-team">My&nbsp;&nbsp;History Team</h2>
+                    <div class="div-2" style="display: flex; align-items: center; gap: 12px;">
+                        <img src="../../../icons/users.svg" alt="" style="width: 32px; height: 32px;" aria-hidden="true" />
+                        <h2 id="history-team-heading" class="my-history-team" style="margin: 0; font-family: 'Be Vietnam Pro', sans-serif;">My History Team</h2>
                     </div>
                     <button class="button" type="button" aria-label="View all history teams">
                         <span class="text">View All</span>
@@ -178,9 +174,8 @@
                     li.className = 'tournament-card';
                     li.innerHTML = `
                         <div class="valorant-tournament-wrapper" aria-hidden="true">
-                            <div class="valorant-tournament" style="display:flex; align-items:center; justify-content:center; background:#333;">
-                                <!-- placeholder for team logo -->
-                                <span style="font-size: 24px; color: white;">${team.team_name.substring(0,2).toUpperCase()}</span>
+                            <div class="valorant-tournament" style="display:flex; align-items:center; justify-content:center; background:#ff8c001a; border-radius: 12px;">
+                                <img src="../../../icons/users.svg" alt="" style="width: 48px; height: 48px; opacity: 0.5;" />
                             </div>
                         </div>
                         <div class="container-3">
@@ -188,17 +183,16 @@
                                 <span class="text-wrapper-4">${team.team_name}</span>
                             </div>
                             <div class="container-wrapper">
-                                <div class="container-4">
-                                    <div class="div-2">
-                                        <span class="text-wrapper-5">Leader: ${team.leader_name}</span>
-                                    </div>
+                                <div class="container-4" style="display: flex; align-items: center; gap: 8px;">
+                                    <img src="../../../icons/user.svg" alt="" style="width: 14px; height: 14px;" />
+                                    <span class="text-wrapper-5" style="margin: 0;">Leader: ${team.leader_name}</span>
                                 </div>
                             </div>
                         </div>
                         <div class="button-wrapper">
-                            <button class="div-wrapper" type="button" aria-label="Edit ${team.team_name}">
+                            <button class="div-wrapper" type="button" aria-label="Edit ${team.team_name}" style="background: transparent; border: 1px solid #e2e8f0;">
                                 <div class="icon-wrapper">
-                                    <span style="color:white; font-size:12px;">Edit</span>
+                                    <img src="../../../icons/pencil.svg" alt="Edit icon" style="width: 16px; height: 16px;" />
                                 </div>
                             </button>
                         </div>

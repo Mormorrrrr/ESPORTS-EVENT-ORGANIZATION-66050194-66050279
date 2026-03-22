@@ -6,71 +6,84 @@
     <meta charset="utf-8" />
     <title>KMITL Esport - Tournament</title>
     <link rel="stylesheet" href="globals2.css" />
-    <link rel="stylesheet" href="styleguide2.css" />
-    <link rel="stylesheet" href="style2.css" />
+    
+    
+    
+    <link rel="stylesheet" href="../../../shared-admin.css" />
+    <link rel="stylesheet" href="../../Admin/TournamentList Page 9/globals9.css" />
+    <link rel="stylesheet" href="../../Admin/TournamentList Page 9/styleguide9.css" />
+    <link rel="stylesheet" href="../../Admin/TournamentList Page 9/style9.css" />
+    
+
+    
+    
+    <style>
+        /* Admin-Style Layout Correction */
+        .admin-tournament .tournaments-list-wrapper, 
+        .admin-tournament .section-margin, 
+        .admin-tournament .section-2,
+        .admin-tournament .banner-image-preview,
+        .admin-tournament .section,
+        .admin-tournament .background-border,
+        .admin-tournament .heading-2,
+        .admin-tournament .match-view-all,
+        .admin-tournament .create-team-content {
+            margin-left: 320px !important;
+            margin-top: 97px !important;
+            width: calc(100% - 352px) !important; /* Responsive width adjustment */
+        }
+        .admin-tournament .section-2, .admin-tournament .background-border {
+            margin-top: 24px !important; /* Secondary sections don't need top margin */
+        }
+    </style>
+
+
+
 </head>
 
 <body>
-    <div class="user-tournament">
-        <!-- Header -->
-        <header class="header-top" role="banner">
-            <div class="container-14">
-                <img class="chatgpt-image" src="img/chatgpt-image-4-2569-15-54-45-removebg-preview-1.png"
-                    alt="KMITL Esport Logo" />
-                <div class="heading-wrapper">
-                    <div class="div">
-                        <span class="text-wrapper-11">KMITL ESPORT</span>
-                    </div>
+    <div class="admin-tournament">
+                                                        <!-- Header -->
+        <header class="header-top namespaced-header" role="banner">
+            <div class="ns-header-left">
+                <img class="ns-logo-img" src="../../../icons/Logo.png" alt="KMITL ESPORT Logo" />
+                <div class="ns-title-wrap">
+                    <span class="ns-title-text">KMITL ESPORT</span>
                 </div>
-                <nav class="container-15" aria-label="Main navigation">
-                    <div class="div"><a class="text-32" href="../Tournament List Page 1/userlogin_1.html" style="text-decoration: none; color: inherit;">Home</a></div>
-                    <div class="div"><span class="text-33">Explore</span></div>
-                    <div class="div"><span class="text-34">News</span></div>
+                <nav class="ns-main-nav" aria-label="Main navigation">
+                    <a href="../Tournament List Page 1/userlogin_1.html" class="ns-nav-link active">Home</a>
+                    <a href="#" class="ns-nav-link">Explore</a>
+                    <a href="#" class="ns-nav-link">News</a>
                 </nav>
             </div>
-            <div class="container-16">
-                <label class="label" aria-label="Search tournaments">
-                    <div class="container-17">
-                        <div class="container-wrapper">
-                            <div class="div"><img class="icon-5" src="img/icon-9.svg" alt="Search icon" /></div>
-                        </div>
-                        <div class="input">
-                            <div class="container-18">
-                                <input class="text-35" placeholder="Search tournaments..." type="search"
-                                    aria-label="Search tournaments" />
-                            </div>
-                        </div>
+            <div class="ns-header-right">
+                <label class="ns-search-box" aria-label="Search tournaments">
+                    <div class="ns-search-bg">
+                        <img class="ns-search-icon" src="../../../icons/search.svg" alt="Search icon" />
                     </div>
+                    <input class="ns-search-input" placeholder="Search tournaments..." type="search" aria-label="Search tournaments" />
                 </label>
-                <div class="button-wrapper">
-                    <button class="button" aria-label="Add new tournament" type="button">
-                        <span class="iconstack-io-plus" aria-hidden="true">
-                            <img class="vector" src="img/vector.svg" alt="" />
-                            <img class="vector-2" src="img/vector-2.svg" alt="" />
-                        </span>
-                    </button>
-                </div>
-                <img class="image-background" src="img/image-background-border.svg" alt="" aria-hidden="true" />
+                <img class="ns-user-avatar" src="../../../icons/user.svg" alt="User profile" />
             </div>
         </header>
-        <!-- Sidebar -->
+                                                        <!-- Sidebar -->
         <aside class="aside-sidebar" aria-label="Sidebar navigation">
-            <nav class="container-19">
-                <a class="link" href="#" aria-current="page">
-                    <div class="div"><img class="icon-6" src="img/icon-7.svg" alt="" aria-hidden="true" /></div>
-                    <div class="div"><a class="text-36" href="../Tournament List Page 1/userlogin_1.html" style="text-decoration: none; color: inherit;">Tournaments</a></div>
+            <nav class="sidebar-nav-container">
+                <a class="link" href="../Tournament List Page 1/userlogin_1.html" aria-label="Tournament">
+                    <img src="../../../icons/trophy-star.svg" alt="Tournament icon" style="width:20px; height:20px;" />
+                    <span class="sidebar-text">Tournament</span>
                 </a>
-                <a class="link-2" href="#">
-                    <div class="div"><img class="icon-4" src="img/icon-3.svg" alt="" aria-hidden="true" /></div>
-                    <div class="div"><a class="text-37" href="../Team(noHave) Page 3/Teamnohave_3.html" style="text-decoration: none; color: inherit;">Teams</a></div>
+                <a class="link-2" href="../Team(noHave) Page 3/Teamnohave_3.html" aria-label="Teams">
+                    <img src="../../../icons/users.svg" alt="Teams icon" style="width:20px; height:20px;" />
+                    <span class="sidebar-text">Teams</span>
                 </a>
-                <a class="link-2" href="#">
-                    <div class="div"><img class="icon" src="img/icon-4.svg" alt="" aria-hidden="true" /></div>
-                    <div class="div"><span class="text-38">About</span></div>
+                <a class="link-2" href="#" aria-label="About">
+                    <img src="../../../icons/info.svg" alt="About icon" style="width:20px; height:20px;" />
+                    <span class="sidebar-text">About</span>
                 </a>
-                <a class="link-2" href="#">
-                    <div class="div"><img class="icon-7" src="img/icon.svg" alt="" aria-hidden="true" /></div>
-                    <div class="div"><span class="text-39">Settings</span></div>
+                <a class="link-2" href="#" aria-label="Settings">
+                    <img src="../../../icons/settings.svg" alt="Settings icon" style="width:20px; height:20px;" />
+                    <span class="sidebar-text">Settings</span>
                 </a>
             </nav>
         </aside>
@@ -78,84 +91,79 @@
         <div class="banner-image-preview" role="img" aria-label="Rov KMITL Cup 2026 banner">
             <img class="image" src="img/image.png" alt="" aria-hidden="true" />
             <img class="image-2" src="img/image-3.png" alt="Rov KMITL Cup 2026 tournament banner" />
-            <div class="rov-KMITL-cup-wrapper">
-                <h1 class="rov-KMITL-cup">Rov KMITL&nbsp;&nbsp;Cup 2026</h1>
-                <button class="join-button" onclick="window.location.href='../Team(noHave) Page 3/Teamnohave_3.html'" style="margin-top: 20px; padding: 10px 30px; background: #ff4d4d; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">JOIN TOURNAMENT</button>
-            </div>
+            <h1 class="rov-KMITL" id="tournament-display-name">Tournament Details</h1>
+            <button class="join-button" onclick="window.location.href='../Team(noHave) Page 3/Teamnohave_3.html'" style="margin-top: 20px; padding: 12px 32px; background: #ff4d4d; color: white; border: none; border-radius: 999px; cursor: pointer; font-weight: bold; font-family: 'Be Vietnam Pro', sans-serif; box-shadow: 0 4px 6px rgba(255, 77, 77, 0.3);">JOIN TOURNAMENT</button>
         </div>
         <!-- Tournament Details Section -->
         <section class="section" aria-labelledby="tournament-details-heading">
-            <div class="heading">
-                <div class="div"><img class="icon" src="img/icon-5.svg" alt="" aria-hidden="true" /></div>
-                <h2 class="text-wrapper" id="tournament-details-heading">Tournament Details</h2>
+            <div class="heading" style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+                <img class="icon" src="../../../icons/gamepad.svg" alt="" style="width: 24px; height: 24px;" aria-hidden="true" />
+                <h2 class="text-wrapper" id="tournament-details-heading" style="margin: 0;">Tournament Details</h2>
             </div>
             <div class="container">
                 <div class="container-2">
                     <div class="background" aria-hidden="true">
-                        <div class="div"><img class="img" src="img/icon-2.svg" alt="" /></div>
+                        <div class="div"><img class="img" src="../../../icons/gamepad.svg" alt="" /></div>
                     </div>
                     <div class="container-3">
                         <div class="div-wrapper"><span class="text">TOURNAMENT TYPE</span></div>
-                        <div class="div-wrapper"><span class="text-2">Single Elimination</span></div>
+                        <div class="div-wrapper"><span class="text-2" id="detail-type">5v5 Squads</span></div>
                     </div>
                 </div>
                 <div class="container-4">
                     <div class="background" aria-hidden="true">
-                        <div class="div"><img class="icon-2" src="img/icon-10.svg" alt="" /></div>
+                        <div class="div"><img class="icon-2" src="../../../icons/daily-calendar.svg" alt="" /></div>
                     </div>
                     <div class="container-3">
                         <div class="div-wrapper"><span class="text-3">DURATION</span></div>
-                        <div class="div-wrapper"><span class="text-4">3 Days</span></div>
+                        <div class="div-wrapper"><span class="text-4" id="detail-duration">10 Days</span></div>
                     </div>
                 </div>
                 <div class="container-5">
                     <div class="background" aria-hidden="true">
-                        <div class="div"><img class="icon-3" src="img/icon-8.svg" alt="" /></div>
+                        <div class="div"><img class="icon-3" src="../../../icons/age-alt.svg" alt="" /></div>
                     </div>
                     <div class="container-3">
                         <div class="div-wrapper"><span class="text-5">AGE RANGE</span></div>
                         <div class="div-wrapper">
-                            <p class="p">18 - 25 years old</p>
+                            <p class="p" id="detail-age">15 - 25 years old</p>
                         </div>
                     </div>
                 </div>
                 <div class="container-6">
                     <div class="background" aria-hidden="true">
-                        <div class="div"><img class="icon-4" src="img/image.svg" alt="" /></div>
+                        <div class="div"><img class="icon-4" src="../../../icons/users.svg" alt="" /></div>
                     </div>
                     <div class="container-3">
                         <div class="div-wrapper"><span class="text-6">FORMAT</span></div>
-                        <div class="div-wrapper"><span class="text-7">5v5 Squads</span></div>
+                        <div class="div-wrapper"><span class="text-7" id="detail-format">Single Elimination</span></div>
                     </div>
                 </div>
             </div>
         </section>
         <!-- Registration Dates Section -->
         <section class="background-border" aria-labelledby="registration-dates-heading">
-            <div class="heading">
-                <div class="div"><img class="icon-2" src="img/icon-6.svg" alt="" aria-hidden="true" /></div>
-                <h2 class="text-8" id="registration-dates-heading">Registration Dates</h2>
+            <div class="heading" style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+                <img class="icon-2" src="../../../icons/calendar-clock.svg" alt="" style="width: 24px; height: 24px;" aria-hidden="true" />
+                <h2 class="text-8" id="registration-dates-heading" style="margin: 0;">Registration Dates</h2>
             </div>
             <div class="container-7">
                 <div class="background-border-2">
                     <div class="container-8"><span class="text-9">OPENS ON</span></div>
-                    <div class="container-9"><span class="text-wrapper-2">November 15, 2025</span></div>
+                    <div class="container-9"><span class="text-wrapper-2" id="open-date">November 15, 2025</span></div>
                     <div class="container-10"><span class="text-10">09:00 AM ICT</span></div>
                 </div>
                 <div class="background-border-3">
                     <div class="container-8"><span class="text-11">CLOSES ON</span></div>
-                    <div class="container-9"><span class="text-wrapper-3">December 05, 2025</span></div>
+                    <div class="container-9"><span class="text-wrapper-3" id="close-date">December 05, 2025</span></div>
                     <div class="container-10"><span class="text-12">11:59 PM ICT</span></div>
                 </div>
             </div>
         </section>
         <!-- Tournament Bracket Heading -->
-        <div class="heading-2">
-            <div class="div">
-                <img class="streamline-ultimate" src="img/streamline-ultimate-workflow-teamwork-fistbump-2-bold.svg"
-                    alt="" aria-hidden="true" />
-            </div>
-            <h2 class="text-wrapper">Tournament Backet</h2>
+        <div class="heading-2" style="display: flex; align-items: center; gap: 12px;">
+            <img class="streamline-ultimate" src="../../../icons/trophy-star.svg" alt="" style="width: 24px; height: 24px;" aria-hidden="true" />
+            <h2 class="text-wrapper" style="margin: 0;">Tournament Bracket</h2>
         </div>
         <!-- Match 1: Sentinels vs Fnatic -->
         <article class="match" aria-label="Match: Sentinels vs Fnatic">
@@ -257,13 +265,40 @@
                 <div class="background-shadow"></div>
             </div>
         </div>
-        <!-- Footer -->
-        <footer class="footer-footer" role="contentinfo">
-            <div class="container-13"><span class="text-wrapper-7">© 2026 KMITL ESPORT</span></div>
-            <a class="text-wrapper-8" href="#">Documentation</a>
-            <a class="text-wrapper-9" href="#">API Reference</a>
-            <a class="text-wrapper-10" href="#">Support</a>
-        </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+            if (!id) return;
+
+            try {
+                const res = await fetch(`http://localhost:3000/tournaments/${id}`);
+                const tournament = await res.json();
+
+                // Bind Data
+                document.getElementById('tournament-display-name').textContent = tournament.tournament_name;
+                document.getElementById('detail-type').textContent = tournament.tournament_type || 'N/A';
+                document.getElementById('detail-duration').textContent = tournament.duration || 'N/A';
+                document.getElementById('detail-age').textContent = `${tournament.age_min || 0} - ${tournament.age_max || 100} years old`;
+                document.getElementById('detail-format').textContent = tournament.format || 'N/A';
+                document.getElementById('open-date').textContent = new Date(tournament.start_date).toLocaleDateString();
+                document.getElementById('close-date').textContent = new Date(tournament.end_date).toLocaleDateString();
+
+                // Banner Fallback
+                const bannerImg = document.querySelector('.image-2');
+                const fallbackBanner = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200';
+                if (tournament.tournament_banner) {
+                    bannerImg.src = tournament.tournament_banner;
+                    bannerImg.onerror = () => bannerImg.src = fallbackBanner;
+                } else {
+                    bannerImg.src = fallbackBanner;
+                }
+
+            } catch (error) {
+                console.error('Error fetching tournament detail:', error);
+            }
+        });
+    </script>
     </div>
 </body>
 

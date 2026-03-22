@@ -1525,3 +1525,164 @@
     width: 40px;
     height: 40px;
 }
+
+/* ==========================================================================
+   UNIFIED HEADER & SIDEBAR CSS (ADMIN STYLE)
+   ========================================================================== */
+
+/* Header Styles */
+.namespaced-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    height: 72px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.ns-header-left {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.ns-logo-img {
+    height: 48px;
+    width: auto;
+}
+
+.ns-title-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: #0f172a;
+    letter-spacing: -0.025em;
+    font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+.ns-main-nav {
+    display: flex;
+    gap: 24px;
+}
+
+.ns-nav-link {
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: #64748b;
+    transition: color 0.2s;
+    font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+.ns-nav-link:hover, .ns-nav-link.active {
+    color: #0f172a;
+    font-weight: 700;
+}
+
+.ns-header-right {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.ns-search-box {
+    display: flex;
+    align-items: center;
+    background-color: #f1f5f9;
+    padding: 8px 16px;
+    border-radius: 9999px;
+    width: 240px;
+}
+
+.ns-search-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+}
+
+.ns-search-input {
+    border: none;
+    background: transparent;
+    font-size: 14px;
+    color: #0f172a;
+    outline: none;
+    width: 100%;
+}
+
+.ns-user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Sidebar Styles */
+.aside-sidebar {
+    width: 240px;
+    background-color: #ffffff !important;
+    border-right: 1px solid #e2e8f0 !important;
+    height: 100vh;
+    position: fixed;
+    top: 72px;
+    left: 0;
+    padding: 24px 16px;
+    z-index: 900;
+    overflow-y: auto;
+}
+
+.sidebar-nav-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.sidebar-nav-container a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    text-decoration: none;
+    border-radius: 12px;
+    transition: all 0.2s;
+}
+
+.sidebar-nav-container .link {
+    background-color: #ff8c00 !important;
+    color: #ffffff !important;
+    box-shadow: 0 4px 6px -1px rgba(255, 140, 0, 0.2);
+}
+
+.sidebar-nav-container .link-2 {
+    color: #64748b !important;
+    background-color: transparent !important;
+}
+
+.sidebar-nav-container .link-2:hover {
+    background-color: #f1f5f9 !important;
+    color: #0f172a !important;
+}
+
+.sidebar-text {
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Be Vietnam Pro', sans-serif;
+}
+
+/* Adjust Main Content for Sidebar */
+.tournaments-list-wrapper {
+    margin-left: 264px !important;
+    width: calc(100% - 280px) !important;
+    padding-top: 100px !important;
+}
+.footer-footer {
+    padding-left: 264px !important;
+}
+
+.user-team .header-top { border: none !important; background: transparent !important; pointer-events: none; }
+.namespaced-header { pointer-events: auto; }
+.user-team .aside-sidebar { border: none !important; }
