@@ -14,7 +14,6 @@
 
 body {
     background-color: var(--bg-slate);
-    font-family: 'Be Vietnam Pro', sans-serif;
     color: var(--primary-dark);
 }
 
@@ -49,7 +48,6 @@ header.namespaced-header .ns-logo-img {
 }
 
 header.namespaced-header .ns-title-text {
-    font-family: "Be Vietnam Pro-Bold", Helvetica !important;
     font-weight: 700 !important;
     color: #000000 !important;
     font-size: 24px !important;
@@ -62,7 +60,6 @@ header.namespaced-header .ns-main-nav {
 }
 
 header.namespaced-header .ns-nav-link {
-    font-family: "Be Vietnam Pro-SemiBold", Helvetica !important;
     font-weight: 600 !important;
     color: #334155 !important;
     font-size: 14px !important;
@@ -97,7 +94,6 @@ header.namespaced-header .ns-search-input {
     border: none !important;
     outline: none !important;
     background: transparent !important;
-    font-family: "Be Vietnam Pro-Medium", Helvetica !important;
     font-weight: 500 !important;
     font-size: 14px !important;
     color: #0f172a !important;
@@ -148,7 +144,6 @@ header.namespaced-header .ns-user-avatar {
 }
 
 .sidebar-nav-container .sidebar-text {
-    font-family: "Be Vietnam Pro", sans-serif !important;
     font-size: 16px !important;
     line-height: 24px !important;
 }

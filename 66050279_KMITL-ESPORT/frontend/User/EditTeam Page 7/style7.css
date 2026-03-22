@@ -5,7 +5,6 @@
 }
 
 .user-edit-team .link .sidebar-text {
-    font-family: 'Be Vietnam Pro', sans-serif;
     font-weight: 500; /* Weight 500 for active white text */
     color: #ffffff;
     font-size: 16px;
@@ -22,7 +21,6 @@
 }
 
 .user-edit-team .link-2 .sidebar-text {
-    font-family: 'Be Vietnam Pro', sans-serif;
     font-weight: 700; /* Weight 700 for inactive gray text */
     color: #475569;
     font-size: 16px;
@@ -38,21 +36,18 @@
 
 
 @font-face {
-    font-family: "Be Vietnam Pro-Regular";
     src: local("Be Vietnam Pro-Regular");
 }
 
 /* @FONTWARNING[{"type": "restricted", "family": "Be Vietnam Pro-Bold", "weight": "700", "style": "normal", "allowsCrossOrigin": false}] */
 
 @font-face {
-    font-family: "Be Vietnam Pro-Bold";
     src: local("Be Vietnam Pro-Bold");
 }
 
 /* @FONTWARNING[{"type": "restricted", "family": "Be Vietnam Pro-Medium", "weight": "500", "style": "normal", "allowsCrossOrigin": false}] */
 
 @font-face {
-    font-family: "Be Vietnam Pro-Medium";
     src: local("Be Vietnam Pro-Medium");
 }
 

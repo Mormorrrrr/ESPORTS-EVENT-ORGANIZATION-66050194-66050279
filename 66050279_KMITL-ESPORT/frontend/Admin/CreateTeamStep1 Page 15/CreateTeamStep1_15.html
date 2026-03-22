@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="globals15.css" />
     <link rel="stylesheet" href="styleguide15.css" />
     <link rel="stylesheet" href="style15.css" />
+    <link rel="stylesheet" href="../../shared-admin.css" />
 </head>
 
 <body>
@@ -279,7 +280,7 @@
                 } else {
                     tournamentsContainer.innerHTML = tournaments.map(t => `
                         <div class="tournament-option" data-id="${t.tournament_id}" data-name="${t.tournament_type}" style="padding: 16px 20px; cursor: pointer; border-bottom: 1px solid #f1f5f9; transition: background 0.2s;">
-                            <div style="font-family: 'Be Vietnam Pro-Medium', Helvetica, sans-serif; font-weight: 500; font-size: 16px; color: #0f172a; pointer-events: none;">${t.tournament_type}</div>
+                            <div style=" font-weight: 500; font-size: 16px; color: #0f172a; pointer-events: none;">${t.tournament_type}</div>
                         </div>
                     `).join('');
 

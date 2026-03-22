@@ -24,27 +24,23 @@ a {
 /* @FONTWARNING[{"type": "restricted", "family": "Be Vietnam Pro-Bold", "weight": "700", "style": "normal", "allowsCrossOrigin": false}] */
 
 @font-face {
-    font-family: "Be Vietnam Pro-Bold";
     src: local("Be Vietnam Pro-Bold");
 }
 
 /* @FONTWARNING[{"type": "restricted", "family": "Be Vietnam Pro-Medium", "weight": "500", "style": "normal", "allowsCrossOrigin": false}] */
 
 @font-face {
-    font-family: "Be Vietnam Pro-Medium";
     src: local("Be Vietnam Pro-Medium");
 }
 
 /* @FONTWARNING[{"type": "restricted", "family": "Be Vietnam Pro-SemiBold", "weight": "600", "style": "normal", "allowsCrossOrigin": false}] */
 
 @font-face {
-    font-family: "Be Vietnam Pro-SemiBold";
     src: local("Be Vietnam Pro-SemiBold");
 }
 
 /* @FONTWARNING[{"type": "restricted", "family": "Be Vietnam Pro-Regular", "weight": "400", "style": "normal", "allowsCrossOrigin": false}] */
 
 @font-face {
-    font-family: "Be Vietnam Pro-Regular";
     src: local("Be Vietnam Pro-Regular");
 }

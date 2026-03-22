@@ -9,36 +9,13 @@
     
     
     
-    <link rel="stylesheet" href="../../../shared-admin.css" />
+    <link rel="stylesheet" href="../../shared-admin.css" />
     <link rel="stylesheet" href="../../Admin/TournamentList Page 9/globals9.css" />
     <link rel="stylesheet" href="../../Admin/TournamentList Page 9/styleguide9.css" />
-    <link rel="stylesheet" href="../../Admin/TournamentList Page 9/style9.css" />
-    
-
-    
-    
-    <style>
-        /* Admin-Style Layout Correction */
-        .admin-tournament .tournaments-list-wrapper, 
-        .admin-tournament .section-margin, 
-        .admin-tournament .section-2,
-        .admin-tournament .banner-image-preview,
-        .admin-tournament .section,
-        .admin-tournament .background-border,
-        .admin-tournament .heading-2,
-        .admin-tournament .match-view-all,
-        .admin-tournament .create-team-content {
-            margin-left: 320px !important;
-            margin-top: 97px !important;
-            width: calc(100% - 352px) !important; /* Responsive width adjustment */
-        }
-        .admin-tournament .section-2, .admin-tournament .background-border {
-            margin-top: 24px !important; /* Secondary sections don't need top margin */
-        }
-    </style>
 
 
 
+    <link rel="stylesheet" href="../../shared-admin.css" />
 </head>
 
 <body>
@@ -69,31 +46,33 @@
                                                         <!-- Sidebar -->
         <aside class="aside-sidebar" aria-label="Sidebar navigation">
             <nav class="sidebar-nav-container">
-                <a class="link-2" href="../Tournament List Page 1/userlogin_1.html" aria-label="Tournament">
-                    <img src="../../../icons/trophy-star.svg" alt="Tournament icon" style="width:20px; height:20px;" />
+                <a class="link-2" href="../../User/Tournament List Page 1/userlogin_1.html" aria-label="Tournament">
+                    <img src="../../icons/trophy-star.svg" alt="Tournament icon" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Tournament</span>
                 </a>
-                <a class="link" href="../Team(noHave) Page 3/Teamnohave_3.html" aria-label="Teams">
-                    <img src="../../../icons/users.svg" alt="Teams icon" style="width:20px; height:20px;" />
+                <a class="link" href="../../User/Team(noHave) Page 3/Teamnohave_3.html" aria-label="Teams">
+                    <img src="../../icons/users.svg" alt="Teams icon" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Teams</span>
                 </a>
                 <a class="link-2" href="#" aria-label="About">
-                    <img src="../../../icons/info.svg" alt="About icon" style="width:20px; height:20px;" />
+                    <img src="../../icons/info.svg" alt="About icon" style="width:20px; height:20px;" />
                     <span class="sidebar-text">About</span>
                 </a>
                 <a class="link-2" href="#" aria-label="Settings">
-                    <img src="../../../icons/settings.svg" alt="Settings icon" style="width:20px; height:20px;" />
+                    <img src="../../icons/settings.svg" alt="Settings icon" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Settings</span>
                 </a>
             </nav>
         </aside>
         <!-- Main Content Area -->
-        <main class="main-content section-margin" aria-label="Teams content" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 80vh;">
-            <img src="../../../icons/users.svg" alt="" style="width: 80px; height: 80px; opacity: 0.2; margin-bottom: 24px;" aria-hidden="true" />
-            <p class="text-wrapper-9" style="position: static; font-size: 24px; color: #64748b; margin-bottom: 32px;">ยังไม่มีทีมที่เข้าร่วม</p>
-            <button class="button" type="button" aria-label="Create a new team" onclick="window.location.href='../CreateTeamStep1 Page 4/createteamStep1_4.html'" style="position: static; width: auto; padding: 12px 48px;">
-                <span class="text-wrapper-8">Create Team</span>
-            </button>
+        <main class="frame">
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 60vh;">
+                <img src="../../../icons/users.svg" alt="" style="width: 80px; height: 80px; opacity: 0.2; margin-bottom: 24px;" aria-hidden="true" />
+                <p class="text-wrapper-9" style="position: static; font-size: 24px; color: #64748b; margin-bottom: 32px;">ยังไม่มีทีมที่เข้าร่วม</p>
+                <button class="button" type="button" aria-label="Create a new team" onclick="window.location.href='../CreateTeamStep1 Page 4/createteamStep1_4.html'" style="position: static; width: auto; padding: 12px 48px;">
+                    <span class="text-wrapper-8">Create Team</span>
+                </button>
+            </div>
         </main>
         <!-- Footer -->
         <footer class="footer-footer" role="contentinfo">
