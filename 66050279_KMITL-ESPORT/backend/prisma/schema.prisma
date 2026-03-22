@@ -34,11 +34,16 @@ model Team {
 }
 
 model Tournament {
-  tournament_id   Int      @id @default(autoincrement())
-  tournament_name String
-  tournament_type String // Single / Double
-  start_date      DateTime
-  end_date        DateTime
+  tournament_id     Int      @id @default(autoincrement())
+  tournament_name   String
+  tournament_type   String // Single / Double
+  start_date        DateTime
+  end_date          DateTime
+  tournament_banner String?
+  age_min           Int?
+  age_max           Int?
+  duration          String?
+  format            String?
 
   applications Application[]
   matches      Match[]

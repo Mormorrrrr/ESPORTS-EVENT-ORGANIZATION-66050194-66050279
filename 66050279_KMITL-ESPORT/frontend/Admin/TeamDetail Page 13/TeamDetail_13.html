@@ -8,138 +8,89 @@
     <link rel="stylesheet" href="globals13.css" />
     <link rel="stylesheet" href="styleguide13.css" />
     <link rel="stylesheet" href="style13.css" />
-</head>
-
 <body>
-    <div class="admin-team-detail">
-        <!-- Admin Team List View (background layer) -->
-        <section class="tournaments-list" aria-label="Team List">
-            <div class="container-2">
-                <div class="div-2">
-                    <h2 class="text-wrapper-4">Team List</h2>
+    <!-- Standardized Universal Header -->
+    <header class="namespaced-header" role="banner">
+        <div class="ns-header-left">
+            <img class="ns-logo-img" src="../../../icons/Logo.png" alt="KMITL ESPORT Logo" />
+            <div class="ns-title-wrap">
+                <span class="ns-title-text" style="font-family: 'Be Vietnam Pro', sans-serif; font-weight: 700; font-size: 24px; color: #000; letter-spacing: -0.6px;">KMITL ESPORT</span>
+            </div>
+            <nav class="ns-main-nav" aria-label="Main navigation">
+                <a href="../Dashboard Page 8/Dashboard_8.html" class="ns-nav-link" style="color:#000; font-weight: 600; text-decoration: none;">Home</a>
+                <a href="#" class="ns-nav-link" style="color:#64748b; font-weight: 500; text-decoration: none;">Explore</a>
+                <a href="#" class="ns-nav-link" style="color:#64748b; font-weight: 500; text-decoration: none;">News</a>
+            </nav>
+        </div>
+        <div class="ns-header-right">
+            <label class="ns-search-box" aria-label="Search tournaments">
+                <div class="ns-search-bg">
+                    <img class="ns-search-icon" src="../../../icons/search.svg" alt="Search icon" />
                 </div>
-                <button class="button" type="button" onclick="window.history.back()">
-                    <span class="text-wrapper-5">View All</span>
-                </button>
-            </div>
-            <!-- First row: single card -->
-            <div class="container-3">
-                <article class="tournament-card">
-                    <div class="valorant-tournament-wrapper">
-                        <div class="valorant-tournament" role="img" aria-label="Valorant Tournament"></div>
-                    </div>
-                    <div class="container-4">
-                        <div class="div-wrapper">
-                            <h3 class="text-wrapper-6">Team A</h3>
-                        </div>
-                        <div class="container-wrapper">
-                            <div class="container-5">
-                                <div class="div-2"><img class="icon" src="../../../icons/trophy-star.svg" alt="Tournament icon" /></div>
-                                <div class="div-2"><span class="text-wrapper-7">Rov KMITL Cup 2026</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container-6">
-                        <div class="background"><span class="approve">APPROVE</span></div>
-                        <button class="button-2" type="button" aria-label="Edit team">
-                            <div class="icon-wrapper"><img class="img" src="../../../icons/pencil.svg" alt="Edit" /></div>
-                        </button>
-                        <button class="button-2" type="button" aria-label="Delete team">
-                            <div class="icon-wrapper"><img class="icon-2" src="../../../icons/trash.svg" alt="Delete" /></div>
-                        </button>
-                    </div>
-                </article>
-            </div>
-            <!-- Second row: multiple cards -->
-            <div class="container-3">
-                <article class="tournament-card">
-                    <div class="valorant-tournament-wrapper">
-                        <div class="valorant-tournament-2" role="img" aria-label="Valorant Tournament"></div>
-                    </div>
-                    <div class="container-4">
-                        <div class="div-wrapper">
-                            <h3 class="text-wrapper-6">Team A</h3>
-                        </div>
-                        <div class="container-wrapper">
-                            <div class="container-5">
-                                <div class="div-2"><img class="icon" src="../../../icons/trophy-star.svg" alt="Tournament icon" /></div>
-                                <div class="div-2"><span class="text-wrapper-7">Rov KMITL Cup 2026</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container-6">
-                        <div class="background"><span class="approve">APPROVE</span></div>
-                        <button class="button-2" type="button" aria-label="Edit team">
-                            <div class="icon-wrapper"><img class="img" src="../../../icons/pencil.svg" alt="Edit" /></div>
-                        </button>
-                        <button class="button-2" type="button" aria-label="Delete team">
-                            <div class="icon-wrapper"><img class="icon-2" src="../../../icons/trash.svg" alt="Delete" /></div>
-                        </button>
-                    </div>
-                </article>
-                <article class="tournament-card">
-                    <div class="valorant-tournament-wrapper">
-                        <div class="valorant-tournament-3" role="img" aria-label="Valorant Tournament"></div>
-                    </div>
-                    <div class="container-4">
-                        <div class="div-wrapper">
-                            <h3 class="text-wrapper-6">Team B</h3>
-                        </div>
-                        <div class="container-wrapper">
-                            <div class="container-5">
-                                <div class="div-2"><img class="icon" src="../../../icons/trophy-star.svg" alt="Tournament icon" /></div>
-                                <div class="div-2"><span class="text-wrapper-7">Rov KMITL Cup 2026</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container-6">
-                        <div class="pending-wrapper"><span class="pending">PENDING</span></div>
-                        <button class="button-2" type="button" aria-label="Edit team">
-                            <div class="icon-wrapper"><img class="img" src="../../../icons/pencil.svg" alt="Edit" /></div>
-                        </button>
-                        <button class="button-2" type="button" aria-label="Delete team">
-                            <div class="icon-wrapper"><img class="icon-2" src="../../../icons/trash.svg" alt="Delete" /></div>
-                        </button>
-                    </div>
-                </article>
-                <article class="tournament-card">
-                    <div class="valorant-tournament-wrapper">
-                        <div class="valorant-tournament-4" role="img" aria-label="Valorant Tournament"></div>
-                    </div>
-                    <div class="container-4">
-                        <div class="div-wrapper">
-                            <h3 class="text-wrapper-6">Team C</h3>
-                        </div>
-                        <div class="container-wrapper">
-                            <div class="container-5">
-                                <div class="div-2"><img class="icon" src="../../../icons/trophy-star.svg" alt="Tournament icon" />
-                                </div>
-                                <div class="div-2"><span class="text-wrapper-7">Rov KMITL Cup 2026</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="container-6">
-                        <div class="reject-wrapper"><span class="reject">REJECT</span></div>
-                        <button class="button-2" type="button" aria-label="Edit team">
-                            <div class="icon-wrapper"><img class="img" src="../../../icons/pencil.svg" alt="Edit" /></div>
-                        </button>
-                        <button class="button-2" type="button" aria-label="Delete team">
-                            <div class="icon-wrapper"><img class="icon-2" src="../../../icons/trash.svg" alt="Delete" /></div>
-                        </button>
-                    </div>
-                </article>
-            </div>
-            <!-- Add new team button -->
-            <div class="button-wrapper">
-                <div class="iconstack-io-plus-wrapper">
-                    <div class="iconstack-io-plus" aria-hidden="true">
-                        <span class="iconstack-io-plus" aria-hidden="true" style="display: flex; align-items: center; justify-content: center;">
-                                <img class="vector-plus" src="../../../icons/add.svg" alt="Add" style="filter: brightness(0) invert(1); width: 24px; height: 24px;" />
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </section>
+                <input class="ns-search-input" placeholder="Search tournaments..." type="search" aria-label="Search tournaments" />
+            </label>
+            <img class="ns-user-avatar" src="../../../icons/user.svg" alt="User profile" />
+        </div>
+    </header>
+
+    <!-- Standardized Universal Sidebar -->
+    <aside class="aside-sidebar" aria-label="Main Navigation">
+        <nav class="sidebar-nav-container">
+            <a class="link-2" href="../Dashboard Page 8/Dashboard_8.html" aria-label="Dashboard">
+                <img src="../../../icons/stats.svg" alt="Dashboard icon" style="width:20px; height:20px;" />
+                <span class="sidebar-text">Dashboard</span>
+            </a>
+            <a class="link-2" href="../TournamentList Page 9/TournamentList_9.html" aria-label="Tournament">
+                <img src="../../../icons/trophy-star.svg" alt="Tournament icon" style="width:20px; height:20px;" />
+                <span class="sidebar-text">Tournament</span>
+            </a>
+            <a class="link" href="../TeamList Page 12/TeamList_12.html" aria-label="Teams" aria-current="page">
+                <img src="../../../icons/users.svg" alt="Teams icon" style="width:20px; height:20px; filter: brightness(0) invert(1);" />
+                <span class="sidebar-text" style="color:#fff; font-weight:700;">Teams</span>
+            </a>
+            <a class="link-2" href="#" aria-label="About">
+                <img src="../../../icons/info.svg" alt="About icon" style="width:20px; height:20px;" />
+                <span class="sidebar-text">About</span>
+            </a>
+            <a class="link-2" href="#" aria-label="Settings">
+                <img src="../../../icons/settings.svg" alt="Settings icon" style="width:20px; height:20px;" />
+                <span class="sidebar-text">Settings</span>
+            </a>
+        </nav>
+    </aside>
+
+    <div class="admin-team-detail" style="margin-left: 260px; margin-top: 73px; position: relative; width: calc(100% - 260px); min-height: calc(100vh - 73px); background: #f1f5f9;">
+        <style>
+            /* Correcting Figma's brittle absolute positions for integration with sidebar */
+            .admin-team-detail .user-edit-team {
+                position: relative !important;
+                top: auto !important;
+                left: auto !important;
+                width: 100% !important;
+                height: auto !important;
+                min-height: calc(100vh - 73px) !important;
+                background-color: transparent !important;
+            }
+            .admin-team-detail .summary-card {
+                position: relative !important;
+                top: 40px !important;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                margin-bottom: 80px !important;
+            }
+            .admin-team-detail .button-4 {
+                /* Float edit button to the right of the centered card */
+                position: absolute !important;
+                top: 40px !important;
+                left: calc(50% + 420px) !important;
+            }
+            .admin-team-detail .container-25 {
+                /* Cancel button placement */
+                position: absolute !important;
+                bottom: 40px !important;
+                left: calc(50% + 280px) !important;
+            }
+        </style>
         <!-- User Edit Team View (overlay layer) -->
         <div class="user-edit-team">
             <!-- Footer inside user-edit-team -->
@@ -224,88 +175,7 @@
                     </div>
                 </section>
             </main>
-            <!-- Sidebar navigation (user view) -->
-            <nav class="container-5">
-                <a class="link-2" href="../../Dashboard Page 8/Dashboard_8.html" aria-label="Dashboard">
-                    <div class="div-2"><img class="uis-graph-bar" src="../../../icons/stats.svg" alt="Dashboard icon" /></div>
-                    <div class="div-2"><span class="text-wrapper-2">Dashboard</span></div>
-                </a>
-                <a class="link-2" href="../../TournamentList Page 9/TournamentList_9.html" aria-label="Tournament">
-                    <div class="div-2"><img class="img" src="../../../icons/trophy-star.svg" alt="Tournament icon" /></div>
-                    <div class="div-2"><span class="text-wrapper-3">Tournament</span></div>
-                </a>
-                <a class="link" href="../../TeamList Page 12/TeamList_12.html" aria-label="Teams" aria-current='page'>
-                    <div class="div-2"><img class="icon-2" src="../../../icons/users.svg" alt="Teams icon" /></div>
-                    <div class="div-2"><span class="text-5">Teams</span></div>
-                </a>
-                <a class="link-2" href="#" aria-label="About">
-                    <div class="div-2"><img class="icon-3" src="../../../icons/info.svg" alt="About icon" /></div>
-                    <div class="div-2"><span class="text-6">About</span></div>
-                </a>
-                <a class="link-2" href="#" aria-label="Settings">
-                    <div class="div-2"><img class="icon-4" src="../../../icons/settings.svg" alt="Settings icon" /></div>
-                    <div class="div-2"><span class="text-7">Settings</span></div>
-                </a>
-            </nav>
-            <!-- Header (user view) -->
-        <!-- Detail Overlay Layer -->
-        <article class="user-edit-team">
-            <header class="header-top namespaced-header" role="banner">
-    <div class="ns-header-left">
-        <img class="ns-logo-img" src="../../../icons/Logo.png" alt="KMITL ESPORT Logo" />
-        <div class="ns-title-wrap">
-            <span class="ns-title-text">KMITL ESPORT</span>
-        </div>
-        <nav class="ns-main-nav" aria-label="Main navigation">
-            <a href="../Dashboard Page 8/Dashboard_8.html" class="ns-nav-link">Home</a>
-            <a href="#" class="ns-nav-link">Explore</a>
-            <a href="#" class="ns-nav-link">News</a>
-        </nav>
-    </div>
-    <div class="ns-header-right">
-        <label class="ns-search-box" aria-label="Search tournaments">
-            <div class="ns-search-bg">
-                <img class="ns-search-icon" src="../../../icons/search.svg" alt="Search icon" />
-            </div>
-            <input class="ns-search-input" placeholder="Search tournaments..." type="search" aria-label="Search tournaments" />
-        </label>
-        <img class="ns-user-avatar" src="../../../icons/user.svg" alt="User profile" />
-    </div>
-</header>
-            <aside class="aside-sidebar" aria-label="Sidebar navigation">
-                
-                <nav class="container-13">
-                    <a class="link-2" href="../Dashboard Page 8/Dashboard_8.html" aria-label="Dashboard">
-                        <div class="div-2"><img class="uis-graph-bar" src="../../../icons/stats.svg" alt="Dashboard icon" /></div>
-                        <div class="div-2"><span class="text-wrapper-2">Dashboard</span></div>
-                    </a>
-                    <a class="link-2" href="../TournamentList Page 9/TournamentList_9.html" aria-label="Tournament">
-                        <div class="div-2"><img class="img" src="../../../icons/trophy-star.svg" alt="Tournament icon" /></div>
-                        <div class="div-2"><span class="text-wrapper-3">Tournament</span></div>
-                    </a>
-                    <a class="link" href="../TeamList Page 12/TeamList_12.html" aria-label="Teams" aria-current="page">
-                        <div class="div-2"><img class="icon-2" src="../../../icons/users.svg" alt="Teams icon" /></div>
-                        <div class="div-2"><span class="text-5">Teams</span></div>
-                    </a>
-                    <a class="link-2" href="#" aria-label="About">
-                        <div class="div-2"><img class="icon-3" src="../../../icons/info.svg" alt="About icon" /></div>
-                        <div class="div-2"><span class="text-6">About</span></div>
-                    </a>
-                    <a class="link-2" href="#" aria-label="Settings">
-                        <div class="div-2"><img class="icon-4" src="../../../icons/settings.svg" alt="Settings icon" /></div>
-                        <div class="div-2"><span class="text-7">Settings</span></div>
-                    </a>
-                </nav>
-                    <div class="container-24">
-                        <div class="iconstack-io-plus-wrapper">
-                            <div class="iconstack-io-plus" aria-hidden="true">
-                                <img class="vector-plus" src="../../../icons/add.svg" alt="Add" />
-                            </div>
-                        </div>
-                    <img class="image-background" src="../../../icons/user.svg" alt="User avatar" />
-                </div>
-            </header>
-        </div>
+
         <!-- Edit button -->
         <button class="button-4" type="button" aria-label="Edit team details">
             <div class="icon-wrapper"><img class="img" src="../../../icons/pencil.svg" alt="Edit icon" /></div>
@@ -313,62 +183,10 @@
         <!-- Cancel button only -->
         <div class="container-25">
             <button class="button-5" type="button" onclick="window.history.back()">
-                <span class="text-wrapper-18">Cancle</span>
+                <span class="text-wrapper-18">Cancel</span>
             </button>
         </div>
-        <!-- Fixed Header (admin view) -->
-        <header class="header-top-2" aria-label="Admin site header">
-            <div class="container-18">
-                <img class="chatgpt-image" src="../../../icons/Logo.png"
-                    alt="KMITL ESPORT logo" />
-                <div class="container-19">
-                    <div class="div-2"><span class="text-wrapper-17">KMITL ESPORT</span></div>
-                </div>
-                <nav class="container-20" aria-label="Main navigation">
-                    <div class="div-2"><a class="text" href="../Dashboard Page 8/Dashboard_8.html" style="text-decoration: none; color: inherit;">Home</a></div>
-                    <div class="div-2"><span class="text-14">Explore</span></div>
-                    <div class="div-2"><span class="text-15">News</span></div>
-                </nav>
-            </div>
-            <div class="container-21">
-                <div class="label">
-                    <div class="container-22">
-                        <div class="background-6">
-                            <div class="div-2"><img class="icon-9" src="../../../icons/search.svg" alt="Search icon" /></div>
-                        </div>
-                        <div class="input">
-                            <div class="container-23">
-                                <input class="text-16" placeholder="Search tournaments..." type="search"
-                                    aria-label="Search tournaments" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <img class="image-background" src="../../../icons/user.svg" alt="User avatar" />
-            </div>
-        </header>
-        <!-- Fixed Sidebar (admin view) -->
-        <nav class="aside-sidebar-2" aria-label="Admin navigation">
-            <div class="container-26">
-                
-                <a class="link-3" href="../TournamentList Page 9/TournamentList_9.html" aria-label="Tournament">
-                    <div class="div-2"><img class="img" src="../../../icons/trophy-star.svg" alt="Tournament icon" /></div>
-                    <div class="container-11">
-                        <span class="text-wrapper-9">Tournament</span>
-                    </div>
-                </a>
-                
-                <a class="link-3" href="#" aria-label="About">
-                    <div class="div-2"><img class="icon-7" src="../../../icons/info.svg" alt="About icon" /></div>
-                    <div class="div-2"><span class="text-12">About</span></div>
-                </a>
-                <a class="link-3" href="#" aria-label="Settings">
-                    <div class="div-2"><img class="icon-8" src="../../../icons/settings.svg" alt="Settings icon" /></div>
-                    <div class="div-2"><span class="text-13">Settings</span></div>
-                </a>
-            </div>
-        </nav>
-        <!-- Footer (outer, admin view) -->
+
         <footer class="footer-footer" aria-label="Site footer">
             <div class="container">
                 <span class="text-wrapper">© 2026 KMITL ESPORT</span>
@@ -416,12 +234,52 @@
                                 memberList.appendChild(li);
                             });
                         }
+
+                        // Update Tournament context if available
+                        if (data.applications && data.applications.length > 0) {
+                            const app = data.applications[0];
+                            const tournament = app.tournament;
+                            const tNameDisplay = document.getElementById('tournament-display-name');
+                            if (tNameDisplay) tNameDisplay.textContent = tournament.tournament_name;
+                            
+                            const tBannerDisplay = document.querySelector('.tournament-header .image');
+                            if (tBannerDisplay && tournament.tournament_banner) {
+                                tBannerDisplay.src = tournament.tournament_banner;
+                            }
+                            
+                            const tDateDisplay = document.getElementById('tournament-date-display');
+                            if (tDateDisplay && tournament.start_date) {
+                                const sDate = new Date(tournament.start_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+                                tDateDisplay.textContent = sDate;
+                            }
+                            
+                            // Status Badge (Pending / Approved / Rejected)
+                            const statusBadge = document.getElementById('status-badge');
+                            if (statusBadge) {
+                                statusBadge.style.display = 'flex';
+                                const badgeText = statusBadge.querySelector('.text-wrapper-10');
+                                if (badgeText) badgeText.textContent = app.status;
+                                
+                                // Reset colors to ensure readability depending on background
+                                if (app.status === 'Approved') {
+                                    statusBadge.style.background = '#dcfce7'; // green
+                                    if (badgeText) badgeText.style.color = '#15803d';
+                                } else if (app.status === 'Rejected') {
+                                    statusBadge.style.background = '#fee2e2'; // red
+                                    if (badgeText) badgeText.style.color = '#b91c1c';
+                                } else {
+                                    statusBadge.style.background = '#fef08a'; // yellow
+                                    if (badgeText) badgeText.style.color = '#a16207';
+                                }
+                            }
+                        }
                     }
                 } catch (error) {
                     console.error('Error fetching team data:', error);
                 }
             }
             loadTeamData();
+
 
             
             // Redirection for the edit icon next to the title
@@ -503,6 +361,7 @@
 </body>
 
 </html>
+<style>
 /* --- PERFECT ARCHITECTURAL ALIGNMENT --- */
 header.header-top {
     width: 100% !important;
@@ -547,3 +406,4 @@ header.header-top .container-16 {
     opacity: 1 !important;
     object-fit: contain !important;
 }
+</style>

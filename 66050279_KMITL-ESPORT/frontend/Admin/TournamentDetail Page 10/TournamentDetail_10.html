@@ -450,7 +450,26 @@
                 const res = await fetch(`http://localhost:3000/tournaments/${tournamentId}`);
                 const tournament = await res.json();
 
+                // Dynamic Data Binding
                 $('.rov-KMITL-cup').text(tournament.tournament_name || 'Tournament');
+                if (tournament.tournament_banner) {
+                    $('.banner-image-preview .image-2').attr('src', tournament.tournament_banner);
+                }
+                $('.section .text-2').text(tournament.tournament_type || 'Single Elimination');
+                $('.section .text-4').text(tournament.duration || 'TBD');
+                if (tournament.age_min && tournament.age_max) {
+                    $('.section .p').text(`${tournament.age_min} - ${tournament.age_max} years old`);
+                }
+                $('.section .text-7').text(tournament.format || 'TBD');
+
+                if (tournament.start_date) {
+                    const sDate = new Date(tournament.start_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+                    $('.background-border .text-wrapper-2').text(sDate);
+                }
+                if (tournament.end_date) {
+                    const eDate = new Date(tournament.end_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+                    $('.background-border .text-wrapper-3').text(eDate);
+                }
 
                 const teams = (tournament.applications || [])
                     .filter(app => app.status === 'Approved')

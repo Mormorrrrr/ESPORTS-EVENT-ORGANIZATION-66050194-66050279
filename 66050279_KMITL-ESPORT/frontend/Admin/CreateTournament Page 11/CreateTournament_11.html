@@ -199,6 +199,19 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="container-7">
+                            <div class="div-2">
+                                <label class="text-wrapper-4" for="tournament-format">Tournament Format</label>
+                            </div>
+                            <div class="div-2">
+                                <div class="input-4">
+                                    <div class="container-13">
+                                        <input class="text-wrapper-5 input-field-plain" id="tournament-format" type="text"
+                                            placeholder="e.g. 5v5 Squads" aria-label="Tournament format" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </section>
                 <!-- Registration Window (Used as Start/End Date for backend compatibility) -->
@@ -372,6 +385,8 @@
                 const type = typeEntry ? typeEntry.value : 'single-elimination';
                 const startDate = document.getElementById('start-date').value;
                 const endDate = document.getElementById('end-date').value;
+                const duration = document.getElementById('duration').value;
+                const format = document.getElementById('tournament-format').value;
                 const minAge = minAgeSelect.value;
                 const maxAge = maxAgeSelect.value;
 
@@ -398,7 +413,9 @@
                             end_date: endDate,
                             tournament_banner: currentBannerUrl,
                             age_min: parseInt(minAge),
-                            age_max: parseInt(maxAge)
+                            age_max: parseInt(maxAge),
+                            duration: duration,
+                            format: format
                         })
                     });
 

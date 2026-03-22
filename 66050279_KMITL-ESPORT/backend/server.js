@@ -26,7 +26,7 @@ app.get("/", (req, res) => {
 // REGISTER USER
 
 app.post("/register", async (req, res) => {
-  const { username, email, password } = req.body; // Removed role from req.body
+  const { username, email, password } = req.body;
 
   try {
     if (!username || !email || !password) {
@@ -168,20 +168,30 @@ app.post("/teams", async (req, res) => {
 });
 
 // GET TEAM BY ID
+
 app.get("/teams/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const team = await prisma.team.findUnique({
       where: { team_id: parseInt(id) },
+      include: {
+        applications: {
+          include: {
+            tournament: true,
+          },
+        },
+      },
     });
     if (!team) return res.status(404).json({ error: "ไม่พบทีม" });
-    res.json({ team });
+    res.json({ team, applications: team.applications }); // For backward compatibility if needed
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "เกิดข้อผิดพลาดในการดึงข้อมูลทีม" });
   }
 });
 
 // UPDATE TEAM
+
 app.patch("/teams/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   const data = req.body;
@@ -198,6 +208,7 @@ app.patch("/teams/:id", async (req, res) => {
 });
 
 // DELETE TEAM
+
 app.delete("/teams/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   try {
@@ -205,7 +216,7 @@ app.delete("/teams/:id", async (req, res) => {
     await prisma.application.deleteMany({
       where: { team_id: id }
     });
-    
+
     await prisma.team.delete({
       where: { team_id: id },
     });
@@ -219,7 +230,7 @@ app.delete("/teams/:id", async (req, res) => {
 // CREATE TOURNAMENT
 
 app.post("/tournaments", async (req, res) => {
-  const { tournament_name, tournament_type, start_date, end_date } = req.body;
+  const { tournament_name, tournament_type, start_date, end_date, tournament_banner, age_min, age_max, duration, format } = req.body;
 
   try {
     const tournament = await prisma.tournament.create({
@@ -228,6 +239,11 @@ app.post("/tournaments", async (req, res) => {
         tournament_type,
         start_date: new Date(start_date),
         end_date: new Date(end_date),
+        tournament_banner,
+        age_min: age_min ? parseInt(age_min) : null,
+        age_max: age_max ? parseInt(age_max) : null,
+        duration,
+        format
       },
     });
 
@@ -278,14 +294,19 @@ app.get("/tournaments/:id", async (req, res) => {
 
 app.put("/tournaments/:id", async (req, res) => {
   const id = parseInt(req.params.id);
-  const { tournament_name, tournament_type, start_date, end_date } = req.body;
-  
+  const { tournament_name, tournament_type, start_date, end_date, tournament_banner, age_min, age_max, duration, format } = req.body;
+
   try {
     const data = {};
     if (tournament_name) data.tournament_name = tournament_name;
     if (tournament_type) data.tournament_type = tournament_type;
     if (start_date) data.start_date = new Date(start_date);
     if (end_date) data.end_date = new Date(end_date);
+    if (tournament_banner !== undefined) data.tournament_banner = tournament_banner;
+    if (age_min !== undefined) data.age_min = age_min ? parseInt(age_min) : null;
+    if (age_max !== undefined) data.age_max = age_max ? parseInt(age_max) : null;
+    if (duration !== undefined) data.duration = duration;
+    if (format !== undefined) data.format = format;
 
     const tournament = await prisma.tournament.update({
       where: { tournament_id: id },
@@ -299,6 +320,7 @@ app.put("/tournaments/:id", async (req, res) => {
 });
 
 // DELETE TOURNAMENT
+
 app.delete("/tournaments/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   try {
@@ -321,6 +343,7 @@ app.delete("/tournaments/:id", async (req, res) => {
 });
 
 // GET MATCHES BY TOURNAMENT
+
 app.get("/tournaments/:id/matches", async (req, res) => {
   const tournamentId = parseInt(req.params.id);
   try {
@@ -336,9 +359,10 @@ app.get("/tournaments/:id/matches", async (req, res) => {
 });
 
 // SAVE/UPDATE MATCHES FOR TOURNAMENT
+
 app.post("/tournaments/:id/matches/save", async (req, res) => {
   const tournamentId = parseInt(req.params.id);
-  const { matches } = req.body; 
+  const { matches } = req.body;
 
   try {
     await prisma.match.deleteMany({ where: { tournament_id: tournamentId } });

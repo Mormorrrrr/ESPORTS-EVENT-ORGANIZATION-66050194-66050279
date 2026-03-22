@@ -3452,25 +3452,3 @@ header.header-top * {
     border: none;
 }
 
-
-/* --- FORM SECTION FLEXIBILITY FIX --- */
-/* Completely remove brittle rigid heights that cause vertical overlaps */
-.form-section, .basic-info, .banner-upload, .format-rules, 
-.admin-create-team .div, .progress-stepper-2, .summary-card, 
-.team-identity, .team-members, .registration-details, .contact-info,
-.container-10, .container-11, .container-12 {
-    height: auto !important;
-    max-height: none !important;
-    min-height: min-content !important;
-}
-
-/* Allow the main wrapper to expand smoothly */
-body, html, .admin-create, .admin-create-team, .admin-team, .frame, .group {
-    height: auto !important;
-    min-height: 100vh !important;
-}
-
-/* Ensure sections push other elements down naturally */
-.banner-upload, .format-rules, .basic-info {
-    flex: none !important; /* Stop them from crunching up into proportions */
-}
