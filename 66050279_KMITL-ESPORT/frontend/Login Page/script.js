@@ -20,10 +20,10 @@ let isLoginMode = false;
 
 function setLoginMode() {
     isLoginMode = true;
-    
+
     tabLogin.firstElementChild.className = 'background-shadow';
     tabLogin.firstElementChild.firstElementChild.className = 'text-wrapper-2';
-    
+
     tabRegister.firstElementChild.className = 'div-wrapper';
     tabRegister.firstElementChild.firstElementChild.className = 'text-wrapper-3';
 
@@ -40,10 +40,10 @@ function setLoginMode() {
 
 function setRegisterMode() {
     isLoginMode = false;
-    
+
     tabRegister.firstElementChild.className = 'background-shadow';
     tabRegister.firstElementChild.firstElementChild.className = 'text-wrapper-2';
-    
+
     tabLogin.firstElementChild.className = 'div-wrapper';
     tabLogin.firstElementChild.firstElementChild.className = 'text-wrapper-3';
 
@@ -61,18 +61,18 @@ function setRegisterMode() {
 tabLogin.addEventListener('click', setLoginMode);
 tabRegister.addEventListener('click', setRegisterMode);
 footerLinksAction.addEventListener('click', () => {
-    if(isLoginMode) setRegisterMode();
+    if (isLoginMode) setRegisterMode();
     else setLoginMode();
 });
 
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     console.log('Form submission prevented');
-    
+
     const username = usernameInput.value;
     const password = passInput.value;
-    
-    if(isLoginMode) {
+
+    if (isLoginMode) {
         try {
             const res = await fetch('http://localhost:3000/login', {
                 method: 'POST',
@@ -80,38 +80,38 @@ form.addEventListener('submit', async (e) => {
                 body: JSON.stringify({ username, password })
             });
             const data = await res.json();
-                if(res.ok) {
-                    alert(data.message);
-                    localStorage.setItem('user', JSON.stringify(data.user));
-                    window.location.href = data.redirectUrl; // Use redirectUrl from backend
-                } else {
-                    alert('ล้มเหลว: ' + data.error);
-                }
-            } catch (err) {
-                alert('ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้: ' + err.message);
+            if (res.ok) {
+                alert(data.message);
+                localStorage.setItem('user', JSON.stringify(data.user));
+                window.location.href = data.redirectUrl;
+            } else {
+                alert('ล้มเหลว: ' + data.error);
             }
-        } else {
-            const email = emailInput.value;
-            const confirmData = confirmPassInput.value;
-            const terms = document.getElementById('terms').checked;
-            
-            if(password !== confirmData) {
-                alert('รหัสผ่านไม่ตรงกัน!');
-                return;
-            }
-            if(!terms) {
-                alert('กรุณายอมรับเงื่อนไขการใช้บริการ');
-                return;
-            }
-            
-            try {
-                const res = await fetch('http://localhost:3000/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, email, password }) // Removed role
-                });
+        } catch (err) {
+            alert('ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้: ' + err.message);
+        }
+    } else {
+        const email = emailInput.value;
+        const confirmData = confirmPassInput.value;
+        const terms = document.getElementById('terms').checked;
+
+        if (password !== confirmData) {
+            alert('รหัสผ่านไม่ตรงกัน!');
+            return;
+        }
+        if (!terms) {
+            alert('กรุณายอมรับเงื่อนไขการใช้บริการ');
+            return;
+        }
+
+        try {
+            const res = await fetch('http://localhost:3000/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username, email, password })
+            });
             const data = await res.json();
-            if(res.ok) {
+            if (res.ok) {
                 alert(data.message);
                 setLoginMode();
             } else {
