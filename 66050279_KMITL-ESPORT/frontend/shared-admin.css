@@ -1,197 +1,194 @@
-/* Match Admin's current system font fallback - Hard Enforcement */
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
 * {
-    font-family: Helvetica, Arial, sans-serif !important;
+    font-family: 'Be Vietnam Pro', sans-serif !important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     box-sizing: border-box;
 }
 
-body, .admin-tournament {
+body {
     margin: 0;
+    padding: 0;
+    background-color: #f8fafc;
 }
 
-.namespaced-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 73px;
-    z-index: 1000;
-    background-color: #ffffff;
-    border-bottom: 1px solid #e2e8f0;
-    display: flex;
-    align-items: center;
-    padding: 0 40px;
-    box-sizing: border-box;
-}
-
-.ns-header-left {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-}
-
-.ns-logo-img {
-    width: 117px;
-    height: 62px;
-    object-fit: contain;
-}
-
-.ns-title-wrap {
-    display: flex;
-    flex-direction: column;
-}
-
-.ns-title-text {
-    font-weight: 700;
-    color: #000000;
-    font-size: 24px;
-    letter-spacing: -0.60px;
-    line-height: 32px;
-}
-
-.ns-main-nav {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-}
-
-.ns-nav-link {
-    font-weight: 700;
-    color: #64748b;
-    font-size: 14px;
-    text-decoration: none;
-    transition: color 0.2s;
-    line-height: 20px;
-}
-
-.ns-nav-link.active, .ns-nav-link:hover {
-    color: #0f172a;
-}
-
-.ns-header-right {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    margin-left: auto;
-}
-
-.ns-search-box {
-    display: flex;
-    align-items: center;
-    background-color: #f1f5f9;
-    border-radius: 9999px;
-    padding: 0 16px;
-    height: 40px;
-    min-width: 160px;
-    max-width: 256px;
-}
-
-.ns-search-bg {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.ns-search-icon {
-    width: 15px;
-    height: 15px;
-}
-
-.ns-search-input {
-    border: none;
-    background: transparent;
-    outline: none;
-    font-size: 14px;
-    color: #94a3b8;
-    padding-left: 12px;
-    width: 100%;
-}
-
-.ns-user-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-}
-
-/* Sidebar Styles */
+/* --- ROBUST SIDEBAR & CONTENT LAYOUT (ADMIN STANDARD) --- */
 .aside-sidebar {
-    display: flex;
-    flex-direction: column;
-    width: 216px;
-    height: calc(100vh - 73px);
-    position: fixed;
-    top: 73px;
-    left: 0;
-    background-color: #ffffff;
-    border-right: 1px solid #e2e8f0;
-    padding: 24px;
-    z-index: 999;
-    box-sizing: border-box;
+    display: flex !important;
+    width: 260px !important;
+    height: calc(100vh - 73px) !important;
+    position: fixed !important;
+    top: 73px !important;
+    left: 0 !important;
+    z-index: 1000 !important;
+    background-color: #ffffff !important;
+    border-right: 1px solid #e2e8f0 !important;
+    padding: 24px !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    box-sizing: border-box !important;
 }
 
 .sidebar-nav-container {
-    display: flex;
-    flex-direction: column;
-    width: 168px;
-    gap: 8px;
-    position: relative;
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    gap: 12px !important;
 }
 
-.link, .link-2 {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 16px;
-    width: 100%;
-    border-radius: 48px;
-    text-decoration: none;
-    box-sizing: border-box;
-    transition: all 0.2s;
-    height: 48px;
+.sidebar-nav-container .link, .sidebar-nav-container .link-2 {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 12px 16px !important;
+    border-radius: 48px !important;
+    text-decoration: none !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    transition: all 0.2s ease !important;
 }
 
-.link-2 {
-    background-color: transparent;
+.sidebar-nav-container .sidebar-text {
+    font-size: 14px !important;
+    line-height: 20px !important;
+    white-space: nowrap !important;
+    font-weight: 700 !important; /* Force all to 700 for 'equal' look */
 }
 
-.link-2:hover {
-    background-color: #f1f5f9;
+.sidebar-nav-container img {
+    width: 20px !important;
+    height: 20px !important;
+    flex-shrink: 0 !important;
+    object-fit: contain !important;
 }
 
-.link {
-    background-color: #ff8c00 !important; /* Ensure it's orange when active */
+.sidebar-nav-container .link { 
+    background-color: #ff8c00 !important; 
 }
 
-/* Ensure active icons are white */
-.link img {
-    filter: brightness(0) invert(1) !important;
+.sidebar-nav-container .link .sidebar-text { 
+    color: #ffffff !important; 
 }
 
-.sidebar-text {
-    font-size: 16px;
-    line-height: 24px;
-    white-space: nowrap;
+.sidebar-nav-container .link img { 
+    filter: brightness(0) invert(1) !important; 
 }
 
-.link-2 .sidebar-text {
-    font-weight: 700;
-    color: #475569;
+.sidebar-nav-container .link-2 { 
+    background-color: transparent !important; 
 }
 
-.link .sidebar-text {
+.sidebar-nav-container .link-2 .sidebar-text { 
+    color: #475569 !important; 
+}
+
+.sidebar-nav-container .link-2 img { 
+    filter: none !important; 
+}
+
+.sidebar-nav-container .link-2:hover {
+    background-color: #f1f5f9 !important;
+}
+
+/* --- ISOLATED NAMESPACED HEADER CSS (ADMIN STANDARD) --- */
+header.namespaced-header {
+    width: 100% !important;
+    height: 73px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    z-index: 1001 !important;
+    background-color: #ffffff !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    padding: 0 24px !important;
+    box-sizing: border-box !important;
+}
+
+header.namespaced-header .ns-header-left {
+    display: flex !important;
+    align-items: center !important;
+    gap: 32px !important;
+    margin-left: 16px !important;
+}
+
+header.namespaced-header .ns-logo-img {
+    width: 117px !important;
+    height: 62px !important;
+    object-fit: contain !important;
+}
+
+header.namespaced-header .ns-title-text {
     font-weight: 700 !important;
-    color: #ffffff;
+    color: #000000 !important;
+    font-size: 24px !important;
+    letter-spacing: -0.60px !important;
 }
 
-/* Global Content Layout */
-.frame, .standardized-main-content {
-    z-index: 2;
-    margin-left: 280px !important; /* Sidebar (216px) + 64px gutter */
-    width: calc(100% - 320px) !important;
-    margin-top: 104px !important;
-    display: flex;
-    flex-direction: column;
-    gap: 48px;
-    padding-bottom: 64px;
+header.namespaced-header .ns-main-nav {
+    display: flex !important;
+    gap: 24px !important;
+}
+
+header.namespaced-header .ns-nav-link {
+    font-weight: 600 !important;
+    color: #334155 !important;
+    font-size: 14px !important;
+    text-decoration: none !important;
+}
+
+header.namespaced-header .ns-nav-link.active {
+    color: #0f172a !important;
+}
+
+header.namespaced-header .ns-header-right {
+    display: flex !important;
+    align-items: center !important;
+    gap: 24px !important;
+}
+
+header.namespaced-header .ns-search-box {
+    display: flex !important;
+    align-items: center !important;
+    background-color: #f1f5f9 !important;
+    border-radius: 48px !important;
+    padding: 8px 16px !important;
+    gap: 8px !important;
+}
+
+header.namespaced-header .ns-search-icon {
+    width: 16px !important;
+    height: 16px !important;
+}
+
+header.namespaced-header .ns-search-input {
+    border: none !important;
+    outline: none !important;
+    background: transparent !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    color: #0f172a !important;
+    width: 200px !important;
+}
+
+header.namespaced-header .ns-user-avatar {
+    width: 40px !important;
+    height: 40px !important;
+    display: block !important;
+    border-radius: 50% !important;
+    object-fit: cover !important;
+}
+
+/* Global Content Layout Consistency */
+.frame, .standardized-main-content, main.frame {
+    margin-left: 260px !important;
+    width: calc(100% - 260px) !important;
+    margin-top: 73px !important;
+    padding: 40px !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    flex-direction: column !important;
 }
