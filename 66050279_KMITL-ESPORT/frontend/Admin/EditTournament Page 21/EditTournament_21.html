@@ -16,8 +16,8 @@
             --text-main: #0f172a;
             --text-sub: #64748b;
             --border: #e2e8f0;
-            --sidebar-width: 280px;
-            --header-height: 70px;
+            --sidebar-width: 260px;
+            --header-height: 73px;
         }
 
         /* Reset and Base */
@@ -25,7 +25,6 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            
         }
 
         body {
@@ -41,69 +40,11 @@
             min-height: 100vh;
         }
 
-        /* Header Styles */
-        .header-top {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 73px;
-            background-color: #ffffff;
-            border-bottom: 1px solid #e2e8f0;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 40px;
-        }
-
-        .container-20 { display: flex; align-items: center; gap: 32px; }
-        .chatgpt-image { width: 117px; height: 62px; object-fit: contain; }
-        .heading-wrapper { display: flex; align-items: center; gap: 12px; }
-        .text-wrapper-18 { "Be Vietnam Pro", Helvetica; font-weight: 700; color: #000000; font-size: 24px; letter-spacing: -0.60px; line-height: 32px; }
-
-        .container-21 { display: flex; align-items: center; gap: 32px; }
-        .text-7 { cursor: pointer; display: flex; align-items: center; height: 20px; "Be Vietnam Pro", Helvetica; font-weight: 700; color: #0f172a; font-size: 14px; line-height: 20px; }
-        .text-8, .text-9 { cursor: pointer; display: flex; align-items: center; height: 20px; "Be Vietnam Pro", Helvetica; font-weight: 500; color: #64748b; font-size: 14px; line-height: 20px; }
-
-        .container-22 { display: flex; align-items: center; gap: 24px; }
-        .label { display: flex; min-width: 160px; max-width: 256px; height: 40px; background-color: #f1f5f9; border-radius: 9999px; overflow: hidden; padding-left: 16px; align-items: center; }
-        .container-23 { display: flex; align-items: center; flex: 1; gap: 12px; }
-        .icon-10 { width: 15px; height: 15px; }
-        .text-10 { flex: 1; border: none; background: transparent; "Be Vietnam Pro", Helvetica; font-size: 14px; color: #94a3b8; outline: none; padding-right: 12px; }
-
-        .iconstack-io-plus-wrapper { width: 40px; height: 40px; background-color: #ff8c00; border-radius: 9999px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-        .image-background { width: 40px; height: 40px; border-radius: 50%; }
-
-        
-
-        .header-left { display: flex; align-items: center; gap: 12px; }
-        .header-logo { height: 40px; }
-        .header-title { font-size: 20px; font-weight: 800; }
-
         .main-body {
             display: flex;
             margin-top: var(--header-height);
             min-height: calc(100vh - var(--header-height));
         }
-
-        /* Sidebar */
-        .sidebar-modern {
-            width: var(--sidebar-width);
-            background: white;
-            border-right: 1px solid var(--border);
-            padding: 24px;
-            position: fixed;
-            top: var(--header-height);
-            bottom: 0;
-            left: 0;
-        }
-
-        .nav-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-        .nav-item { text-decoration: none; display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 12px; color: var(--text-sub); font-weight: 500; }
-        .nav-item.active { background: var(--primary); color: white; }
-        .nav-icon { width: 20px; }
-        .nav-item.active .nav-icon { filter: brightness(0) invert(1); }
 
         /* Content Area */
         .content-modern {
@@ -141,19 +82,6 @@
         }
         .input-modern:focus { border-color: var(--primary); background: white; }
 
-        /* Footer */
-        .footer-modern {
-            margin-top: 40px;
-            padding: 32px 0;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            color: var(--text-sub);
-            font-size: 14px;
-            width: 100%;
-            max-width: 600px;
-        }
-
         /* Format Options */
         .format-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
         .format-card {
@@ -187,8 +115,8 @@
             color: #475569;
             border: none;
             padding: 12px 40px;
-            border-radius: 999px; /* Pill shape */
-            font-weight: 800; /* Bolder */
+            border-radius: 999px;
+            font-weight: 800;
             font-size: 16px;
             cursor: pointer;
             transition: all 0.2s;
@@ -198,8 +126,8 @@
             color: white;
             border: none;
             padding: 12px 40px;
-            border-radius: 999px; /* Pill shape */
-            font-weight: 800; /* Bolder */
+            border-radius: 999px;
+            font-weight: 800;
             font-size: 16px;
             cursor: pointer;
             transition: all 0.2s;
@@ -210,7 +138,7 @@
             width: 100%;
             max-width: 600px;
             margin-top: 80px;
-            padding-top: 32px;
+            padding: 32px 0;
             border-top: 1px solid var(--border);
             display: flex;
             justify-content: space-between;
@@ -224,59 +152,54 @@
     <div class="admin-layout">
         <!-- Header -->
         <header class="header-top namespaced-header" role="banner">
-    <div class="ns-header-left">
-        <img class="ns-logo-img" src="../../../icons/Logo.png" alt="KMITL ESPORT Logo" />
-        <div class="ns-title-wrap">
-            <span class="ns-title-text">KMITL ESPORT</span>
-        </div>
-        <nav class="ns-main-nav" aria-label="Main navigation">
-            <a href="../Dashboard Page 8/Dashboard_8.html" class="ns-nav-link">Home</a>
-            <a href="#" class="ns-nav-link">Explore</a>
-            <a href="#" class="ns-nav-link">News</a>
-        </nav>
-    </div>
-    <div class="ns-header-right">
-        <label class="ns-search-box" aria-label="Search tournaments">
-            <div class="ns-search-bg">
-                <img class="ns-search-icon" src="../../../icons/search.svg" alt="Search icon" />
+            <div class="ns-header-left">
+                <img class="ns-logo-img" src="../../../icons/Logo.png" alt="KMITL ESPORT Logo" />
+                <div class="ns-title-wrap">
+                    <span class="ns-title-text">KMITL ESPORT</span>
+                </div>
+                <nav class="ns-main-nav" aria-label="Main navigation">
+                    <a href="../Dashboard Page 8/Dashboard_8.html" class="ns-nav-link">Home</a>
+                    <a href="#" class="ns-nav-link">Explore</a>
+                    <a href="#" class="ns-nav-link">News</a>
+                </nav>
             </div>
-            <input class="ns-search-input" placeholder="Search tournaments..." type="search" aria-label="Search tournaments" />
-        </label>
-        <img class="ns-user-avatar" src="../../../icons/user.svg" alt="User profile" />
-    </div>
-</header>
+            <div class="ns-header-right">
+                <label class="ns-search-box" aria-label="Search tournaments">
+                    <div class="ns-search-bg">
+                        <img class="ns-search-icon" src="../../../icons/search.svg" alt="Search icon" />
+                    </div>
+                    <input class="ns-search-input" placeholder="Search tournaments..." type="search" aria-label="Search tournaments" />
+                </label>
+                <img class="ns-user-avatar" src="../../../icons/user.svg" alt="User profile" />
+            </div>
+        </header>
 
         <div class="main-body">
             <!-- Sidebar -->
-        
-        
-        
-        
-        
-        <aside class="aside-sidebar" aria-label="Sidebar navigation">
-            <nav class="sidebar-nav-container">
-                <a class="link-2" href="../Dashboard Page 8/Dashboard_8.html" aria-label="Dashboard">
-                    <img src="../../../icons/stats.svg" alt="Dashboard icon" style="width:20px; height:20px;" />
-                    <span class="sidebar-text">Dashboard</span>
-                </a>
-                <a class="link" href="../TournamentList Page 9/TournamentList_9.html" aria-label="Tournament">
-                    <img src="../../../icons/trophy-star.svg" alt="Tournament icon" style="width:20px; height:20px;" />
-                    <span class="sidebar-text">Tournament</span>
-                </a>
-                <a class="link-2" href="../TeamList Page 12/TeamList_12.html" aria-label="Teams">
-                    <img src="../../../icons/users.svg" alt="Teams icon" style="width:20px; height:20px;" />
-                    <span class="sidebar-text">Teams</span>
-                </a>
-                <a class="link-2" href="#" aria-label="About">
-                    <img src="../../../icons/info.svg" alt="About icon" style="width:20px; height:20px;" />
-                    <span class="sidebar-text">About</span>
-                </a>
-                <a class="link-2" href="#" aria-label="Settings">
-                    <img src="../../../icons/settings.svg" alt="Settings icon" style="width:20px; height:20px;" />
-                    <span class="sidebar-text">Settings</span>
-                </a>
-            </nav>
-        </aside>
+            <aside class="aside-sidebar" aria-label="Sidebar navigation">
+                <nav class="sidebar-nav-container">
+                    <a class="link-2" href="../Dashboard Page 8/Dashboard_8.html" aria-label="Dashboard">
+                        <img src="../../../icons/stats.svg" alt="Dashboard icon" />
+                        <span class="sidebar-text">Dashboard</span>
+                    </a>
+                    <a class="link" href="../TournamentList Page 9/TournamentList_9.html" aria-label="Tournament">
+                        <img src="../../../icons/trophy-star.svg" alt="Tournament icon" />
+                        <span class="sidebar-text">Tournament</span>
+                    </a>
+                    <a class="link-2" href="../TeamList Page 12/TeamList_12.html" aria-label="Teams">
+                        <img src="../../../icons/users.svg" alt="Teams icon" />
+                        <span class="sidebar-text">Teams</span>
+                    </a>
+                    <a class="link-2" href="#" aria-label="About">
+                        <img src="../../../icons/info.svg" alt="About icon" />
+                        <span class="sidebar-text">About</span>
+                    </a>
+                    <a class="link-2" href="#" aria-label="Settings">
+                        <img src="../../../icons/settings.svg" alt="Settings icon" />
+                        <span class="sidebar-text">Settings</span>
+                    </a>
+                </nav>
+            </aside>
 
             <main class="content-modern">
                 <section class="form-section">
@@ -287,7 +210,7 @@
 
                     <form id="edit-tournament-form">
                         <div class="form-group">
-                            <label class="label-modern">Tournament Name</label>
+                            <label class="label-modern" for="tournament-name">Tournament Name</label>
                             <input class="input-modern" id="tournament-name" type="text" required />
                         </div>
 
@@ -309,11 +232,11 @@
 
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
                             <div class="form-group">
-                                <label class="label-modern">Start Date</label>
+                                <label class="label-modern" for="start-date">Start Date</label>
                                 <input class="input-modern" id="start-date" type="date" required />
                             </div>
                             <div class="form-group">
-                                <label class="label-modern">End Date</label>
+                                <label class="label-modern" for="end-date">End Date</label>
                                 <input class="input-modern" id="end-date" type="date" required />
                             </div>
                         </div>
@@ -349,8 +272,10 @@
 
             const formatOptions = document.querySelectorAll('.format-option');
             const setActiveType = (type) => {
+                // type comes from backend as 'Single Elimination' or 'Double Elimination'
+                const targetType = type.includes('Double') ? 'double-elimination' : 'single-elimination';
                 formatOptions.forEach(opt => {
-                    const isMatch = opt.getAttribute('data-type') === (type === 'Double' ? 'double-elimination' : 'single-elimination');
+                    const isMatch = opt.getAttribute('data-type') === targetType;
                     const radio = opt.querySelector('input');
                     radio.checked = isMatch;
                     if(isMatch) opt.classList.add('active');
@@ -361,19 +286,22 @@
             // Load Data
             try {
                 const res = await fetch(`http://localhost:3000/tournaments/${tournamentId}`);
-                if(!res.ok) throw new Error('Not found');
+                if(!res.ok) throw new Error('Tournament not found');
                 const t = await res.json();
 
-                document.getElementById('tournament-name').value = t.tournament_name;
-                document.getElementById('start-date').value = t.start_date.substring(0, 10);
-                document.getElementById('end-date').value = t.end_date.substring(0, 10);
-                setActiveType(t.tournament_type);
-            } catch (err) { alert('Error loading tournament'); }
+                if (t.tournament_name) document.getElementById('tournament-name').value = t.tournament_name;
+                if (t.start_date) document.getElementById('start-date').value = t.start_date.substring(0, 10);
+                if (t.end_date) document.getElementById('end-date').value = t.end_date.substring(0, 10);
+                if (t.tournament_type) setActiveType(t.tournament_type);
+            } catch (err) { 
+                console.error(err);
+                alert('Error loading tournament: ' + err.message); 
+            }
 
             // Type Switching
             formatOptions.forEach(opt => {
                 opt.addEventListener('click', () => {
-                    setActiveType(opt.getAttribute('data-type') === 'double-elimination' ? 'Double' : 'Single');
+                    setActiveType(opt.getAttribute('data-type') === 'double-elimination' ? 'Double Elimination' : 'Single Elimination');
                 });
             });
 
@@ -382,8 +310,9 @@
                 const name = document.getElementById('tournament-name').value;
                 const startDate = document.getElementById('start-date').value;
                 const endDate = document.getElementById('end-date').value;
-                const typeInput = document.querySelector('input[name="tournament-type"]:checked').value;
-                const finalType = typeInput === 'double-elimination' ? 'Double' : 'Single';
+                const checkedRadio = document.querySelector('input[name="tournament-type"]:checked');
+                const typeInput = checkedRadio ? checkedRadio.value : 'single-elimination';
+                const finalType = typeInput === 'double-elimination' ? 'Double Elimination' : 'Single Elimination';
 
                 if(!name || !startDate || !endDate) return alert('Please fill all fields');
 
@@ -402,10 +331,13 @@
                         alert('Updated successfully');
                         location.href = '../TournamentList Page 9/TournamentList_9.html';
                     } else {
-                        const err = await res.json();
-                        alert('Update failed: ' + err.error);
+                        const errData = await res.json();
+                        alert('Update failed: ' + (errData.error || 'Unknown error'));
                     }
-                } catch (err) { alert('Network error'); }
+                } catch (err) { 
+                    console.error(err);
+                    alert('Network error'); 
+                }
             });
         });
     </script>

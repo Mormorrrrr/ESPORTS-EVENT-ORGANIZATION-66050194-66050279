@@ -13,30 +13,27 @@ model User {
   email    String @unique
   password String
   role     String
-
-  teams Team[]
+  teams    Team[]
 }
 
 model Team {
-  team_id         Int     @id @default(autoincrement())
-  team_name       String  @unique
+  team_id         Int           @id @default(autoincrement())
+  team_name       String        @unique
   team_banner_url String?
   leader_name     String
   member_1        String?
   member_2        String?
   member_3        String?
   member_4        String?
-
-  created_by Int
-  creator    User @relation(fields: [created_by], references: [user_id], onDelete: Cascade)
-
-  applications Application[]
+  created_by      Int
+  applications    Application[]
+  creator         User          @relation(fields: [created_by], references: [user_id], onDelete: Cascade)
 }
 
 model Tournament {
-  tournament_id     Int      @id @default(autoincrement())
+  tournament_id     Int           @id @default(autoincrement())
   tournament_name   String
-  tournament_type   String // Single / Double
+  tournament_type   String
   start_date        DateTime
   end_date          DateTime
   tournament_banner String?
@@ -44,29 +41,27 @@ model Tournament {
   age_max           Int?
   duration          String?
   format            String?
-
-  applications Application[]
-  matches      Match[]
+  applications      Application[]
+  matches           Match[]
 }
 
 model Application {
-  app_id        Int    @id @default(autoincrement())
+  app_id        Int        @id @default(autoincrement())
   tournament_id Int
   team_id       Int
-  status        String @default("Pending")
-
-  tournament Tournament @relation(fields: [tournament_id], references: [tournament_id])
-  team       Team       @relation(fields: [team_id], references: [team_id])
+  status        String     @default("Pending")
+  team          Team       @relation(fields: [team_id], references: [team_id])
+  tournament    Tournament @relation(fields: [tournament_id], references: [tournament_id])
 }
 
 model Match {
-  match_id      Int     @id @default(autoincrement())
+  match_id      Int        @id @default(autoincrement())
   tournament_id Int
   team1_name    String?
   team2_name    String?
   score1        Int?
   score2        Int?
-  round         Int     // Round number (1, 2, 3...)
-  position      Int     // Vertical position in the round (0, 1, 2...)
+  round         Int
+  position      Int
   tournament    Tournament @relation(fields: [tournament_id], references: [tournament_id], onDelete: Cascade)
 }

@@ -146,58 +146,25 @@
                     <img src="../../../icons/trophy-star.svg" alt="" style="width: 28px; height: 28px;" />
                     <h2 style="margin: 0; font-size: 24px; font-weight: 800; color: #0f172a;">Tournament Bracket</h2>
                 </div>
-                <!-- Placeholder for the beautiful list-based matches (Sentinels 2 vs Fnatic 1, etc.) -->
                 <div id="match-list-container" style="display: flex; flex-direction: column; gap: 16px;">
-                    <!-- Sentinels vs Fnatic -->
-                    <article style="display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; background: white; border-radius: 16px; border: 1px solid #f1f5f9;">
-                        <div style="display: flex; align-items: center; gap: 24px; flex: 1;">
-                            <div style="display: flex; flex-direction: column; gap: 8px; flex: 1;">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <span style="font-weight: 700; color: #0f172a;">Sentinels</span>
-                                    <span style="font-weight: 800; color: #ff8c00; font-size: 20px;">2</span>
-                                </div>
-                                <div style="height: 1px; background: #f1f5f9; width: 100%;"></div>
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <span style="font-weight: 500; color: #64748b;">Fnatic</span>
-                                    <span style="font-weight: 700; color: #94a3b8; font-size: 20px;">1</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="margin-left: 40px; text-align: right;">
-                            <span style="font-size: 11px; font-weight: 700; color: #10b981; background: #dcfce7; padding: 4px 12px; border-radius: 12px; text-transform: uppercase;">Finished</span>
-                        </div>
-                    </article>
-
-                    <!-- Team Liquid vs Paper Rex -->
-                    <article style="display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; background: white; border-radius: 16px; border: 1px solid #f1f5f9;">
-                        <div style="display: flex; align-items: center; gap: 24px; flex: 1;">
-                            <div style="display: flex; flex-direction: column; gap: 8px; flex: 1;">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <span style="font-weight: 500; color: #64748b;">Team Liquid</span>
-                                    <span style="font-weight: 700; color: #94a3b8; font-size: 20px;">0</span>
-                                </div>
-                                <div style="height: 1px; background: #f1f5f9; width: 100%;"></div>
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    <span style="font-weight: 700; color: #0f172a;">Paper Rex</span>
-                                    <span style="font-weight: 800; color: #ff8c00; font-size: 20px;">2</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="margin-left: 40px; text-align: right;">
-                            <span style="font-size: 11px; font-weight: 700; color: #10b981; background: #dcfce7; padding: 4px 12px; border-radius: 12px; text-transform: uppercase;">Finished</span>
-                        </div>
-                    </article>
+                    <!-- Dynamically populated matches -->
+                    <div style="text-align: center; padding: 40px; color: #64748b;">
+                        Loading bracket data...
+                    </div>
                 </div>
             </section>
         </main>
-        </main>
+
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const params = new URLSearchParams(window.location.search);
             const id = params.get('id');
             if (!id) return;
 
+            const matchListContainer = document.getElementById('match-list-container');
+
             try {
+                // Fetch Tournament Detail
                 const res = await fetch(`http://localhost:3000/tournaments/${id}`);
                 const tournament = await res.json();
 
@@ -206,9 +173,9 @@
                 document.getElementById('detail-type').textContent = tournament.tournament_type || 'N/A';
                 document.getElementById('detail-duration').textContent = tournament.duration || 'N/A';
                 document.getElementById('detail-age').textContent = `${tournament.age_min || 0} - ${tournament.age_max || 100} years old`;
-                document.getElementById('detail-format').textContent = tournament.format || 'N/A';
-                document.getElementById('open-date').textContent = new Date(tournament.start_date).toLocaleDateString();
-                document.getElementById('close-date').textContent = new Date(tournament.end_date).toLocaleDateString();
+                document.getElementById('detail-format').textContent = tournament.tournament_type || 'N/A';
+                // document.getElementById('open-date').textContent = new Date(tournament.start_date).toLocaleDateString();
+                // document.getElementById('close-date').textContent = new Date(tournament.end_date).toLocaleDateString();
 
                 // Banner Fallback
                 const bannerImg = document.querySelector('.image-2');
@@ -220,8 +187,55 @@
                     bannerImg.src = fallbackBanner;
                 }
 
+                // Fetch Matches
+                const matchesRes = await fetch(`http://localhost:3000/tournaments/${id}/matches`);
+                const matches = await matchesRes.json();
+
+                if (!matches || matches.length === 0) {
+                    matchListContainer.innerHTML = `
+                        <div style="text-align: center; padding: 40px; background: white; border-radius: 16px; border: 1px dashed #cbd5e1; color: #64748b;">
+                            <img src="../../../icons/info.svg" style="width: 32px; height: 32px; margin-bottom: 12px; opacity: 0.5;" />
+                            <p style="font-weight: 500;">No matches scheduled yet.</p>
+                        </div>`;
+                    return;
+                }
+
+                // Render Matches
+                matchListContainer.innerHTML = matches.map(m => {
+                    const score1 = m.score1 ?? 0;
+                    const score2 = m.score2 ?? 0;
+                    const isFinished = m.score1 !== null && m.score2 !== null;
+                    const team1Win = isFinished && score1 > score2;
+                    const team2Win = isFinished && score2 > score1;
+
+                    return `
+                        <article style="display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; background: white; border-radius: 16px; border: 1px solid #f1f5f9; transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: default;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 6px -1px rgba(0,0,0,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                            <div style="display: flex; align-items: center; gap: 24px; flex: 1;">
+                                <div style="display: flex; flex-direction: column; gap: 8px; flex: 1;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <span style="font-weight: ${team1Win ? '800' : '500'}; color: ${team1Win ? '#0f172a' : '#64748b'}; transition: all 0.2s;">${m.team1_name || 'TBD'}</span>
+                                        <span style="font-weight: 800; color: ${team1Win ? '#ff8c00' : '#94a3b8'}; font-size: 20px; transition: all 0.2s;">${score1}</span>
+                                    </div>
+                                    <div style="height: 1px; background: #f1f5f9; width: 100%;"></div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <span style="font-weight: ${team2Win ? '800' : '500'}; color: ${team2Win ? '#0f172a' : '#64748b'}; transition: all 0.2s;">${m.team2_name || 'TBD'}</span>
+                                        <span style="font-weight: 800; color: ${team2Win ? '#ff8c00' : '#94a3b8'}; font-size: 20px; transition: all 0.2s;">${score2}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-left: 40px; text-align: right; min-width: 80px;">
+                                ${isFinished ? 
+                                    `<span style="font-size: 11px; font-weight: 700; color: #10b981; background: #dcfce7; padding: 4px 12px; border-radius: 12px; text-transform: uppercase;">Finished</span>` : 
+                                    `<span style="font-size: 11px; font-weight: 700; color: #64748b; background: #f1f5f9; padding: 4px 12px; border-radius: 12px; text-transform: uppercase;">Upcoming</span>`
+                                }
+                            </div>
+                        </article>
+                    `;
+                }).join('');
+
             } catch (error) {
                 console.error('Error fetching tournament detail:', error);
+                matchListContainer.innerHTML = `<div style="color: #ef4444; padding: 20px; text-align: center;">Failed to load bracket data. Please try again later.</div>`;
             }
         });
     </script>

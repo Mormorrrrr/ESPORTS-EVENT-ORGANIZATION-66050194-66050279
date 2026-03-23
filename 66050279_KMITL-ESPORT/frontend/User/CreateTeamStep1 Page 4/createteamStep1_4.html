@@ -5,40 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
     <title>KMITL ESPORT - Create Team</title>
-    <link rel="stylesheet" href="globals4.css" />
-    
-    
-    
-    
+    <!-- Reusing Admin Styles for "Gold Standard" Parity -->
+    <link rel="stylesheet" href="../../Admin/CreateTournament Page 11/globals11.css" />
+    <link rel="stylesheet" href="../../Admin/CreateTournament Page 11/style11.css" />
+    <link rel="stylesheet" href="../../shared-admin.css" />
     <style>
-        /* Admin-Style Layout Correction */
-        .admin-tournament .tournaments-list-wrapper, 
-        .admin-tournament .section-margin, 
-        .admin-tournament .section-2,
-        .admin-tournament .banner-image-preview,
-        .admin-tournament .section,
-        .admin-tournament .background-border,
-        .admin-tournament .heading-2,
-        .admin-tournament .match-view-all,
-        .admin-tournament .create-team-content {
-            margin-left: 320px !important;
-            margin-top: 97px !important;
-            width: calc(100% - 352px) !important; /* Responsive width adjustment */
+        /* Custom tweaks for Team creation vs Tournament creation */
+        .form-section {
+            height: auto !important;
+            padding-bottom: 40px;
         }
-        .admin-tournament .section-2, .admin-tournament .background-border {
-            margin-top: 24px !important; /* Secondary sections don't need top margin */
+        .progress-stepper {
+            margin-left: 411px;
+            width: 896px;
+            margin-bottom: 24px;
+            margin-top: 100px;
+            background: white;
+            padding: 24px 32px;
+            border-radius: 24px;
+            border: 1px solid #e2e8f0;
         }
     </style>
-
-
-
-    
-        <link rel="stylesheet" href="../../shared-admin.css" />
 </head>
 
 <body>
-    <div class="admin-tournament">
-                                                        <!-- Header -->
+    <div class="admin-create">
+        <!-- Header -->
         <header class="header-top namespaced-header" role="banner">
             <div class="ns-header-left">
                 <img class="ns-logo-img" src="../../../icons/Logo.png" alt="KMITL ESPORT Logo" />
@@ -56,229 +48,229 @@
                     <div class="ns-search-bg">
                         <img class="ns-search-icon" src="../../../icons/search.svg" alt="Search icon" />
                     </div>
-                    <input class="ns-search-input" placeholder="Search tournaments..." type="search" aria-label="Search tournaments" />
+                    <input class="ns-search-input" placeholder="Search tournaments..." type="search" />
                 </label>
                 <img class="ns-user-avatar" src="../../../icons/user.svg" alt="User profile" />
             </div>
         </header>
-                                                        <!-- Sidebar -->
+
+        <!-- Sidebar -->
         <aside class="aside-sidebar" aria-label="Sidebar navigation">
             <nav class="sidebar-nav-container">
                 <a class="link-2" href="../../User/Tournament List Page 1/userlogin_1.html" aria-label="Tournament">
-                    <img src="../../../icons/trophy-star.svg" alt="Tournament icon" style="width:20px; height:20px;" />
+                    <img src="../../../icons/trophy-star.svg" alt="" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Tournament</span>
                 </a>
                 <a class="link" href="../../User/Team(noHave) Page 3/Teamnohave_3.html" aria-label="Teams">
-                    <img src="../../../icons/users.svg" alt="Teams icon" style="width:20px; height:20px;" />
+                    <img src="../../../icons/users.svg" alt="" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Teams</span>
                 </a>
                 <a class="link-2" href="#" aria-label="About">
-                    <img src="../../../icons/info.svg" alt="About icon" style="width:20px; height:20px;" />
+                    <img src="../../../icons/info.svg" alt="" style="width:20px; height:20px;" />
                     <span class="sidebar-text">About</span>
                 </a>
                 <a class="link-2" href="#" aria-label="Settings">
-                    <img src="../../../icons/settings.svg" alt="Settings icon" style="width:20px; height:20px;" />
+                    <img src="../../../icons/settings.svg" alt="" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Settings</span>
                 </a>
             </nav>
         </aside>
+
         <!-- Progress Stepper -->
-        <section class="progress-stepper" aria-label="Form progress">
-            <div class="div">
-                <div class="container">
-                    <div class="div-2"><span class="text">Step 1 of 2</span></div>
-                    <div class="div-2"><span class="text-wrapper">50% Complete</span></div>
-                </div>
-                <div class="overlay" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"
-                    aria-label="50% complete">
-                    <div class="background"></div>
-                </div>
-                <div class="div-3">
-                    <span class="text-wrapper-2">Next: Team Roster Confirmation</span>
-                </div>
+        <section class="progress-stepper">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <span style="font-weight: 700; color: #0f172a;">Step 1 of 2</span>
+                <span style="color: #64748b; font-size: 14px;">50% Complete</span>
             </div>
+            <div style="height: 8px; background: #f1f5f9; border-radius: 4px; overflow: hidden; margin-bottom: 12px;">
+                <div style="width: 50%; height: 100%; background: #ff8c00; border-radius: 4px;"></div>
+            </div>
+            <span style="color: #64748b; font-size: 13px;">Next: Team Roster Confirmation</span>
         </section>
-        <!-- Tournament Selection -->
-        <section class="group" aria-label="Tournament selection">
-            <div class="rectangle" aria-hidden="true"></div>
-            <div class="frame" style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
-                <img class="img" src="../../../icons/trophy-star.svg" alt="" style="width: 24px; height: 24px;" aria-hidden="true" />
-                <span class="text-wrapper-5" style="margin: 0;">Select Tournament</span>
-            </div>
-            <span class="text-wrapper-3">Choose an active event</span>
-            <div class="options">
-                <div class="container-wrapper">
-                    <div class="container-2">
-                        <span class="text-wrapper-4">Select tournaments</span>
-                        <div class="icon-wrapper">
-                            <img class="icon" src="img/icon-2.svg" alt="Dropdown arrow" />
+
+        <!-- Main Form -->
+        <main class="form-section" style="margin-top: 0;">
+            <form id="create-team-form">
+                <!-- Select Tournament -->
+                <section class="basic-info" style="max-height: none; gap: 12px;">
+                    <div class="div-2">
+                        <label class="text-wrapper-4">Select Tournament</label>
+                    </div>
+                    <div class="input-2" style="background: white;">
+                        <select id="tournament-select" style="width: 100%; border: none; background: transparent; outline: none; font-size: 16px; color: #0f172a; cursor: pointer;">
+                            <option value="">Loading tournaments...</option>
+                        </select>
+                    </div>
+                </section>
+
+                <!-- Team Banner -->
+                <section class="banner-upload" style="margin-top: 32px;">
+                    <div class="div-2">
+                        <span class="text-wrapper-4">Team Banner</span>
+                    </div>
+                    <div class="overlay-border" id="banner-dropzone">
+                        <div id="upload-placeholder" style="display: contents;">
+                            <img src="../../../icons/cloud-upload-alt.svg" style="width: 48px; height: 48px; margin-bottom: 16px;" />
+                            <div class="container-8">
+                                <div class="container-9">
+                                    <p class="text-8">Click button to enter Image URL</p>
+                                </div>
+                                <div class="container-9">
+                                    <p class="text-9">Recommended size: 1200x400px</p>
+                                </div>
+                            </div>
+                            <button class="button" type="button" id="select-url-btn">
+                                <span class="text-10">Select URL</span>
+                            </button>
+                        </div>
+
+                        <div id="url-input-container" style="display: none; width: 80%; padding: 20px;">
+                            <div style="display: flex; gap: 8px;">
+                                <input type="text" id="banner-url-input" placeholder="https://example.com/banner.jpg" style="flex: 1; padding: 12px; border: 1px solid #e2e8f0; border-radius: 12px;">
+                                <button id="confirm-url-btn" type="button" style="padding: 0 20px; background: #ff8c00; color: white; border: none; border-radius: 12px; font-weight: 700; cursor: pointer;">Add</button>
+                            </div>
+                        </div>
+
+                        <div id="banner-preview-container" style="display: none; position: absolute; inset: 0;">
+                            <img id="banner-preview-img" style="width: 100%; height: 100%; object-fit: cover; border-radius: 44px;">
+                            <button id="remove-banner-btn" type="button" style="position: absolute; top: 20px; right: 20px; background: #ff8c00; color: white; border: none; padding: 8px 16px; border-radius: 20px; font-weight: 700; cursor: pointer;">Change</button>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-        <!-- Upload Banner -->
-        <section class="overlay-border" aria-label="Upload team banner">
-            <img class="icon-2" src="../../../icons/image.svg" alt="Upload icon" />
-            <div class="container-3">
-                <div class="div-wrapper">
-                    <p class="p">Click to upload or drag &amp; drop</p>
-                </div>
-                <div class="div-wrapper">
-                    <p class="text-2">Recommended size: 1200x400px (JPG, PNG)</p>
-                </div>
-            </div>
-            <button class="button-2" type="button" onclick="window.history.back()">
-                <span class="text-3">Select File</span>
-            </button>
-        </section>
-        <!-- Team Details Form -->
-        <section class="section-step-team" aria-label="Team details form">
-            <div class="container-4">
-                <div class="img-wrapper">
-                    <img class="icon-3" src="../../../icons/users.svg" alt="" aria-hidden="true" style="width: 20px; height: 12px;" />
-                </div>
-                <div class="div-2">
-                    <h1 class="text-4">Team Details</h1>
-                </div>
-            </div>
-            <div class="container-5">
-                <!-- Identity Section -->
-                <fieldset class="team-basics">
-                    <legend class="div-3">
-                        <span class="text-wrapper-6">IDENTITY</span>
-                    </legend>
-                    <div class="container-6">
-                        <div class="div-3">
-                            <label class="text-wrapper-7" for="team-name">Team Name</label>
-                        </div>
-                        <div class="input">
-                            <div class="container-7">
-                                <input class="text-wrapper-8 team-name-input" id="team-name" type="text"
-                                    placeholder="e.g. Neon Knights" aria-label="Team Name" />
-                            </div>
+                </section>
+
+                <!-- Team Identity -->
+                <section class="basic-info" style="margin-top: 32px; max-height: none;">
+                    <div class="container-7">
+                        <label class="text-wrapper-4">Team Name</label>
+                        <div class="input-2">
+                             <input type="text" id="team-name" class="text-wrapper-5" style="width: 100%; border: none; background: transparent; outline: none;" placeholder="e.g. Neon Knights" />
                         </div>
                     </div>
-                    <div class="container-6">
-                        <div class="div-3">
-                            <label class="text-wrapper-7" for="input-1">Team Leader Name</label>
-                        </div>
-                        <div class="div-3">
-                            <div class="input-2">
-                                <input class="container-8" placeholder="Full name of leader" type="text" id="input-1"
-                                    aria-label="Team Leader Name" />
-                            </div>
-                            <div class="container-9">
-                                <img class="icon-4" src="img/image.svg" alt="" aria-hidden="true" />
-                            </div>
+                    <div class="container-7" style="margin-top: 16px;">
+                        <label class="text-wrapper-4">Team Leader</label>
+                        <div class="input-2">
+                             <input type="text" id="leader-name" class="text-wrapper-5" style="width: 100%; border: none; background: transparent; outline: none;" placeholder="Full name of leader" />
                         </div>
                     </div>
-                </fieldset>
-                <!-- Members Section -->
-                <fieldset class="team-members">
-                    <legend class="div-3">
-                        <span class="text-wrapper-6">MEMBERS (4)</span>
-                    </legend>
-                    <div class="container-10">
-                        <div class="div-3">
-                            <div class="input-3">
-                                <input class="container-11" placeholder="Member 1 Name" type="text"
-                                    aria-label="Member 1 Name" />
-                            </div>
-                            <div class="container-12">
-                                <img class="icon-5" src="img/icon-10.svg" alt="" aria-hidden="true" />
-                            </div>
-                        </div>
-                        <div class="div-3">
-                            <div class="input-3">
-                                <input class="container-11" placeholder="Member 2 Name" type="text"
-                                    aria-label="Member 2 Name" />
-                            </div>
-                            <div class="container-12">
-                                <img class="icon-5" src="img/icon-12.svg" alt="" aria-hidden="true" />
-                            </div>
-                        </div>
-                        <div class="div-3">
-                            <div class="input-3">
-                                <input class="container-11" placeholder="Member 3 Name" type="text"
-                                    aria-label="Member 3 Name" />
-                            </div>
-                            <div class="container-12">
-                                <img class="icon-5" src="img/icon.svg" alt="" aria-hidden="true" />
-                            </div>
-                        </div>
-                        <div class="div-3">
-                            <div class="input-3">
-                                <input class="container-11" placeholder="Member 4 Name" type="text"
-                                    aria-label="Member 4 Name" />
-                            </div>
-                            <div class="container-12">
-                                <img class="icon-5" src="img/icon-3.svg" alt="" aria-hidden="true" />
-                            </div>
-                        </div>
+                </section>
+
+                <!-- Team Roster -->
+                <section class="basic-info" style="margin-top: 32px; max-height: none;">
+                    <div class="div-2" style="margin-bottom: 16px;">
+                        <span class="text-wrapper-4">TEAM MEMBERS (4)</span>
                     </div>
-                </fieldset>
-            </div>
-            <!-- Form Actions -->
-            <div class="form-actions">
-                <div class="div-2">
-                    <p class="text-5">* All members must be registered on the platform to play.</p>
-                </div>
-                <div class="container-13">
-                    <button class="button-3" type="button">
-                        <span class="text-wrapper-9">Cancle</span>
-                    </button>
-                    <button class="button-4" type="submit">
-                        <div class="button-shadow" aria-hidden="true"></div>
-                        <span class="text-6">Continue to Step 2</span>
-                        <div class="container-14">
-                            <img class="icon-6" src="img/icon-5.svg" alt="" aria-hidden="true" />
-                        </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 100%;">
+                        <div class="input-2"><input type="text" class="member-input text-wrapper-5" style="width: 100%; border: none; background: transparent; outline: none;" placeholder="Member 1 Name" /></div>
+                        <div class="input-2"><input type="text" class="member-input text-wrapper-5" style="width: 100%; border: none; background: transparent; outline: none;" placeholder="Member 2 Name" /></div>
+                        <div class="input-2"><input type="text" class="member-input text-wrapper-5" style="width: 100%; border: none; background: transparent; outline: none;" placeholder="Member 3 Name" /></div>
+                        <div class="input-2"><input type="text" class="member-input text-wrapper-5" style="width: 100%; border: none; background: transparent; outline: none;" placeholder="Member 4 Name" /></div>
+                    </div>
+                </section>
+
+                <!-- Actions -->
+                <div class="actions" style="margin-top: 48px; display: flex; gap: 16px; justify-content: flex-end; padding: 0 33px 33px; position: relative;">
+                    <button type="button" onclick="window.history.back()" style="background: #f1f5f9; color: #64748b; border: none; padding: 14px 32px; border-radius: 999px; font-weight: 700; cursor: pointer; font-size: 16px;">Cancel</button>
+                    <button id="btn-continue-step2" type="button" style="cursor: pointer; display: flex; align-items: center; justify-content: center; width: 240px; height: 56px; background: #ff8c00; border: none; border-radius: 999px; color: white; font-weight: 700; font-size: 16px; white-space: nowrap;">
+                        Continue to Step 2
                     </button>
                 </div>
-            </div>
-        </section>
+            </form>
+        </main>
+
         <!-- Footer -->
-        <footer class="footer-footer" role="contentinfo">
-            <div class="container-15">
-                <span class="text-wrapper-10">© 2026 KMITL ESPORT</span>
+        <footer class="footer-footer">
+            <div class="container-19">
+                <span class="text-wrapper-7">© 2026 KMITL ESPORT</span>
             </div>
-            <a class="text-wrapper-11" href="#">Documentation</a>
-            <a class="text-wrapper-12" href="#">API Reference</a>
-            <a class="text-wrapper-13" href="#">Support</a>
+            <div style="display: flex; gap: 24px;">
+                <a class="text-wrapper-8" href="#">Documentation</a>
+                <a class="text-wrapper-9" href="#">API Reference</a>
+                <a class="text-wrapper-10" href="#">Support</a>
+            </div>
         </footer>
     </div>
+
     <script>
-        document.querySelector('.button-4').addEventListener('click', (e) => {
-            e.preventDefault();
-
-            const teamName = document.querySelector('.team-name-input').value;
-            const leaderName = document.getElementById('input-1').value;
-
-            const memberInputs = document.querySelectorAll('.input-3 .container-11');
-            const member_1 = memberInputs[0].value;
-            const member_2 = memberInputs[1].value;
-            const member_3 = memberInputs[2].value;
-            const member_4 = memberInputs[3].value;
-
-            if (!teamName || !leaderName || !member_1 || !member_2 || !member_3 || !member_4) {
-                alert('Please fill out all fields');
-                return;
+        document.addEventListener('DOMContentLoaded', async () => {
+            const form = document.querySelector('form');
+            const tournamentSelect = document.getElementById('tournament-select');
+            
+            // Fetch Tournaments
+            try {
+                const res = await fetch('http://localhost:3000/tournaments');
+                const tournaments = await res.json();
+                tournamentSelect.innerHTML = '<option value="">Choose an active event</option>' + 
+                    tournaments.map(t => `<option value="${t.tournament_id}">${t.tournament_name}</option>`).join('');
+            } catch (e) {
+                console.error('Failed to fetch tournaments', e);
+                tournamentSelect.innerHTML = '<option value="">Failed to load tournaments</option>';
             }
 
-            const teamData = {
-                team_name: teamName,
-                leader_name: leaderName,
-                member_1,
-                member_2,
-                member_3,
-                member_4
-            };
+            // Banner Logic
+            const selectUrlBtn = document.getElementById('select-url-btn');
+            const urlInputContainer = document.getElementById('url-input-container');
+            const uploadPlaceholder = document.getElementById('upload-placeholder');
+            const bannerUrlInput = document.getElementById('banner-url-input');
+            const confirmUrlBtn = document.getElementById('confirm-url-btn');
+            const bannerPreviewContainer = document.getElementById('banner-preview-container');
+            const bannerPreviewImg = document.getElementById('banner-preview-img');
+            const removeBannerBtn = document.getElementById('remove-banner-btn');
 
-            sessionStorage.setItem('pendingTeamData', JSON.stringify(teamData));
-            window.location.href = '../CreateTeamStep2 Page 5/createteamStep2_5.html';
+            let currentBannerUrl = '';
+
+            selectUrlBtn.addEventListener('click', () => {
+                uploadPlaceholder.style.display = 'none';
+                urlInputContainer.style.display = 'flex';
+                bannerUrlInput.focus();
+            });
+
+            confirmUrlBtn.addEventListener('click', () => {
+                const url = bannerUrlInput.value.trim();
+                if (url) {
+                    currentBannerUrl = url;
+                    bannerPreviewImg.src = url;
+                    urlInputContainer.style.display = 'none';
+                    bannerPreviewContainer.style.display = 'block';
+                }
+            });
+
+            removeBannerBtn.addEventListener('click', () => {
+                currentBannerUrl = '';
+                bannerPreviewContainer.style.display = 'none';
+                uploadPlaceholder.style.display = 'contents';
+                bannerUrlInput.value = '';
+            });
+
+            // Continue to Step 2 logic
+            const continueBtn = document.getElementById('btn-continue-step2');
+            continueBtn.addEventListener('click', () => {
+                const tournamentId = tournamentSelect.value;
+                const teamName = document.getElementById('team-name').value;
+                const leaderName = document.getElementById('leader-name').value;
+                const members = Array.from(document.querySelectorAll('.member-input')).map(input => input.value);
+
+                if (!tournamentId || !teamName || !leaderName || members.some(m => !m)) {
+                    alert('Please fill out all fields and select a tournament');
+                    return;
+                }
+
+                const teamData = {
+                    tournament_id: tournamentId,
+                    team_name: teamName,
+                    leader_name: leaderName,
+                    team_banner: currentBannerUrl,
+                    member_1: members[0],
+                    member_2: members[1],
+                    member_3: members[2],
+                    member_4: members[3]
+                };
+
+                sessionStorage.setItem('pendingTeamData', JSON.stringify(teamData));
+                window.location.href = '../CreateTeamStep2%20Page%205/createteamStep2_5.html';
+            });
         });
     </script>
 </body>
 
 </html>
+>

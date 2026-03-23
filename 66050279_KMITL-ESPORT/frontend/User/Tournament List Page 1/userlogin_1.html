@@ -71,12 +71,13 @@
             <section class="section-margin" aria-labelledby="tournament-heading">
                 <div class="section-header">
                     <div class="header-left">
-                        <div class="header-title-wrap">
-                            <img src="../../../icons/gamepad.svg" style="width: 32px; height: 32px;" alt="" />
-                            <h1 class="text-wrapper-3" id="tournament-heading">Tournament</h1>
-                        </div>
+                        <h1 class="text-wrapper-3" id="tournament-heading" style="display: block; opacity: 1; visibility: visible;">Tournament</h1>
                         <p class="p">Join the fight and prove your skills in the latest KMITL events.</p>
                     </div>
+                    <a href="#" class="view-all-link">
+                        <span>View All</span>
+                        <img src="../../../icons/arrow-right.svg" style="width: 14px; height: 14px; filter: invert(56%) sepia(87%) saturate(1915%) hue-rotate(1deg) brightness(104%) contrast(106%);" />
+                    </a>
                 </div>
                 
                 <div class="container-8" id="tournament-list-container">
@@ -89,10 +90,16 @@
             <!-- Upcoming Matches Section -->
             <section class="section-2" id="upcoming-matches-section" aria-labelledby="upcoming-matches-heading" style="display: none;">
                 <div class="section-header">
-                    <div class="header-title-wrap">
-                        <img src="../../../icons/high-five-celebration-yes.svg" style="width: 24px; height: 24px;" alt="" />
-                        <h2 class="text-wrapper-9" id="upcoming-matches-heading">Upcoming Matches</h2>
+                    <div class="header-left">
+                        <div class="header-title-wrap">
+                            <img src="../../../icons/high-five-celebration-yes.svg" style="width: 28px; height: 28px;" alt="" />
+                            <h2 class="text-wrapper-9" id="upcoming-matches-heading">Upcoming Matches</h2>
+                        </div>
                     </div>
+                    <a href="../MatchViewAll2 Page 21/matchviewall2_21.html" class="view-all-link">
+                        <span>View All</span>
+                        <img src="../../../icons/arrow-right.svg" style="width: 14px; height: 14px; filter: invert(56%) sepia(87%) saturate(1915%) hue-rotate(1deg) brightness(104%) contrast(106%);" />
+                    </a>
                 </div>
                 <div class="container-16" id="match-list-container">
                     <!-- Dynamic matches -->
@@ -118,26 +125,14 @@
             const matchListContainer = document.getElementById('match-list-container');
             const debugEl = document.getElementById('status-debug');
 
-            function log(msg, isError = false) {
-                console.log(msg);
-                if (debugEl) {
-                    debugEl.style.display = 'block';
-                    debugEl.innerHTML = (isError ? '🔴 ' : '🟢 ') + msg;
-                    if (isError) debugEl.style.color = '#ef4444';
-                }
-            }
-
             async function loadData() {
                 try {
-                    // Try fetch to both 127.0.0.1 and localhost
                     const baseUrl = 'http://127.0.0.1:3000';
-                    log('Connecting to ' + baseUrl + '/tournaments...');
                     
                     const res = await fetch(`${baseUrl}/tournaments`);
                     if (!res.ok) throw new Error('Server responded with ' + res.status);
                     
                     const tournaments = await res.json();
-                    log('Successfully loaded ' + tournaments.length + ' tournaments.');
                     
                     listContainer.innerHTML = '';
                     if (!tournaments || tournaments.length === 0) {
@@ -146,29 +141,27 @@
                         tournaments.forEach(t => {
                             const article = document.createElement('article');
                             article.className = 'background-shadow';
-                            const startDate = new Date(t.start_date).toLocaleDateString();
                             const bannerSrc = t.tournament_banner || 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800';
 
                             article.innerHTML = `
                                 <div class="container-9">
                                     <img src="${bannerSrc}" style="width: 100%; height: 100%; object-fit: cover;">
-                                    <div class="gradient"></div>
                                 </div>
                                 <div class="container-10">
                                     <h2 class="text-wrapper-5">${t.tournament_name}</h2>
-                                    <p class="major-tournament">${t.tournament_type} • ${t.format || 'Standard'}</p>
+                                    <p class="major-tournament">${(t.tournament_type || '').split(' • ')[0]}</p>
                                     <div class="container-11">
                                         <div class="container-12">
-                                            <img src="../../../icons/calendar-clock.svg" style="width: 14px; height: 14px;" />
-                                            <span>${startDate}</span>
+                                            <img src="../../../icons/calendar-clock.svg" style="width: 16px; height: 16px;" />
+                                            <span>2h remaining</span>
                                         </div>
                                         <div class="container-12">
-                                            <img src="../../../icons/users.svg" style="width: 14px; height: 14px;" />
+                                            <img src="../../../icons/users.svg" style="width: 16px; height: 16px;" />
                                             <span>32 Teams</span>
                                         </div>
                                     </div>
                                     <button class="button-3" type="button" onclick="window.location.href='../Tournament Detail Page 2/Usertournament_2.html?id=${t.tournament_id}'">
-                                        <span>View</span>
+                                        View
                                     </button>
                                 </div>
                             `;
@@ -176,48 +169,62 @@
                         });
                     }
 
-                    // Matches
+                    // Matches rendering (Upgraded to match mockup)
+                    let foundMatches = false;
+                    matchListContainer.innerHTML = ''; // Clear before starting
+                    
                     for (const t of tournaments) {
                         try {
                             const mRes = await fetch(`${baseUrl}/tournaments/${t.tournament_id}/matches`);
                             if (mRes.ok) {
                                 const matches = await mRes.json();
-                                if (Array.isArray(matches) && matches.length > 0) {
-                                    matchSection.style.display = 'flex';
-                                    matchListContainer.innerHTML = '';
-                                    matches.slice(0, 3).forEach(m => {
+                                // Only show matches that aren't finished yet
+                                const upcoming = matches.filter(m => m.score1 === null && m.score2 === null);
+                                if (upcoming.length > 0) {
+                                    foundMatches = true;
+                                    upcoming.slice(0, 3).forEach(m => {
                                         const row = document.createElement('article');
                                         row.className = 'background-border';
                                         row.innerHTML = `
                                             <div class="match-info-left">
-                                                <span class="match-label">MATCH</span>
-                                                <span class="match-time">R${m.round || 1} - P${m.position || 0}</span>
+                                                <span class="match-label">START IN</span>
+                                                <span class="match-time">15:30</span>
                                             </div>
                                             <div class="match-teams-center">
-                                                <span class="team-name">${m.team1_name || 'TBD'}</span>
-                                                <span class="vs-badge">VS</span>
-                                                <span class="team-name">${m.team2_name || 'TBD'}</span>
+                                                <div class="team-item" style="justify-content: flex-end;">
+                                                    <span class="team-name">${m.team1_name || 'TBD'}</span>
+                                                    <div class="team-icon">
+                                                        <img src="../../../icons/user.svg" style="width: 16px; height: 16px; opacity: 0.5;" />
+                                                    </div>
+                                                </div>
+                                                <div class="vs-badge-circle">VS</div>
+                                                <div class="team-item">
+                                                    <div class="team-icon">
+                                                        <img src="../../../icons/user.svg" style="width: 16px; height: 16px; opacity: 0.5;" />
+                                                    </div>
+                                                    <span class="team-name">${m.team2_name || 'TBD'}</span>
+                                                </div>
                                             </div>
                                         `;
                                         matchListContainer.appendChild(row);
                                     });
                                 }
                             }
-                        } catch (e) {}
+                        } catch (e) {
+                            console.warn('Failed to fetch matches for tournament', t.tournament_id);
+                        }
                     }
+                    
+                    // Final visibility toggle
+                    matchSection.style.display = foundMatches ? 'flex' : 'none';
                 } catch (error) {
-                    log('Load Failed: ' + error.message, true);
-                    listContainer.innerHTML = `
-                        <div style="padding: 40px; text-align: center;">
-                            <p style="color: #ef4444; font-size: 18px; margin-bottom: 20px;">Unable to connect to the database.</p>
-                            <p style="color: #64748b; font-size: 14px;">Please ensure your backend server (server.js) is running on port 3000.</p>
-                            <button onclick="location.reload()" style="margin-top: 20px; padding: 10px 20px; background: #64748b; color: white; border: none; border-radius: 6px; cursor: pointer;">Retry Connection</button>
-                        </div>
-                    `;
+                    console.error('Load Failed:', error);
+                    listContainer.innerHTML = `<p style="padding: 40px; text-align: center; color: #ef4444;">Failed to connect to data source.</p>`;
                 }
             }
             loadData();
         })();
     </script>
 </body>
+
 </html>
