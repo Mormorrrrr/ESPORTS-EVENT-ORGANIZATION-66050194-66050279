@@ -190,6 +190,7 @@
         </footer>
     </div>
 
+    <script src="../api-config.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const form = document.querySelector('form');
@@ -197,7 +198,7 @@
             
             // Fetch Tournaments
             try {
-                const res = await fetch('http://localhost:3000/tournaments');
+                const res = await fetch(`${API_BASE_URL}/tournaments`);
                 const tournaments = await res.json();
                 tournamentSelect.innerHTML = '<option value="">Choose an active event</option>' + 
                     tournaments.map(t => `<option value="${t.tournament_id}">${t.tournament_name}</option>`).join('');

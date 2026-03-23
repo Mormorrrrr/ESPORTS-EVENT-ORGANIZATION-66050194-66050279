@@ -118,6 +118,7 @@
         </footer>
     </div>
 
+    <script src="../api-config.js"></script>
     <script>
         (function() {
             const listContainer = document.getElementById('tournament-list-container');
@@ -127,7 +128,7 @@
 
             async function loadData() {
                 try {
-                    const baseUrl = 'http://127.0.0.1:3000';
+                    const baseUrl = API_BASE_URL;
                     
                     const res = await fetch(`${baseUrl}/tournaments`);
                     if (!res.ok) throw new Error('Server responded with ' + res.status);

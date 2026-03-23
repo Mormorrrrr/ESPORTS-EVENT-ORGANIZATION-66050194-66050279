@@ -141,10 +141,11 @@
             <span class="text-wrapper-11">Support</span>
         </footer>
     </div>
+    <script src="../../api-config.js"></script>
     <script>
         async function fetchDashboardStats() {
             try {
-                const baseUrl = 'http://localhost:3000';
+                const baseUrl = API_BASE_URL;
                 const [tournamentsRes, teamsRes, usersRes] = await Promise.all([
                     fetch(`${baseUrl}/tournaments`),
                     fetch(`${baseUrl}/teams`),
