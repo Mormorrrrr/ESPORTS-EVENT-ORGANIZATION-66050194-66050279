@@ -280,7 +280,13 @@ app.post("/tournaments", async (req, res) => {
 
 app.get("/tournaments", async (req, res) => {
   try {
-    const tournaments = await prisma.tournament.findMany();
+    const tournaments = await prisma.tournament.findMany({
+      include: {
+        _count: {
+          select: { applications: true }
+        }
+      }
+    });
     res.json(tournaments);
   } catch (error) {
     res.status(500).json({ error: "โหลด tournament ไม่ได้" });
@@ -502,8 +508,12 @@ app.delete("/applications/:id", async (req, res) => {
   }
 });
 
-// Fallback to index.html for SPA behavior - Use a regex that works with Express 5
-app.get(/^(?!\/(tournaments|teams|applications|login|register|api-health)).*$/, (req, res) => {
+// Fallback to index.html for SPA behavior - Use a case-insensitive regex
+app.get(/^(?!\/(tournaments|teams|applications|login|register|api-health)).*$/i, (req, res) => {
+  // If request looks like a file (has an extension), don't serve index.html
+  if (req.path.includes('.')) {
+    return res.status(404).send('Not Found');
+  }
   res.sendFile(path.join(__dirname, "../frontend/index.html"));
 });
 

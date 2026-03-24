@@ -7,11 +7,11 @@ const form = document.getElementById('auth-form');
 
 const usernameInput = document.getElementById('input-0');
 const emailInput = document.getElementById('input-1');
-const emailContainer = emailInput.closest('.container-5');
+const emailContainer = emailInput ? emailInput.closest('.container-5') || { style: {} } : { style: {} };
 const passInput = document.getElementById('input-2');
 const confirmPassInput = document.getElementById('input-3');
-const confirmPassContainer = document.getElementById('confirm-pass-container');
-const termsContainer = document.querySelector('.container-12');
+const confirmPassContainer = document.getElementById('confirm-pass-container') || { style: {} };
+const termsContainer = document.querySelector('.container-12') || { style: {} };
 
 const footerLinksText = document.querySelector('.text-wrapper-8');
 const footerLinksAction = document.querySelector('.text-wrapper-9');

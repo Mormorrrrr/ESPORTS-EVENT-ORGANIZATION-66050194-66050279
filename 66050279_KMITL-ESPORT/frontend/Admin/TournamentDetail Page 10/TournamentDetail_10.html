@@ -414,12 +414,14 @@
                         <option value="Double Elimination">Double Elimination</option>
                     </select>
                 </div>
-                <div class="bracket-controls" id="single-controls">
-                    <button class="control-btn" id="btn-plus" title="Add Team">+</button>
-                    <button class="control-btn" id="btn-minus" title="Remove Team">-</button>
-                    <button class="control-btn" id="btn-reset" title="Reset to Defaults">Reset</button>
+                <div style="position: relative; min-height: 400px; padding-left: 50px;">
+                    <div class="bracket-controls" id="single-controls" style="position: absolute; left: 0; top: 20px;">
+                        <button class="control-btn" id="btn-plus" title="Add Team">+</button>
+                        <button class="control-btn" id="btn-minus" title="Remove Team">-</button>
+                        <button class="control-btn" id="btn-reset" title="Reset to Defaults">re</button>
+                    </div>
+                    <div id="bracket" style="margin: 0; padding: 0;"></div>
                 </div>
-                <div id="bracket" style="margin: 0; padding: 0;"></div>
                 <div style="margin-top:20px; text-align:right;">
                     <span id="save-status" style="margin-right:15px; font-weight:600; font-size:14px;"></span>
                     <button id="save-bracket-btn" style="background:#2563eb; color:white; border:none; padding:10px 24px; border-radius:10px; font-weight:600; cursor:pointer; transition:all 0.2s;">
