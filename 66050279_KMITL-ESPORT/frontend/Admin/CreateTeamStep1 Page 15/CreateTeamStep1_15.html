@@ -237,17 +237,10 @@
                 </div>
             </div>
         </section>
-        <!-- Footer -->
-        <footer class="footer-footer" role="contentinfo">
-            <div class="container-15">
-                <div class="text-wrapper-10">© 2026 KMITL ESPORT</div>
-            </div>
-            <div class="text-wrapper-11">Documentation</div>
-            <div class="text-wrapper-12">API Reference</div>
-            <div class="text-wrapper-13">Support</div>
-        </footer>
+
     </div>
 
+    <script src="../../api-config.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const dropdown = document.getElementById('tournament-dropdown');
@@ -354,7 +347,7 @@
 
             // Fetch tournaments from backend
             try {
-                const response = await fetch('http://localhost:3000/tournaments');
+                const response = await fetch(`${API_BASE_URL}/tournaments`);
                 allTournaments = await response.json();
                 renderTournaments(allTournaments);
             } catch (error) {

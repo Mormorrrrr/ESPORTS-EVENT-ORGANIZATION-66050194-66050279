@@ -137,20 +137,11 @@
                 </div>
             </main>
 
-            <!-- Global Footer -->
-            <footer class="global-footer">
-                <div class="footer-left">
-                    <span class="copyright">© 2026 KMITL ESPORT</span>
-                </div>
-                <div class="footer-right">
-                    <a href="#" class="footer-link">Documentation</a>
-                    <a href="#" class="footer-link">API Reference</a>
-                    <a href="#" class="footer-link">Support</a>
-                </div>
-            </footer>
+
         </div>
     </div>
 
+    <script src="../../api-config.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const urlParams = new URLSearchParams(window.location.search);
@@ -160,7 +151,7 @@
             async function loadTeamData() {
                 if (!teamId) return;
                 try {
-                    const res = await fetch(`http://localhost:3000/teams/${teamId}`);
+                    const res = await fetch(`${API_BASE_URL}/teams/${teamId}`);
                     const data = await res.json();
                     
                     if (res.ok && data.team) {
@@ -264,10 +255,10 @@
                 badge.addEventListener('click', async () => {
                     if (confirm('Approve this team?')) {
                         try {
-                            const appRes = await fetch(`http://localhost:3000/applications?team_id=${teamId}`);
+                            const appRes = await fetch(`${API_BASE_URL}/applications?team_id=${teamId}`);
                             const apps = await appRes.json();
                             if (apps.length > 0) {
-                                await fetch(`http://localhost:3000/applications/${apps[0].app_id}/status`, {
+                                await fetch(`${API_BASE_URL}/applications/${apps[0].app_id}/status`, {
                                     method: 'PATCH',
                                     headers: { 'Content-Type': 'application/json' },
                                     body: JSON.stringify({ status: 'Approved' })

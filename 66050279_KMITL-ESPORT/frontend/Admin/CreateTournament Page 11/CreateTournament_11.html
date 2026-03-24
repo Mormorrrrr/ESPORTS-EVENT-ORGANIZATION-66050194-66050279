@@ -247,16 +247,9 @@
                 </div>
             </form>
         </main>
-        <!-- Footer -->
-        <footer class="footer-footer" role="contentinfo">
-            <div class="container-19">
-                <span class="text-wrapper-7">© 2026 KMITL ESPORT</span>
-            </div>
-            <a class="text-wrapper-8" href="#">Documentation</a>
-            <a class="text-wrapper-9" href="#">API Reference</a>
-            <a class="text-wrapper-10" href="#">Support</a>
-        </footer>
+
     </div>
+    <script src="../../api-config.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const form = document.querySelector('form');
@@ -402,7 +395,7 @@
                 }
 
                 try {
-                    const res = await fetch('http://localhost:3000/tournaments', {
+                    const res = await fetch(`${API_BASE_URL}/tournaments`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'

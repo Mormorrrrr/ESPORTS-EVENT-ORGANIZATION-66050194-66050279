@@ -131,21 +131,13 @@
             </div>
         </main>
 
-        <!-- Footer -->
-        <footer class="footer-footer" role="contentinfo">
-            <div class="container-17">
-                <span class="text-wrapper-8">© 2026 KMITL ESPORT</span>
-            </div>
-            <span class="text-wrapper-9">Documentation</span>
-            <span class="text-wrapper-10">API Reference</span>
-            <span class="text-wrapper-11">Support</span>
-        </footer>
+
     </div>
     <script src="../../api-config.js"></script>
     <script>
         async function fetchDashboardStats() {
             try {
-                const baseUrl = API_BASE_URL;
+                const baseUrl = API_BASE_URL; // Consistent use of API_BASE_URL
                 const [tournamentsRes, teamsRes, usersRes] = await Promise.all([
                     fetch(`${baseUrl}/tournaments`),
                     fetch(`${baseUrl}/teams`),

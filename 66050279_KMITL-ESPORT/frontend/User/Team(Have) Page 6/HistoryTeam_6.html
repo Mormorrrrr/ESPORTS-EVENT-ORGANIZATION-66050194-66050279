@@ -128,16 +128,9 @@
                 </ul>
             </section>
         </main>
-        <!-- Footer -->
-        <footer class="footer-footer" role="contentinfo">
-            <div class="container">
-                <span class="text-wrapper">© 2026 KMITL ESPORT</span>
-            </div>
-            <span class="div">Documentation</span>
-            <span class="text-wrapper-2">API Reference</span>
-            <span class="text-wrapper-3">Support</span>
-        </footer>
+
     </div>
+    <script src="../../api-config.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const listContainer = document.querySelector('.tournament-card-wrapper');
@@ -151,7 +144,7 @@
             const user = JSON.parse(userStr);
 
             try {
-                const res = await fetch('http://localhost:3000/teams');
+                const res = await fetch(`${API_BASE_URL}/teams`);
                 const allTeams = await res.json();
                 
                 // Filter teams where user is creator or leader (basic check)

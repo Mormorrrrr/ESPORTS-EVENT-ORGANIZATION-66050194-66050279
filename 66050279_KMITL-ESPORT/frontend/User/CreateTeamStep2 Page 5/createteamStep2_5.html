@@ -149,18 +149,10 @@
             </div>
         </main>
 
-        <footer class="footer-footer">
-            <div class="container-19">
-                <span class="text-wrapper-7">© 2026 KMITL ESPORT</span>
-            </div>
-            <div style="display: flex; gap: 24px;">
-                <span class="text-wrapper-8">Documentation</span>
-                <span class="text-wrapper-9">API Reference</span>
-                <span class="text-wrapper-10">Support</span>
-            </div>
-        </footer>
+
     </div>
 
+    <script src="../../api-config.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const teamDataStr = sessionStorage.getItem('pendingTeamData');
@@ -170,7 +162,7 @@
                 // Fetch tournament details
                 if (teamData.tournament_id) {
                     try {
-                        const res = await fetch(`http://localhost:3000/tournaments/${teamData.tournament_id}`);
+                        const res = await fetch(`${API_BASE_URL}/tournaments/${teamData.tournament_id}`);
                         const tourney = await res.json();
                         document.getElementById('tourney-name').textContent = tourney.tournament_name;
                         document.getElementById('tourney-banner').src = tourney.tournament_banner || 'https://placehold.co/1200x400/0f172a/white?text=KMITL+Tournament';

@@ -155,6 +155,7 @@
             </section>
         </main>
 
+    <script src="../../api-config.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const params = new URLSearchParams(window.location.search);
@@ -165,7 +166,7 @@
 
             try {
                 // Fetch Tournament Detail
-                const res = await fetch(`http://localhost:3000/tournaments/${id}`);
+                const res = await fetch(`${API_BASE_URL}/tournaments/${id}`);
                 const tournament = await res.json();
 
                 // Bind Data
@@ -188,7 +189,7 @@
                 }
 
                 // Fetch Matches
-                const matchesRes = await fetch(`http://localhost:3000/tournaments/${id}/matches`);
+                const matchesRes = await fetch(`${API_BASE_URL}/tournaments/${id}/matches`);
                 const matches = await matchesRes.json();
 
                 if (!matches || matches.length === 0) {

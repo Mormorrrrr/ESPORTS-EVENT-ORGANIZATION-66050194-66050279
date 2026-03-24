@@ -174,14 +174,9 @@
                 </button>
             </div>
         </main>
-        <!-- Footer -->
-        <footer class="footer-footer" role="contentinfo">
-            <div class="container"><span class="text-wrapper">© 2026 KMITL ESPORT</span></div>
-            <span class="div">Documentation</span>
-            <span class="text-wrapper-2">API Reference</span>
-            <span class="text-wrapper-3">Support</span>
-        </footer>
+
     </div>
+    <script src="../../api-config.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const dataStr = sessionStorage.getItem('teamCreationData');
@@ -224,7 +219,7 @@
                         created_by: 1 // Default admin user ID for testing
                     };
                     
-                    const res = await fetch('http://localhost:3000/teams', {
+                    const res = await fetch(`${API_BASE_URL}/teams`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
@@ -234,7 +229,7 @@
                         const newTeam = await res.json();
                         // Also apply to tournament if we have tournamentId
                         if (data.tournamentId) {
-                            await fetch('http://localhost:3000/applications', {
+                            await fetch(`${API_BASE_URL}/applications`, {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
                                 body: JSON.stringify({

@@ -85,21 +85,14 @@
                 <!-- Tournaments dynamically injected here -->
             </div>
         </main>
-        <!-- Footer -->
-        <footer class="footer-footer" role="contentinfo">
-            <div class="container-14">
-                <span class="text-wrapper-6">© 2026 KMITL ESPORT</span>
-            </div>
-            <span class="text-wrapper-7">Documentation</span>
-            <span class="text-wrapper-8">API Reference</span>
-            <span class="text-wrapper-9">Support</span>
-        </footer>
+
     </div>
+    <script src="../../api-config.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const listContainer = document.getElementById('admin-tournaments-list');
             try {
-                const res = await fetch('http://localhost:3000/tournaments');
+                const res = await fetch(`${API_BASE_URL}/tournaments`);
                 if (!res.ok) throw new Error('Failed to fetch tournaments');
                 const tournaments = await res.json();
                 
@@ -172,7 +165,7 @@
         window.deleteTournament = async function(id) {
             if (!confirm('Are you sure you want to delete this tournament?')) return;
             try {
-                const res = await fetch(`http://localhost:3000/tournaments/${id}`, {
+                const res = await fetch(`${API_BASE_URL}/tournaments/${id}`, {
                     method: 'DELETE'
                 });
                 if (res.ok) {

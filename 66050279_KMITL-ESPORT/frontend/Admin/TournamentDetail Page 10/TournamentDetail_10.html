@@ -432,6 +432,7 @@
         </div>
     </div>
 
+    <script src="../../api-config.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const urlParams = new URLSearchParams(window.location.search);
@@ -448,7 +449,7 @@
 
             try {
                 console.log('Fetching tournament:', tournamentId);
-                const res = await fetch(`http://localhost:3000/tournaments/${tournamentId}`);
+                const res = await fetch(`${API_BASE_URL}/tournaments/${tournamentId}`);
                 const tournament = await res.json();
 
                 // Dynamic Data Binding
@@ -484,7 +485,7 @@
                     bracketTeams.push([teams[i], teams[i + 1] || "TBD"]);
                 }
 
-                const matchesRes = await fetch(`http://localhost:3000/tournaments/${tournamentId}/matches`);
+                const matchesRes = await fetch(`${API_BASE_URL}/tournaments/${tournamentId}/matches`);
                 const matches = await matchesRes.json();
 
                 const bracketData = {
@@ -533,7 +534,7 @@
                 const saveMatchesToDB = (matchesToSave) => {
                     const $status = $('#save-status');
                     $status.text('Saving...').css('color', '#6b7280');
-                    fetch(`http://localhost:3000/tournaments/${tournamentId}/matches/save`, {
+                    fetch(`${API_BASE_URL}/tournaments/${tournamentId}/matches/save`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ matches: matchesToSave })
@@ -731,13 +732,7 @@
         });
     </script>
 
-    <!-- Footer -->
-    <footer class="footer-footer" role="contentinfo">
-        <div class="container-13"><span class="text-wrapper-7">© 2026 KMITL ESPORT</span></div>
-        <a class="text-wrapper-8" href="#">Documentation</a>
-        <a class="text-wrapper-9" href="#">API Reference</a>
-        <a class="text-wrapper-10" href="#">Support</a>
-    </footer>
+
     </div>
 </body>
 

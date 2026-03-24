@@ -248,18 +248,12 @@
                     </form>
                 </section>
 
-                <footer class="footer-modern">
-                    <p>© 2026 KMITL ESPORT</p>
-                    <div style="display: flex; gap: 24px;">
-                        <a href="#" style="color: inherit; text-decoration: none;">Documentation</a>
-                        <a href="#" style="color: inherit; text-decoration: none;">API Reference</a>
-                        <a href="#" style="color: inherit; text-decoration: none;">Support</a>
-                    </div>
-                </footer>
+
             </main>
         </div>
     </div>
 
+    <script src="../../api-config.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const urlParams = new URLSearchParams(window.location.search);
@@ -285,7 +279,7 @@
 
             // Load Data
             try {
-                const res = await fetch(`http://localhost:3000/tournaments/${tournamentId}`);
+                const res = await fetch(`${API_BASE_URL}/tournaments/${tournamentId}`);
                 if(!res.ok) throw new Error('Tournament not found');
                 const t = await res.json();
 
@@ -317,7 +311,7 @@
                 if(!name || !startDate || !endDate) return alert('Please fill all fields');
 
                 try {
-                    const res = await fetch(`http://localhost:3000/tournaments/${tournamentId}`, {
+                    const res = await fetch(`${API_BASE_URL}/tournaments/${tournamentId}`, {
                         method: 'PUT',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
