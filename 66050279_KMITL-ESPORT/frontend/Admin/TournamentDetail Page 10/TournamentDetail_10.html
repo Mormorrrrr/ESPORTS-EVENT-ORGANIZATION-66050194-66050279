@@ -287,18 +287,25 @@
                     <input class="ns-search-input" placeholder="Search tournaments..." type="search"
                         aria-label="Search tournaments" />
                 </label>
-                <img class="ns-user-avatar" src="../../../icons/user.svg" alt="User profile" />
+                <div class="ns-user-area" style="position:relative;display:flex;align-items:center;gap:8px;cursor:pointer;" onclick="logoutUser()" title="ออกจากระบบ">
+                <span id="header-username" style="font-size:13px;font-weight:600;color:#334155;"></span>
+                <img class="ns-user-avatar" src="../../../icons/user.svg" alt="User profile" style="cursor:pointer;" />
+            </div>
+            <script>
+            (function(){var u=JSON.parse(localStorage.getItem("user")||"null");if(u&&u.username)document.getElementById("header-username").textContent=u.username;})();
+            function logoutUser(){if(confirm("ต้องการออกจากระบบ?")){localStorage.removeItem("user");window.location.href="../../Login Page/login.html";}}
+            </script>
             </div>
         </header>
 
         <!-- Sidebar -->
         <aside class="aside-sidebar" aria-label="Sidebar navigation">
             <nav class="sidebar-nav-container">
-                <a class="link" href="../Dashboard Page 8/Dashboard_8.html" aria-label="Dashboard">
+                <a class="link-2" href="../Dashboard Page 8/Dashboard_8.html" aria-label="Dashboard">
                     <img src="../../../icons/stats.svg" alt="Dashboard icon" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Dashboard</span>
                 </a>
-                <a class="link-2" href="../TournamentList Page 9/TournamentList_9.html" aria-label="Tournament">
+                <a class="link" href="../TournamentList Page 9/TournamentList_9.html" aria-label="Tournament">
                     <img src="../../../icons/trophy-star.svg" alt="Tournament icon" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Tournament</span>
                 </a>
@@ -317,119 +324,110 @@
             </nav>
         </aside>
 
-        <!-- Banner Image Preview -->
-        <section class="banner-image-preview" aria-label="Tournament banner">
-            <img class="image-2"
-                src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=1200"
-                alt="Tournament banner background" />
-            <div class="rov-KMITL-cup-wrapper">
-                <h1 class="rov-KMITL-cup">Tournament</h1>
-            </div>
-        </section>
-        <!-- Tournament Details Section -->
-        <section class="section" aria-labelledby="tournament-details-heading">
-            <div class="heading">
-                <div class="div"><img class="icon" src="../../../icons/info.svg" alt="Details icon" /></div>
-                <h2 class="text-wrapper" id="tournament-details-heading">Tournament Details</h2>
-            </div>
-            <div class="container">
-                <div class="container-2">
-                    <div class="background" aria-hidden="true">
-                        <div class="div"><img class="img" src="../../../icons/gamepad.svg" alt="Tournament type icon" />
+        <!-- Main Content -->
+        <main class="frame" style="padding-bottom: 80px;">
+            <!-- Hero Banner -->
+            <section id="banner-section" style="position: relative; width: 100%; height: 280px; border-radius: 24px; overflow: hidden; margin-bottom: 32px; background: #0f172a; flex-shrink: 0;">
+                <img id="banner-img" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=1200" alt="Tournament banner" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.6;" />
+                <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.8) 100%); display: flex; align-items: flex-end; padding: 40px;">
+                    <h1 id="tournament-name" style="color: white; font-size: 40px; font-weight: 800; margin: 0; letter-spacing: -1px;">Tournament</h1>
+                </div>
+            </section>
+
+            <!-- Tournament Details -->
+            <section id="details-section" style="background: white; padding: 32px; border-radius: 20px; border: 1px solid #f1f5f9; box-shadow: 0 1px 2px rgba(0,0,0,0.05); margin-bottom: 24px;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+                    <img src="../../../icons/info.svg" alt="" style="width: 24px; height: 24px;" />
+                    <h2 id="tournament-details-heading" style="margin: 0; font-size: 20px; font-weight: 700; color: #0f172a;">Tournament Details</h2>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <div style="display: flex; align-items: center; gap: 16px; min-width: 0;">
+                        <div style="width: 48px; height: 48px; background: #ff8c001a; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <img src="../../../icons/gamepad.svg" style="width: 24px; height: 24px;" />
+                        </div>
+                        <div style="min-width: 0; flex: 1;">
+                            <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Tournament Type</div>
+                            <span class="text-2" style="font-size: 16px; font-weight: 600; color: #0f172a; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Single Elimination</span>
                         </div>
                     </div>
-                    <div class="container-3">
-                        <div class="div-wrapper"><span class="text">TOURNAMENT TYPE</span></div>
-                        <div class="div-wrapper"><span class="text-2">Single Elimination</span></div>
-                    </div>
-                </div>
-                <div class="container-4">
-                    <div class="background" aria-hidden="true">
-                        <div class="div"><img class="icon-2" src="../../../icons/calendar-day.svg"
-                                alt="Duration icon" /></div>
-                    </div>
-                    <div class="container-3">
-                        <div class="div-wrapper"><span class="text-3">DURATION</span></div>
-                        <div class="div-wrapper"><span class="text-4">3 Days</span></div>
-                    </div>
-                </div>
-                <div class="container-5">
-                    <div class="background" aria-hidden="true">
-                        <div class="div"><img class="icon-3" src="../../../icons/pencil.svg" alt="Age range icon" />
+                    <div style="display: flex; align-items: center; gap: 16px; min-width: 0;">
+                        <div style="width: 48px; height: 48px; background: #ff8c001a; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <img src="../../../icons/calendar-day.svg" style="width: 24px; height: 24px;" />
+                        </div>
+                        <div style="min-width: 0; flex: 1;">
+                            <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Duration</div>
+                            <span class="text-4" style="font-size: 16px; font-weight: 600; color: #0f172a; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">3 Days</span>
                         </div>
                     </div>
-                    <div class="container-3">
-                        <div class="div-wrapper"><span class="text-5">AGE RANGE</span></div>
-                        <div class="div-wrapper">
-                            <p class="p">18 - 25 years old</p>
+                    <div style="display: flex; align-items: center; gap: 16px; min-width: 0;">
+                        <div style="width: 48px; height: 48px; background: #ff8c001a; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <img src="../../../icons/pencil.svg" style="width: 24px; height: 24px;" />
+                        </div>
+                        <div style="min-width: 0; flex: 1;">
+                            <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Age Range</div>
+                            <p class="p" style="font-size: 16px; font-weight: 600; color: #0f172a; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">18 - 25 years old</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 16px; min-width: 0;">
+                        <div style="width: 48px; height: 48px; background: #ff8c001a; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <img src="../../../icons/trophy-star.svg" style="width: 24px; height: 24px;" />
+                        </div>
+                        <div style="min-width: 0; flex: 1;">
+                            <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Format</div>
+                            <span class="text-7" style="font-size: 16px; font-weight: 600; color: #0f172a; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">5v5 Squads</span>
                         </div>
                     </div>
                 </div>
-                <div class="container-6">
-                    <div class="background" aria-hidden="true">
-                        <div class="div"><img class="icon-4" src="../../../icons/trophy-star.svg" alt="Format icon" />
-                        </div>
+            </section>
+
+            <!-- Registration Dates -->
+            <section id="dates-section" style="background: white; padding: 32px; border-radius: 20px; border: 1px solid #f1f5f9; box-shadow: 0 1px 2px rgba(0,0,0,0.05); margin-bottom: 24px;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+                    <img src="../../../icons/calendar-day.svg" alt="" style="width: 24px; height: 24px;" />
+                    <h2 id="registration-dates-heading" style="margin: 0; font-size: 20px; font-weight: 700; color: #0f172a;">Registration Dates</h2>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <div style="background: #f8fafc; border-radius: 16px; padding: 20px 24px; border: 1px solid #f1f5f9;">
+                        <div style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Opens On</div>
+                        <div class="text-wrapper-2" style="font-size: 18px; font-weight: 700; color: #0f172a;">November 15, 2025</div>
+                        <div style="font-size: 13px; color: #64748b; margin-top: 4px;">09:00 AM ICT</div>
                     </div>
-                    <div class="container-3">
-                        <div class="div-wrapper"><span class="text-6">FORMAT</span></div>
-                        <div class="div-wrapper"><span class="text-7">5v5 Squads</span></div>
+                    <div style="background: #f8fafc; border-radius: 16px; padding: 20px 24px; border: 1px solid #f1f5f9;">
+                        <div style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Closes On</div>
+                        <div class="text-wrapper-3" style="font-size: 18px; font-weight: 700; color: #0f172a;">December 05, 2025</div>
+                        <div style="font-size: 13px; color: #64748b; margin-top: 4px;">11:59 PM ICT</div>
                     </div>
                 </div>
-            </div>
-        </section>
-        <!-- Registration Dates -->
-        <section class="background-border" aria-labelledby="registration-dates-heading">
-            <div class="heading">
-                <div class="div"><img class="icon-2" src="../../../icons/calendar-day.svg" alt="Calendar icon" /></div>
-                <h2 class="text-8" id="registration-dates-heading">Registration Dates</h2>
-            </div>
-            <div class="container-7">
-                <div class="background-border-2" role="region" aria-label="Registration opens on">
-                    <div class="container-8"><span class="text-9">OPENS ON</span></div>
-                    <div class="container-9"><span class="text-wrapper-2">November 15, 2025</span></div>
-                    <div class="container-10"><span class="text-10">09:00 AM ICT</span></div>
+            </section>
+
+            <!-- Tournament Bracket -->
+            <section style="background: white; padding: 32px; border-radius: 20px; border: 1px solid #f1f5f9; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                    <img src="../../../icons/users.svg" alt="" style="width: 28px; height: 28px;" />
+                    <h2 style="margin: 0; font-size: 24px; font-weight: 800; color: #0f172a;">Tournament Bracket</h2>
                 </div>
-                <div class="background-border-3" role="region" aria-label="Registration closes on">
-                    <div class="container-8"><span class="text-11">CLOSES ON</span></div>
-                    <div class="container-9"><span class="text-wrapper-3">December 05, 2025</span></div>
-                    <div class="container-10"><span class="text-12">11:59 PM ICT</span></div>
+                <div id="bracket-diagnostic" style="margin-bottom:10px; font-size:12px; color:#94a3b8;"></div>
+                <div style="margin-bottom: 20px; display: flex; align-items: center; gap: 10px; position: relative;">
+                    <span style="font-size: 14px; font-weight: 600; color: #334155;">Bracket Format:</span>
+                    <select id="format-toggle" style="padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; color: #0f172a; background: #fff; cursor: pointer;">
+                        <option value="Single Elimination">Single Elimination</option>
+                        <option value="Double Elimination">Double Elimination</option>
+                    </select>
                 </div>
-            </div>
-        </section>
-        <!-- Tournament Bracket Section -->
-        <div class="bracket-section">
-            <div class="heading-2" style="position: relative; top: 0; left: 0; margin-bottom: 24px;">
-                <div class="div">
-                    <img class="streamline-ultimate" src="../../../icons/users.svg" alt="Tournament bracket icon"
-                        style="width: 48px; height: 48px;" />
+                <div class="bracket-controls" id="single-controls">
+                    <button class="control-btn" id="btn-plus" title="Add Team">+</button>
+                    <button class="control-btn" id="btn-minus" title="Remove Team">-</button>
+                    <button class="control-btn" id="btn-reset" title="Reset to Defaults">Reset</button>
                 </div>
-                <h2 class="text-wrapper" style="font-size: 24px;">Tournament Bracket</h2>
-            </div>
-            <div id="bracket-diagnostic" style="margin-bottom:10px; font-size:12px; color:#94a3b8; padding-left: 60px;">
-            </div>
-            <div
-                style="margin-bottom: 20px; padding-left: 60px; display: flex; align-items: center; gap: 10px; z-index: 10; position: relative;">
-                <span style="font-size: 14px; font-weight: 600; color: #334155;">Bracket Format:</span>
-                <select id="format-toggle"
-                    style="padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; color: #0f172a; background: #fff; cursor: pointer;">
-                    <option value="Single Elimination">Single Elimination</option>
-                    <option value="Double Elimination">Double Elimination</option>
-                </select>
-            </div>
-            <div class="bracket-controls" id="single-controls">
-                <button class="control-btn" id="btn-plus" title="Add Team">+</button>
-                <button class="control-btn" id="btn-minus" title="Remove Team">-</button>
-                <button class="control-btn" id="btn-reset" title="Reset to Defaults">Reset</button>
-            </div>
-            <div id="bracket" style="margin:0; padding:0; padding-left: 60px;"></div>
-            <div style="margin-top:20px; text-align:right;">
-                <span id="save-status" style="margin-right:15px; font-weight:600; font-size:14px;"></span>
-                <button id="save-bracket-btn"
-                    style="background:#2563eb; color:white; border:none; padding:10px 24px; border-radius:10px; font-weight:600; cursor:pointer; transition:all 0.2s;">
-                    Save Match Results
-                </button>
-            </div>
-        </div>
+                <div id="bracket" style="margin: 0; padding: 0;"></div>
+                <div style="margin-top:20px; text-align:right;">
+                    <span id="save-status" style="margin-right:15px; font-weight:600; font-size:14px;"></span>
+                    <button id="save-bracket-btn" style="background:#2563eb; color:white; border:none; padding:10px 24px; border-radius:10px; font-weight:600; cursor:pointer; transition:all 0.2s;">
+                        Save Match Results
+                    </button>
+                </div>
+            </section>
+        </main>
     </div>
 
     <script src="../../api-config.js"></script>
@@ -453,27 +451,27 @@
                 const tournament = await res.json();
 
                 // Dynamic Data Binding
-                $('.rov-KMITL-cup').text(tournament.tournament_name || 'Tournament');
+                $('#tournament-name').text(tournament.tournament_name || 'Tournament');
                 const fallbackBanner = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200';
                 if (tournament.tournament_banner) {
-                    $('.banner-image-preview .image-2').attr('src', tournament.tournament_banner).on('error', function() {
+                    $('#banner-img').attr('src', tournament.tournament_banner).on('error', function() {
                         $(this).attr('src', fallbackBanner);
                     });
                 }
-                $('.section .text-2').text(tournament.tournament_type || 'Single Elimination');
-                $('.section .text-4').text(tournament.duration || 'TBD');
+                $('#details-section .text-2').text(tournament.tournament_type || 'Single Elimination');
+                $('#details-section .text-4').text(tournament.duration || 'TBD');
                 if (tournament.age_min && tournament.age_max) {
-                    $('.section .p').text(`${tournament.age_min} - ${tournament.age_max} years old`);
+                    $('#details-section .p').text(`${tournament.age_min} - ${tournament.age_max} years old`);
                 }
-                $('.section .text-7').text(tournament.format || 'TBD');
+                $('#details-section .text-7').text(tournament.format || 'TBD');
 
                 if (tournament.start_date) {
                     const sDate = new Date(tournament.start_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-                    $('.background-border .text-wrapper-2').text(sDate);
+                    $('#dates-section .text-wrapper-2').text(sDate);
                 }
                 if (tournament.end_date) {
                     const eDate = new Date(tournament.end_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-                    $('.background-border .text-wrapper-3').text(eDate);
+                    $('#dates-section .text-wrapper-3').text(eDate);
                 }
 
                 const teams = (tournament.applications || [])

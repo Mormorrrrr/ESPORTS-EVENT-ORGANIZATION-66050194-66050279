@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
     <title>KMITL ESPORT - Tournament Viewer</title>
-    <link rel="stylesheet" href="globals17.css" />
-    <link rel="stylesheet" href="styleguide17.css" />
-    <link rel="stylesheet" href="style17.css?v=3" />
-    
-        <link rel="stylesheet" href="../../shared-admin.css?v=4" />
+    <link rel="stylesheet" href="../../Admin/TournamentList Page 9/globals9.css" />
+    <link rel="stylesheet" href="../../Admin/TournamentList Page 9/styleguide9.css" />
+    <link rel="stylesheet" href="../../Admin/TournamentList Page 9/style9.css?v=3" />
+    <link rel="stylesheet" href="../../User/Tournament List Page 1/style1.css?v=3" />
+    <link rel="stylesheet" href="../../shared-admin.css?v=4" />
 </head>
 
 <body>
-    <div class="viewer-tournament">
+    <div class="admin-tournament">
         <!-- Header Navigation -->
         <header class="header-top namespaced-header" role="banner">
             <div class="ns-header-left">
@@ -22,7 +22,7 @@
                     <span class="ns-title-text">KMITL ESPORT</span>
                 </div>
                 <nav class="ns-main-nav" aria-label="Main navigation">
-                    <a href="../../User/Tournament List Page 1/userlogin_1.html" class="ns-nav-link active">Home</a>
+                    <a href="tournament_17.html" class="ns-nav-link active">Home</a>
                     <a href="#" class="ns-nav-link">Explore</a>
                     <a href="#" class="ns-nav-link">News</a>
                 </nav>
@@ -34,17 +34,17 @@
                     </div>
                     <input class="ns-search-input" placeholder="Search tournaments..." type="search" aria-label="Search tournaments" />
                 </label>
-                <img class="ns-user-avatar" src="../../../icons/user.svg" alt="User profile" />
+                <a href="../../Login Page/login.html" style="background:#ff8c00;color:white;padding:10px 20px;border-radius:48px;font-weight:700;font-size:14px;text-decoration:none;white-space:nowrap;">Login</a>
             </div>
         </header>
         <!-- Sidebar Navigation -->
         <aside class="aside-sidebar" aria-label="Sidebar navigation">
             <nav class="sidebar-nav-container">
-                <a class="link" href="../../User/Tournament List Page 1/userlogin_1.html" aria-label="Tournament">
+                <a class="link" href="tournament_17.html" aria-label="Tournament">
                     <img src="../../../icons/trophy-star.svg" alt="Tournament icon" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Tournament</span>
                 </a>
-                <a class="link-2" href="../../User/Team(noHave) Page 3/Teamnohave_3.html" aria-label="Teams">
+                <a class="link-2" href="../../Login Page/login.html" aria-label="Teams">
                     <img src="../../../icons/users.svg" alt="Teams icon" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Teams</span>
                 </a>
@@ -62,221 +62,143 @@
         <main class="frame" role="main">
             <!-- Tournament Section -->
             <section class="section-margin" aria-labelledby="tournament-heading">
-                <div class="section">
-                    <div class="container-6">
-                        <div class="container-7">
-                            <div class="div-wrapper-2">
-                                <h1 class="text-wrapper-3" id="tournament-heading">Tournament</h1>
-                            </div>
-                            <div class="div-wrapper-2">
-                                <p class="p">Join the fight and prove your skills in the latest KMITL events.</p>
-                            </div>
-                        </div>
-                        <button class="button-2" type="button" aria-label="View all tournaments" onclick="window.location.href='../MatchViewAll1 Page 22/matchviewall1_22.html'">
-                            <span class="text-wrapper-4">View All</span>
-                            <span class="icon-wrapper" aria-hidden="true">
-                                <img class="icon-4" src="img/arrow-right.svg" alt="" />
-                            </span>
-                        </button>
+                <div class="section-header">
+                    <div class="header-left">
+                        <h1 class="text-wrapper-3" id="tournament-heading">Tournament</h1>
+                        <p class="p">Join the fight and prove your skills in the latest KMITL events.</p>
                     </div>
-                    <!-- Tournament Cards -->
-                    <div class="container-8" role="list" aria-label="Tournament list">
-                        <!-- Valorant Invitational Card -->
-                        <article class="background-shadow" role="listitem"
-                            aria-label="Valorant Invitational tournament">
-                            <div class="container-9">
-                                <div class="div-3" role="img" aria-label="Valorant Invitational banner"></div>
-                                <div class="gradient" aria-hidden="true"></div>
-                            </div>
-                            <div class="container-10">
-                                <div class="container-wrapper">
-                                    <div class="div-2">
-                                        <div class="div-wrapper-2">
-                                            <h2 class="text-wrapper-5">Valorant Invitational</h2>
-                                        </div>
-                                        <div class="div-wrapper-2">
-                                            <p class="major-tournament">Major Tournament • Prize<br />$5,000</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="container-11">
-                                    <div class="container-12">
-                                        <div class="div-2" aria-hidden="true">
-                                            <img class="icon-5" src="img/calendar-clock.svg" alt="" />
-                                        </div>
-                                        <span class="text-8" aria-label="Time remaining: 2 hours">2h remaining</span>
-                                    </div>
-                                    <div class="container-12">
-                                        <div class="div-2" aria-hidden="true">
-                                            <img class="icon-6" src="img/users.svg" alt="" />
-                                        </div>
-                                        <span class="text-9" aria-label="16 Teams participating">16 Teams</span>
-                                    </div>
-                                </div>
-                                <button class="button-3" type="button"
-                                    aria-label="View Valorant Invitational tournament" onclick="window.location.href='../TournamentDetail Page 18/tournamentdetail_18.html'">
-                                    <span class="text-wrapper-6">View</span>
-                                </button>
-                            </div>
-                        </article>
-                        <!-- LoL KMITL Cup Card -->
-                        <article class="background-shadow" role="listitem" aria-label="LoL KMITL Cup tournament">
-                            <div class="container-9">
-                                <div class="abaxubw" role="img" aria-label="LoL KMITL Cup banner"></div>
-                                <div class="gradient" aria-hidden="true"></div>
-                            </div>
-                            <div class="container-13">
-                                <div class="container-14">
-                                    <div class="div-2">
-                                        <div class="div-wrapper-2">
-                                            <h2 class="text-wrapper-7">LoL KMITL Cup</h2>
-                                        </div>
-                                        <div class="div-wrapper-2">
-                                            <p class="text-10">KMITL Official • Grand Finals</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="container-11">
-                                    <div class="container-12">
-                                        <div class="div-2" aria-hidden="true">
-                                            <img class="icon-7" src="img/calendar-clock.svg" alt="" />
-                                        </div>
-                                        <span class="text-11" aria-label="Scheduled: Tomorrow at 18:00">Tomorrow,
-                                            18:00</span>
-                                    </div>
-                                    <div class="container-12">
-                                        <div class="div-2" aria-hidden="true">
-                                            <img class="icon-6" src="img/users.svg" alt="" />
-                                        </div>
-                                        <span class="text-12" aria-label="32 Teams participating">32 Teams</span>
-                                    </div>
-                                </div>
-                                <button class="button-3" type="button" aria-label="View LoL KMITL Cup tournament">
-                                    <span class="text-wrapper-6">View</span>
-                                </button>
-                            </div>
-                        </article>
-                        <!-- Rov KMITL Cup 2026 Card -->
-                        <article class="background-shadow" role="listitem" aria-label="Rov KMITL Cup 2026 tournament">
-                            <div class="container-15">
-                                <div class="abaxubw-2" role="img" aria-label="Rov KMITL Cup 2026 banner"></div>
-                                <img class="image" src="img/image-2.png" alt="Rov KMITL Cup 2026 tournament artwork" />
-                            </div>
-                            <div class="container-13">
-                                <div class="container-14">
-                                    <div class="div-2">
-                                        <div class="div-wrapper-2">
-                                            <h2 class="text-wrapper-8">Rov KMITL Cup 2026</h2>
-                                        </div>
-                                        <div class="div-wrapper-2">
-                                            <p class="text-10">KMITL Official • Grand Finals</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="container-11">
-                                    <div class="container-12">
-                                        <div class="div-2" aria-hidden="true">
-                                            <img class="icon-7" src="img/calendar-clock.svg" alt="" />
-                                        </div>
-                                        <span class="text-11" aria-label="Scheduled: Tomorrow at 18:00">Tomorrow,
-                                            18:00</span>
-                                    </div>
-                                    <div class="container-12">
-                                        <div class="div-2" aria-hidden="true">
-                                            <img class="icon-6" src="img/users.svg" alt="" />
-                                        </div>
-                                        <span class="text-12" aria-label="32 Teams participating">32 Teams</span>
-                                    </div>
-                                </div>
-                                <button class="button-3" type="button" aria-label="View Rov KMITL Cup 2026 tournament">
-                                    <span class="text-wrapper-6">View</span>
-                                </button>
-                            </div>
-                        </article>
-                    </div>
+                    <a href="../MatchViewAll1 Page 22/matchviewall1_22.html" class="view-all-link">
+                        <span>View All</span>
+                        <img src="../../../icons/arrow-right.svg" style="width: 14px; height: 14px; filter: invert(56%) sepia(87%) saturate(1915%) hue-rotate(1deg) brightness(104%) contrast(106%);" />
+                    </a>
+                </div>
+                <div class="container-8" id="tournament-list-container">
+                    <p style="padding: 40px; text-align: center; color: #64748b; font-size: 18px;">
+                        Loading tournaments...
+                    </p>
                 </div>
             </section>
+
             <!-- Upcoming Matches Section -->
-            <section class="section-2" aria-labelledby="upcoming-matches-heading">
-                <div class="heading">
-                    <div class="img-wrapper" aria-hidden="true">
-                        <img class="icon-8" src="img/high-five-celebration-yes.svg" alt="" />
+            <section class="section-2" id="upcoming-matches-section" aria-labelledby="upcoming-matches-heading" style="display: none;">
+                <div class="section-header">
+                    <div class="header-left">
+                        <div class="header-title-wrap">
+                            <img src="../../../icons/high-five-celebration-yes.svg" style="width: 28px; height: 28px;" alt="" />
+                            <h2 class="text-wrapper-9" id="upcoming-matches-heading">Upcoming Matches</h2>
+                        </div>
                     </div>
-                    <h2 class="text-wrapper-9" id="upcoming-matches-heading">Upcoming Matches</h2>
+                    <a href="../MatchViewAll2 Page 23/matchviewall2_23.html" class="view-all-link">
+                        <span>View All</span>
+                        <img src="../../../icons/arrow-right.svg" style="width: 14px; height: 14px; filter: invert(56%) sepia(87%) saturate(1915%) hue-rotate(1deg) brightness(104%) contrast(106%);" />
+                    </a>
                 </div>
-                <div class="container-16" role="list" aria-label="Upcoming matches list">
-                    <!-- Match 1: Team Omega vs KMITL Knights -->
-                    <article class="background-border" role="listitem" aria-label="Match: Team Omega vs KMITL Knights">
-                        <div class="container-17">
-                            <div class="container-18" aria-label="Starts in 15:30">
-                                <div class="div-2">
-                                    <span class="text-13">START IN</span>
-                                </div>
-                                <div class="div-2">
-                                    <time class="text-14" datetime="PT15H30M">15:30</time>
-                                </div>
-                            </div>
-                            <div class="container-19">
-                                <div class="div">
-                                    <div class="div-2">
-                                        <span class="text-15">Team Omega</span>
-                                    </div>
-                                    <div class="div-4" aria-hidden="true"></div>
-                                </div>
-                                <div class="div-2">
-                                    <span class="text-wrapper-10" aria-label="versus">VS</span>
-                                </div>
-                                <div class="div">
-                                    <div class="div-4" aria-hidden="true"></div>
-                                    <div class="div-2">
-                                        <span class="text-wrapper-11">KMITL Knights</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                    <!-- Match 2: Steel Rebels vs Shadow Step -->
-                    <article class="background-border-2" role="listitem"
-                        aria-label="Match: Steel Rebels vs Shadow Step">
-                        <div class="container-20">
-                            <div class="container-21" aria-label="Scheduled: December 12 at 20:00">
-                                <div class="div-2">
-                                    <span class="text-16">DEC 12</span>
-                                </div>
-                                <div class="div-2">
-                                    <time class="text-17" datetime="2026-12-12T20:00">20:00</time>
-                                </div>
-                            </div>
-                            <div class="container-22">
-                                <div class="div">
-                                    <div class="div-2">
-                                        <span class="text-18">Steel Rebels</span>
-                                    </div>
-                                    <div class="div-4" aria-hidden="true"></div>
-                                </div>
-                                <div class="div-2">
-                                    <span class="text-wrapper-10" aria-label="versus">VS</span>
-                                </div>
-                                <div class="div">
-                                    <div class="div-4" aria-hidden="true"></div>
-                                    <div class="div-2">
-                                        <span class="text-19">Shadow Step</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
+                <div class="container-16" id="match-list-container">
+                    <!-- Dynamic matches -->
                 </div>
-                <button class="button-4" type="button" aria-label="View all upcoming matches" onclick="window.location.href='../MatchViewAll2 Page 23/matchviewall2_23.html'">
-                    <span class="text-wrapper-4">View All</span>
-                    <span class="icon-wrapper" aria-hidden="true">
-                        <img class="icon-4" src="img/arrow-right.svg" alt="" />
-                    </span>
-                </button>
             </section>
         </main>
 
     </div>
+
+    <script src="../../api-config.js"></script>
+    <script>
+        (function() {
+            const listContainer = document.getElementById('tournament-list-container');
+            const matchSection = document.getElementById('upcoming-matches-section');
+            const matchListContainer = document.getElementById('match-list-container');
+
+            async function loadData() {
+                try {
+                    const res = await fetch(`${API_BASE_URL}/tournaments`);
+                    if (!res.ok) throw new Error('Server responded with ' + res.status);
+                    const tournaments = await res.json();
+
+                    listContainer.innerHTML = '';
+                    if (!tournaments || tournaments.length === 0) {
+                        listContainer.innerHTML = '<p style="padding: 40px; text-align: center; color: #64748b;">No tournaments available.</p>';
+                    } else {
+                        tournaments.forEach(t => {
+                            const article = document.createElement('article');
+                            article.className = 'background-shadow';
+                            const bannerSrc = t.tournament_banner || 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800';
+                            article.innerHTML = `
+                                <div class="container-9">
+                                    <img src="${bannerSrc}" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800'" style="width: 100%; height: 100%; object-fit: cover;">
+                                </div>
+                                <div class="container-10">
+                                    <h2 class="text-wrapper-5">${t.tournament_name}</h2>
+                                    <p class="major-tournament">${(t.tournament_type || '').split(' • ')[0]}</p>
+                                    <div class="container-11">
+                                        <div class="container-12">
+                                            <img src="../../../icons/calendar-clock.svg" style="width: 16px; height: 16px;" />
+                                            <span>2h remaining</span>
+                                        </div>
+                                        <div class="container-12">
+                                            <img src="../../../icons/users.svg" style="width: 16px; height: 16px;" />
+                                            <span>32 Teams</span>
+                                        </div>
+                                    </div>
+                                    <button class="button-3" type="button" onclick="window.location.href='../TournamentDetail Page 18/tournamentdetail_18.html?id=${t.tournament_id}'">
+                                        View
+                                    </button>
+                                </div>
+                            `;
+                            listContainer.appendChild(article);
+                        });
+                    }
+
+                    let foundMatches = false;
+                    matchListContainer.innerHTML = '';
+                    for (const t of tournaments) {
+                        try {
+                            const mRes = await fetch(`${API_BASE_URL}/tournaments/${t.tournament_id}/matches`);
+                            if (mRes.ok) {
+                                const matches = await mRes.json();
+                                const upcoming = matches.filter(m => m.score1 === null && m.score2 === null);
+                                if (upcoming.length > 0) {
+                                    foundMatches = true;
+                                    upcoming.slice(0, 3).forEach(m => {
+                                        const row = document.createElement('article');
+                                        row.className = 'background-border';
+                                        row.innerHTML = `
+                                            <div class="match-info-left">
+                                                <span class="match-label">START IN</span>
+                                                <span class="match-time">15:30</span>
+                                            </div>
+                                            <div class="match-teams-center">
+                                                <div class="team-item" style="justify-content: flex-end;">
+                                                    <span class="team-name">${m.team1_name || 'TBD'}</span>
+                                                    <div class="team-icon">
+                                                        <img src="../../../icons/user.svg" style="width: 16px; height: 16px; opacity: 0.5;" />
+                                                    </div>
+                                                </div>
+                                                <div class="vs-badge-circle">VS</div>
+                                                <div class="team-item">
+                                                    <div class="team-icon">
+                                                        <img src="../../../icons/user.svg" style="width: 16px; height: 16px; opacity: 0.5;" />
+                                                    </div>
+                                                    <span class="team-name">${m.team2_name || 'TBD'}</span>
+                                                </div>
+                                            </div>
+                                        `;
+                                        matchListContainer.appendChild(row);
+                                    });
+                                }
+                            }
+                        } catch (e) {
+                            console.warn('Failed to fetch matches for tournament', t.tournament_id);
+                        }
+                    }
+                    matchSection.style.display = foundMatches ? 'flex' : 'none';
+                } catch (error) {
+                    console.error('Load Failed:', error);
+                    listContainer.innerHTML = `<p style="padding: 40px; text-align: center; color: #ef4444;">Failed to connect to data source.</p>`;
+                }
+            }
+            loadData();
+        })();
+    </script>
 </body>
 
 </html>

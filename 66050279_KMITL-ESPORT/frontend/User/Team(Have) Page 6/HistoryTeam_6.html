@@ -46,7 +46,14 @@
                     </div>
                     <input class="ns-search-input" placeholder="Search tournaments..." type="search" />
                 </label>
-                <img class="ns-user-avatar" src="../../../icons/user.svg" alt="User profile" />
+                <div class="ns-user-area" style="position:relative;display:flex;align-items:center;gap:8px;cursor:pointer;" onclick="logoutUser()" title="ออกจากระบบ">
+                <span id="header-username" style="font-size:13px;font-weight:600;color:#334155;"></span>
+                <img class="ns-user-avatar" src="../../../icons/user.svg" alt="User profile" style="cursor:pointer;" />
+            </div>
+            <script>
+            (function(){var u=JSON.parse(localStorage.getItem("user")||"null");if(u&&u.username)document.getElementById("header-username").textContent=u.username;})();
+            function logoutUser(){if(confirm("ต้องการออกจากระบบ?")){localStorage.removeItem("user");window.location.href="../../Login Page/login.html";}}
+            </script>
             </div>
         </header>
 
@@ -57,7 +64,7 @@
                     <img src="../../../icons/trophy-star.svg" alt="" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Tournament</span>
                 </a>
-                <a class="link" href="../../User/Team(noHave) Page 3/Teamnohave_3.html">
+                <a class="link" href="HistoryTeam_6.html">
                     <img src="../../../icons/users.svg" alt="" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Teams</span>
                 </a>

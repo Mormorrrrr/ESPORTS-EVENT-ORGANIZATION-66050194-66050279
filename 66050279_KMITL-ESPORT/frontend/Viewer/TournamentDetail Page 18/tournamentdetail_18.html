@@ -22,7 +22,7 @@
                     <span class="ns-title-text">KMITL ESPORT</span>
                 </div>
                 <nav class="ns-main-nav" aria-label="Main navigation">
-                    <a href="../../User/Tournament List Page 1/userlogin_1.html" class="ns-nav-link active">Home</a>
+                    <a href="../Tournament Page 17/tournament_17.html" class="ns-nav-link active">Home</a>
                     <a href="#" class="ns-nav-link">Explore</a>
                     <a href="#" class="ns-nav-link">News</a>
                 </nav>
@@ -34,17 +34,17 @@
                     </div>
                     <input class="ns-search-input" placeholder="Search tournaments..." type="search" aria-label="Search tournaments" />
                 </label>
-                <img class="ns-user-avatar" src="../../../icons/user.svg" alt="User profile" />
+                <a href="../../Login Page/login.html" style="background:#ff8c00;color:white;padding:10px 20px;border-radius:48px;font-weight:700;font-size:14px;text-decoration:none;white-space:nowrap;">Login</a>
             </div>
         </header>
         <!-- Sidebar -->
         <aside class="aside-sidebar" aria-label="Sidebar navigation">
             <nav class="sidebar-nav-container">
-                <a class="link" href="../../User/Tournament List Page 1/userlogin_1.html" aria-label="Tournament">
+                <a class="link" href="../Tournament Page 17/tournament_17.html" aria-label="Tournament">
                     <img src="../../../icons/trophy-star.svg" alt="Tournament icon" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Tournament</span>
                 </a>
-                <a class="link-2" href="../../User/Team(noHave) Page 3/Teamnohave_3.html" aria-label="Teams">
+                <a class="link-2" href="../../Login Page/login.html" aria-label="Teams">
                     <img src="../../../icons/users.svg" alt="Teams icon" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Teams</span>
                 </a>
@@ -58,237 +58,157 @@
                 </a>
             </nav>
         </aside>
-        <!-- Banner Image -->
-        <div class="banner-image-preview" role="img" aria-label="Rov KMITL Cup 2026 banner">
-            <img class="image" src="img/image.png" alt="Tournament banner background" />
-            <img class="image-2" src="img/image-3.png" alt="Rov KMITL Cup 2026" />
-            <div class="rov-KMITL-cup-wrapper">
-                <h1 class="rov-KMITL-cup">Rov KMITL&nbsp;&nbsp;Cup 2026</h1>
-            </div>
-        </div>
-        <!-- Tournament Details Section -->
-        <section class="section" aria-labelledby="tournament-details-heading">
-            <div class="heading">
-                <div class="div">
-                    <!-- Reference external orange SVG so HTML stays clean -->
-                    <img class="icon icon--accent" src="img/info-accent.svg" alt="Tournament details icon" />
+        <!-- Main Content -->
+        <main class="frame" style="padding-bottom: 80px;">
+            <!-- Hero Section -->
+            <section class="tournament-hero" style="position: relative; width: 100%; height: 320px; border-radius: 24px; overflow: hidden; margin-bottom: 40px; background: #0f172a;">
+                <img class="image-2" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200" alt="Tournament banner" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.6;" />
+                <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 0.8) 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 40px;">
+                    <h1 id="tournament-display-name" style="color: white; font-size: 48px; font-weight: 800; margin: 0 0 16px 0; letter-spacing: -1px;">Tournament Details</h1>
+                    <a href="../../Login Page/login.html" style="width: fit-content; padding: 14px 40px; background: #ff8c00; color: white; border-radius: 999px; font-weight: 700; font-size: 16px; text-decoration: none; box-shadow: 0 10px 15px -3px rgba(255, 140, 0, 0.3);">LOGIN TO JOIN</a>
                 </div>
-                <h2 class="text-wrapper" id="tournament-details-heading">Tournament Details</h2>
-            </div>
-            <div class="container">
-                <!-- Tournament Type -->
-                <div class="container-2">
-                    <div class="background" aria-hidden="true">
-                        <div class="div">
-                            <img class="img" src="img/gamepad.svg" alt="Tournament type icon" />
-                        </div>
-                    </div>
-                    <div class="container-3">
-                        <div class="div-wrapper">
-                            <span class="text">TOURNAMENT TYPE</span>
-                        </div>
-                        <div class="div-wrapper">
-                            <span class="text-2">Single Elimination</span>
-                        </div>
-                    </div>
+            </section>
+
+            <!-- Tournament Information -->
+            <section style="background: white; padding: 32px; border-radius: 20px; border: 1px solid #f1f5f9; box-shadow: 0 1px 2px rgba(0,0,0,0.05); margin-bottom: 32px;">
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+                    <img src="../../../icons/info.svg" alt="" style="width: 24px; height: 24px;" />
+                    <h2 style="margin: 0; font-size: 20px; font-weight: 700; color: #0f172a;">Tournament Information</h2>
                 </div>
-                <!-- Duration -->
-                <div class="container-4">
-                    <div class="background" aria-hidden="true">
-                        <div class="div">
-                            <img class="icon-2" src="img/daily-calendar.svg" alt="Duration icon" />
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                    <div style="display: flex; align-items: center; gap: 16px; min-width: 0;">
+                        <div style="width: 48px; height: 48px; background: #ff8c001a; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <img src="../../../icons/gamepad.svg" style="width: 24px; height: 24px;" />
+                        </div>
+                        <div style="min-width: 0; flex: 1;">
+                            <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Type</div>
+                            <div id="detail-type" style="font-size: 16px; font-weight: 600; color: #0f172a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">—</div>
                         </div>
                     </div>
-                    <div class="container-3">
-                        <div class="div-wrapper">
-                            <span class="text-3">DURATION</span>
+                    <div style="display: flex; align-items: center; gap: 16px; min-width: 0;">
+                        <div style="width: 48px; height: 48px; background: #ff8c001a; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <img src="../../../icons/daily-calendar.svg" style="width: 24px; height: 24px;" />
                         </div>
-                        <div class="div-wrapper">
-                            <span class="text-4">3 Days</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Age Range -->
-                <div class="container-5">
-                    <div class="background" aria-hidden="true">
-                        <div class="div">
-                            <img class="icon-3" src="img/age-alt.svg" alt="Age range icon" />
+                        <div style="min-width: 0; flex: 1;">
+                            <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Duration</div>
+                            <div id="detail-duration" style="font-size: 16px; font-weight: 600; color: #0f172a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">—</div>
                         </div>
                     </div>
-                    <div class="container-3">
-                        <div class="div-wrapper">
-                            <span class="text-5">AGE RANGE</span>
+                    <div style="display: flex; align-items: center; gap: 16px; min-width: 0;">
+                        <div style="width: 48px; height: 48px; background: #ff8c001a; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <img src="../../../icons/age-alt.svg" style="width: 24px; height: 24px;" />
                         </div>
-                        <div class="div-wrapper">
-                            <p class="p">18 - 25 years old</p>
+                        <div style="min-width: 0; flex: 1;">
+                            <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Age Range</div>
+                            <div id="detail-age" style="font-size: 16px; font-weight: 600; color: #0f172a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">—</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 16px; min-width: 0;">
+                        <div style="width: 48px; height: 48px; background: #ff8c001a; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <img src="../../../icons/trophy-star.svg" style="width: 24px; height: 24px;" />
+                        </div>
+                        <div style="min-width: 0; flex: 1;">
+                            <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Format</div>
+                            <div id="detail-format" style="font-size: 16px; font-weight: 600; color: #0f172a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">—</div>
                         </div>
                     </div>
                 </div>
-                <!-- Format -->
-                <div class="container-6">
-                    <div class="background" aria-hidden="true">
-                        <div class="div">
-                            <img class="icon-3" src="img/employees.svg" alt="Format icon" />
-                        </div>
-                    </div>
-                    <div class="container-3">
-                        <div class="div-wrapper">
-                            <span class="text-6">FORMAT</span>
-                        </div>
-                        <div class="div-wrapper">
-                            <span class="text-7">5v5 Squads</span>
-                        </div>
+            </section>
+
+            <!-- Bracket Section -->
+            <section style="display: flex; flex-direction: column; gap: 24px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <img src="../../../icons/trophy-star.svg" alt="" style="width: 28px; height: 28px;" />
+                    <h2 style="margin: 0; font-size: 24px; font-weight: 800; color: #0f172a;">Tournament Bracket</h2>
+                </div>
+                <div id="match-list-container" style="display: flex; flex-direction: column; gap: 16px;">
+                    <div style="text-align: center; padding: 40px; color: #64748b;">
+                        Loading bracket data...
                     </div>
                 </div>
-            </div>
-        </section>
-        <!-- Registration Dates -->
-        <section class="background-border" aria-labelledby="registration-dates-heading">
-            <div class="heading">
-                <div class="div">
-                    <img class="icon-2" src="img/calendar-check.svg" alt="Registration dates icon" />
-                </div>
-                <h2 class="text-8" id="registration-dates-heading">Registration Dates</h2>
-            </div>
-            <div class="container-7">
-                <div class="background-border-2" role="group" aria-label="Registration opens">
-                    <div class="container-8">
-                        <span class="text-9">OPENS ON</span>
-                    </div>
-                    <div class="container-9">
-                        <span class="text-wrapper-2">November 15, 2025</span>
-                    </div>
-                    <div class="container-10">
-                        <span class="text-10">09:00 AM ICT</span>
-                    </div>
-                </div>
-                <div class="background-border-3" role="group" aria-label="Registration closes">
-                    <div class="container-8">
-                        <span class="text-11">CLOSES ON</span>
-                    </div>
-                    <div class="container-9">
-                        <span class="text-wrapper-3">December 05, 2025</span>
-                    </div>
-                    <div class="container-10">
-                        <span class="text-12">11:59 PM ICT</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <!-- Tournament Bracket Heading -->
-        <div class="heading-2">
-            <div class="div">
-                <img class="streamline-ultimate" src="img/stats.svg"
-                    alt="Tournament bracket icon" />
-            </div>
-            <h2 class="text-wrapper">Tournament Bracket</h2>
-        </div>
-        <!-- Match 1: Sentinels vs Fnatic -->
-        <article class="match" aria-label="Match 1: Sentinels vs Fnatic">
-            <div class="background-2">
-                <div class="div"><span class="text-13">Sentinels</span></div>
-                <div class="div"><span class="text-14">2</span></div>
-            </div>
-            <div class="background-3">
-                <div class="div"><span class="text-15">Fnatic</span></div>
-                <div class="div"><span class="text-16">1</span></div>
-            </div>
-        </article>
-        <!-- Match 2: Team Liquid vs Paper Rex -->
-        <article class="match-2" aria-label="Match 2: Team Liquid vs Paper Rex">
-            <div class="background-3">
-                <div class="div"><span class="text-17">Team Liquid</span></div>
-                <div class="div"><span class="text-18">0</span></div>
-            </div>
-            <div class="background-2">
-                <div class="div"><span class="text-19">Paper Rex</span></div>
-                <div class="div"><span class="text-14">2</span></div>
-            </div>
-        </article>
-        <!-- Match 3: LOUD vs DRX -->
-        <article class="match-3" aria-label="Match 3: LOUD vs DRX">
-            <div class="background-2">
-                <div class="div"><span class="text-20">LOUD</span></div>
-                <div class="div"><span class="text-14">2</span></div>
-            </div>
-            <div class="background-3">
-                <div class="div"><span class="text-21">DRX</span></div>
-                <div class="div"><span class="text-16">1</span></div>
-            </div>
-        </article>
-        <!-- Match 4: T1 Esports vs ZETA DIVISION -->
-        <article class="match-4" aria-label="Match 4: T1 Esports vs ZETA DIVISION">
-            <div class="background-2">
-                <div class="div"><span class="text-22">T1 Esports</span></div>
-                <div class="div"><span class="text-14">2</span></div>
-            </div>
-            <div class="background-3">
-                <div class="div"><span class="text-23">ZETA DIVISION</span></div>
-                <div class="div"><span class="text-18">0</span></div>
-            </div>
-        </article>
-        <!-- Match 5: LOUD vs T1 Esports (Semi-Final) -->
-        <article class="match-5" aria-label="Match 5: LOUD vs T1 Esports">
-            <div class="background-4">
-                <div class="div"><span class="text-wrapper-4">LOUD</span></div>
-                <div class="div"><span class="text-24">--</span></div>
-            </div>
-            <div class="background-4">
-                <div class="div"><span class="text-25">T1 Esports</span></div>
-                <div class="div"><span class="text-24">--</span></div>
-            </div>
-        </article>
-        <!-- Match 6: Sentinels vs Paper Rex (Semi-Final) -->
-        <article class="match-6" aria-label="Match 6: Sentinels vs Paper Rex">
-            <div class="background-4">
-                <div class="div"><span class="text-wrapper-5">Sentinels</span></div>
-                <div class="div"><span class="text-24">--</span></div>
-            </div>
-            <div class="background-4">
-                <div class="div"><span class="text-wrapper-6">Paper Rex</span></div>
-                <div class="div"><span class="text-24">--</span></div>
-            </div>
-        </article>
-        <!-- Championship Match -->
-        <section class="background-5" aria-label="Championship Match">
-            <div class="overlay-shadow" aria-hidden="true"></div>
-            <div class="background-6">
-                <div class="horizontal-border">
-                    <div class="div"><span class="text-26">WINNER OF MATCH 5</span></div>
-                    <div class="container-11">
-                        <div class="div"><span class="text-27">TBD</span></div>
-                        <div class="div"><span class="text-28">0</span></div>
-                    </div>
-                </div>
-                <div class="container-12">
-                    <div class="div"><span class="text-29">WINNER OF MATCH 6</span></div>
-                    <div class="container-11">
-                        <div class="div"><span class="text-27">TBD</span></div>
-                        <div class="div"><span class="text-28">0</span></div>
-                    </div>
-                </div>
-                <div class="background-7">
-                    <span class="text-30">CHAMPIONSHIP MATCH</span>
-                </div>
-            </div>
-            <div class="trophy-icon" aria-label="Trophy" role="img">
-                <span class="text-31">emoji_events</span>
-            </div>
-        </section>
-        <!-- Bracket Connectors -->
-        <div class="border" aria-hidden="true">
-            <div class="background-8"></div>
-        </div>
-        <div class="background-wrapper" aria-hidden="true">
-            <div class="background-9"></div>
-        </div>
-        <div class="connectors-SF-to-f" aria-hidden="true">
-            <div class="overlay-border">
-                <div class="background-shadow"></div>
-            </div>
-        </div>
+            </section>
+        </main>
 
     </div>
+
+    <script src="../../api-config.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
+            if (!id) return;
+
+            const matchListContainer = document.getElementById('match-list-container');
+
+            try {
+                const res = await fetch(`${API_BASE_URL}/tournaments/${id}`);
+                const tournament = await res.json();
+
+                document.getElementById('tournament-display-name').textContent = tournament.tournament_name;
+                document.getElementById('detail-type').textContent = tournament.tournament_type || 'N/A';
+                document.getElementById('detail-duration').textContent = tournament.duration || 'N/A';
+                document.getElementById('detail-age').textContent = `${tournament.age_min || 0} - ${tournament.age_max || 100} years old`;
+                document.getElementById('detail-format').textContent = tournament.tournament_type || 'N/A';
+
+                const bannerImg = document.querySelector('.image-2');
+                const fallbackBanner = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200';
+                if (tournament.tournament_banner) {
+                    bannerImg.src = tournament.tournament_banner;
+                    bannerImg.onerror = () => bannerImg.src = fallbackBanner;
+                } else {
+                    bannerImg.src = fallbackBanner;
+                }
+
+                const matchesRes = await fetch(`${API_BASE_URL}/tournaments/${id}/matches`);
+                const matches = await matchesRes.json();
+
+                if (!matches || matches.length === 0) {
+                    matchListContainer.innerHTML = `
+                        <div style="text-align: center; padding: 40px; background: white; border-radius: 16px; border: 1px dashed #cbd5e1; color: #64748b;">
+                            <img src="../../../icons/info.svg" style="width: 32px; height: 32px; margin-bottom: 12px; opacity: 0.5;" />
+                            <p style="font-weight: 500;">No matches scheduled yet.</p>
+                        </div>`;
+                    return;
+                }
+
+                matchListContainer.innerHTML = matches.map(m => {
+                    const score1 = m.score1 ?? 0;
+                    const score2 = m.score2 ?? 0;
+                    const isFinished = m.score1 !== null && m.score2 !== null;
+                    const team1Win = isFinished && score1 > score2;
+                    const team2Win = isFinished && score2 > score1;
+
+                    return `
+                        <article style="display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; background: white; border-radius: 16px; border: 1px solid #f1f5f9; transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: default;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 6px -1px rgba(0,0,0,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                            <div style="display: flex; align-items: center; gap: 24px; flex: 1;">
+                                <div style="display: flex; flex-direction: column; gap: 8px; flex: 1;">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <span style="font-weight: ${team1Win ? '800' : '500'}; color: ${team1Win ? '#0f172a' : '#64748b'};">${m.team1_name || 'TBD'}</span>
+                                        <span style="font-weight: 800; color: ${team1Win ? '#ff8c00' : '#94a3b8'}; font-size: 20px;">${score1}</span>
+                                    </div>
+                                    <div style="height: 1px; background: #f1f5f9; width: 100%;"></div>
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <span style="font-weight: ${team2Win ? '800' : '500'}; color: ${team2Win ? '#0f172a' : '#64748b'};">${m.team2_name || 'TBD'}</span>
+                                        <span style="font-weight: 800; color: ${team2Win ? '#ff8c00' : '#94a3b8'}; font-size: 20px;">${score2}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="margin-left: 40px; text-align: right; min-width: 80px;">
+                                ${isFinished ?
+                                    `<span style="font-size: 11px; font-weight: 700; color: #10b981; background: #dcfce7; padding: 4px 12px; border-radius: 12px; text-transform: uppercase;">Finished</span>` :
+                                    `<span style="font-size: 11px; font-weight: 700; color: #64748b; background: #f1f5f9; padding: 4px 12px; border-radius: 12px; text-transform: uppercase;">Upcoming</span>`
+                                }
+                            </div>
+                        </article>
+                    `;
+                }).join('');
+
+            } catch (error) {
+                console.error('Error fetching tournament detail:', error);
+                matchListContainer.innerHTML = `<div style="color: #ef4444; padding: 20px; text-align: center;">Failed to load bracket data.</div>`;
+            }
+        });
+    </script>
 </body>
 
 </html>
