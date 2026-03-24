@@ -135,7 +135,7 @@ header.namespaced-header .ns-user-avatar {
 }
 
 .sidebar-nav-container .sidebar-text {
-    font-size: 16px !important;
+    font-size: 14px !important;
 }
 
 .sidebar-nav-container .link { background-color: #ff8c00 !important; }
@@ -143,7 +143,7 @@ header.namespaced-header .ns-user-avatar {
 .sidebar-nav-container .link img { filter: brightness(0) invert(1) !important; }
 
 .sidebar-nav-container .link-2 { background-color: transparent !important; }
-.sidebar-nav-container .link-2 .sidebar-text { color: #475569 !important; font-weight: 500 !important; }
+.sidebar-nav-container .link-2 .sidebar-text { color: #475569 !important; font-weight: 700 !important; }
 
 /* --- LAYOUT WRAPPER --- */
 .layout-wrapper {

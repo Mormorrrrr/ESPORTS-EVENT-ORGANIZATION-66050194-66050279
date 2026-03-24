@@ -5,10 +5,10 @@
 }
 
 .use-create-team .link .sidebar-text {
-    font-weight: 500; /* Weight 500 for active white text */
+    font-weight: 700; /* Weight 500 for active white text */
     color: #ffffff;
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 14px;
+    line-height: 20px;
 }
 
 /* Inactive Link State - Mirror of .link in style9.css */
@@ -23,8 +23,8 @@
 .use-create-team .link-2 .sidebar-text {
     font-weight: 700; /* Weight 700 for inactive gray text */
     color: #475569;
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 14px;
+    line-height: 20px;
 }
 
 .use-create-team .section-margin, .use-create-team .main-content, .use-create-team .tournaments-list-wrapper {

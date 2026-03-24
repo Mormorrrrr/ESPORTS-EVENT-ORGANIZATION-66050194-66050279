@@ -144,8 +144,8 @@ header.namespaced-header .ns-user-avatar {
 }
 
 .sidebar-nav-container .sidebar-text {
-    font-size: 16px !important;
-    line-height: 24px !important;
+    font-size: 14px !important;
+    line-height: 20px !important;
 }
 
 .sidebar-nav-container .link { background-color: #ff8c00 !important; }
@@ -153,13 +153,13 @@ header.namespaced-header .ns-user-avatar {
 .sidebar-nav-container .link img { filter: brightness(0) invert(1) !important; }
 
 .sidebar-nav-container .link-2 { background-color: transparent !important; }
-.sidebar-nav-container .link-2 .sidebar-text { color: #475569 !important; font-weight: 500 !important; }
+.sidebar-nav-container .link-2 .sidebar-text { color: #475569 !important; font-weight: 700 !important; }
 .sidebar-nav-container .link-2 img { filter: none !important; }
 
 /* Global Icons normalization for sidebar */
 [class*="aside-sidebar"] img {
-    width: 16px !important;
-    height: 16px !important;
+    width: 20px !important;
+    height: 20px !important;
     object-fit: contain !important;
 }
 

@@ -2875,11 +2875,11 @@
 [class*="aside-sidebar"] .uis-graph-bar, 
 [class*="aside-sidebar"] [class*="icon-"], 
 [class*="aside-sidebar"] .img {
-    width: 16px !important;
-    height: 16px !important;
+    width: 20px !important;
+    height: 20px !important;
     object-fit: contain !important;
-    max-width: 16px !important;
-    max-height: 16px !important;
+    max-width: 20px !important;
+    max-height: 20px !important;
 }
 
 /* Specific "Add" buttons in list views to avoid affecting Page 16 buttons */
@@ -2918,8 +2918,8 @@
     transition: all 0.2s ease !important;
 }
 .aside-sidebar .sidebar-text {
-    font-size: 16px !important;
-    line-height: 24px !important;
+    font-size: 14px !important;
+    line-height: 20px !important;
 }
 /* Active State */
 .aside-sidebar .link {
@@ -2941,7 +2941,7 @@
 }
 .aside-sidebar .link-2 .sidebar-text {
     color: #475569 !important;
-    font-weight: 500 !important;
+    font-weight: 700 !important;
 }
 .aside-sidebar .link-2 img {
     filter: none !important;
