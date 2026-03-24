@@ -141,9 +141,8 @@
                     article.style.width = '100%';
                     article.style.boxSizing = 'border-box';
                     
-                    const logoHtml = team.team_banner_url 
-                        ? `<img src="${team.team_banner_url}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.parentElement.innerHTML='<span style=\\'font-size: 20px; color: white; font-weight: bold;\\'>${team.team_name.substring(0,2).toUpperCase()}</span>'" />`
-                        : `<span style="font-size: 20px; color: white; font-weight: bold;">${team.team_name.substring(0,2).toUpperCase()}</span>`;
+                    const fallbackTeamImg = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=200';
+                    const logoHtml = `<img src="${team.team_banner_url || fallbackTeamImg}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.src='${fallbackTeamImg}'" />`;
 
                     // Left Side: Logo and Text
                     const leftSide = `

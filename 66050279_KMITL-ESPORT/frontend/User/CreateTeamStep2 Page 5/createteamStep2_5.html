@@ -185,7 +185,7 @@
                 document.getElementById('confirm-leader-name').textContent = teamData.leader_name;
                 const fallbackTeamLogo = '../../../icons/users.svg';
                 const teamLogoImg = document.getElementById('team-logo-preview');
-                teamLogoImg.src = teamData.team_banner || fallbackTeamLogo;
+                teamLogoImg.src = teamData.team_banner_url || fallbackTeamLogo;
                 teamLogoImg.onerror = () => teamLogoImg.src = fallbackTeamLogo;
                 
                 if (teamData.leader_name) {

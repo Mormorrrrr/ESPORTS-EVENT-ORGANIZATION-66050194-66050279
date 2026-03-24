@@ -3058,7 +3058,7 @@ header.header-top * {
     height: auto !important;
     display: flex !important;
     align-items: center !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
 }
 /* Ensure texts scale naturally to prevent overlaps */
 .format-option span, .format-option p, 

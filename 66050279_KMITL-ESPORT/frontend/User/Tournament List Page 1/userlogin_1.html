@@ -138,10 +138,22 @@
                     if (!tournaments || tournaments.length === 0) {
                         listContainer.innerHTML = '<p style="padding: 40px; text-align: center; color: #64748b;">No tournaments available in the database.</p>';
                     } else {
-                        tournaments.forEach(t => {
+                        for (const t of tournaments) {
                             const article = document.createElement('article');
                             article.className = 'background-shadow';
                             const bannerSrc = t.tournament_banner || 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800'; // High-quality rectangular gaming banner fallback
+
+                            // Fetch actual approved team count for this tournament
+                            let teamCount = 0;
+                            try {
+                                const appRes = await fetch(`${baseUrl}/applications?tournament_id=${t.tournament_id}`);
+                                if (appRes.ok) {
+                                    const apps = await appRes.json();
+                                    teamCount = apps.filter(a => a.status && a.status.toUpperCase() === 'APPROVED').length;
+                                }
+                            } catch (e) {
+                                console.warn('Could not fetch team count for tournament', t.tournament_id);
+                            }
 
                             article.innerHTML = `
                                 <div class="container-9">
@@ -157,7 +169,7 @@
                                         </div>
                                         <div class="container-12">
                                             <img src="../../../icons/users.svg" style="width: 16px; height: 16px;" />
-                                            <span>32 Teams</span>
+                                            <span>${teamCount} Teams</span>
                                         </div>
                                     </div>
                                     <button class="button-3" type="button" onclick="window.location.href='../Tournament Detail Page 2/Usertournament_2.html?id=${t.tournament_id}'">
@@ -166,7 +178,7 @@
                                 </div>
                             `;
                             listContainer.appendChild(article);
-                        });
+                        }
                     }
 
                     // Matches rendering (Upgraded to match mockup)
