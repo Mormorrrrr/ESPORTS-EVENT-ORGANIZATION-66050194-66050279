@@ -5,40 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
     <title>KMITL ESPORT - My History Team</title>
-    <link rel="stylesheet" href="globals6.css" />
-    
-    
-    
-    
+    <link rel="stylesheet" href="../../shared-admin.css" />
     <style>
-        /* Admin-Style Layout Correction */
-        .admin-tournament .tournaments-list-wrapper, 
-        .admin-tournament .section-margin, 
-        .admin-tournament .section-2,
-        .admin-tournament .banner-image-preview,
-        .admin-tournament .section,
-        .admin-tournament .background-border,
-        .admin-tournament .heading-2,
-        .admin-tournament .match-view-all,
-        .admin-tournament .create-team-content {
-            margin-left: 320px !important;
-            margin-top: 97px !important;
-            width: calc(100% - 352px) !important; /* Responsive width adjustment */
+        /* Specific tweaks for Team cards if needed */
+        .team-meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #64748b;
+            font-size: 14px;
+            font-weight: 500;
         }
-        .admin-tournament .section-2, .admin-tournament .background-border {
-            margin-top: 24px !important; /* Secondary sections don't need top margin */
+        .team-meta img {
+            width: 14px;
+            height: 14px;
+            opacity: 0.6;
         }
     </style>
-
-
-
-    
-        <link rel="stylesheet" href="../../shared-admin.css" />
 </head>
 
 <body>
     <div class="admin-tournament">
-                                                        <!-- Header -->
+        <!-- Header -->
         <header class="header-top namespaced-header" role="banner">
             <div class="ns-header-left">
                 <img class="ns-logo-img" src="../../../icons/Logo.png" alt="KMITL ESPORT Logo" />
@@ -56,143 +44,118 @@
                     <div class="ns-search-bg">
                         <img class="ns-search-icon" src="../../../icons/search.svg" alt="Search icon" />
                     </div>
-                    <input class="ns-search-input" placeholder="Search tournaments..." type="search" aria-label="Search tournaments" />
+                    <input class="ns-search-input" placeholder="Search tournaments..." type="search" />
                 </label>
                 <img class="ns-user-avatar" src="../../../icons/user.svg" alt="User profile" />
             </div>
         </header>
-                                                        <!-- Sidebar -->
+
+        <!-- Sidebar -->
         <aside class="aside-sidebar" aria-label="Sidebar navigation">
             <nav class="sidebar-nav-container">
-                <a class="link-2" href="../../User/Tournament List Page 1/userlogin_1.html" aria-label="Tournament">
-                    <img src="../../../icons/trophy-star.svg" alt="Tournament icon" style="width:20px; height:20px;" />
+                <a class="link-2" href="../../User/Tournament List Page 1/userlogin_1.html">
+                    <img src="../../../icons/trophy-star.svg" alt="" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Tournament</span>
                 </a>
-                <a class="link" href="../../User/Team(noHave) Page 3/Teamnohave_3.html" aria-label="Teams">
-                    <img src="../../../icons/users.svg" alt="Teams icon" style="width:20px; height:20px;" />
+                <a class="link" href="../../User/Team(noHave) Page 3/Teamnohave_3.html">
+                    <img src="../../../icons/users.svg" alt="" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Teams</span>
                 </a>
-                <a class="link-2" href="#" aria-label="About">
-                    <img src="../../../icons/info.svg" alt="About icon" style="width:20px; height:20px;" />
+                <a class="link-2" href="#">
+                    <img src="../../../icons/info.svg" alt="" style="width:20px; height:20px;" />
                     <span class="sidebar-text">About</span>
                 </a>
-                <a class="link-2" href="#" aria-label="Settings">
-                    <img src="../../../icons/settings.svg" alt="Settings icon" style="width:20px; height:20px;" />
+                <a class="link-2" href="#">
+                    <img src="../../../icons/settings.svg" alt="" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Settings</span>
                 </a>
             </nav>
         </aside>
+
         <!-- Main Content -->
-        <main class="tournaments-list-wrapper standardized-main-content" role="main">
-            <section class="tournaments-list" aria-labelledby="history-team-heading">
+        <main class="tournaments-list-wrapper standardized-main-content">
+            <section class="tournaments-list">
                 <div class="container-2">
-                    <div class="div-2" style="display: flex; align-items: center; gap: 12px;">
-                        <img src="../../../icons/users.svg" alt="" style="width: 32px; height: 32px;" aria-hidden="true" />
-                        <h2 id="history-team-heading" class="my-history-team" style="margin: 0; ">My History Team</h2>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <img src="../../../icons/users.svg" alt="" style="width: 28px; height: 28px;" />
+                        <h2 class="my-history-team" style="margin: 0; font-size: 24px;">My Teams</h2>
                     </div>
-                    <button class="button" type="button" aria-label="View all history teams">
-                        <span class="text">View All</span>
+                    <button class="button" type="button" onclick="window.location.href='../CreateTeamStep1 Page 4/createteamStep1_4.html'">
+                        <span class="text">Create Team</span>
                     </button>
                 </div>
-                <ul class="tournament-card-wrapper" aria-label="Team history list">
-                    <li class="tournament-card">
-                        <div class="valorant-tournament-wrapper" aria-hidden="true">
-                            <div class="valorant-tournament">
-                                <img class="image" src="img/image-5.png" alt="" />
-                                <img class="img" src="img/image-6.png" alt="Team A logo" />
-                            </div>
-                        </div>
-                        <div class="container-3">
-                            <div class="heading">
-                                <span class="text-wrapper-4">Team A</span>
-                            </div>
-                            <div class="container-wrapper">
-                                <div class="container-4">
-                                    <div class="div-2">
-                                        <img class="icon" src="img/icon-5.svg" alt="" aria-hidden="true" />
-                                    </div>
-                                    <div class="div-2">
-                                        <span class="text-wrapper-5">Rov KMITL Cup 2026</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="button-wrapper">
-                            <button class="div-wrapper" type="button" aria-label="Edit Team A">
-                                <div class="icon-wrapper">
-                                    <img class="icon" src="img/icon-4.svg" alt="" aria-hidden="true" />
-                                </div>
-                            </button>
-                        </div>
-                    </li>
-                </ul>
+                
+                <div id="teams-container" class="tournament-card-wrapper">
+                    <!-- Teams will be loaded here -->
+                    <div style="color: #64748b; padding: 40px; text-align: center; width: 100%;">Loading your teams...</div>
+                </div>
             </section>
         </main>
-
     </div>
+
     <script src="../../api-config.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
-            const listContainer = document.querySelector('.tournament-card-wrapper');
+            const container = document.getElementById('teams-container');
             const userStr = localStorage.getItem('user');
             
             if (!userStr) {
-                listContainer.innerHTML = '<p style="color:white; padding: 20px;">Please login to view your teams.</p>';
+                container.innerHTML = '<div style="color: #64748b; padding: 40px; text-align: center; width: 100%;">Please login to view your teams.</div>';
                 return;
             }
             
             const user = JSON.parse(userStr);
+            const fallbackTeamBanner = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200';
 
             try {
                 const res = await fetch(`${API_BASE_URL}/teams`);
+                if (!res.ok) throw new Error('Failed to fetch');
                 const allTeams = await res.json();
                 
-                // Filter teams where user is creator or leader (basic check)
+                // Filter teams by creator
                 const myTeams = allTeams.filter(t => t.created_by === user.user_id);
                 
-                listContainer.innerHTML = ''; // Clear hardcoded examples
-                
                 if (myTeams.length === 0) {
-                    listContainer.innerHTML = '<p style="color:white; padding: 20px;">You have no teams yet.</p>';
+                    window.location.href = '../Team(noHave) Page 3/Teamnohave_3.html';
                     return;
                 }
 
+                container.innerHTML = '';
                 myTeams.forEach(team => {
-                    const li = document.createElement('li');
-                    li.className = 'tournament-card';
-                    li.innerHTML = `
-                        <div class="valorant-tournament-wrapper" aria-hidden="true">
-                            <div class="valorant-tournament" style="display:flex; align-items:center; justify-content:center; background:#ff8c001a; border-radius: 12px;">
-                                <img src="../../../icons/users.svg" alt="" style="width: 48px; height: 48px; opacity: 0.5;" />
-                            </div>
+                    const card = document.createElement('div');
+                    card.className = 'tournament-card';
+                    
+                    const bannerUrl = team.team_banner_url || fallbackTeamBanner;
+                    
+                    card.innerHTML = `
+                        <div class="banner-container">
+                            <img class="tournament-banner-img" src="${bannerUrl}" alt="${team.team_name}" 
+                                 onerror="this.src='${fallbackTeamBanner}'">
                         </div>
-                        <div class="container-3">
-                            <div class="heading">
-                                <span class="text-wrapper-4">${team.team_name}</span>
+                        <div class="card-content">
+                            <h3 class="tournament-title-row" title="${team.team_name}">${team.team_name}</h3>
+                            <div class="team-meta">
+                                <img src="../../../icons/user.svg" alt="">
+                                <span>Leader: ${team.leader_name}</span>
                             </div>
-                            <div class="container-wrapper">
-                                <div class="container-4" style="display: flex; align-items: center; gap: 8px;">
-                                    <img src="../../../icons/user.svg" alt="" style="width: 14px; height: 14px;" />
-                                    <span class="text-wrapper-5" style="margin: 0;">Leader: ${team.leader_name}</span>
-                                </div>
+                            <div class="card-footer" style="margin-top: 12px;">
+                                <button class="view-btn" onclick="window.location.href='../../Admin/EditTeamDetail Page 14/EditTeam_14.html?id=${team.team_id}'">
+                                    <img src="../../../icons/pencil.svg" alt="" style="width:14px; height:14px; margin-right:8px; filter: grayscale(1) opacity(0.7);">
+                                    Edit Team
+                                </button>
                             </div>
-                        </div>
-                        <div class="button-wrapper">
-                            <button class="div-wrapper" type="button" aria-label="Edit ${team.team_name}" style="background: transparent; border: 1px solid #e2e8f0;">
-                                <div class="icon-wrapper">
-                                    <img src="../../../icons/pencil.svg" alt="Edit icon" style="width: 16px; height: 16px;" />
-                                </div>
-                            </button>
                         </div>
                     `;
-                    listContainer.appendChild(li);
+                    container.appendChild(card);
                 });
             } catch (error) {
-                console.error('Error fetching teams:', error);
-                listContainer.innerHTML = '<p style="color:white; padding: 20px;">Error loading teams.</p>';
+                console.error('Error:', error);
+                container.innerHTML = '<div style="color: #ef4444; padding: 40px; text-align: center; width: 100%;">Failed to load teams. Please try again.</div>';
             }
         });
     </script>
 </body>
+
+</html>
 
 </html>

@@ -5,18 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
     <title>KMITL ESPORT - Teams</title>
-    <link rel="stylesheet" href="globals3.css" />
-    
-    
-    
-    
-    
-        <link rel="stylesheet" href="../../shared-admin.css" />
+    <link rel="stylesheet" href="../../shared-admin.css" />
 </head>
 
 <body>
     <div class="admin-tournament">
-                                                        <!-- Header -->
+        <!-- Header -->
         <header class="header-top namespaced-header" role="banner">
             <div class="ns-header-left">
                 <img class="ns-logo-img" src="../../../icons/Logo.png" alt="KMITL ESPORT Logo" />
@@ -34,44 +28,68 @@
                     <div class="ns-search-bg">
                         <img class="ns-search-icon" src="../../../icons/search.svg" alt="Search icon" />
                     </div>
-                    <input class="ns-search-input" placeholder="Search tournaments..." type="search" aria-label="Search tournaments" />
+                    <input class="ns-search-input" placeholder="Search tournaments..." type="search" />
                 </label>
                 <img class="ns-user-avatar" src="../../../icons/user.svg" alt="User profile" />
             </div>
         </header>
-                                                        <!-- Sidebar -->
+
+        <!-- Sidebar -->
         <aside class="aside-sidebar" aria-label="Sidebar navigation">
             <nav class="sidebar-nav-container">
-                <a class="link-2" href="../../User/Tournament List Page 1/userlogin_1.html" aria-label="Tournament">
-                    <img src="../../../icons/trophy-star.svg" alt="Tournament icon" style="width:20px; height:20px;" />
+                <a class="link-2" href="../../User/Tournament List Page 1/userlogin_1.html">
+                    <img src="../../../icons/trophy-star.svg" alt="" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Tournament</span>
                 </a>
-                <a class="link" href="../../User/Team(noHave) Page 3/Teamnohave_3.html" aria-label="Teams">
-                    <img src="../../../icons/users.svg" alt="Teams icon" style="width:20px; height:20px;" />
+                <a class="link" href="../../User/Team(noHave) Page 3/Teamnohave_3.html">
+                    <img src="../../../icons/users.svg" alt="" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Teams</span>
                 </a>
-                <a class="link-2" href="#" aria-label="About">
-                    <img src="../../../icons/info.svg" alt="About icon" style="width:20px; height:20px;" />
+                <a class="link-2" href="#">
+                    <img src="../../../icons/info.svg" alt="" style="width:20px; height:20px;" />
                     <span class="sidebar-text">About</span>
                 </a>
-                <a class="link-2" href="#" aria-label="Settings">
-                    <img src="../../../icons/settings.svg" alt="Settings icon" style="width:20px; height:20px;" />
+                <a class="link-2" href="#">
+                    <img src="../../../icons/settings.svg" alt="" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Settings</span>
                 </a>
             </nav>
         </aside>
+
         <!-- Main Content Area -->
-        <main class="frame">
-            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 60vh;">
-                <img src="../../../icons/users.svg" alt="" style="width: 80px; height: 80px; opacity: 0.2; margin-bottom: 24px;" aria-hidden="true" />
-                <p class="text-wrapper-9" style="position: static; font-size: 24px; color: #64748b; margin-bottom: 32px;">You have not joined any teams yet</p>
-                <button class="button" type="button" aria-label="Create a new team" onclick="window.location.href='../CreateTeamStep1 Page 4/createteamStep1_4.html'" style="position: static; width: auto; padding: 12px 48px; background-color: #ff8c00; border: none; border-radius: 999px; color: white; font-weight: 700; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(255, 140, 0, 0.2);">
-                    <span class="text-wrapper-8" style="color: white;">Create Team</span>
-                </button>
+        <main class="standardized-main-content">
+            <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 60vh; text-align: center;">
+                <div style="background: #f8fafc; padding: 40px; border-radius: 24px; border: 1px solid #e2e8f0; max-width: 400px;">
+                    <img src="../../../icons/users.svg" alt="" style="width: 64px; height: 64px; opacity: 0.2; margin-bottom: 24px;" />
+                    <h2 style="font-size: 24px; color: #1e293b; margin-bottom: 12px; font-weight: 700;">No Teams Found</h2>
+                    <p style="font-size: 16px; color: #64748b; margin-bottom: 32px; line-height: 1.5;">You haven't created or joined any teams yet. Start your journey by forming a new squad!</p>
+                    <button class="button" type="button" onclick="window.location.href='../CreateTeamStep1 Page 4/createteamStep1_4.html'" style="width: 100%; justify-content: center;">
+                        <span class="text">Create a Team</span>
+                    </button>
+                </div>
             </div>
         </main>
-
     </div>
+
+    <script src="../../api-config.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+             const userStr = localStorage.getItem('user');
+             if (userStr) {
+                 const user = JSON.parse(userStr);
+                 try {
+                     const res = await fetch(`${API_BASE_URL}/teams`);
+                     const allTeams = await res.json();
+                     const myTeams = allTeams.filter(t => t.created_by === user.user_id);
+                     if (myTeams.length > 0) {
+                         window.location.href = '../Team(Have) Page 6/HistoryTeam_6.html';
+                     }
+                 } catch(e) {}
+             }
+        });
+    </script>
 </body>
+
+</html>
 
 </html>
