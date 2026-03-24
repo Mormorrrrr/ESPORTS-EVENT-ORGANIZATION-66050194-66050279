@@ -183,8 +183,19 @@
     <script src="../../api-config.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
-            const form = document.querySelector('form');
+            const form = document.getElementById('create-team-form');
             const tournamentSelect = document.getElementById('tournament-select');
+
+            // Prevent Enter key from submitting the form accidentally (except in textareas)
+            form.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+                    e.preventDefault();
+                }
+            });
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+            });
             
             // Fetch Tournaments
             try {

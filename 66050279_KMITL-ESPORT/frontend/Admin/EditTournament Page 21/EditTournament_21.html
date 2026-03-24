@@ -299,8 +299,21 @@
                 });
             });
 
+            // Prevent Enter key from submitting the form accidentally
+            const form = document.getElementById('edit-tournament-form');
+            form.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+                    e.preventDefault();
+                }
+            });
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+            });
+
             // Update
-            document.getElementById('submit-edit-btn').addEventListener('click', async () => {
+            document.getElementById('submit-edit-btn').addEventListener('click', async (e) => {
+                e.preventDefault();
                 const name = document.getElementById('tournament-name').value;
                 const startDate = document.getElementById('start-date').value;
                 const endDate = document.getElementById('end-date').value;

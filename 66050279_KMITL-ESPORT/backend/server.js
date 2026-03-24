@@ -4,13 +4,18 @@ import pkg from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import pg from "pg";
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const { PrismaClient } = pkg;
 
 dotenv.config();
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 8080;
 
 app.use(cors());
 app.use(express.json());
@@ -19,9 +24,13 @@ const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL });
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
-app.get("/", (req, res) => {
+app.get("/api-health", (req, res) => {
   res.send("Express + Prisma API ทำงานแล้ว");
 });
+
+// Serve Static Frontend Files
+app.use(express.static(path.join(__dirname, "../frontend")));
+app.use("/icons", express.static(path.join(__dirname, "../icons")));
 
 // REGISTER USER
 
@@ -400,27 +409,32 @@ app.post("/tournaments/:id/matches/save", async (req, res) => {
 // APPLY TOURNAMENT
 
 app.post("/applications", async (req, res) => {
-  const { tournament_type, team_id } = req.body;
+  const { tournament_id, tournament_type, team_id } = req.body;
 
   try {
-    if (!tournament_type || !team_id) {
-      return res.status(400).json({ error: "ข้อมูลไม่ครบ" });
+    if (!team_id || (!tournament_id && !tournament_type)) {
+      return res.status(400).json({ error: "ข้อมูลไม่ครบ (ต้องการ team_id และ tournament_id หรือ tournament_type)" });
     }
 
-    const tournament = await prisma.tournament.findFirst({
-      where: {
-        tournament_type: tournament_type,
-      },
-    });
+    let targetTournamentId = tournament_id;
 
-    if (!tournament) {
-      return res.status(404).json({ error: "ไม่พบ tournament" });
+    if (!targetTournamentId && tournament_type) {
+      const tournament = await prisma.tournament.findFirst({
+        where: {
+          tournament_type: tournament_type,
+        },
+      });
+
+      if (!tournament) {
+        return res.status(404).json({ error: "ไม่พบ tournament จาก type ที่ระบุ" });
+      }
+      targetTournamentId = tournament.tournament_id;
     }
 
     const application = await prisma.application.create({
       data: {
-        tournament_id: tournament.tournament_id,
-        team_id: team_id,
+        tournament_id: parseInt(targetTournamentId),
+        team_id: parseInt(team_id),
         status: "Pending",
       },
     });
@@ -488,6 +502,11 @@ app.delete("/applications/:id", async (req, res) => {
   }
 });
 
+// Fallback to index.html for SPA behavior - Use a regex that works with Express 5
+app.get(/^(?!\/(tournaments|teams|applications|login|register|api-health)).*$/, (req, res) => {
+  res.sendFile(path.join(__dirname, "../frontend/index.html"));
+});
+
 app.listen(port, () => {
-  console.log(`Server is running at http://localhost:${port}`);
+  console.log(`Server is running at port ${port}`);
 });
