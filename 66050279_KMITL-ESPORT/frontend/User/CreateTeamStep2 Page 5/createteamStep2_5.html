@@ -176,7 +176,10 @@
 
                 document.getElementById('confirm-team-name').textContent = teamData.team_name;
                 document.getElementById('confirm-leader-name').textContent = teamData.leader_name;
-                document.getElementById('team-logo-preview').src = teamData.team_banner || '../../../icons/users.svg';
+                const fallbackTeamLogo = '../../../icons/users.svg';
+                const teamLogoImg = document.getElementById('team-logo-preview');
+                teamLogoImg.src = teamData.team_banner || fallbackTeamLogo;
+                teamLogoImg.onerror = () => teamLogoImg.src = fallbackTeamLogo;
                 
                 if (teamData.leader_name) {
                     const initials = teamData.leader_name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
@@ -217,22 +220,43 @@
             teamData.created_by = user.user_id;
 
             try {
-                const res = await fetch(`${API_BASE_URL}/teams`, {
+                // 1. Create Team
+                const teamRes = await fetch(`${API_BASE_URL}/teams`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(teamData)
                 });
-                if (res.ok) {
-                    alert('Team created successfully!');
-                    sessionStorage.removeItem('pendingTeamData');
-                    window.location.href = '../Team(Have) Page 6/HistoryTeam_6.html';
+                
+                if (teamRes.ok) {
+                    const newTeam = await teamRes.json();
+                    
+                    // 2. Register for Tournament
+                    const appRes = await fetch(`${API_BASE_URL}/applications`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            team_id: newTeam.team.team_id,
+                            tournament_id: teamData.tournament_id
+                        })
+                    });
+
+                    if (appRes.ok) {
+                        alert('Team created and registered successfully!');
+                        sessionStorage.removeItem('pendingTeamData');
+                        window.location.href = '../Team(Have) Page 6/HistoryTeam_6.html';
+                    } else {
+                        const appErr = await appRes.json();
+                        alert('Team created, but registration failed: ' + (appErr.error || 'Unknown error'));
+                        window.location.href = '../Team(Have) Page 6/HistoryTeam_6.html';
+                    }
                 } else {
-                    const data = await res.json();
-                    alert('Failed: ' + (data.error || 'Unknown error'));
+                    const teamErr = await teamRes.json();
+                    alert('Team creation failed: ' + (teamErr.error || 'Unknown error'));
                     btn.disabled = false;
                     btn.textContent = 'Confirm';
                 }
             } catch(err) {
+                console.error(err);
                 alert('Error connecting to server.');
                 btn.disabled = false;
                 btn.textContent = 'Confirm';

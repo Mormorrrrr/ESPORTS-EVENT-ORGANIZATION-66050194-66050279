@@ -228,9 +228,11 @@
 
             confirmUrlBtn.addEventListener('click', () => {
                 const url = bannerUrlInput.value.trim();
+                const fallbackTeamBanner = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200';
                 if (url) {
                     currentBannerUrl = url;
                     bannerPreviewImg.src = url;
+                    bannerPreviewImg.onerror = () => bannerPreviewImg.src = fallbackTeamBanner;
                     urlInputContainer.style.display = 'none';
                     bannerPreviewContainer.style.display = 'block';
                 }
