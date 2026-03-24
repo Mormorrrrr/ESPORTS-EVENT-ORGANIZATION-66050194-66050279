@@ -453,11 +453,9 @@
                 // Dynamic Data Binding
                 $('#tournament-name').text(tournament.tournament_name || 'Tournament');
                 const fallbackBanner = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200';
-                if (tournament.tournament_banner) {
-                    $('#banner-img').attr('src', tournament.tournament_banner).on('error', function() {
-                        $(this).attr('src', fallbackBanner);
-                    });
-                }
+                const bannerImg = document.getElementById('banner-img');
+                bannerImg.src = tournament.tournament_banner || fallbackBanner;
+                bannerImg.onerror = () => bannerImg.src = fallbackBanner;
                 $('#details-section .text-2').text(tournament.tournament_type || 'Single Elimination');
                 $('#details-section .text-4').text(tournament.duration || 'TBD');
                 if (tournament.age_min && tournament.age_max) {

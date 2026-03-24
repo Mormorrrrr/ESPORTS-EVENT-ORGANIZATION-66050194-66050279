@@ -10,7 +10,7 @@ const emailInput = document.getElementById('input-1');
 const emailContainer = emailInput.closest('.container-5');
 const passInput = document.getElementById('input-2');
 const confirmPassInput = document.getElementById('input-3');
-const confirmPassContainer = confirmPassInput.closest('.container-9');
+const confirmPassContainer = document.getElementById('confirm-pass-container');
 const termsContainer = document.querySelector('.container-12');
 
 const footerLinksText = document.querySelector('.text-wrapper-8');

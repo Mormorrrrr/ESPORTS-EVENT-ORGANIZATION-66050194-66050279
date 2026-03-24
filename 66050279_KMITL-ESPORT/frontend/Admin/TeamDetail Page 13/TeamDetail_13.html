@@ -75,7 +75,7 @@
                     <!-- Tournament Header -->
                     <header class="card-header">
                         <div class="banner-box">
-                            <img id="tournament-banner-img" class="tournament-banner" src="https://placehold.co/400x300?text=Banner" alt="" onerror="this.style.display='none'; this.parentElement.classList.add('placeholder');" />
+                            <img id="tournament-banner-img" class="tournament-banner" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200" alt="" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200';" />
                         </div>
                         <div class="header-info">
                             <div class="title-row">
@@ -214,10 +214,9 @@
 
                             const tBanner = document.getElementById('tournament-banner-img');
                             const fallbackTournament = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200';
-                            if (tBanner && tournament.tournament_banner) {
-                                tBanner.src = tournament.tournament_banner;
+                            if (tBanner) {
+                                tBanner.src = tournament.tournament_banner || fallbackTournament;
                                 tBanner.onerror = () => tBanner.src = fallbackTournament;
-                                tBanner.style.display = 'block';
                             }
 
                             const tDate = document.getElementById('tournament-date-display');

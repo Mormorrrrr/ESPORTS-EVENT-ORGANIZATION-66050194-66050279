@@ -75,7 +75,7 @@
                     <!-- Tournament Context (Read Only) -->
                     <header class="card-header">
                         <div class="banner-box">
-                            <img id="tournament-banner" class="tournament-banner" src="" alt="" onerror="this.style.display='none';" />
+                            <img id="tournament-banner" class="tournament-banner" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200" alt="" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200';" />
                         </div>
                         <div class="header-info">
                             <span class="ov-label">RESGISTRATION EDIT</span>
@@ -193,13 +193,10 @@
                             const tournament = data.applications[0].tournament;
                             document.getElementById('tournament-name').textContent = tournament.tournament_name;
                             document.getElementById('tournament-date').textContent = new Date(tournament.start_date).toLocaleDateString();
-                            if (tournament.tournament_banner) {
-                                const tBanner = document.getElementById('tournament-banner');
-                                const fallbackT = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200';
-                                tBanner.src = tournament.tournament_banner;
-                                tBanner.onerror = () => tBanner.src = fallbackT;
-                                tBanner.style.display = 'block';
-                            }
+                            const fallbackT = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200';
+                            const tBanner = document.getElementById('tournament-banner');
+                            tBanner.src = tournament.tournament_banner || fallbackT;
+                            tBanner.onerror = () => tBanner.src = fallbackT;
                         }
                     }
                 } catch (e) { console.error('Load Error:', e); }
