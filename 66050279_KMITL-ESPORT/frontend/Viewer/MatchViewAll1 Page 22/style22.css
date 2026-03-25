@@ -1371,3 +1371,226 @@
     white-space: nowrap;
     text-decoration: none;
 }
+
+/* =====================================================
+   RESPONSIVE OVERRIDES — fix Figma fixed-pixel export
+   ===================================================== */
+
+/* Banner image area inside each card (mirrors .admin-tournament .container-9 from style1.css) */
+.viewer-match-view .background-shadow .container-9 {
+    width: 100% !important;
+    height: 180px !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    overflow: hidden !important;
+    border: none !important;
+    box-shadow: none !important;
+    position: relative !important;
+    background-color: #f1f5f9 !important;
+    flex-shrink: 0 !important;
+    display: block !important;
+    flex-direction: unset !important;
+    align-items: unset !important;
+    gap: unset !important;
+    flex: unset !important;
+    flex-grow: unset !important;
+}
+
+/* Content area inside each card */
+.viewer-match-view .background-shadow .container-10 {
+    padding: 24px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 !important;
+    gap: 12px !important;
+    text-align: left !important;
+}
+
+/* Tournament name */
+.viewer-match-view .background-shadow .text-wrapper-5 {
+    font-weight: 700 !important;
+    font-size: 18px !important;
+    color: #0f172a !important;
+    margin: 0 !important;
+    line-height: 1.3 !important;
+    white-space: normal !important;
+    display: block !important;
+    width: 100% !important;
+}
+
+/* Tournament type label */
+.viewer-match-view .background-shadow .major-tournament {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: #64748b !important;
+    margin: 0 !important;
+}
+
+/* Date + teams row */
+.viewer-match-view .background-shadow .container-11 {
+    display: flex !important;
+    gap: 20px !important;
+    align-items: center !important;
+}
+
+.viewer-match-view .background-shadow .container-12 {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    color: #94a3b8 !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+}
+
+/* Full-page wrapper */
+.viewer-match-view {
+    width: 100% !important;
+    min-height: 100vh !important;
+    height: auto !important;
+    overflow-x: hidden !important;
+}
+
+/* Main content area: push past sidebar, allow scrolling */
+.viewer-match-view .tournaments-list-wrapper {
+    margin-left: 260px !important;
+    margin-right: 0 !important;
+    max-height: none !important;
+    min-height: calc(100vh - 73px) !important;
+    padding: 40px !important;
+    box-sizing: border-box !important;
+    flex-direction: column !important;
+    width: calc(100% - 260px) !important;
+}
+
+/* Tournaments section: fluid, scrollable */
+.viewer-match-view .tournaments-list {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 900px !important;
+    margin-left: 0 !important;
+    gap: 16px !important;
+    flex-wrap: nowrap !important;
+    flex-direction: column !important;
+}
+
+/* Title row: remove giant gap */
+.viewer-match-view .container-6 {
+    width: 100% !important;
+    gap: 0 !important;
+    justify-content: flex-start !important;
+    margin-bottom: 8px !important;
+}
+
+/* Card list: full width */
+.viewer-match-view .container-7 {
+    width: 100% !important;
+}
+
+/* Override .container-8 — was a 96px circle image wrapper, now it's the card list */
+.viewer-match-view .container-8 {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: unset !important;
+    gap: 24px !important;
+    width: 100% !important;
+    max-width: 800px !important;
+    height: auto !important;
+    min-height: unset !important;
+    overflow: visible !important;
+    border-radius: 0 !important;
+    background: none !important;
+    align-items: unset !important;
+    justify-content: unset !important;
+}
+
+/* Tournament card: better hover & sizing */
+.viewer-match-view .tournament-card {
+    cursor: pointer !important;
+    transition: box-shadow 0.2s ease, transform 0.2s ease !important;
+}
+
+.viewer-match-view .tournament-card:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0px 8px 24px rgba(0,0,0,0.10) !important;
+}
+
+/* Tournament image circle: fallback colors when image is missing */
+.viewer-match-view .container-8 {
+    flex-shrink: 0 !important;
+    background-color: #1a1a2e !important;
+}
+
+.viewer-match-view .valorant-tournament {
+    background-color: #1e0a0a !important;
+    background-image:
+        linear-gradient(135deg, #ff4655 0%, #0f0e17 60%),
+        url(./img/valorant-tournament.png) !important;
+    background-blend-mode: overlay !important;
+}
+
+.viewer-match-view .league-of-legends {
+    background-color: #0a1628 !important;
+    background-image:
+        linear-gradient(135deg, #c89b3c 0%, #0a1628 60%),
+        url(./img/league-of-legends-tournament.png) !important;
+    background-blend-mode: overlay !important;
+}
+
+/* RoV card image */
+.viewer-match-view .image {
+    aspect-ratio: 1 !important;
+    object-fit: cover !important;
+    border-radius: 48px !important;
+}
+
+/* Footer: full width, no huge top margin */
+.viewer-match-view .footer-footer {
+    width: 100% !important;
+    margin-top: 40px !important;
+    position: relative !important;
+    flex-shrink: 0 !important;
+}
+
+.viewer-match-view .text-wrapper-6,
+.viewer-match-view .text-wrapper-7,
+.viewer-match-view .text-wrapper-8 {
+    margin-left: 0 !important;
+}
+
+/* Sidebar: ensure full height on tall screens */
+.viewer-match-view .aside-sidebar {
+    height: calc(100vh - 73px) !important;
+    overflow-y: auto !important;
+}
+
+/* View button on each tournament card */
+.viewer-match-view .card-view-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    padding: 8px 20px !important;
+    background-color: #ff8c00 !important;
+    color: #ffffff !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    border-radius: 48px !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    flex-shrink: 0 !important;
+    margin-left: auto !important;
+    transition: background-color 0.2s ease !important;
+}
+
+.viewer-match-view .card-view-btn:hover {
+    background-color: #e07a00 !important;
+}
+
+/* Fix icon sizes in cards */
+.viewer-match-view .icon-4 {
+    width: 14px !important;
+    height: 14px !important;
+}
+
+.viewer-match-view .icon-5 {
+    width: 16px !important;
+    height: 16px !important;
+}

@@ -1,12 +1,253 @@
 /**
- * Shared API Configuration
- * Update the API_BASE_URL here to change the backend address for the entire project.
+ * API Config — Supabase Direct Connection
+ * Data → Supabase | Auth → Express backend (port 8080)
  */
-const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:';
-const hostname = window.location.hostname || 'localhost';
-const API_BASE_URL = isLocal ? `http://${hostname}:8080` : window.location.origin;
 
-// Export for use in other scripts if needed (though we use global for simple HTML)
+// ── Always define API_BASE_URL first (pages depend on this) ─────────────────
+const _isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+const API_BASE_URL = _isLocal
+    ? `http://${window.location.hostname}:8080`
+    : window.location.origin;
+
+// ── Supabase config ──────────────────────────────────────────────────────────
+const SUPABASE_URL  = 'https://obkldhyqftfmlskyxkaq.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_tEA5Tb6qtp8llFbSvHcaPg_0TPmsH8k';
+
+// ── Init Supabase client (safe — won't crash if CDN not loaded yet) ──────────
+let _sb = null;
+try {
+    if (window.supabase && window.supabase.createClient) {
+        _sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        console.log('[Supabase] ✅ client ready');
+    } else {
+        console.error('[Supabase] ❌ CDN not loaded — window.supabase is undefined');
+    }
+} catch (e) {
+    console.error('[Supabase] ❌ createClient failed:', e);
+}
+
+// ── Mock Response helper ─────────────────────────────────────────────────────
+function _mockRes(data, status) {
+    status = status || 200;
+    return {
+        ok: status >= 200 && status < 300,
+        status: status,
+        json: function() { return Promise.resolve(data); },
+        text: function() { return Promise.resolve(JSON.stringify(data)); },
+    };
+}
+
+// ── Auth via Supabase ────────────────────────────────────────────────────────
+async function _sbLogin(body) {
+    var identifier = (body && (body.identifier || body.username || body.email)) || '';
+    var password   = String((body && body.password) || '');
+
+    // Find user by username or email
+    var q = _sb.from('User').select('*');
+    q = identifier.includes('@') ? q.eq('email', identifier) : q.eq('username', identifier);
+    var { data: user, error } = await q.maybeSingle();
+
+    if (error) return _mockRes({ message: 'DB error: ' + error.message, error: error.message }, 500);
+    if (!user)  return _mockRes({ message: 'ไม่พบผู้ใช้งาน', error: 'ไม่พบผู้ใช้งาน' }, 401);
+
+    // Compare password directly (plain-text stored in DB)
+    if (String(user.password) !== password) {
+        return _mockRes({ message: 'รหัสผ่านไม่ถูกต้อง', error: 'รหัสผ่านไม่ถูกต้อง' }, 401);
+    }
+
+    // Build a simple session token (base64 of user info)
+    var token = btoa(JSON.stringify({ user_id: user.user_id, role: user.role, ts: Date.now() }));
+
+    var userInfo = { user_id: user.user_id, username: user.username, email: user.email, role: user.role };
+    localStorage.setItem('user',  JSON.stringify(userInfo));
+    localStorage.setItem('token', token);
+
+    var redirect = user.role === 'admin'
+        ? '../Admin/Dashboard Page 8/Dashboard_8.html'
+        : user.role === 'viewer'
+            ? '../Viewer/Tournament Page 17/tournament_17.html'
+            : '../User/Tournament List Page 1/userlogin_1.html';
+
+    return _mockRes({ message: 'Login successful', user: userInfo, token: token, redirectUrl: redirect });
+}
+
+async function _sbRegister(body) {
+    var username = (body && body.username) || '';
+    var email    = (body && body.email) || '';
+    var password = (body && body.password) || '';
+    var role     = (body && body.role) || 'User';
+
+    // Check duplicate username
+    var { data: existing } = await _sb.from('User').select('user_id').eq('username', username).maybeSingle();
+    if (existing) return _mockRes({ message: 'Username already exists', error: 'Username already exists' }, 400);
+
+    var { error } = await _sb.from('User').insert({
+        username: username,
+        email: email,
+        password: password,
+        role: role
+    });
+
+    if (error) return _mockRes({ message: error.message, error: error.message }, 400);
+    return _mockRes({ message: 'สมัครสมาชิกสำเร็จ' });
+}
+
+// ── Supabase router ──────────────────────────────────────────────────────────
+async function _sbRoute(path, method, body) {
+    const sb = _sb;
+    if (!sb) throw new Error('Supabase client not initialized');
+
+    console.log('[Supabase]', method, path);
+
+    // GET /tournaments
+    if (path === '/tournaments' && method === 'GET') {
+        const { data, error } = await sb
+            .from('Tournament')
+            .select('*, Application(count)')
+            .order('start_date', { ascending: true });
+        console.log('[Supabase] /tournaments →', { count: data && data.length, error: error && error.message });
+        if (error) return _mockRes({ message: error.message }, 500);
+        var mapped = (data || []).map(function(t) {
+            return Object.assign({}, t, { _count: { applications: (t.Application && t.Application[0] && t.Application[0].count) || 0 } });
+        });
+        return _mockRes(mapped);
+    }
+
+    // GET /tournaments/:id/matches
+    var matchesM = path.match(/^\/tournaments\/(\d+)\/matches$/);
+    if (matchesM && method === 'GET') {
+        var tid = parseInt(matchesM[1]);
+        const { data, error } = await sb.from('Match').select('*').eq('tournament_id', tid).order('round').order('position');
+        if (error) return _mockRes({ message: error.message }, 500);
+        return _mockRes(data || []);
+    }
+
+    // GET /tournaments/:id  OR  PUT/DELETE /tournaments/:id
+    var tournM = path.match(/^\/tournaments\/(\d+)$/);
+    if (tournM) {
+        var id = parseInt(tournM[1]);
+        if (method === 'GET') {
+            const { data, error } = await sb.from('Tournament').select('*, Application(*, Team(*))').eq('tournament_id', id).single();
+            if (error) return _mockRes({ message: 'Tournament not found' }, 404);
+            return _mockRes(data);
+        }
+        if (method === 'PUT') {
+            const { data, error } = await sb.from('Tournament').update(body).eq('tournament_id', id).select().single();
+            if (error) return _mockRes({ message: error.message }, 500);
+            return _mockRes(data);
+        }
+        if (method === 'DELETE') {
+            const { error } = await sb.from('Tournament').delete().eq('tournament_id', id);
+            if (error) return _mockRes({ message: error.message }, 500);
+            return _mockRes({ message: 'Deleted' });
+        }
+    }
+
+    // POST /tournaments
+    if (path === '/tournaments' && method === 'POST') {
+        const { data, error } = await sb.from('Tournament').insert(body).select().single();
+        if (error) return _mockRes({ message: error.message }, 500);
+        return _mockRes(data, 201);
+    }
+
+    // Teams
+    var teamM = path.match(/^\/teams\/(\d+)$/);
+    if (path === '/teams' && method === 'GET') {
+        const { data, error } = await sb.from('Team').select('*').order('team_id');
+        if (error) return _mockRes({ message: error.message }, 500);
+        return _mockRes(data || []);
+    }
+    if (teamM) {
+        var teamId = parseInt(teamM[1]);
+        if (method === 'GET') {
+            const { data, error } = await sb.from('Team').select('*').eq('team_id', teamId).single();
+            if (error) return _mockRes({ message: 'Team not found' }, 404);
+            return _mockRes(data);
+        }
+        if (method === 'PATCH') {
+            const { data, error } = await sb.from('Team').update(body).eq('team_id', teamId).select().single();
+            if (error) return _mockRes({ message: error.message }, 500);
+            return _mockRes(data);
+        }
+        if (method === 'DELETE') {
+            const { error } = await sb.from('Team').delete().eq('team_id', teamId);
+            if (error) return _mockRes({ message: error.message }, 500);
+            return _mockRes({ message: 'Deleted' });
+        }
+    }
+    if (path === '/teams' && method === 'POST') {
+        const { data, error } = await sb.from('Team').insert(body).select().single();
+        if (error) return _mockRes({ message: error.message }, 500);
+        return _mockRes(data, 201);
+    }
+
+    // Applications
+    var appStatusM = path.match(/^\/applications\/(\d+)\/status$/);
+    if (appStatusM && method === 'PATCH') {
+        const { data, error } = await sb.from('Application').update({ status: body.status }).eq('app_id', parseInt(appStatusM[1])).select().single();
+        if (error) return _mockRes({ message: error.message }, 500);
+        return _mockRes(data);
+    }
+    if (path.startsWith('/applications') && method === 'GET') {
+        var teamIdParam = new URLSearchParams((path.split('?')[1]) || '').get('team_id');
+        var q = sb.from('Application').select('*, Tournament(*), Team(*)');
+        if (teamIdParam) q = q.eq('team_id', parseInt(teamIdParam));
+        const { data, error } = await q;
+        if (error) return _mockRes({ message: error.message }, 500);
+        return _mockRes(data || []);
+    }
+    if (path === '/applications' && method === 'POST') {
+        const { data, error } = await sb.from('Application').insert(body).select().single();
+        if (error) return _mockRes({ message: error.message }, 500);
+        return _mockRes(data, 201);
+    }
+
+    // Users
+    if (path === '/users' && method === 'GET') {
+        const { data, error } = await sb.from('User').select('user_id, username, email, role');
+        if (error) return _mockRes({ message: error.message }, 500);
+        return _mockRes(data || []);
+    }
+
+    return _mockRes({ message: 'Route not found: ' + method + ' ' + path }, 404);
+}
+
+// ── Override window.fetch ────────────────────────────────────────────────────
+var _origFetch = window.fetch.bind(window);
+window.fetch = async function(input, init) {
+    init = init || {};
+    var url = String(input);
+
+    // Only intercept our backend calls
+    if (!url.startsWith(API_BASE_URL)) return _origFetch(input, init);
+
+    var path = url.slice(API_BASE_URL.length);
+    var method = (init.method || 'GET').toUpperCase();
+    var body = null;
+    try { body = init.body ? JSON.parse(init.body) : null; } catch(e) {}
+
+    // Auth → handle in Supabase
+    if (path === '/login' || path === '/api/auth/login') {
+        return _sbLogin(body);
+    }
+    if (path === '/register' || path === '/api/auth/register') {
+        return _sbRegister(body);
+    }
+    // Other auth paths → backend
+    if (path.startsWith('/api/auth')) return _origFetch(input, init);
+
+    // No Supabase client → fall back to backend
+    if (!_sb) {
+        console.warn('[Supabase] No client — falling back to backend for:', path);
+        return _origFetch(input, init);
+    }
+
+    return _sbRoute(path, method, body).catch(function(err) {
+        console.error('[Supabase route error]', err);
+        return _mockRes({ message: 'Supabase error: ' + err.message }, 500);
+    });
+};
+
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { API_BASE_URL };
 }

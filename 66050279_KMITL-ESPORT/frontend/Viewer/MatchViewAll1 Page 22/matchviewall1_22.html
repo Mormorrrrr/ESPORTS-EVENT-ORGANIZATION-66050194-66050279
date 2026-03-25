@@ -8,8 +8,9 @@
     <link rel="stylesheet" href="globals22.css" />
     <link rel="stylesheet" href="styleguide22.css" />
     <link rel="stylesheet" href="style22.css?v=3" />
-    
-        <link rel="stylesheet" href="../../shared-admin.css?v=4" />
+    <link rel="stylesheet" href="../../Admin/TournamentList Page 9/style9.css?v=3" />
+    <link rel="stylesheet" href="../../User/Tournament List Page 1/style1.css?v=3" />
+    <link rel="stylesheet" href="../../shared-admin.css?v=4" />
 </head>
 
 <body>
@@ -59,106 +60,74 @@
             </nav>
         </aside>
         <!-- Main Content -->
-        <main class="tournaments-list-wrapper" aria-label="Tournaments">
-            <section class="tournaments-list" aria-labelledby="tournaments-heading">
-                <div class="container-6">
-                    <div class="div">
+        <main class="frame" role="main" aria-label="Tournaments">
+            <section class="section-margin" aria-labelledby="tournaments-heading">
+                <div class="section-header">
+                    <div class="header-left">
                         <h1 class="text-wrapper-3" id="tournaments-heading">Tournaments List</h1>
+                        <p class="p">All tournaments hosted by KMITL ESPORT.</p>
                     </div>
                 </div>
-                <ul class="container-7" role="list">
-                    <!-- Tournament Card: Valorant -->
-                    <li class="tournament-card">
-                        <div class="container-8">
-                            <div class="valorant-tournament" role="img" aria-label="Valorant Tournament"></div>
-                        </div>
-                        <div class="container-9">
-                            <div class="heading">
-                                <h2 class="text-wrapper-4">Valorant Invitational (Single Elimination)</h2>
-                            </div>
-                            <div class="container-10">
-                                <div class="container-11">
-                                    <div class="div">
-                                        <img class="icon-4" src="img/icon-9.svg" alt="" aria-hidden="true" />
-                                    </div>
-                                    <div class="div">
-                                        <time class="p">Oct 15 - Oct 20</time>
-                                    </div>
-                                </div>
-                                <div class="container-11">
-                                    <div class="div">
-                                        <img class="icon-5" src="img/icon-6.svg" alt="" aria-hidden="true" />
-                                    </div>
-                                    <div class="div">
-                                        <span class="text-8">16 Teams</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <!-- Tournament Card: League of Legends -->
-                    <li class="tournament-card">
-                        <div class="container-8">
-                            <div class="league-of-legends" role="img" aria-label="League of Legends Tournament"></div>
-                        </div>
-                        <div class="container-9">
-                            <div class="heading">
-                                <h2 class="text-wrapper-4">LoL KMITL Cup (Double Elimination)</h2>
-                            </div>
-                            <div class="container-10">
-                                <div class="container-11">
-                                    <div class="div">
-                                        <img class="icon-4" src="img/icon-3.svg" alt="" aria-hidden="true" />
-                                    </div>
-                                    <div class="div">
-                                        <time class="text-9">Nov 05 - Nov 12</time>
-                                    </div>
-                                </div>
-                                <div class="container-11">
-                                    <div class="div">
-                                        <img class="icon-5" src="img/icon-8.svg" alt="" aria-hidden="true" />
-                                    </div>
-                                    <div class="div">
-                                        <span class="text-10">32 Teams</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <!-- Tournament Card: RoV -->
-                    <li class="tournament-card">
-                        <div class="container-8">
-                            <img class="image" src="img/image-4.png" alt="Rov KMITL Cup 2026 Tournament" />
-                        </div>
-                        <div class="container-9">
-                            <div class="heading">
-                                <h2 class="text-wrapper-4">Rov KMITL Cup 2026 (Single Elimination)</h2>
-                            </div>
-                            <div class="container-10">
-                                <div class="container-11">
-                                    <div class="div">
-                                        <img class="icon-4" src="img/icon.svg" alt="" aria-hidden="true" />
-                                    </div>
-                                    <div class="div">
-                                        <time class="text-9">Nov 05 - Nov 12</time>
-                                    </div>
-                                </div>
-                                <div class="container-11">
-                                    <div class="div">
-                                        <img class="icon-5" src="img/icon-4.svg" alt="" aria-hidden="true" />
-                                    </div>
-                                    <div class="div">
-                                        <span class="text-10">32 Teams</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                <div class="container-8" id="tournament-list-container">
+                    <p style="padding: 40px; text-align: center; color: #64748b; font-size: 18px;">Loading tournaments...</p>
+                </div>
             </section>
         </main>
 
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+    <script src="../../api-config.js"></script>
+    <script>
+        (function () {
+            const listContainer = document.getElementById('tournament-list-container');
+
+            async function loadTournaments() {
+                try {
+                    const res = await fetch(`${API_BASE_URL}/tournaments`);
+                    if (!res.ok) throw new Error('Server responded with ' + res.status);
+                    const tournaments = await res.json();
+
+                    listContainer.innerHTML = '';
+                    if (!tournaments || tournaments.length === 0) {
+                        listContainer.innerHTML = '<p style="padding: 40px; text-align: center; color: #64748b;">No tournaments available.</p>';
+                        return;
+                    }
+
+                    tournaments.forEach(t => {
+                        const article = document.createElement('article');
+                        article.className = 'background-shadow';
+                        const bannerSrc = t.tournament_banner || 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800';
+                        article.innerHTML = `
+                            <div class="container-9">
+                                <img src="${bannerSrc}" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800'" style="width:100%;height:100%;object-fit:cover;">
+                            </div>
+                            <div class="container-10">
+                                <h2 class="text-wrapper-5">${t.tournament_name}</h2>
+                                <p class="major-tournament">${(t.tournament_type || '').split(' • ')[0]}</p>
+                                <div class="container-11">
+                                    <div class="container-12">
+                                        <img src="../../../icons/calendar-clock.svg" style="width:16px;height:16px;" />
+                                        <span>${t.start_date ? new Date(t.start_date).toLocaleDateString('en-GB', {day:'2-digit', month:'short'}) : 'TBD'}</span>
+                                    </div>
+                                    <div class="container-12">
+                                        <img src="../../../icons/users.svg" style="width:16px;height:16px;" />
+                                        <span>${t._count?.applications || 0} Teams</span>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        listContainer.appendChild(article);
+                    });
+                } catch (error) {
+                    console.error('Load Failed:', error);
+                    listContainer.innerHTML = '<p style="padding: 40px; text-align: center; color: #ef4444;">Failed to connect to data source.</p>';
+                }
+            }
+
+            loadTournaments();
+        })();
+    </script>
 </body>
 
 </html>
