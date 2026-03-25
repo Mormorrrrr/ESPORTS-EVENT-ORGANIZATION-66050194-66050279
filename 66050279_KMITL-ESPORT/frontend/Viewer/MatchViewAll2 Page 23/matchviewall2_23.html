@@ -4,12 +4,8 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="utf-8" />
-    <title>KMITL ESPORT - Viewer Match View</title>
-    <link rel="stylesheet" href="globals23.css" />
-    <link rel="stylesheet" href="styleguide23.css" />
-    <link rel="stylesheet" href="style23.css?v=3" />
-    
-        <link rel="stylesheet" href="../../shared-admin.css?v=4" />
+    <title>KMITL ESPORT - Upcoming Matches</title>
+    <link rel="stylesheet" href="../../shared-admin.css?v=4" />
 </head>
 
 <body>
@@ -59,58 +55,60 @@
             </nav>
         </aside>
         <!-- Main Content -->
-        <main class="section" aria-label="Upcoming Matches">
-            <div class="heading">
-                <div class="icon-wrapper">
-                    <img class="icon-4" src="img/icon-4.svg" alt="Upcoming matches icon" />
-                </div>
-                <h1 class="text-wrapper-3">Upcoming Matches</h1>
+        <main class="frame" aria-label="Upcoming Matches">
+            <div style="margin-bottom: 24px;">
+                <h1 style="font-size:24px;font-weight:700;color:#0f172a;margin:0 0 4px;">Upcoming Matches</h1>
+                <p style="font-size:14px;color:#64748b;margin:0;">Scheduled matches across all tournaments.</p>
             </div>
-            <div class="container-6">
-                <!-- Match 1 -->
-                <article class="background-border" aria-label="Match: Team Omega vs KMITL Knights">
-                    <div class="container-7">
-                        <div class="container-8">
-                            <div class="div-2"><span class="text-8">START IN</span></div>
-                            <div class="div-2"><time class="text-9">15:30</time></div>
-                        </div>
-                        <div class="container-9">
-                            <div class="div">
-                                <div class="div-2"><span class="text-10">Team Omega</span></div>
-                                <div class="div-3"></div>
-                            </div>
-                            <div class="div-2"><span class="text-wrapper-4">VS</span></div>
-                            <div class="div">
-                                <div class="div-3"></div>
-                                <div class="div-2"><span class="text-wrapper-5">KMITL Knights</span></div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-                <!-- Match 2 -->
-                <article class="container-wrapper" aria-label="Match: Steel Rebels vs Shadow Step">
-                    <div class="container-10">
-                        <div class="container-11">
-                            <div class="div-2"><span class="text-11">DEC 12</span></div>
-                            <div class="div-2"><time class="text-12">20:00</time></div>
-                        </div>
-                        <div class="container-12">
-                            <div class="div">
-                                <div class="div-2"><span class="text-13">Steel Rebels</span></div>
-                                <div class="div-3"></div>
-                            </div>
-                            <div class="div-2"><span class="text-wrapper-4">VS</span></div>
-                            <div class="div">
-                                <div class="div-3"></div>
-                                <div class="div-2"><span class="text-14">Shadow Step</span></div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
+            <div id="match-list-container" style="display:flex;flex-direction:column;gap:16px;width:100%;">
+                <p style="padding:40px;text-align:center;color:#64748b;">Loading matches...</p>
             </div>
         </main>
-
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+    <script src="../../api-config.js"></script>
+    <script>
+        (function () {
+            const container = document.getElementById('match-list-container');
+            async function loadMatches() {
+                try {
+                    const res = await fetch(`${API_BASE_URL}/matches`);
+                    if (!res.ok) throw new Error('HTTP ' + res.status);
+                    const matches = await res.json();
+                    container.innerHTML = '';
+                    if (!matches || matches.length === 0) {
+                        container.innerHTML = '<p style="padding:40px;text-align:center;color:#64748b;font-size:16px;">ยังไม่มีการแข่งขันที่กำหนดไว้</p>';
+                        return;
+                    }
+                    matches.forEach(m => {
+                        const card = document.createElement('div');
+                        card.style.cssText = 'display:flex;align-items:center;gap:20px;padding:20px 24px;background:#fff;border-radius:16px;border:1px solid #f1f5f9;box-shadow:0 1px 4px rgba(0,0,0,0.06);width:100%;box-sizing:border-box;';
+                        const tourName = m.Tournament ? m.Tournament.tournament_name : 'Tournament';
+                        card.innerHTML = `
+                            <div style="flex:1;min-width:0;">
+                                <span style="font-size:11px;font-weight:700;color:#ff8c00;letter-spacing:0.5px;text-transform:uppercase;">${tourName}</span>
+                                <div style="display:flex;align-items:center;justify-content:center;gap:24px;margin-top:12px;">
+                                    <span style="font-size:16px;font-weight:700;color:#0f172a;flex:1;text-align:right;">${m.team1_name||'TBD'}</span>
+                                    <span style="font-size:18px;font-weight:800;color:#94a3b8;padding:6px 16px;background:#f8fafc;border-radius:8px;">VS</span>
+                                    <span style="font-size:16px;font-weight:700;color:#0f172a;flex:1;text-align:left;">${m.team2_name||'TBD'}</span>
+                                </div>
+                                <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-top:10px;">
+                                    <span style="font-size:12px;color:#64748b;">Round ${m.round||'-'}</span>
+                                    ${m.match_date?`<span style="font-size:12px;color:#64748b;">${new Date(m.match_date).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}</span>`:''}
+                                    <span style="font-size:11px;font-weight:600;padding:2px 10px;border-radius:99px;background:${m.status==='completed'?'#dcfce7':m.status==='ongoing'?'#fef9c3':'#f1f5f9'};color:${m.status==='completed'?'#15803d':m.status==='ongoing'?'#92400e':'#64748b'};">${(m.status||'Scheduled').toUpperCase()}</span>
+                                </div>
+                            </div>
+                        `;
+                        container.appendChild(card);
+                    });
+                } catch (err) {
+                    container.innerHTML = `<p style="padding:40px;text-align:center;color:#ef4444;">Failed to load: ${err.message}</p>`;
+                }
+            }
+            loadMatches();
+        })();
+    </script>
 </body>
 
 </html>

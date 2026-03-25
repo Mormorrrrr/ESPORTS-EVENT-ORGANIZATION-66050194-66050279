@@ -113,6 +113,13 @@ async function _sbRoute(path, method, body) {
         return _mockRes(mapped);
     }
 
+    // GET /matches (all matches with tournament info)
+    if (path === '/matches' && method === 'GET') {
+        const { data, error } = await sb.from('Match').select('*, Tournament(tournament_name, tournament_banner)').order('match_id');
+        if (error) return _mockRes({ message: error.message }, 500);
+        return _mockRes(data || []);
+    }
+
     // GET /tournaments/:id/matches
     var matchesM = path.match(/^\/tournaments\/(\d+)\/matches$/);
     if (matchesM && method === 'GET') {
