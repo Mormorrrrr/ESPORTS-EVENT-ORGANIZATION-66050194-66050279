@@ -86,7 +86,7 @@
              if (userStr) {
                  const user = JSON.parse(userStr);
                  // Admin should go to admin team list
-                 if (user.role === 'admin') {
+                 if ((user.role || '').toLowerCase() === 'admin') {
                      window.location.href = '../../Admin/TeamList Page 12/TeamList_12.html';
                      return;
                  }

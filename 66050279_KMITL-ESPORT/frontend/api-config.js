@@ -62,9 +62,9 @@ async function _sbLogin(body) {
     localStorage.setItem('user',  JSON.stringify(userInfo));
     localStorage.setItem('token', token);
 
-    var redirect = user.role === 'admin'
+    var redirect = (user.role || '').toLowerCase() === 'admin'
         ? '../Admin/Dashboard Page 8/Dashboard_8.html'
-        : user.role === 'viewer'
+        : (user.role || '').toLowerCase() === 'viewer'
             ? '../Viewer/Tournament Page 17/tournament_17.html'
             : '../User/Tournament List Page 1/userlogin_1.html';
 
