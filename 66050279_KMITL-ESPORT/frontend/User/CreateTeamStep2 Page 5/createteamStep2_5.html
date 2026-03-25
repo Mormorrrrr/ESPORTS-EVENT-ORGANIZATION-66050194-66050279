@@ -228,23 +228,24 @@
             teamData.created_by = user.user_id;
 
             try {
-                // 1. Create Team
+                // 1. Create Team (strip tournament_id — it belongs in Application, not Team)
+                const { tournament_id, ...teamOnly } = teamData;
                 const teamRes = await fetch(`${API_BASE_URL}/teams`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(teamData)
+                    body: JSON.stringify(teamOnly)
                 });
-                
+
                 if (teamRes.ok) {
                     const newTeam = await teamRes.json();
-                    
+
                     // 2. Register for Tournament
                     const appRes = await fetch(`${API_BASE_URL}/applications`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
-                            team_id: newTeam.team.team_id,
-                            tournament_id: teamData.tournament_id
+                            team_id: newTeam.team_id,
+                            tournament_id: tournament_id
                         })
                     });
 

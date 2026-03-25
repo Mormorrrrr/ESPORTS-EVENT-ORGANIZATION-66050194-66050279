@@ -85,6 +85,11 @@
              const userStr = localStorage.getItem('user');
              if (userStr) {
                  const user = JSON.parse(userStr);
+                 // Admin should go to admin team list
+                 if (user.role === 'admin') {
+                     window.location.href = '../../Admin/TeamList Page 12/TeamList_12.html';
+                     return;
+                 }
                  try {
                      const res = await fetch(`${API_BASE_URL}/teams`);
                      const allTeams = await res.json();

@@ -216,6 +216,13 @@
                 confirmBtn.innerHTML = '<span class="text-wrapper-11">Submitting...</span>';
                 
                 try {
+                    const currentUser = JSON.parse(localStorage.getItem('user') || 'null');
+                    if (!currentUser) {
+                        alert('กรุณา Login ก่อนสร้างทีม');
+                        window.location.href = '../../Login Page/login.html';
+                        return;
+                    }
+
                     const payload = {
                         team_name: data.teamName,
                         team_banner_url: data.bannerUrl,
@@ -224,15 +231,15 @@
                         member_2: data.member2,
                         member_3: data.member3,
                         member_4: data.member4,
-                        created_by: 1 // Default admin user ID for testing
+                        created_by: currentUser.user_id
                     };
-                    
+
                     const res = await fetch(`${API_BASE_URL}/teams`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify(payload)
                     });
-                    
+
                     if (res.ok) {
                         const newTeam = await res.json();
                         // Also apply to tournament if we have tournamentId
@@ -246,13 +253,13 @@
                                 })
                             });
                         }
-                        
+
                         sessionStorage.removeItem('teamCreationData');
                         alert('Team Created Successfully!');
                         location.href = '../TeamList Page 12/TeamList_12.html';
                     } else {
                         const err = await res.json();
-                        alert('Error: ' + err.error);
+                        alert('Error: ' + (err.message || err.error || 'Unknown error'));
                         confirmBtn.disabled = false;
                         confirmBtn.innerHTML = '<span class="text-wrapper-11">Confirm</span>';
                     }

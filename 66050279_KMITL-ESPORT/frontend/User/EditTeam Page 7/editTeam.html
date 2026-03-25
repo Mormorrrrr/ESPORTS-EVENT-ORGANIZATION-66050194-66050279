@@ -153,9 +153,8 @@
             async function loadData() {
                 try {
                     const res = await fetch(`${API_BASE_URL}/teams/${teamId}`);
-                    const data = await res.json();
-                    if (res.ok && data.team) {
-                        const team = data.team;
+                    const team = await res.json();
+                    if (res.ok && team && team.team_id) {
                         document.getElementById('input-team-name').value = team.team_name || '';
                         document.getElementById('input-leader-name').value = team.leader_name || '';
                         document.getElementById('member-1').value = team.member_1 || '';
@@ -165,8 +164,11 @@
                         currentLogoUrl = team.team_banner_url || '';
                         updateLogoPreview();
 
-                        if (data.applications && data.applications.length > 0) {
-                            const tournament = data.applications[0].tournament;
+                        // Load tournament info via applications
+                        const appRes = await fetch(`${API_BASE_URL}/applications?team_id=${teamId}`);
+                        const apps = await appRes.json();
+                        if (apps && apps.length > 0 && apps[0].Tournament) {
+                            const tournament = apps[0].Tournament;
                             document.getElementById('tournament-name').textContent = tournament.tournament_name;
                             document.getElementById('tournament-date').textContent = new Date(tournament.start_date).toLocaleDateString();
                             if (tournament.tournament_banner) {

@@ -111,8 +111,12 @@
                 container.innerHTML = '<div style="color: #64748b; padding: 40px; text-align: center; width: 100%;">Please login to view your teams.</div>';
                 return;
             }
-            
+
             const user = JSON.parse(userStr);
+            if (user.role === 'admin') {
+                window.location.href = '../../Admin/TeamList Page 12/TeamList_12.html';
+                return;
+            }
             const fallbackTeamBanner = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200';
 
             try {

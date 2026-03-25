@@ -102,13 +102,18 @@
         document.addEventListener('DOMContentLoaded', async () => {
             const listContainer = document.getElementById('admin-team-list-container');
             
+            listContainer.innerHTML = '<p style="color:#64748b; text-align:center; padding:40px;">กำลังโหลด...</p>';
             try {
                 const res = await fetch(`${API_BASE_URL}/teams`);
+                if (!res.ok) {
+                    const err = await res.json();
+                    throw new Error(err.message || 'HTTP ' + res.status);
+                }
                 const allTeams = await res.json();
-                
+
                 listContainer.innerHTML = '';
-                
-                if (allTeams.length === 0) {
+
+                if (!allTeams || allTeams.length === 0) {
                     listContainer.innerHTML = '<p style="color:#64748b; font-size: 18px; text-align: center; padding: 40px; width: 100%;">ยังไม่มีข้อมูลทีมในระบบ</p>';
                     return;
                 }
@@ -190,7 +195,7 @@
                 });
             } catch (error) {
                 console.error('Error fetching teams:', error);
-                listContainer.innerHTML = '<p style="color:white; padding: 20px;">Error loading teams.</p>';
+                listContainer.innerHTML = `<p style="color:#ef4444; font-size:16px; text-align:center; padding: 40px;">โหลดข้อมูลไม่สำเร็จ: ${error.message}</p>`;
             }
         });
 
