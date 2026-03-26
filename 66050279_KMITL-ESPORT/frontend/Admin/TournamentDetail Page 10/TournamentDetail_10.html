@@ -13,6 +13,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.js"></script>
     <style>
+        /* Reset box-sizing for jquery-bracket (shared-admin.css sets border-box globally) */
+        #bracket, #bracket * {
+            box-sizing: content-box !important;
+        }
+        #bracket .jQBracket {
+            overflow-x: auto;
+            display: block !important;
+        }
+
         /* Modern Tree-like Bracket Styles */
         .round-column {
             display: flex;
@@ -475,9 +484,10 @@
                     $('#dates-section .text-wrapper-3').text(eDate);
                 }
 
-                const teams = (tournament.applications || [])
+                const teams = (tournament.Application || tournament.applications || [])
                     .filter(app => app.status === 'Approved')
-                    .map(app => app.team.team_name);
+                    .map(app => (app.Team || app.team || {}).team_name)
+                    .filter(name => name);
 
                 const bracketTeams = [];
                 for (let i = 0; i < teams.length; i += 2) {
@@ -548,6 +558,48 @@
                         });
                 };
 
+                const injectBracket = (data, isDouble) => {
+                    const iframeHtml = '\x3C!DOCTYPE html\x3E\x3Chtml\x3E\x3Chead\x3E\x3Cmeta charset="utf-8"\x3E'
+                        + '\x3Clink rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.css"\x3E'
+                        + '\x3Cscript src="https://code.jquery.com/jquery-3.6.0.min.js"\x3E\x3C/script\x3E'
+                        + '\x3Cscript src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.js"\x3E\x3C/script\x3E'
+                        + '\x3Cstyle\x3Ebody{margin:0;padding:16px;background:transparent;overflow-x:auto;}.jQBracket .tools{display:none!important;}\x3C/style\x3E'
+                        + '\x3C/head\x3E\x3Cbody\x3E\x3Cdiv id="bc"\x3E\x3C/div\x3E\x3C/body\x3E\x3C/html\x3E';
+
+                    const iframe = document.createElement('iframe');
+                    iframe.srcdoc = iframeHtml;
+                    iframe.style.cssText = 'width:100%;min-height:600px;border:none;background:transparent;';
+                    $bracket.empty().append(iframe);
+
+                    iframe.onload = () => {
+                        const win = iframe.contentWindow;
+                        if (!win || !win.jQuery) return;
+                        win.jQuery('#bc').bracket({
+                            init: data,
+                            save: (newData) => {
+                                // closure has access to outer localMatches
+                                if (isDouble) {
+                                    const [nwb, nlb, nfinals] = newData.results;
+                                    localMatches.length = 0;
+                                    nwb.forEach((round, r) => round.forEach((m, p) => localMatches.push({ round: r+1, position: p, score1: m[0], score2: m[1] })));
+                                    nlb.forEach((round, r) => round.forEach((m, p) => localMatches.push({ round: -(r+1), position: p, score1: m[0], score2: m[1] })));
+                                    nfinals.forEach((round, r) => round.forEach((m, p) => localMatches.push({ round: 101+r, position: p, score1: m[0], score2: m[1] })));
+                                } else {
+                                    newData.results.forEach((round, r) => round.forEach((match, m) => {
+                                        const ex = localMatches.find(x => x.round === r+1 && x.position === m);
+                                        if (ex) { ex.score1 = match[0]; ex.score2 = match[1]; }
+                                        else localMatches.push({ round: r+1, position: m, score1: match[0], score2: match[1] });
+                                    }));
+                                }
+                            }
+                        });
+                        setTimeout(() => {
+                            const h = win.document.body.scrollHeight;
+                            if (h > 0) iframe.style.minHeight = (h + 40) + 'px';
+                        }, 600);
+                    };
+                };
+
                 const renderDoubleBracket = () => {
                     $bracket.empty();
                     $('#single-controls').css('display', 'flex');
@@ -558,9 +610,9 @@
                     while (nTeams < limit) nTeams *= 2;
                     if (nTeams < 4) nTeams = 4;
 
-                    let bracketTeams = [];
+                    const bracketTeams = [];
                     for (let i = 0; i < nTeams; i += 2) {
-                        bracketTeams.push([teams[i] || "BYE", teams[i + 1] || "BYE"]);
+                        bracketTeams.push([teams[i] || null, teams[i + 1] || null]);
                     }
 
                     const wbRoundsCount = Math.log2(nTeams);
@@ -570,7 +622,6 @@
                         for (let m = 0; m < nTeams / Math.pow(2, r + 1); m++) roundArr.push([null, null]);
                         wb.push(roundArr);
                     }
-
                     const lb = [];
                     const lbRoundsCount = 2 * wbRoundsCount - 2;
                     let mCount = nTeams / 4;
@@ -580,23 +631,13 @@
                         lb.push(roundArr);
                         if (r % 2 === 1) mCount /= 2;
                     }
-
                     const finals = [[[null, null]]];
-
                     localMatches.forEach(m => {
-                        if (m.round > 0 && m.round < 100) {
-                            if (wb[m.round - 1] && wb[m.round - 1][m.position]) wb[m.round - 1][m.position] = [m.score1, m.score2];
-                        } else if (m.round < 0) {
-                            let rIdx = Math.abs(m.round) - 1;
-                            if (lb[rIdx] && lb[rIdx][m.position]) lb[rIdx][m.position] = [m.score1, m.score2];
-                        } else if (m.round > 100) {
-                            let rIdx = m.round - 101;
-                            if (finals[rIdx] && finals[rIdx][m.position]) finals[rIdx][m.position] = [m.score1, m.score2];
-                        }
+                        if (m.round > 0 && m.round < 100) { if (wb[m.round-1] && wb[m.round-1][m.position]) wb[m.round-1][m.position] = [m.score1, m.score2]; }
+                        else if (m.round < 0) { let ri = Math.abs(m.round)-1; if (lb[ri] && lb[ri][m.position]) lb[ri][m.position] = [m.score1, m.score2]; }
+                        else if (m.round > 100) { let ri = m.round-101; if (finals[ri] && finals[ri][m.position]) finals[ri][m.position] = [m.score1, m.score2]; }
                     });
-
-                    const doubleData = { teams: bracketTeams, results: [wb, lb, finals] };
-                    injectBracketIframe(doubleData, true);
+                    injectBracket({ teams: bracketTeams, results: [wb, lb, finals] }, true);
                 };
 
                 const renderSingleBracket = () => {
@@ -604,75 +645,35 @@
                     $('#single-controls').css('display', 'flex');
                     $('#save-bracket-btn').show();
 
-                    const nTeams = Math.pow(2, Math.ceil(Math.log2(teamLimits['Single Elimination'])));
+                    const nTeams = Math.pow(2, Math.ceil(Math.log2(Math.max(2, teamLimits['Single Elimination']))));
                     const bracketTeams = [];
                     for (let i = 0; i < nTeams; i += 2) {
-                        bracketTeams.push([teams[i] || "BYE", teams[i + 1] || "BYE"]);
+                        bracketTeams.push([teams[i] || null, teams[i + 1] || null]);
                     }
 
+                    let slotTeams = Array.from({length: nTeams}, (_, i) => teams[i] || 'BYE');
                     const wbRoundsCount = Math.log2(nTeams);
                     const results = [];
                     for (let r = 0; r < wbRoundsCount; r++) {
-                        let roundArr = [];
-                        for (let m = 0; m < nTeams / Math.pow(2, r + 1); m++) {
-                            const matchData = localMatches.find(mat => mat.round === (r + 1) && mat.position === m);
-                            roundArr.push(matchData ? [matchData.score1, matchData.score2] : [null, null]);
+                        const roundArr = [], nextSlot = [];
+                        const matchCount = slotTeams.length / 2;
+                        for (let m = 0; m < matchCount; m++) {
+                            const t1 = slotTeams[m * 2], t2 = slotTeams[m * 2 + 1];
+                            const md = localMatches.find(x => x.round === r+1 && x.position === m);
+                            let score = md ? [md.score1, md.score2] : [null, null];
+                            if (score[0] === null && score[1] === null) {
+                                if (t1 !== 'BYE' && t2 === 'BYE') score = [1, 0];
+                                else if (t1 === 'BYE' && t2 !== 'BYE') score = [0, 1];
+                            }
+                            const winner = (t1 === 'BYE' && t2 === 'BYE') ? 'BYE'
+                                : (score[0] !== null && score[1] !== null) ? (score[0] >= score[1] ? t1 : t2) : 'TBD';
+                            nextSlot.push(winner);
+                            roundArr.push(score);
                         }
                         results.push(roundArr);
+                        slotTeams = nextSlot;
                     }
-
-                    const singleData = { teams: bracketTeams, results: results };
-                    injectBracketIframe(singleData, false);
-                };
-
-                const injectBracketIframe = (data, isDouble) => {
-                    const iframeHtml = `\x3C!DOCTYPE html\x3E
-\x3Chtml\x3E
-\x3Chead\x3E
-    \x3Cmeta charset="utf-8"\x3E
-    \x3Clink rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.css" /\x3E
-    \x3Cscript src="https://code.jquery.com/jquery-3.6.0.min.js"\x3E\x3C/script\x3E
-    \x3Cscript src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.js"\x3E\x3C/script\x3E
-    \x3Cstyle\x3E
-        body { margin: 0; padding: 20px 0;  background: transparent; overflow-x: auto; }
-        .jQBracket { margin-top: 10px; border: none; }
-        /* Hide library internal tools */
-        .jQBracket .tools { display: none !important; }
-        ::-webkit-scrollbar { height: 8px; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-    \x3C/style\x3E
-\x3C/head\x3E
-\x3Cbody\x3E
-    \x3Cdiv id="bracket-container" style="display: inline-block; min-width: 100%;"\x3E\x3C/div\x3E
-\x3C/body\x3E
-\x3C/html\x3E`;
-
-                    const iframe = document.createElement('iframe');
-                    iframe.id = 'bracket-iframe';
-                    iframe.srcdoc = iframeHtml;
-                    iframe.style.width = '100%';
-                    iframe.style.height = '800px'; // Larger height to avoid clipping
-                    iframe.style.border = 'none';
-                    iframe.style.background = 'transparent';
-
-                    $bracket.empty().append(iframe);
-
-                    iframe.onload = () => {
-                        const win = iframe.contentWindow;
-                        if (win && win.jQuery) {
-                            win.jQuery('#bracket-container').bracket({
-                                init: data,
-                                save: (newData) => {
-                                    console.log('Bracket updated', newData);
-                                }
-                            });
-                            // Automatically adjust height based on content if possible
-                            setTimeout(() => {
-                                const h = win.document.body.scrollHeight;
-                                if (h > 0) iframe.style.height = (h + 50) + 'px';
-                            }, 500);
-                        }
-                    };
+                    injectBracket({ teams: bracketTeams, results: results }, false);
                 };
 
                 const renderCurrentBracket = () => {
@@ -704,24 +705,9 @@
                     renderCurrentBracket();
                 });
 
-                // Manual Save Handling (Shared)
+                // Manual Save Handling — use localMatches updated by iframe save callback
                 $('#save-bracket-btn').on('click', function () {
-                    const iframe = document.getElementById('bracket-iframe');
-                    if (iframe && iframe.contentWindow && iframe.contentWindow.jQuery) {
-                        const win = iframe.contentWindow;
-                        const data = win.jQuery('#bracket-container').bracket('data');
-                        const flatMatches = [];
-
-                        if (currentFormat === 'Double Elimination') {
-                            const [wb, lb, finals] = data.results;
-                            wb.forEach((round, r) => round.forEach((m, p) => flatMatches.push({ round: r + 1, position: p, score1: m[0], score2: m[1] })));
-                            lb.forEach((round, r) => round.forEach((m, p) => flatMatches.push({ round: -(r + 1), position: p, score1: m[0], score2: m[1] })));
-                            finals.forEach((round, r) => round.forEach((m, p) => flatMatches.push({ round: 101 + r, position: p, score1: m[0], score2: m[1] })));
-                        } else {
-                            data.results.forEach((round, r) => round.forEach((m, p) => flatMatches.push({ round: r + 1, position: p, score1: m[0], score2: m[1] })));
-                        }
-                        saveMatchesToDB(flatMatches);
-                    }
+                    saveMatchesToDB(localMatches);
                 });
 
             } catch (error) {

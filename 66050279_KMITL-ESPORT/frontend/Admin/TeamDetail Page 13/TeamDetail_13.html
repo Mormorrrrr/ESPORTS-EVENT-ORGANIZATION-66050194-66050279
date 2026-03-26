@@ -163,8 +163,8 @@
                     const res = await fetch(`${API_BASE_URL}/teams/${teamId}`);
                     const data = await res.json();
                     
-                    if (res.ok && data.team) {
-                        const team = data.team;
+                    if (res.ok && data) {
+                        const team = data.team || data;
                         // Update Identity
                         document.getElementById('team-name-display').textContent = team.team_name;
                         

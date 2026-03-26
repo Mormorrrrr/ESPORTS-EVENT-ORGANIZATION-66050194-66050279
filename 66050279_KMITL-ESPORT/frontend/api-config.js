@@ -167,7 +167,7 @@ async function _sbRoute(path, method, body) {
     if (teamM) {
         var teamId = parseInt(teamM[1]);
         if (method === 'GET') {
-            const { data, error } = await sb.from('Team').select('*').eq('team_id', teamId).single();
+            const { data, error } = await sb.from('Team').select('*, applications:Application(*, tournament:Tournament(*))').eq('team_id', teamId).single();
             if (error) return _mockRes({ message: 'Team not found' }, 404);
             return _mockRes(data);
         }

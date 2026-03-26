@@ -174,9 +174,9 @@
                     const res = await fetch(`${API_BASE_URL}/teams/${teamId}`);
                     const data = await res.json();
                     
-                    if (res.ok && data.team) {
-                        const team = data.team;
-                        
+                    if (res.ok && data) {
+                        const team = data.team || data;
+
                         // Populate Inputs
                         document.getElementById('input-team-name').value = team.team_name || '';
                         document.getElementById('input-leader-name').value = team.leader_name || '';
@@ -184,20 +184,26 @@
                         document.getElementById('member-2').value = team.member_2 || '';
                         document.getElementById('member-3').value = team.member_3 || '';
                         document.getElementById('member-4').value = team.member_4 || '';
-                        
+
                         // Logo Preview
                         currentLogoUrl = team.team_banner_url || '';
                         updateLogoPreview();
 
                         // Tournament Context
-                        if (data.applications && data.applications.length > 0) {
-                            const tournament = data.applications[0].tournament;
-                            document.getElementById('tournament-name').textContent = tournament.tournament_name;
-                            document.getElementById('tournament-date').textContent = new Date(tournament.start_date).toLocaleDateString();
-                            const fallbackT = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200';
-                            const tBanner = document.getElementById('tournament-banner');
-                            tBanner.src = tournament.tournament_banner || fallbackT;
-                            tBanner.onerror = () => tBanner.src = fallbackT;
+                        const apps = team.applications || data.applications || [];
+                        if (apps.length > 0) {
+                            const tournament = apps[0].tournament;
+                            if (tournament) {
+                                document.getElementById('tournament-name').textContent = tournament.tournament_name;
+                                document.getElementById('tournament-date').textContent = new Date(tournament.start_date).toLocaleDateString();
+                                const fallbackT = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200';
+                                const tBanner = document.getElementById('tournament-banner');
+                                tBanner.src = tournament.tournament_banner || fallbackT;
+                                tBanner.onerror = () => tBanner.src = fallbackT;
+                            }
+                        } else {
+                            document.getElementById('tournament-name').textContent = '-';
+                            document.getElementById('tournament-date').textContent = '-';
                         }
                     }
                 } catch (e) { console.error('Load Error:', e); }
