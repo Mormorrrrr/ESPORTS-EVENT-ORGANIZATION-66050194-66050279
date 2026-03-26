@@ -260,7 +260,7 @@
                     }
                 } else {
                     const teamErr = await teamRes.json();
-                    alert('Team creation failed: ' + (teamErr.error || 'Unknown error'));
+                    alert('Team creation failed: ' + (teamErr.error || teamErr.message || 'Unknown error'));
                     btn.disabled = false;
                     btn.textContent = 'Confirm';
                 }
