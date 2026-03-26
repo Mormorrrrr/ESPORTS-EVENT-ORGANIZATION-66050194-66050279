@@ -715,12 +715,16 @@
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ matches: matchesToSave })
                     })
-                        .then(res => res.json())
+                        .then(res => {
+                            if (!res.ok) return res.json().then(d => { throw new Error(d.message || 'Server error ' + res.status); });
+                            return res.json();
+                        })
                         .then(res => {
                             $status.text('Saved successfully!').css('color', '#10b981');
                             setTimeout(() => $status.text(''), 3000);
                         })
                         .catch(err => {
+                            console.error('[Save Match]', err);
                             $status.text('Save failed: ' + err.message).css('color', '#ef4444');
                         });
                 };
@@ -745,17 +749,28 @@
                             init: data,
                             save: (newData) => {
                                 // closure has access to outer localMatches
+                                // Flatten a bracket score value: handles both [s1,s2] pair and plain integer
+                                const flatScore = (v, idx) => {
+                                    if (v === null || v === undefined) return null;
+                                    if (Array.isArray(v)) return v[idx] !== undefined ? v[idx] : null;
+                                    return typeof v === 'number' ? v : null;
+                                };
+                                // Extract s1/s2 from a match entry (could be [s1,s2] or [[s1,s2]] or int)
+                                const getS1 = (m) => Array.isArray(m) ? (Array.isArray(m[0]) ? m[0][0] : m[0]) : null;
+                                const getS2 = (m) => Array.isArray(m) ? (Array.isArray(m[0]) ? m[0][1] : m[1]) : null;
+                                console.log('[bracket save] results:', JSON.stringify(newData.results));
                                 if (isDouble) {
                                     const [nwb, nlb, nfinals] = newData.results;
                                     localMatches.length = 0;
-                                    nwb.forEach((round, r) => round.forEach((m, p) => localMatches.push({ round: r+1, position: p, score1: m[0], score2: m[1] })));
-                                    nlb.forEach((round, r) => round.forEach((m, p) => localMatches.push({ round: -(r+1), position: p, score1: m[0], score2: m[1] })));
-                                    nfinals.forEach((round, r) => round.forEach((m, p) => localMatches.push({ round: 101+r, position: p, score1: m[0], score2: m[1] })));
+                                    nwb.forEach((round, r) => round.forEach((m, p) => localMatches.push({ round: r+1, position: p, score1: getS1(m), score2: getS2(m) })));
+                                    nlb.forEach((round, r) => round.forEach((m, p) => localMatches.push({ round: -(r+1), position: p, score1: getS1(m), score2: getS2(m) })));
+                                    nfinals.forEach((round, r) => round.forEach((m, p) => localMatches.push({ round: 101+r, position: p, score1: getS1(m), score2: getS2(m) })));
                                 } else {
                                     newData.results.forEach((round, r) => round.forEach((match, m) => {
+                                        const s1 = getS1(match), s2 = getS2(match);
                                         const ex = localMatches.find(x => x.round === r+1 && x.position === m);
-                                        if (ex) { ex.score1 = match[0]; ex.score2 = match[1]; }
-                                        else localMatches.push({ round: r+1, position: m, score1: match[0], score2: match[1] });
+                                        if (ex) { ex.score1 = s1; ex.score2 = s2; }
+                                        else localMatches.push({ round: r+1, position: m, score1: s1, score2: s2 });
                                     }));
                                 }
                             }

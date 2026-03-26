@@ -129,6 +129,42 @@ async function _sbRoute(path, method, body) {
         return _mockRes(data || []);
     }
 
+    // POST /tournaments/:id/matches/save
+    var matchesSaveM = path.match(/^\/tournaments\/(\d+)\/matches\/save$/);
+    if (matchesSaveM && method === 'POST') {
+        var tid = parseInt(matchesSaveM[1]);
+        var matches = (body && body.matches) || [];
+        if (!matches.length) return _mockRes({ message: 'No matches provided' }, 400);
+
+        // Delete existing matches for this tournament then re-insert
+        const { error: delError } = await sb.from('Match').delete().eq('tournament_id', tid);
+        if (delError) return _mockRes({ message: delError.message }, 500);
+
+        function toInt(v) {
+            if (v === null || v === undefined) return null;
+            if (Array.isArray(v)) return v.length > 0 && v[0] !== null ? parseInt(v[0]) : null;
+            const n = parseInt(v);
+            return isNaN(n) ? null : n;
+        }
+
+        const rows = matches.map(function(m) {
+            // score might be an array [s1,s2] if bracket callback passes the pair instead of individual value
+            const s1 = Array.isArray(m.score1) ? m.score1[0] : m.score1;
+            const s2 = Array.isArray(m.score2) ? m.score2[1] : m.score2;
+            return {
+                tournament_id: tid,
+                round: m.round,
+                position: m.position,
+                score1: toInt(s1),
+                score2: toInt(s2)
+            };
+        });
+
+        const { error: insError } = await sb.from('Match').insert(rows);
+        if (insError) return _mockRes({ message: insError.message }, 500);
+        return _mockRes({ message: 'Saved successfully', count: rows.length });
+    }
+
     // GET /tournaments/:id  OR  PUT/DELETE /tournaments/:id
     var tournM = path.match(/^\/tournaments\/(\d+)$/);
     if (tournM) {
