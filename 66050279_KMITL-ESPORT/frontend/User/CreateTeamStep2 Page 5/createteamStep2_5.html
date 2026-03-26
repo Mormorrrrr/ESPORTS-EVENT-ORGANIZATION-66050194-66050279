@@ -245,7 +245,7 @@
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                             team_id: newTeam.team_id,
-                            tournament_id: tournament_id
+                            tournament_id: parseInt(tournament_id)
                         })
                     });
 
@@ -255,7 +255,7 @@
                         window.location.href = '../Team(Have) Page 6/HistoryTeam_6.html';
                     } else {
                         const appErr = await appRes.json();
-                        alert('Team created, but registration failed: ' + (appErr.error || 'Unknown error'));
+                        alert('Team created, but registration failed: ' + (appErr.error || appErr.message || 'Unknown error'));
                         window.location.href = '../Team(Have) Page 6/HistoryTeam_6.html';
                     }
                 } else {
