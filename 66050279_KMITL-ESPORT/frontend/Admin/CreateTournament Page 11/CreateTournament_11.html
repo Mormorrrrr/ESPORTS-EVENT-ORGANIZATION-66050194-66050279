@@ -152,7 +152,9 @@
                             <!-- Single Elimination -->
                             <label class="label-2 format-option active" style="cursor: pointer; display: flex; align-items: center; padding: 12px; border: 2px solid #ff8c00; border-radius: 12px; transition: all 0.2s; background: white;" data-type="single-elimination">
                                 <div class="selection-indicator" style="width: 20px; height: 20px; border-radius: 50%; border: 2px solid #ff8c00; display: flex; align-items: center; justify-content: center; background: #ff8c00;">
-                                    <img class="vector" src="img/vector.svg" alt="" style="width: 10px; display: block;" />
+                                    <svg class="vector" width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
                                 </div>
                                 <input type="radio" name="tournament-type" value="single-elimination" class="radio-hidden" checked style="display: none;" />
                                 <div class="div" style="margin-left: 12px;">
@@ -163,7 +165,9 @@
                             <!-- Double Elimination -->
                             <label class="label-3 format-option" style="cursor: pointer; display: flex; align-items: center; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; transition: all 0.2s; margin-top: 10px; background: white;" data-type="double-elimination">
                                 <div class="selection-indicator" style="width: 20px; height: 20px; border-radius: 50%; border: 2px solid #cbd5e1; display: flex; align-items: center; justify-content: center; background: transparent;">
-                                    <img class="vector" src="img/vector.svg" alt="" style="width: 10px; display: none;" />
+                                    <svg class="vector" width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                        <path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
                                 </div>
                                 <input type="radio" name="tournament-type" value="double-elimination" class="radio-hidden" style="display: none;" />
                                 <div class="div" style="margin-left: 12px;">
@@ -185,8 +189,6 @@
                                             placeholder="e.g. 3 Days" aria-label="Tournament duration" />
                                     </div>
                                 </div>
-                                <div class="icon-wrapper"><img class="icon-3" src="img/icon-2.svg"
-                                        alt="Calendar icon" /></div>
                             </div>
                         </div>
                         <div class="container-7">
