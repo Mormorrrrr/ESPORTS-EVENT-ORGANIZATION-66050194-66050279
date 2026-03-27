@@ -339,34 +339,35 @@
 
                     // Matches rendering (Upgraded to match mockup)
                     let foundMatches = false;
-                    matchListContainer.innerHTML = ''; // Clear before starting
-                    
+                    matchListContainer.innerHTML = '';
                     for (const t of tournaments) {
                         try {
-                            const mRes = await fetch(`${baseUrl}/tournaments/${t.tournament_id}/matches`);
+                            const mRes = await fetch(`${API_BASE_URL}/tournaments/${t.tournament_id}/matches`);
                             if (mRes.ok) {
                                 const matches = await mRes.json();
-                                // Only show matches that aren't finished yet
-                                const upcoming = matches.filter(m => m.score1 === null && m.score2 === null);
-                                if (upcoming.length > 0) {
+                                // Include all matches that have teams, or at least show finished ones
+                                if (matches.length > 0) {
                                     foundMatches = true;
-                                    upcoming.slice(0, 3).forEach(m => {
+                                    matches.slice(0, 3).forEach(m => {
                                         const banner1 = m.team1_banner_url || '../../icons/user.svg';
                                         const banner2 = m.team2_banner_url || '../../icons/user.svg';
                                         
+                                        const hasScore = m.score1 !== null && m.score2 !== null;
+                                        const vsContent = hasScore ? `<div class="results-badge-premium">${m.score1} - ${m.score2}</div>` : '<div class="vs-badge-premium">VS</div>';
+
                                         const row = document.createElement('article');
                                         row.className = 'premium-match-row';
                                         row.innerHTML = `
                                             <div class="match-meta-info">
                                                 <span class="match-tournament-tag" style="color: #ff8c00; font-size: 11px;">${t.tournament_name}</span>
-                                                <span class="match-time-tag">START IN <strong>15:30</strong></span>
+                                                <span class="match-time-tag">${hasScore ? 'FINISHED' : 'START IN <strong>15:30</strong>'}</span>
                                             </div>
                                             <div style="display: flex; align-items: center; gap: 32px; flex: 1; justify-content: center;">
                                                 <div class="match-team-container" style="justify-content: flex-end;">
                                                     <span class="match-team-name">${m.team1_name || 'TBD'}</span>
                                                     <img class="team-banner-circle" src="${banner1}" onerror="this.src='../../icons/user.svg'" />
                                                 </div>
-                                                <div class="vs-badge-premium">VS</div>
+                                                ${vsContent}
                                                 <div class="match-team-container">
                                                     <img class="team-banner-circle" src="${banner2}" onerror="this.src='../../icons/user.svg'" />
                                                     <span class="match-team-name">${m.team2_name || 'TBD'}</span>

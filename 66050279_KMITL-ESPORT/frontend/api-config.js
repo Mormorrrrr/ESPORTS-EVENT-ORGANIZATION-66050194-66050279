@@ -170,36 +170,45 @@ async function _sbRoute(path, method, body) {
     if (matchesSaveM && method === 'POST') {
         var tid = parseInt(matchesSaveM[1]);
         var matches = (body && body.matches) || [];
-        if (!matches.length) return _mockRes({ message: 'No matches provided' }, 400);
+        var tournamentType = body && body.tournament_type;
 
-        // Delete existing matches for this tournament then re-insert
+        // 1. Update tournament type if provided
+        if (tournamentType) {
+            await sb.from('Tournament').update({ tournament_type: tournamentType }).eq('tournament_id', tid);
+        }
+
+        // 2. Delete existing matches then re-insert
         const { error: delError } = await sb.from('Match').delete().eq('tournament_id', tid);
         if (delError) return _mockRes({ message: delError.message }, 500);
 
+        if (matches.length === 0) return _mockRes({ message: 'Saved successfully (cleared matches)' });
+
         function toInt(v) {
-            if (v === null || v === undefined) return null;
+            if (v === null || v === undefined || v === '') return null;
             if (Array.isArray(v)) return v.length > 0 && v[0] !== null ? parseInt(v[0]) : null;
             const n = parseInt(v);
             return isNaN(n) ? null : n;
         }
 
         const rows = matches.map(function(m) {
-            // score might be an array [s1,s2] if bracket callback passes the pair instead of individual value
-            const s1 = Array.isArray(m.score1) ? m.score1[0] : m.score1;
-            const s2 = Array.isArray(m.score2) ? m.score2[1] : m.score2;
             return {
                 tournament_id: tid,
                 team1_name: m.team1_name || null,
                 team2_name: m.team2_name || null,
                 round: m.round,
                 position: m.position,
-                score1: toInt(s1),
-                score2: toInt(s2)
+                score1: toInt(m.score1),
+                score2: toInt(m.score2)
             };
         });
 
+        console.log('[Supabase] Saving matches for tid:', tid, 'Rows:', rows.length);
         const { error: insError } = await sb.from('Match').insert(rows);
-        if (insError) return _mockRes({ message: insError.message }, 500);
+        if (insError) {
+            console.error('[Supabase] Insert Error:', insError.message);
+            return _mockRes({ message: insError.message }, 500);
+        }
+        console.log('[Supabase] Saved successfully:', rows.length, 'rows');
         return _mockRes({ message: 'Saved successfully', count: rows.length });
     }
 
@@ -331,6 +340,27 @@ window.fetch = async function(input, init) {
         return _mockRes({ message: 'Supabase error: ' + err.message }, 500);
     });
 };
+
+// ── Global Input Protection Guard (Prevent involuntary reloads while typing) ──
+(function() {
+    let isEditing = false;
+    window.addEventListener('beforeunload', (e) => {
+        if (isEditing) {
+            e.preventDefault();
+            e.returnValue = 'คุณมีข้อมูลที่ยกรอกค้างไว้ ต้องการออกจากหน้านี้ใช่หรือไม่?';
+        }
+    });
+    // Enable guard as soon as user starts interacting with any input
+    document.addEventListener('input', (e) => {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.contentEditable === 'true') {
+            isEditing = true;
+        }
+    }, true);
+    // Disable guard on form submission or explicit navigation
+    window.addEventListener('submit', () => { isEditing = false; }, true);
+    // Helper to allow safe transitions
+    window.allowTransition = () => { isEditing = false; };
+})();
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = { API_BASE_URL };

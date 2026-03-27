@@ -948,13 +948,16 @@
                     }
                 });
 
-                const saveMatchesToDB = (matchesToSave) => {
+                const saveMatchesToDB = (matchesToSave, tournamentType) => {
                     const $status = $('#save-status');
                     $status.text('Saving...').css('color', '#6b7280');
                     fetch(`${API_BASE_URL}/tournaments/${tournamentId}/matches/save`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ matches: matchesToSave })
+                        body: JSON.stringify({ 
+                            matches: matchesToSave,
+                            tournament_type: tournamentType
+                        })
                     })
                         .then(res => {
                             if (!res.ok) return res.json().then(d => { throw new Error(d.message || 'Server error ' + res.status); });
@@ -971,7 +974,7 @@
                         });
                 };
 
-                const injectBracket = (data, isDouble) => {
+                const injectBracket = (data, isDouble, currentBracketTeams) => {
                     const iframeHtml = '\x3C!DOCTYPE html\x3E\x3Chtml\x3E\x3Chead\x3E\x3Cmeta charset="utf-8"\x3E'
                         + '\x3Clink rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.css"\x3E'
                         + '\x3Cscript src="https://code.jquery.com/jquery-3.6.0.min.js"\x3E\x3C/script\x3E'
@@ -1003,16 +1006,16 @@
                                 const getS1 = (m) => Array.isArray(m) ? flatScore(Array.isArray(m[0]) ? m[0] : m, 0) : null;
                                 const getS2 = (m) => Array.isArray(m) ? flatScore(Array.isArray(m[0]) ? m[0] : m, 1) : null;
                                 
-                                console.log('[bracket save] results:', JSON.stringify(newData.results));
+                                console.log('[bracket save] newData:', JSON.stringify(newData));
                                 
                                 if (isDouble) {
                                     const [nwb, nlb, nfinals] = newData.results;
                                     // Winners Bracket
                                     nwb.forEach((round, r) => round.forEach((m, p) => {
                                         const matchData = { round: r + 1, position: p, score1: getS1(m), score2: getS2(m) };
-                                        if (r === 0 && bracketTeams[p]) {
-                                            matchData.team1_name = bracketTeams[p][0];
-                                            matchData.team2_name = bracketTeams[p][1];
+                                        if (r === 0 && currentBracketTeams[p]) {
+                                            matchData.team1_name = currentBracketTeams[p][0];
+                                            matchData.team2_name = currentBracketTeams[p][1];
                                         }
                                         localMatches.push(matchData);
                                     }));
@@ -1082,7 +1085,7 @@
                         else if (m.round < 0) { let ri = Math.abs(m.round) - 1; if (lb[ri] && lb[ri][m.position]) lb[ri][m.position] = [m.score1, m.score2]; }
                         else if (m.round > 100) { let ri = m.round - 101; if (finals[ri] && finals[ri][m.position]) finals[ri][m.position] = [m.score1, m.score2]; }
                     });
-                    injectBracket({ teams: bracketTeams, results: [wb, lb, finals] }, true);
+                    injectBracket({ teams: bracketTeams, results: [wb, lb, finals] }, true, bracketTeams);
                 };
 
                 const renderSingleBracket = () => {
@@ -1118,7 +1121,7 @@
                         results.push(roundArr);
                         slotTeams = nextSlot;
                     }
-                    injectBracket({ teams: bracketTeams, results: results }, false);
+                    injectBracket({ teams: bracketTeams, results: results }, false, bracketTeams);
                 };
 
                 const renderCurrentBracket = () => {
@@ -1152,7 +1155,7 @@
 
                 // Manual Save Handling — use localMatches updated by iframe save callback
                 $('#save-bracket-btn').on('click', function () {
-                    saveMatchesToDB(localMatches);
+                    saveMatchesToDB(localMatches, currentFormat);
                 });
 
             } catch (error) {

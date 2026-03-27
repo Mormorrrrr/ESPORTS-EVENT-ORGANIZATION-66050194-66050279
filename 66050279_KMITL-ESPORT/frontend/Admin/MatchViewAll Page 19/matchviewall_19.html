@@ -256,16 +256,16 @@
                     const tournaments = await tRes.json();
                     
                     container.innerHTML = '';
-                    let allUpcomingMatches = [];
+                    let allMatches = [];
 
                     for (const t of tournaments) {
                         try {
                             const mRes = await fetch(`${API_BASE_URL}/tournaments/${t.tournament_id}/matches`);
                             if (mRes.ok) {
                                 const matches = await mRes.json();
-                                const upcoming = matches.filter(m => m.score1 === null && m.score2 === null);
-                                upcoming.forEach(m => {
-                                    allUpcomingMatches.push({ ...m, tournament_name: t.tournament_name });
+                                // Include all matches that have teams, not just null scores
+                                matches.forEach(m => {
+                                    allMatches.push({ ...m, tournament_name: t.tournament_name });
                                 });
                             }
                         } catch (e) {
@@ -273,31 +273,38 @@
                         }
                     }
 
-                    if (allUpcomingMatches.length === 0) {
+                    if (allMatches.length === 0) {
                         container.innerHTML = '<p style="padding:40px;text-align:center;color:#64748b;font-size:16px;">ยังไม่มีการแข่งขันที่กำหนดไว้</p>';
                         return;
                     }
 
-                    allUpcomingMatches.sort((a, b) => (a.round || 0) - (b.round || 0));
+                    // Sort by round then position
+                    allMatches.sort((a, b) => {
+                        if (a.round !== b.round) return (a.round || 0) - (b.round || 0);
+                        return (a.position || 0) - (b.position || 0);
+                    });
 
-                    allUpcomingMatches.forEach(m => {
+                    allMatches.forEach(m => {
                         const banner1 = m.team1_banner_url || '../../icons/user.svg';
                         const banner2 = m.team2_banner_url || '../../icons/user.svg';
                         
+                        const hasScore = m.score1 !== null && m.score2 !== null;
+                        const vsContent = hasScore ? `<div class="results-badge-premium">${m.score1} - ${m.score2}</div>` : '<div class="vs-badge-premium">VS</div>';
+
                         const row = document.createElement('article');
                         row.className = 'premium-match-row';
                         row.style.width = '100%';
                         row.innerHTML = `
                             <div class="match-meta-info">
                                 <span class="match-tournament-tag" style="color: #ff8c00; font-size: 11px;">${m.tournament_name}</span>
-                                <span class="match-time-tag">START IN <strong>15:30</strong></span>
+                                <span class="match-time-tag">${hasScore ? 'FINISHED' : 'START IN <strong>15:30</strong>'}</span>
                             </div>
                             <div style="display: flex; align-items: center; gap: 32px; flex: 1; justify-content: center;">
                                 <div class="match-team-container" style="justify-content: flex-end;">
                                     <span class="match-team-name">${m.team1_name || 'TBD'}</span>
                                     <img class="team-banner-circle" src="${banner1}" onerror="this.src='../../icons/user.svg'" />
                                 </div>
-                                <div class="vs-badge-premium">VS</div>
+                                ${vsContent}
                                 <div class="match-team-container">
                                     <img class="team-banner-circle" src="${banner2}" onerror="this.src='../../icons/user.svg'" />
                                     <span class="match-team-name">${m.team2_name || 'TBD'}</span>
