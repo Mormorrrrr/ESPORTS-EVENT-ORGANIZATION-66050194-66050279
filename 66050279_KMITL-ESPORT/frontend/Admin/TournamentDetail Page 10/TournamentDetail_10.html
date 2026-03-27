@@ -14,9 +14,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.js"></script>
     <style>
         /* Reset box-sizing for jquery-bracket (shared-admin.css sets border-box globally) */
-        #bracket, #bracket * {
+        #bracket,
+        #bracket * {
             box-sizing: content-box !important;
         }
+
         #bracket .jQBracket {
             overflow-x: auto;
             display: block !important;
@@ -156,10 +158,11 @@
             cursor: pointer;
             transition: all 0.2s;
             user-select: none;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
 
-        .control-btn#btn-plus, .control-btn#btn-minus {
+        .control-btn#btn-plus,
+        .control-btn#btn-minus {
             font-size: 16px;
             font-weight: 700;
         }
@@ -242,7 +245,7 @@
         }
 
         .jQBracket {
-            
+
             margin-top: 40px;
         }
 
@@ -291,19 +294,21 @@
             <div class="ns-header-right">
                 <label class="ns-search-box" aria-label="Search tournaments">
                     <div class="ns-search-bg">
-                        <img class="ns-search-icon" src="../../icons/search.svg" alt="Search icon" />
+                        <img class="ns-search-icon" src="img/search.svg" alt="Search icon" />
                     </div>
                     <input class="ns-search-input" placeholder="Search tournaments..." type="search"
                         aria-label="Search tournaments" />
                 </label>
-                <div class="ns-user-area" style="position:relative;display:flex;align-items:center;gap:8px;cursor:pointer;" onclick="logoutUser()" title="ออกจากระบบ">
-                <span id="header-username" style="font-size:13px;font-weight:600;color:#334155;"></span>
-                <img class="ns-user-avatar" src="../../icons/user.svg" alt="User profile" style="cursor:pointer;" />
-            </div>
-            <script>
-            (function(){var u=JSON.parse(localStorage.getItem("user")||"null");if(u&&u.username)document.getElementById("header-username").textContent=u.username;})();
-            function logoutUser(){if(confirm("ต้องการออกจากระบบ?")){localStorage.removeItem("user");window.location.href="../../Login Page/login.html";}}
-            </script>
+                <div class="ns-user-area"
+                    style="position:relative;display:flex;align-items:center;gap:8px;cursor:pointer;"
+                    onclick="logoutUser()" title="ออกจากระบบ">
+                    <span id="header-username" style="font-size:13px;font-weight:600;color:#334155;"></span>
+                    <img class="ns-user-avatar" src="../../icons/user.svg" alt="User profile" style="cursor:pointer;" />
+                </div>
+                <script>
+                    (function () { var u = JSON.parse(localStorage.getItem("user") || "null"); if (u && u.username) document.getElementById("header-username").textContent = u.username; })();
+                    function logoutUser() { if (confirm("ต้องการออกจากระบบ?")) { localStorage.removeItem("user"); window.location.href = "../../Login Page/login.html"; } }
+                </script>
             </div>
         </header>
 
@@ -336,81 +341,120 @@
         <!-- Main Content -->
         <main class="frame" style="padding-bottom: 80px;">
             <!-- Hero Banner -->
-            <section id="banner-section" style="position: relative; width: 100%; height: 280px; border-radius: 24px; overflow: hidden; margin-bottom: 32px; background: #0f172a; flex-shrink: 0;">
-                <img id="banner-img" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=1200" alt="Tournament banner" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.6;" />
-                <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.8) 100%); display: flex; align-items: flex-end; padding: 40px;">
-                    <h1 id="tournament-name" style="color: white; font-size: 40px; font-weight: 800; margin: 0; letter-spacing: -1px;">Tournament</h1>
+            <section id="banner-section"
+                style="position: relative; width: 100%; height: 280px; border-radius: 24px; overflow: hidden; margin-bottom: 32px; background: #0f172a; flex-shrink: 0;">
+                <img id="banner-img"
+                    src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&q=80&w=1200"
+                    alt="Tournament banner" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.6;" />
+                <div
+                    style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.8) 100%); display: flex; align-items: flex-end; padding: 40px;">
+                    <h1 id="tournament-name"
+                        style="color: white; font-size: 40px; font-weight: 800; margin: 0; letter-spacing: -1px;">
+                        Tournament</h1>
                 </div>
             </section>
 
             <!-- Tournament Details -->
-            <section id="details-section" style="background: white; padding: 32px; border-radius: 20px; border: 1px solid #f1f5f9; box-shadow: 0 1px 2px rgba(0,0,0,0.05); margin-bottom: 24px;">
+            <section id="details-section"
+                style="background: white; padding: 32px; border-radius: 20px; border: 1px solid #f1f5f9; box-shadow: 0 1px 2px rgba(0,0,0,0.05); margin-bottom: 24px;">
                 <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
-                    <img src="../../icons/info.svg" alt="" style="width: 24px; height: 24px;" />
-                    <h2 id="tournament-details-heading" style="margin: 0; font-size: 20px; font-weight: 700; color: #0f172a;">Tournament Details</h2>
+                    <img src="img/info-accent.svg" alt="" style="width: 24px; height: 24px;" />
+                    <h2 id="tournament-details-heading"
+                        style="margin: 0; font-size: 20px; font-weight: 700; color: #0f172a;">Tournament Details</h2>
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
                     <div style="display: flex; align-items: center; gap: 16px; min-width: 0;">
-                        <div style="width: 48px; height: 48px; background: #ff8c001a; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                            <img src="../../icons/gamepad.svg" style="width: 24px; height: 24px;" />
+                        <div
+                            style="width: 48px; height: 48px; background: #f8fafc; border: 1px solid #f1f5f9; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <img src="img/gamepad.svg" style="width: 24px; height: 24px;" />
                         </div>
                         <div style="min-width: 0; flex: 1;">
-                            <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Tournament Type</div>
-                            <span class="text-2" style="font-size: 16px; font-weight: 600; color: #0f172a; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Single Elimination</span>
+                            <div
+                                style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+                                Tournament Type</div>
+                            <span class="text-2"
+                                style="font-size: 16px; font-weight: 600; color: #0f172a; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Single
+                                Elimination</span>
                         </div>
                     </div>
                     <div style="display: flex; align-items: center; gap: 16px; min-width: 0;">
-                        <div style="width: 48px; height: 48px; background: #ff8c001a; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                            <img src="../../icons/calendar-day.svg" style="width: 24px; height: 24px;" />
+                        <div
+                            style="width: 48px; height: 48px; background: #f8fafc; border: 1px solid #f1f5f9; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <img src="img/daily-calendar.svg" style="width: 24px; height: 24px;" />
                         </div>
                         <div style="min-width: 0; flex: 1;">
-                            <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Duration</div>
-                            <span class="text-4" style="font-size: 16px; font-weight: 600; color: #0f172a; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">3 Days</span>
+                            <div
+                                style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+                                Duration</div>
+                            <span class="text-4"
+                                style="font-size: 16px; font-weight: 600; color: #0f172a; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">3
+                                Days</span>
                         </div>
                     </div>
                     <div style="display: flex; align-items: center; gap: 16px; min-width: 0;">
-                        <div style="width: 48px; height: 48px; background: #ff8c001a; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                            <img src="../../icons/pencil.svg" style="width: 24px; height: 24px;" />
+                        <div
+                            style="width: 48px; height: 48px; background: #f8fafc; border: 1px solid #f1f5f9; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <img src="img/age-alt.svg" style="width: 24px; height: 24px;" />
                         </div>
                         <div style="min-width: 0; flex: 1;">
-                            <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Age Range</div>
-                            <p class="p" style="font-size: 16px; font-weight: 600; color: #0f172a; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">18 - 25 years old</p>
+                            <div
+                                style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+                                Age Range</div>
+                            <p class="p"
+                                style="font-size: 16px; font-weight: 600; color: #0f172a; margin: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                18 - 25 years old</p>
                         </div>
                     </div>
                     <div style="display: flex; align-items: center; gap: 16px; min-width: 0;">
-                        <div style="width: 48px; height: 48px; background: #ff8c001a; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                            <img src="../../icons/trophy-star.svg" style="width: 24px; height: 24px;" />
+                        <div
+                            style="width: 48px; height: 48px; background: #f8fafc; border: 1px solid #f1f5f9; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <img src="img/employees.svg" style="width: 24px; height: 24px;" />
                         </div>
                         <div style="min-width: 0; flex: 1;">
-                            <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Format</div>
-                            <span class="text-7" style="font-size: 16px; font-weight: 600; color: #0f172a; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">5v5 Squads</span>
+                            <div
+                                style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+                                Format</div>
+                            <span class="text-7"
+                                style="font-size: 16px; font-weight: 600; color: #0f172a; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">5v5
+                                Squads</span>
                         </div>
                     </div>
                 </div>
             </section>
 
             <!-- Registration Dates -->
-            <section id="dates-section" style="background: white; padding: 32px; border-radius: 20px; border: 1px solid #f1f5f9; box-shadow: 0 1px 2px rgba(0,0,0,0.05); margin-bottom: 24px;">
+            <section id="dates-section"
+                style="background: white; padding: 32px; border-radius: 20px; border: 1px solid #f1f5f9; box-shadow: 0 1px 2px rgba(0,0,0,0.05); margin-bottom: 24px;">
                 <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
-                    <img src="../../icons/calendar-day.svg" alt="" style="width: 24px; height: 24px;" />
-                    <h2 id="registration-dates-heading" style="margin: 0; font-size: 20px; font-weight: 700; color: #0f172a;">Registration Dates</h2>
+                    <img src="img/calendar-check.svg" alt="" style="width: 24px; height: 24px;" />
+                    <h2 id="registration-dates-heading"
+                        style="margin: 0; font-size: 20px; font-weight: 700; color: #0f172a;">Registration Dates</h2>
                 </div>
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-                    <div style="background: #f8fafc; border-radius: 16px; padding: 20px 24px; border: 1px solid #f1f5f9;">
-                        <div style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Opens On</div>
-                        <div class="text-wrapper-2" style="font-size: 18px; font-weight: 700; color: #0f172a;">November 15, 2025</div>
+                    <div
+                        style="background: #f8fafc; border-radius: 16px; padding: 20px 24px; border: 1px solid #f1f5f9;">
+                        <div
+                            style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">
+                            Opens On</div>
+                        <div class="text-wrapper-2" style="font-size: 18px; font-weight: 700; color: #0f172a;">November
+                            15, 2025</div>
                         <div style="font-size: 13px; color: #64748b; margin-top: 4px;">09:00 AM ICT</div>
                     </div>
-                    <div style="background: #f8fafc; border-radius: 16px; padding: 20px 24px; border: 1px solid #f1f5f9;">
-                        <div style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Closes On</div>
-                        <div class="text-wrapper-3" style="font-size: 18px; font-weight: 700; color: #0f172a;">December 05, 2025</div>
+                    <div
+                        style="background: #f8fafc; border-radius: 16px; padding: 20px 24px; border: 1px solid #f1f5f9;">
+                        <div
+                            style="font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">
+                            Closes On</div>
+                        <div class="text-wrapper-3" style="font-size: 18px; font-weight: 700; color: #0f172a;">December
+                            05, 2025</div>
                         <div style="font-size: 13px; color: #64748b; margin-top: 4px;">11:59 PM ICT</div>
                     </div>
                 </div>
             </section>
 
             <!-- Tournament Bracket -->
-            <section style="background: white; padding: 32px; border-radius: 20px; border: 1px solid #f1f5f9; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
+            <section
+                style="background: white; padding: 32px; border-radius: 20px; border: 1px solid #f1f5f9; box-shadow: 0 1px 2px rgba(0,0,0,0.05);">
                 <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
                     <img src="../../icons/users.svg" alt="" style="width: 28px; height: 28px;" />
                     <h2 style="margin: 0; font-size: 24px; font-weight: 800; color: #0f172a;">Tournament Bracket</h2>
@@ -418,7 +462,8 @@
                 <div id="bracket-diagnostic" style="margin-bottom:10px; font-size:12px; color:#94a3b8;"></div>
                 <div style="margin-bottom: 20px; display: flex; align-items: center; gap: 10px; position: relative;">
                     <span style="font-size: 14px; font-weight: 600; color: #334155;">Bracket Format:</span>
-                    <select id="format-toggle" style="padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; color: #0f172a; background: #fff; cursor: pointer;">
+                    <select id="format-toggle"
+                        style="padding: 6px 12px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 14px; color: #0f172a; background: #fff; cursor: pointer;">
                         <option value="Single Elimination">Single Elimination</option>
                         <option value="Double Elimination">Double Elimination</option>
                     </select>
@@ -433,7 +478,8 @@
                 </div>
                 <div style="margin-top:20px; text-align:right;">
                     <span id="save-status" style="margin-right:15px; font-weight:600; font-size:14px;"></span>
-                    <button id="save-bracket-btn" style="background:#2563eb; color:white; border:none; padding:10px 24px; border-radius:10px; font-weight:600; cursor:pointer; transition:all 0.2s;">
+                    <button id="save-bracket-btn"
+                        style="background:#2563eb; color:white; border:none; padding:10px 24px; border-radius:10px; font-weight:600; cursor:pointer; transition:all 0.2s;">
                         Save Match Results
                     </button>
                 </div>
@@ -442,7 +488,9 @@
     </div>
 
     <!-- ===== MODALS ===== -->
-    <div id="modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9000;align-items:center;justify-content:center;" onclick="if(event.target===this)closeModal()">
+    <div id="modal-overlay"
+        style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9000;align-items:center;justify-content:center;"
+        onclick="if(event.target===this)closeModal()">
 
         <!-- About Modal -->
         <div id="about-modal" class="modal-box" style="display:none;">
@@ -452,21 +500,26 @@
             </div>
             <div class="modal-body">
                 <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
-                    <img src="../../icons/Logo.png" alt="Logo" style="width:64px;height:64px;border-radius:12px;object-fit:contain;" />
+                    <img src="../../icons/Logo.png" alt="Logo"
+                        style="width:64px;height:64px;border-radius:12px;object-fit:contain;" />
                     <div>
                         <div style="font-size:20px;font-weight:800;color:#1e293b;">KMITL ESPORT</div>
                         <div style="font-size:13px;color:#64748b;">Official Esports Event Platform</div>
                     </div>
                 </div>
                 <p style="color:#475569;line-height:1.7;margin-bottom:16px;">
-                    KMITL ESPORT เป็นแพลตฟอร์มจัดการการแข่งขัน Esports อย่างเป็นทางการของสถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง (KMITL) ออกแบบมาเพื่อรองรับการจัดการแข่งขัน การลงทะเบียนทีม และการติดตามผลการแข่งขันอย่างครบวงจร
+                    KMITL ESPORT เป็นแพลตฟอร์มจัดการการแข่งขัน Esports
+                    อย่างเป็นทางการของสถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง (KMITL)
+                    ออกแบบมาเพื่อรองรับการจัดการแข่งขัน การลงทะเบียนทีม และการติดตามผลการแข่งขันอย่างครบวงจร
                 </p>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;">
-                    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px;text-align:center;">
+                    <div
+                        style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px;text-align:center;">
                         <div style="font-size:24px;font-weight:800;color:#ff8c00;">100+</div>
                         <div style="font-size:12px;color:#64748b;margin-top:4px;">Teams Registered</div>
                     </div>
-                    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px;text-align:center;">
+                    <div
+                        style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px;text-align:center;">
                         <div style="font-size:24px;font-weight:800;color:#ff8c00;">20+</div>
                         <div style="font-size:12px;color:#64748b;margin-top:4px;">Tournaments Held</div>
                     </div>
@@ -506,11 +559,13 @@
                 <div class="settings-group">
                     <div class="settings-label">การแจ้งเตือน / Notifications</div>
                     <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
-                        <input type="checkbox" id="notif-match" style="width:16px;height:16px;accent-color:#ff8c00;" checked>
+                        <input type="checkbox" id="notif-match" style="width:16px;height:16px;accent-color:#ff8c00;"
+                            checked>
                         <span style="font-size:14px;color:#475569;">แจ้งเตือนการแข่งขันที่กำลังจะมาถึง</span>
                     </label>
                     <label style="display:flex;align-items:center;gap:10px;cursor:pointer;margin-top:10px;">
-                        <input type="checkbox" id="notif-news" style="width:16px;height:16px;accent-color:#ff8c00;" checked>
+                        <input type="checkbox" id="notif-news" style="width:16px;height:16px;accent-color:#ff8c00;"
+                            checked>
                         <span style="font-size:14px;color:#475569;">แจ้งเตือนข่าวสารและประกาศ</span>
                     </label>
                 </div>
@@ -518,7 +573,8 @@
                     <div class="settings-label">เวอร์ชัน / Version</div>
                     <span style="font-size:14px;color:#94a3b8;">KMITL ESPORT v1.0.0</span>
                 </div>
-                <button onclick="saveSettings()" style="width:100%;padding:12px;background:#ff8c00;color:#fff;border:none;border-radius:48px;font-size:14px;font-weight:700;cursor:pointer;margin-top:8px;">บันทึกการตั้งค่า</button>
+                <button onclick="saveSettings()"
+                    style="width:100%;padding:12px;background:#ff8c00;color:#fff;border:none;border-radius:48px;font-size:14px;font-weight:700;cursor:pointer;margin-top:8px;">บันทึกการตั้งค่า</button>
             </div>
         </div>
 
@@ -529,14 +585,16 @@
                 <button class="modal-close" onclick="closeModal()">✕</button>
             </div>
             <div class="modal-body">
-                <p style="color:#64748b;font-size:14px;margin-bottom:20px;">ค้นหาและสำรวจการแข่งขัน Esports ทั้งหมดของ KMITL</p>
+                <p style="color:#64748b;font-size:14px;margin-bottom:20px;">ค้นหาและสำรวจการแข่งขัน Esports ทั้งหมดของ
+                    KMITL</p>
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;" id="explore-filters">
                     <button class="filter-tag active" onclick="filterExplore(this,'all')">ทั้งหมด</button>
                     <button class="filter-tag" onclick="filterExplore(this,'ongoing')">กำลังแข่ง</button>
                     <button class="filter-tag" onclick="filterExplore(this,'upcoming')">กำลังจะมาถึง</button>
                     <button class="filter-tag" onclick="filterExplore(this,'ended')">จบแล้ว</button>
                 </div>
-                <div id="explore-list" style="display:flex;flex-direction:column;gap:12px;max-height:340px;overflow-y:auto;">
+                <div id="explore-list"
+                    style="display:flex;flex-direction:column;gap:12px;max-height:340px;overflow-y:auto;">
                     <div style="text-align:center;padding:40px;color:#94a3b8;font-size:14px;">กำลังโหลด...</div>
                 </div>
             </div>
@@ -554,25 +612,29 @@
                         <div class="news-badge new">NEW</div>
                         <div class="news-title">🏆 KMITL ESPORT Season 2 เปิดรับสมัครแล้ว!</div>
                         <div class="news-date">27 มีนาคม 2026</div>
-                        <div class="news-desc">การแข่งขัน Esports ประจำปีการศึกษา 2026 เปิดรับสมัครทีมแล้ววันนี้ พร้อมเงินรางวัลรวมกว่า 50,000 บาท สมัครได้เลย!</div>
+                        <div class="news-desc">การแข่งขัน Esports ประจำปีการศึกษา 2026 เปิดรับสมัครทีมแล้ววันนี้
+                            พร้อมเงินรางวัลรวมกว่า 50,000 บาท สมัครได้เลย!</div>
                     </div>
                     <div class="news-card">
                         <div class="news-badge">UPDATE</div>
                         <div class="news-title">📋 กติกาและระเบียบการแข่งขันใหม่</div>
                         <div class="news-date">20 มีนาคม 2026</div>
-                        <div class="news-desc">ทีมงานได้อัพเดทกติกาการแข่งขันให้ครอบคลุมและชัดเจนยิ่งขึ้น กรุณาอ่านและทำความเข้าใจก่อนสมัครเข้าร่วม</div>
+                        <div class="news-desc">ทีมงานได้อัพเดทกติกาการแข่งขันให้ครอบคลุมและชัดเจนยิ่งขึ้น
+                            กรุณาอ่านและทำความเข้าใจก่อนสมัครเข้าร่วม</div>
                     </div>
                     <div class="news-card">
                         <div class="news-badge">EVENT</div>
                         <div class="news-title">🎮 ผลการแข่งขัน KMITL CUP 2025</div>
                         <div class="news-date">15 กุมภาพันธ์ 2026</div>
-                        <div class="news-desc">ขอแสดงความยินดีกับทีม Dragon Slayer ที่คว้าแชมป์รายการ KMITL CUP 2025 พร้อมเงินรางวัล 20,000 บาท</div>
+                        <div class="news-desc">ขอแสดงความยินดีกับทีม Dragon Slayer ที่คว้าแชมป์รายการ KMITL CUP 2025
+                            พร้อมเงินรางวัล 20,000 บาท</div>
                     </div>
                     <div class="news-card">
                         <div class="news-badge">INFO</div>
                         <div class="news-title">🔧 ระบบปรับปรุงใหม่ พร้อมฟีเจอร์ติดตามการแข่งขันแบบ Real-time</div>
                         <div class="news-date">1 กุมภาพันธ์ 2026</div>
-                        <div class="news-desc">KMITL ESPORT Platform อัพเดทระบบใหม่ รองรับการดูผลการแข่งขันแบบเรียลไทม์ และระบบแบรคเก็ตที่แสดงผลแบบอัตโนมัติ</div>
+                        <div class="news-desc">KMITL ESPORT Platform อัพเดทระบบใหม่ รองรับการดูผลการแข่งขันแบบเรียลไทม์
+                            และระบบแบรคเก็ตที่แสดงผลแบบอัตโนมัติ</div>
                     </div>
                 </div>
             </div>
@@ -580,32 +642,202 @@
     </div>
 
     <style>
-        .modal-box { background:#fff;border-radius:20px;width:520px;max-width:calc(100vw - 32px);max-height:85vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.25); }
-        .modal-header { display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid #e2e8f0; }
-        .modal-title { font-size:18px;font-weight:800;color:#1e293b;margin:0; }
-        .modal-close { background:#f1f5f9;border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:14px;color:#475569;display:flex;align-items:center;justify-content:center; }
-        .modal-close:hover { background:#e2e8f0; }
-        .modal-body { padding:24px;overflow-y:auto; }
-        .settings-group { padding:16px 0;border-bottom:1px solid #f1f5f9; }
-        .settings-label { font-size:13px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px; }
-        .settings-select { width:100%;padding:10px 14px;border:1px solid #e2e8f0;border-radius:10px;font-size:14px;color:#1e293b;background:#f8fafc;outline:none; }
-        .theme-btn { padding:8px 20px;border:2px solid #e2e8f0;border-radius:48px;font-size:13px;font-weight:700;cursor:pointer;background:#f8fafc;color:#475569; }
-        .theme-btn.active { border-color:#ff8c00;background:#fff7ed;color:#c2410c; }
-        .filter-tag { padding:6px 16px;border:1px solid #e2e8f0;border-radius:48px;font-size:13px;font-weight:600;cursor:pointer;background:#f8fafc;color:#64748b; }
-        .filter-tag.active { background:#ff8c00;border-color:#ff8c00;color:#fff; }
-        .explore-item { display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid #e2e8f0;border-radius:12px;cursor:pointer;transition:background 0.15s; }
-        .explore-item:hover { background:#f8fafc; }
-        .explore-item-img { width:52px;height:52px;border-radius:10px;object-fit:cover;background:#e2e8f0;flex-shrink:0; }
-        .explore-status { font-size:11px;font-weight:700;padding:3px 8px;border-radius:48px; }
-        .status-ongoing { background:#dcfce7;color:#15803d; }
-        .status-upcoming { background:#dbeafe;color:#1d4ed8; }
-        .status-ended { background:#f1f5f9;color:#64748b; }
-        .news-card { padding:16px;border:1px solid #e2e8f0;border-radius:12px; }
-        .news-badge { display:inline-block;font-size:10px;font-weight:800;padding:2px 8px;border-radius:48px;background:#f1f5f9;color:#64748b;margin-bottom:8px;letter-spacing:0.05em; }
-        .news-badge.new { background:#dcfce7;color:#15803d; }
-        .news-title { font-size:15px;font-weight:700;color:#1e293b;margin-bottom:4px; }
-        .news-date { font-size:12px;color:#94a3b8;margin-bottom:8px; }
-        .news-desc { font-size:13px;color:#475569;line-height:1.6; }
+        .modal-box {
+            background: #fff;
+            border-radius: 20px;
+            width: 520px;
+            max-width: calc(100vw - 32px);
+            max-height: 85vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 24px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .modal-close {
+            background: #f1f5f9;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 14px;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: #e2e8f0;
+        }
+
+        .modal-body {
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .settings-group {
+            padding: 16px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .settings-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 10px;
+        }
+
+        .settings-select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            font-size: 14px;
+            color: #1e293b;
+            background: #f8fafc;
+            outline: none;
+        }
+
+        .theme-btn {
+            padding: 8px 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 48px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            background: #f8fafc;
+            color: #475569;
+        }
+
+        .theme-btn.active {
+            border-color: #ff8c00;
+            background: #fff7ed;
+            color: #c2410c;
+        }
+
+        .filter-tag {
+            padding: 6px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 48px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            background: #f8fafc;
+            color: #64748b;
+        }
+
+        .filter-tag.active {
+            background: #ff8c00;
+            border-color: #ff8c00;
+            color: #fff;
+        }
+
+        .explore-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.15s;
+        }
+
+        .explore-item:hover {
+            background: #f8fafc;
+        }
+
+        .explore-item-img {
+            width: 52px;
+            height: 52px;
+            border-radius: 10px;
+            object-fit: cover;
+            background: #e2e8f0;
+            flex-shrink: 0;
+        }
+
+        .explore-status {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 48px;
+        }
+
+        .status-ongoing {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .status-upcoming {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .status-ended {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+        .news-card {
+            padding: 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+        }
+
+        .news-badge {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 48px;
+            background: #f1f5f9;
+            color: #64748b;
+            margin-bottom: 8px;
+            letter-spacing: 0.05em;
+        }
+
+        .news-badge.new {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .news-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+
+        .news-date {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+
+        .news-desc {
+            font-size: 13px;
+            color: #475569;
+            line-height: 1.6;
+        }
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
@@ -762,15 +994,15 @@
                                 if (isDouble) {
                                     const [nwb, nlb, nfinals] = newData.results;
                                     localMatches.length = 0;
-                                    nwb.forEach((round, r) => round.forEach((m, p) => localMatches.push({ round: r+1, position: p, score1: getS1(m), score2: getS2(m) })));
-                                    nlb.forEach((round, r) => round.forEach((m, p) => localMatches.push({ round: -(r+1), position: p, score1: getS1(m), score2: getS2(m) })));
-                                    nfinals.forEach((round, r) => round.forEach((m, p) => localMatches.push({ round: 101+r, position: p, score1: getS1(m), score2: getS2(m) })));
+                                    nwb.forEach((round, r) => round.forEach((m, p) => localMatches.push({ round: r + 1, position: p, score1: getS1(m), score2: getS2(m) })));
+                                    nlb.forEach((round, r) => round.forEach((m, p) => localMatches.push({ round: -(r + 1), position: p, score1: getS1(m), score2: getS2(m) })));
+                                    nfinals.forEach((round, r) => round.forEach((m, p) => localMatches.push({ round: 101 + r, position: p, score1: getS1(m), score2: getS2(m) })));
                                 } else {
                                     newData.results.forEach((round, r) => round.forEach((match, m) => {
                                         const s1 = getS1(match), s2 = getS2(match);
-                                        const ex = localMatches.find(x => x.round === r+1 && x.position === m);
+                                        const ex = localMatches.find(x => x.round === r + 1 && x.position === m);
                                         if (ex) { ex.score1 = s1; ex.score2 = s2; }
-                                        else localMatches.push({ round: r+1, position: m, score1: s1, score2: s2 });
+                                        else localMatches.push({ round: r + 1, position: m, score1: s1, score2: s2 });
                                     }));
                                 }
                             }
@@ -815,9 +1047,9 @@
                     }
                     const finals = [[[null, null]]];
                     localMatches.forEach(m => {
-                        if (m.round > 0 && m.round < 100) { if (wb[m.round-1] && wb[m.round-1][m.position]) wb[m.round-1][m.position] = [m.score1, m.score2]; }
-                        else if (m.round < 0) { let ri = Math.abs(m.round)-1; if (lb[ri] && lb[ri][m.position]) lb[ri][m.position] = [m.score1, m.score2]; }
-                        else if (m.round > 100) { let ri = m.round-101; if (finals[ri] && finals[ri][m.position]) finals[ri][m.position] = [m.score1, m.score2]; }
+                        if (m.round > 0 && m.round < 100) { if (wb[m.round - 1] && wb[m.round - 1][m.position]) wb[m.round - 1][m.position] = [m.score1, m.score2]; }
+                        else if (m.round < 0) { let ri = Math.abs(m.round) - 1; if (lb[ri] && lb[ri][m.position]) lb[ri][m.position] = [m.score1, m.score2]; }
+                        else if (m.round > 100) { let ri = m.round - 101; if (finals[ri] && finals[ri][m.position]) finals[ri][m.position] = [m.score1, m.score2]; }
                     });
                     injectBracket({ teams: bracketTeams, results: [wb, lb, finals] }, true);
                 };
@@ -833,7 +1065,7 @@
                         bracketTeams.push([teams[i] || null, teams[i + 1] || null]);
                     }
 
-                    let slotTeams = Array.from({length: nTeams}, (_, i) => teams[i] || 'BYE');
+                    let slotTeams = Array.from({ length: nTeams }, (_, i) => teams[i] || 'BYE');
                     const wbRoundsCount = Math.log2(nTeams);
                     const results = [];
                     for (let r = 0; r < wbRoundsCount; r++) {
@@ -841,7 +1073,7 @@
                         const matchCount = slotTeams.length / 2;
                         for (let m = 0; m < matchCount; m++) {
                             const t1 = slotTeams[m * 2], t2 = slotTeams[m * 2 + 1];
-                            const md = localMatches.find(x => x.round === r+1 && x.position === m);
+                            const md = localMatches.find(x => x.round === r + 1 && x.position === m);
                             let score = md ? [md.score1, md.score2] : [null, null];
                             if (score[0] === null && score[1] === null) {
                                 if (t1 !== 'BYE' && t2 === 'BYE') score = [1, 0];
@@ -940,9 +1172,9 @@
             const t = document.createElement('div');
             t.textContent = msg;
             Object.assign(t.style, {
-                position:'fixed', bottom:'24px', left:'50%', transform:'translateX(-50%)',
-                background:'#1e293b', color:'#fff', padding:'12px 24px', borderRadius:'48px',
-                fontSize:'14px', fontWeight:'700', zIndex:'9999', transition:'opacity 0.3s'
+                position: 'fixed', bottom: '24px', left: '50%', transform: 'translateX(-50%)',
+                background: '#1e293b', color: '#fff', padding: '12px 24px', borderRadius: '48px',
+                fontSize: '14px', fontWeight: '700', zIndex: '9999', transition: 'opacity 0.3s'
             });
             document.body.appendChild(t);
             setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 2000);
@@ -981,8 +1213,8 @@
                     const start = t.start_date ? new Date(t.start_date) : null;
                     const end = t.end_date ? new Date(t.end_date) : null;
                     let statusClass = 'status-upcoming', statusLabel = 'กำลังจะมาถึง';
-                    if (start && end && start <= now && end >= now) { statusClass='status-ongoing'; statusLabel='กำลังแข่ง'; }
-                    else if (end && end < now) { statusClass='status-ended'; statusLabel='จบแล้ว'; }
+                    if (start && end && start <= now && end >= now) { statusClass = 'status-ongoing'; statusLabel = 'กำลังแข่ง'; }
+                    else if (end && end < now) { statusClass = 'status-ended'; statusLabel = 'จบแล้ว'; }
                     const banner = t.tournament_banner || 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=200';
                     return `<div class="explore-item" onclick="closeModal();window.location.href='../../Viewer/TournamentDetail Page 18/tournamentdetail_18.html?id=${t.tournament_id}'">
                         <img class="explore-item-img" src="${banner}" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?w=200'" />
@@ -993,13 +1225,13 @@
                         <span class="explore-status ${statusClass}">${statusLabel}</span>
                     </div>`;
                 }).join('');
-            } catch(e) {
+            } catch (e) {
                 list.innerHTML = '<div style="text-align:center;padding:40px;color:#ef4444;font-size:14px;">โหลดข้อมูลไม่สำเร็จ</div>';
             }
         }
 
         // Restore saved settings
-        (function() {
+        (function () {
             const lang = localStorage.getItem('kmitl_lang');
             if (lang) document.getElementById('lang-select').value = lang;
             const nm = localStorage.getItem('kmitl_notif_match');
