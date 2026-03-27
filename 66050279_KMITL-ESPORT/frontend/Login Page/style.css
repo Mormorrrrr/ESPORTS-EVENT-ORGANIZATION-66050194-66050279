@@ -520,6 +520,18 @@
     flex: 0 0 auto;
     background-color: #ff8c00;
     border-radius: 48px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.register .button:hover {
+    background-color: #f58200;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -5px rgba(255, 140, 0, 0.4);
+}
+
+.register .button:active {
+    transform: translateY(0);
 }
 
 .register .button-shadow {
