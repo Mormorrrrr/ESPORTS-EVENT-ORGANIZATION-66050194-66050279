@@ -29,7 +29,7 @@
         <!-- Header -->
         <header class="header-top namespaced-header" role="banner">
             <div class="ns-header-left">
-                <img class="ns-logo-img" src="../../../icons/Logo.png" alt="KMITL ESPORT Logo" />
+                <img class="ns-logo-img" src="../../icons/Logo.png" alt="KMITL ESPORT Logo" />
                 <div class="ns-title-wrap">
                     <span class="ns-title-text">KMITL ESPORT</span>
                 </div>
@@ -42,13 +42,13 @@
             <div class="ns-header-right">
                 <label class="ns-search-box" aria-label="Search tournaments">
                     <div class="ns-search-bg">
-                        <img class="ns-search-icon" src="../../../icons/search.svg" alt="Search icon" />
+                        <img class="ns-search-icon" src="../../icons/search.svg" alt="Search icon" />
                     </div>
                     <input class="ns-search-input" placeholder="Search tournaments..." type="search" />
                 </label>
                 <div class="ns-user-area" style="position:relative;display:flex;align-items:center;gap:8px;cursor:pointer;" onclick="logoutUser()" title="ออกจากระบบ">
                 <span id="header-username" style="font-size:13px;font-weight:600;color:#334155;"></span>
-                <img class="ns-user-avatar" src="../../../icons/user.svg" alt="User profile" style="cursor:pointer;" />
+                <img class="ns-user-avatar" src="../../icons/user.svg" alt="User profile" style="cursor:pointer;" />
             </div>
             <script>
             (function(){var u=JSON.parse(localStorage.getItem("user")||"null");if(u&&u.username)document.getElementById("header-username").textContent=u.username;})();
@@ -61,19 +61,19 @@
         <aside class="aside-sidebar" aria-label="Sidebar navigation">
             <nav class="sidebar-nav-container">
                 <a class="link-2" href="../../User/Tournament List Page 1/userlogin_1.html">
-                    <img src="../../../icons/trophy-star.svg" alt="" style="width:20px; height:20px;" />
+                    <img src="../../icons/trophy-star.svg" alt="" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Tournament</span>
                 </a>
                 <a class="link" href="HistoryTeam_6.html">
-                    <img src="../../../icons/users.svg" alt="" style="width:20px; height:20px;" />
+                    <img src="../../icons/users.svg" alt="" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Teams</span>
                 </a>
                 <a class="link-2" href="#" onclick="openModal('about-modal');return false;">
-                    <img src="../../../icons/info.svg" alt="" style="width:20px; height:20px;" />
+                    <img src="../../icons/info.svg" alt="" style="width:20px; height:20px;" />
                     <span class="sidebar-text">About</span>
                 </a>
                 <a class="link-2" href="#" onclick="openModal('settings-modal');return false;">
-                    <img src="../../../icons/settings.svg" alt="" style="width:20px; height:20px;" />
+                    <img src="../../icons/settings.svg" alt="" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Settings</span>
                 </a>
             </nav>
@@ -84,7 +84,7 @@
             <section class="tournaments-list">
                 <div class="container-2">
                     <div style="display: flex; align-items: center; gap: 12px;">
-                        <img src="../../../icons/users.svg" alt="" style="width: 28px; height: 28px;" />
+                        <img src="../../icons/users.svg" alt="" style="width: 28px; height: 28px;" />
                         <h2 class="my-history-team" style="margin: 0; font-size: 24px;">My Teams</h2>
                     </div>
                     <button class="button" type="button" onclick="window.location.href='../CreateTeamStep1 Page 4/createteamStep1_4.html'">
@@ -111,7 +111,7 @@
             </div>
             <div class="modal-body">
                 <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
-                    <img src="../../../icons/Logo.png" alt="Logo" style="width:64px;height:64px;border-radius:12px;object-fit:contain;" />
+                    <img src="../../icons/Logo.png" alt="Logo" style="width:64px;height:64px;border-radius:12px;object-fit:contain;" />
                     <div>
                         <div style="font-size:20px;font-weight:800;color:#1e293b;">KMITL ESPORT</div>
                         <div style="font-size:13px;color:#64748b;">Official Esports Event Platform</div>
@@ -314,12 +314,12 @@
                         <div class="card-content">
                             <h3 class="tournament-title-row" title="${team.team_name}">${team.team_name}</h3>
                             <div class="team-meta">
-                                <img src="../../../icons/user.svg" alt="">
+                                <img src="../../icons/user.svg" alt="">
                                 <span>Leader: ${team.leader_name}</span>
                             </div>
                             <div class="card-footer" style="margin-top: 12px;">
                                 <button class="view-btn" onclick="window.location.href='../EditTeam Page 7/editTeam.html?id=${team.team_id}'">
-                                    <img src="../../../icons/pencil.svg" alt="" style="width:14px; height:14px; margin-right:8px; filter: grayscale(1) opacity(0.7);">
+                                    <img src="../../icons/pencil.svg" alt="" style="width:14px; height:14px; margin-right:8px; filter: grayscale(1) opacity(0.7);">
                                     Edit Team
                                 </button>
                             </div>
