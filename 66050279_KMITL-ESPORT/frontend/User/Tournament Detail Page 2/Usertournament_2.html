@@ -367,6 +367,11 @@
                 const matchesRes = await fetch(`${API_BASE_URL}/tournaments/${id}/matches`);
                 const matches = await matchesRes.json();
 
+                const teams = (tournament.Application || tournament.applications || [])
+                    .filter(app => app.status === 'Approved')
+                    .map(app => (app.Team || app.team || {}).team_name)
+                    .filter(n => n);
+
                 if (!matches || matches.length === 0) {
                     matchListContainer.innerHTML = `
                         <div style="text-align: center; padding: 40px; background: white; border-radius: 16px; border: 1px dashed #cbd5e1; color: #64748b;">
@@ -376,38 +381,63 @@
                     return;
                 }
 
-                // Render Matches
-                matchListContainer.innerHTML = matches.map(m => {
-                    const score1 = m.score1 ?? 0;
-                    const score2 = m.score2 ?? 0;
-                    const isFinished = m.score1 !== null && m.score2 !== null;
-                    const team1Win = isFinished && score1 > score2;
-                    const team2Win = isFinished && score2 > score1;
+                // Build bracket data from saved matches
+                const isDouble = (tournament.tournament_type || '').toLowerCase().includes('double');
+                const numTeams = Math.max(2, Math.pow(2, Math.ceil(Math.log2(Math.max(2, teams.length)))));
+                const bracketTeams = [];
+                for (let i = 0; i < numTeams; i += 2) bracketTeams.push([teams[i] || null, teams[i + 1] || null]);
 
-                    return `
-                        <article style="display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; background: white; border-radius: 16px; border: 1px solid #f1f5f9; transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: default;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 6px -1px rgba(0,0,0,0.1)';" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
-                            <div style="display: flex; align-items: center; gap: 24px; flex: 1;">
-                                <div style="display: flex; flex-direction: column; gap: 8px; flex: 1;">
-                                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                                        <span style="font-weight: ${team1Win ? '800' : '500'}; color: ${team1Win ? '#0f172a' : '#64748b'}; transition: all 0.2s;">${m.team1_name || 'TBD'}</span>
-                                        <span style="font-weight: 800; color: ${team1Win ? '#ff8c00' : '#94a3b8'}; font-size: 20px; transition: all 0.2s;">${score1}</span>
-                                    </div>
-                                    <div style="height: 1px; background: #f1f5f9; width: 100%;"></div>
-                                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                                        <span style="font-weight: ${team2Win ? '800' : '500'}; color: ${team2Win ? '#0f172a' : '#64748b'}; transition: all 0.2s;">${m.team2_name || 'TBD'}</span>
-                                        <span style="font-weight: 800; color: ${team2Win ? '#ff8c00' : '#94a3b8'}; font-size: 20px; transition: all 0.2s;">${score2}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="margin-left: 40px; text-align: right; min-width: 80px;">
-                                ${isFinished ? 
-                                    `<span style="font-size: 11px; font-weight: 700; color: #10b981; background: #dcfce7; padding: 4px 12px; border-radius: 12px; text-transform: uppercase;">Finished</span>` : 
-                                    `<span style="font-size: 11px; font-weight: 700; color: #64748b; background: #f1f5f9; padding: 4px 12px; border-radius: 12px; text-transform: uppercase;">Upcoming</span>`
-                                }
-                            </div>
-                        </article>
-                    `;
-                }).join('');
+                let bracketData;
+                if (isDouble) {
+                    const wbRounds = Math.log2(numTeams);
+                    const wb = Array.from({ length: wbRounds }, (_, r) => Array.from({ length: numTeams / Math.pow(2, r + 1) }, () => [null, null]));
+                    const lbRounds = 2 * wbRounds - 2;
+                    let mc = numTeams / 4;
+                    const lb = Array.from({ length: lbRounds }, (_, r) => { const a = Array.from({ length: Math.floor(mc) }, () => [null, null]); if (r % 2 === 1) mc /= 2; return a; });
+                    const finals = [[[null, null]]];
+                    matches.forEach(m => {
+                        if (m.round > 0 && m.round < 100 && wb[m.round - 1]?.[m.position]) wb[m.round - 1][m.position] = [m.score1, m.score2];
+                        else if (m.round < 0 && lb[Math.abs(m.round) - 1]?.[m.position]) lb[Math.abs(m.round) - 1][m.position] = [m.score1, m.score2];
+                        else if (m.round > 100 && finals[m.round - 101]?.[m.position]) finals[m.round - 101][m.position] = [m.score1, m.score2];
+                    });
+                    bracketData = { teams: bracketTeams, results: [wb, lb, finals] };
+                } else {
+                    const numRounds = Math.log2(numTeams);
+                    const results = Array.from({ length: numRounds }, (_, r) => Array.from({ length: numTeams / Math.pow(2, r + 1) }, () => [null, null]));
+                    matches.forEach(m => { if (results[m.round - 1]?.[m.position] !== undefined) results[m.round - 1][m.position] = [m.score1, m.score2]; });
+                    bracketData = { teams: bracketTeams, results };
+                }
+
+                // Render read-only bracket in iframe
+                matchListContainer.innerHTML = '';
+                matchListContainer.style.display = 'block';
+                const iframeHtml = '\x3C!DOCTYPE html\x3E\x3Chtml\x3E\x3Chead\x3E\x3Cmeta charset="utf-8"\x3E'
+                    + '\x3Clink rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.css"\x3E'
+                    + '\x3Cscript src="https://code.jquery.com/jquery-3.6.0.min.js"\x3E\x3C/script\x3E'
+                    + '\x3Cscript src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.js"\x3E\x3C/script\x3E'
+                    + '\x3Cstyle\x3Ebody{margin:0;padding:16px;background:transparent;overflow-x:auto;}'
+                    + '.jQBracket .tools{display:none!important;}'
+                    + '.jQBracket input[type=text]{pointer-events:none!important;cursor:default!important;background:#f1f5f9!important;border-color:#e2e8f0!important;color:#374151!important;}'
+                    + '.jQBracket .score{pointer-events:none!important;}\x3C/style\x3E'
+                    + '\x3C/head\x3E\x3Cbody\x3E\x3Cdiv id="bc"\x3E\x3C/div\x3E\x3C/body\x3E\x3C/html\x3E';
+
+                const iframe = document.createElement('iframe');
+                iframe.id = 'bracket-iframe';
+                iframe.srcdoc = iframeHtml;
+                iframe.style.cssText = 'width:100%;min-height:500px;border:none;background:transparent;';
+                matchListContainer.appendChild(iframe);
+
+                iframe.onload = () => {
+                    const win = iframe.contentWindow;
+                    if (!win || !win.jQuery) return;
+                    win.jQuery('#bc').bracket({ init: bracketData, save: function () { } });
+                    // Disable all inputs after render
+                    setTimeout(() => {
+                        win.document.querySelectorAll('input').forEach(inp => { inp.disabled = true; inp.style.pointerEvents = 'none'; });
+                        const h = win.document.body.scrollHeight;
+                        if (h > 0) iframe.style.minHeight = (h + 40) + 'px';
+                    }, 600);
+                };
 
             } catch (error) {
                 console.error('Error fetching tournament detail:', error);
