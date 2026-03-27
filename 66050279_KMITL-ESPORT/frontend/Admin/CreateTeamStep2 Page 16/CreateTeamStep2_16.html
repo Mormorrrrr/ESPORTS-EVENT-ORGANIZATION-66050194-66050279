@@ -9,6 +9,249 @@
     <link rel="stylesheet" href="styleguide16.css" />
     <link rel="stylesheet" href="style16.css?v=3" />
     <link rel="stylesheet" href="../../shared-admin.css?v=4" />
+    <style>
+    /* ===== PAGE 16 — FULL LAYOUT OVERRIDE ===== */
+
+    .admin-create-team {
+        all: unset !important;
+        display: flex !important; flex-direction: column !important; gap: 20px !important;
+        background: #f1f5f9 !important; min-height: 100vh !important; width: 100% !important;
+        box-sizing: border-box !important; padding: 93px 32px 48px 292px !important;
+    }
+
+    /* ── PROGRESS BAR CARD ── */
+    .admin-create-team .progress-stepper {
+        all: unset !important; width: 100% !important; box-sizing: border-box !important; display: block !important;
+    }
+    .admin-create-team .progress-stepper-2 {
+        display: flex !important; flex-direction: column !important; gap: 10px !important;
+        background: #fff !important; border-radius: 16px !important;
+        border: 1px solid #e2e8f0 !important; box-shadow: 0 1px 4px rgba(0,0,0,.06) !important;
+        padding: 18px 24px !important; box-sizing: border-box !important; width: 100% !important;
+    }
+    .admin-create-team .container-2 {
+        display: flex !important; justify-content: space-between !important; align-items: center !important;
+    }
+    .admin-create-team .div-2 { display: flex !important; align-items: center !important; }
+    .admin-create-team .text-wrapper-4 {
+        font-size: 15px !important; font-weight: 700 !important; color: #0f172a !important;
+        position: static !important; width: auto !important; height: auto !important;
+    }
+    .admin-create-team .text-wrapper-5 {
+        font-size: 14px !important; font-weight: 700 !important; color: #ff8c00 !important;
+        position: static !important; width: auto !important; height: auto !important;
+    }
+    .admin-create-team .overlay {
+        position: static !important; width: 100% !important; height: 10px !important;
+        background: #ff8c001a !important; border-radius: 999px !important; overflow: hidden !important;
+    }
+    .admin-create-team .background {
+        width: 100% !important; height: 100% !important;
+        background: #ff8c00 !important; border-radius: 999px !important;
+    }
+    .admin-create-team .div-wrapper { display: block !important; }
+    .admin-create-team .p {
+        font-size: 13px !important; color: #64748b !important; margin: 0 !important;
+        position: static !important; width: auto !important; height: auto !important;
+    }
+
+    /* ── MAIN GROUP ── */
+    .admin-create-team .group {
+        all: unset !important;
+        display: flex !important; flex-direction: column !important; gap: 16px !important; width: 100% !important;
+    }
+
+    /* ── SUMMARY CARD ── */
+    .admin-create-team .summary-card {
+        all: unset !important;
+        display: flex !important; flex-direction: column !important;
+        background: #fff !important; border-radius: 20px !important;
+        border: 1px solid #e2e8f0 !important; box-shadow: 0 4px 20px rgba(0,0,0,.07) !important;
+        overflow: hidden !important; width: 100% !important; box-sizing: border-box !important;
+    }
+
+    /* ── TOURNAMENT HEADER ── */
+    .admin-create-team .tournament-header {
+        display: flex !important; align-items: center !important; gap: 24px !important;
+        padding: 24px 32px !important; border-bottom: 1px solid #f1f5f9 !important;
+        position: static !important; height: auto !important; width: 100% !important; box-sizing: border-box !important;
+    }
+    .admin-create-team .image {
+        position: static !important; width: 160px !important; height: 108px !important;
+        border-radius: 12px !important; object-fit: cover !important; flex-shrink: 0 !important;
+    }
+    .admin-create-team .container-3 {
+        display: flex !important; flex-direction: column !important; gap: 6px !important;
+        flex: 1 !important; position: static !important; width: auto !important;
+    }
+    .admin-create-team .overlay-2 {
+        display: inline-flex !important; padding: 3px 12px !important;
+        background: #ff8c001a !important; border-radius: 999px !important; width: fit-content !important;
+    }
+    .admin-create-team .text {
+        font-size: 11px !important; font-weight: 700 !important; color: #ff8c00 !important;
+        letter-spacing: 1px !important; position: static !important; width: auto !important; height: auto !important;
+    }
+    .admin-create-team .text-wrapper-6 {
+        font-size: 22px !important; font-weight: 700 !important; color: #0f172a !important;
+        position: static !important; width: auto !important; height: auto !important; line-height: 1.3 !important;
+    }
+    .admin-create-team .container-4 {
+        display: flex !important; align-items: center !important; gap: 8px !important;
+        position: static !important; width: auto !important;
+    }
+    .admin-create-team .icon { width: 14px !important; height: 14px !important; }
+    .admin-create-team .text-wrapper-7 {
+        font-size: 14px !important; color: #64748b !important;
+        position: static !important; width: auto !important; height: auto !important; white-space: normal !important;
+    }
+
+    /* ── REGISTRATION DETAILS (2 cols) ── */
+    .admin-create-team .registration-details {
+        display: flex !important; gap: 0 !important; padding: 0 !important;
+        position: static !important; width: 100% !important; align-items: stretch !important;
+    }
+
+    /* ── TEAM IDENTITY ── */
+    .admin-create-team .team-identity {
+        flex: 1 !important; display: flex !important; flex-direction: column !important; gap: 16px !important;
+        padding: 24px 28px !important; border-right: 1px solid #f1f5f9 !important;
+        position: static !important; min-width: 0 !important; height: auto !important;
+        box-sizing: border-box !important;
+    }
+    .admin-create-team .heading-wrapper {
+        display: block !important; position: static !important; width: auto !important;
+    }
+    .admin-create-team .heading {
+        display: flex !important; align-items: center !important; gap: 8px !important;
+        position: static !important; width: auto !important;
+    }
+    .admin-create-team .img { width: 16px !important; height: 16px !important; position: static !important; }
+    .admin-create-team .text-2 {
+        font-size: 11px !important; font-weight: 700 !important; color: #ff8c00 !important;
+        letter-spacing: 2px !important; position: static !important; width: auto !important; height: auto !important;
+    }
+    /* .team-id-cards = renamed .frame to avoid shared-admin.css conflict */
+    .admin-create-team .team-id-cards {
+        display: flex !important; flex-direction: column !important; gap: 10px !important;
+        margin: 0 !important; padding: 0 !important; width: 100% !important; position: static !important;
+    }
+    .admin-create-team .frame-wrapper {
+        position: static !important; width: 100% !important; height: auto !important;
+    }
+    .admin-create-team .frame-2 {
+        display: flex !important; align-items: center !important; gap: 12px !important;
+        position: static !important; width: 100% !important; height: auto !important;
+    }
+    .admin-create-team .rectangle {
+        width: 56px !important; height: 56px !important; border-radius: 12px !important;
+        object-fit: contain !important; position: static !important;
+        background: #f1f5f9 !important; padding: 8px !important; box-sizing: border-box !important;
+    }
+    .admin-create-team .background-2 {
+        display: flex !important; flex-direction: column !important; gap: 2px !important;
+        padding: 12px 16px !important; background: #f8fafc !important; border-radius: 16px !important;
+        flex: 1 !important; position: static !important; width: auto !important;
+    }
+    .admin-create-team .text-wrapper-8 {
+        font-size: 11px !important; font-weight: 500 !important; color: #94a3b8 !important;
+        position: static !important; width: auto !important; height: auto !important;
+    }
+    .admin-create-team .text-wrapper-9 {
+        font-size: 16px !important; font-weight: 700 !important; color: #1e293b !important;
+        position: static !important; width: auto !important; height: auto !important;
+    }
+    .admin-create-team .background-wrapper {
+        position: static !important; width: 100% !important; height: auto !important;
+    }
+    .admin-create-team .background-3 {
+        display: flex !important; flex-direction: column !important; gap: 6px !important;
+        padding: 12px 16px !important; background: #f8fafc !important; border-radius: 16px !important;
+        position: static !important; width: 100% !important; box-sizing: border-box !important;
+    }
+    .admin-create-team .container-5 {
+        display: flex !important; align-items: center !important; gap: 10px !important;
+        position: static !important; width: auto !important;
+    }
+    .admin-create-team .background-4 {
+        display: flex !important; align-items: center !important; justify-content: center !important;
+        width: 28px !important; height: 28px !important; background: #ff8c00 !important;
+        border-radius: 50% !important; flex-shrink: 0 !important; min-width: 28px !important;
+    }
+    .admin-create-team .text-3 {
+        font-size: 12px !important; font-weight: 700 !important; color: #fff !important;
+        position: static !important; width: auto !important; height: auto !important;
+    }
+    .admin-create-team .text-4 {
+        font-size: 16px !important; font-weight: 700 !important; color: #1e293b !important;
+        position: static !important; width: auto !important; height: auto !important; white-space: normal !important;
+    }
+
+    /* ── TEAM MEMBERS ── */
+    .admin-create-team .team-members {
+        flex: 1 !important; display: flex !important; flex-direction: column !important; gap: 16px !important;
+        padding: 24px 28px !important; position: static !important; width: auto !important; height: auto !important;
+    }
+    .admin-create-team .container-6 {
+        display: flex !important; flex-direction: column !important; gap: 12px !important;
+        position: static !important; width: auto !important;
+    }
+    .admin-create-team .icon-2 { width: 14px !important; height: 14px !important; position: static !important; }
+    .admin-create-team .text-5 {
+        font-size: 11px !important; font-weight: 700 !important; color: #ff8c00 !important;
+        letter-spacing: 2px !important; position: static !important; width: auto !important; height: auto !important;
+    }
+    .admin-create-team .container-7 {
+        display: flex !important; flex-direction: column !important; gap: 8px !important;
+        position: static !important; width: auto !important; list-style: none !important;
+        padding: 0 !important; margin: 0 !important;
+    }
+    .admin-create-team .background-5 {
+        display: flex !important; align-items: center !important; gap: 12px !important;
+        padding: 10px 14px !important; background: #f8fafc !important;
+        border-radius: 999px !important; position: static !important; width: auto !important;
+    }
+    .admin-create-team .container-8 {
+        display: flex !important; align-items: center !important; justify-content: center !important;
+        width: 22px !important; flex-shrink: 0 !important; position: static !important;
+    }
+    .admin-create-team .text-6, .admin-create-team .text-8,
+    .admin-create-team .text-10, .admin-create-team .text-12 {
+        font-size: 12px !important; font-weight: 700 !important; color: #94a3b8 !important;
+        position: static !important; width: auto !important; height: auto !important;
+    }
+    .admin-create-team .text-7, .admin-create-team .text-9,
+    .admin-create-team .text-11, .admin-create-team .text-13 {
+        font-size: 15px !important; font-weight: 500 !important; color: #334155 !important;
+        position: static !important; width: auto !important; height: auto !important; white-space: normal !important;
+    }
+
+    /* ── ACTION BUTTONS ── */
+    .admin-create-team .container-9 {
+        display: flex !important; justify-content: flex-end !important; gap: 12px !important;
+        position: static !important; padding: 0 !important; width: auto !important;
+    }
+    .admin-create-team .button {
+        all: unset !important; display: inline-flex !important; align-items: center !important;
+        justify-content: center !important; padding: 12px 32px !important;
+        background: #f1f5f9 !important; border-radius: 999px !important;
+        cursor: pointer !important; box-sizing: border-box !important;
+    }
+    .admin-create-team .text-wrapper-10 {
+        font-size: 14px !important; font-weight: 700 !important; color: #475569 !important;
+        position: static !important; width: auto !important;
+    }
+    .admin-create-team .button-2 {
+        all: unset !important; display: inline-flex !important; align-items: center !important;
+        justify-content: center !important; padding: 12px 40px !important;
+        background: #ff8c00 !important; border-radius: 999px !important;
+        cursor: pointer !important; box-sizing: border-box !important;
+    }
+    .admin-create-team .text-wrapper-11 {
+        font-size: 14px !important; font-weight: 700 !important; color: #fff !important;
+        position: static !important; width: auto !important;
+    }
+    </style>
 </head>
 
 <body>
@@ -104,7 +347,7 @@
                             <h2 class="text-wrapper-6" id="summary-tournament-name">Rov KMITL Cup</h2>
                         </div>
                         <div class="container-4">
-                            <div class="div-2"><img class="icon" src="img/icon-5.svg" alt="Calendar icon" /></div>
+                            <div class="div-2"><img class="icon" src="../../icons/calendar-day.svg" alt="Calendar icon" /></div>
                             <p class="text-wrapper-7" id="summary-tournament-date">Starts Apr 08, 2026 • Sci 01</p>
                         </div>
                     </div>
@@ -115,12 +358,12 @@
                     <section class="team-identity" aria-label="Team identity">
                         <div class="heading-wrapper">
                             <div class="heading">
-                                <div class="div-2"><img class="img" src="img/image.svg" alt="Team identity icon" />
+                                <div class="div-2"><img class="img" src="../../icons/users.svg" alt="Team identity icon" />
                                 </div>
                                 <span class="text-2">TEAM IDENTITY</span>
                             </div>
                         </div>
-                        <div class="frame">
+                        <div class="team-id-cards">
                             <div class="frame-wrapper">
                                 <div class="frame-2">
                                     <img class="rectangle" src="../../icons/users.svg" alt="Team logo" style="width: 48px; height: 48px; object-fit: contain;" />

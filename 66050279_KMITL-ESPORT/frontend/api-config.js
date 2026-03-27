@@ -213,8 +213,11 @@ async function _sbRoute(path, method, body) {
             return _mockRes(data);
         }
         if (method === 'DELETE') {
+            // Delete related applications first to avoid FK constraint
+            const { error: appErr } = await sb.from('Application').delete().eq('team_id', teamId);
+            if (appErr) return _mockRes({ error: appErr.message }, 500);
             const { error } = await sb.from('Team').delete().eq('team_id', teamId);
-            if (error) return _mockRes({ message: error.message }, 500);
+            if (error) return _mockRes({ error: error.message }, 500);
             return _mockRes({ message: 'Deleted' });
         }
     }
