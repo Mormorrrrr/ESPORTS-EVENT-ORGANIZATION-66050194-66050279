@@ -615,8 +615,6 @@
 .admin-dashboard .section {
     position: relative;
     width: 100%;
-    max-width: 1100px;
-    margin: 40px auto;
 }
 
 
@@ -833,15 +831,6 @@
     letter-spacing: 0;
 }
 
-.admin-dashboard .container-16 {
-    display: flex;
-    width: 791px;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    position: relative;
-    margin-right: -1.00px;
-}
 
 .admin-dashboard .text-19 {
     width: 99.42px;

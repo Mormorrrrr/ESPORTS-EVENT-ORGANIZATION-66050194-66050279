@@ -334,22 +334,25 @@ header.namespaced-header .ns-user-avatar {
 
 /* --- PREMIUM MATCH ROW (VIEWER STANDARD) --- */
 .premium-match-row {
-    display: grid !important;
-    grid-template-columns: 240px 1fr 160px !important;
+    display: flex !important; /* Switch to flex for easier absolute positioning of children */
     align-items: center !important;
-    padding: 12px 40px !important;
+    padding: 0 40px !important;
     background: #ffffff !important;
-    border-radius: 999px !important; /* Pill shape */
-    margin-bottom: 16px !important;
+    border-radius: 999px !important;
+    margin-bottom: 12px !important;
     border: 1px solid #f1f5f9 !important;
-    transition: all 0.2s ease !important;
+    height: 92px !important; /* Slightly more compact */
+    transition: all 0.3s ease !important;
     text-decoration: none !important;
     color: inherit !important;
     box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.03) !important;
     width: 100% !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
     box-sizing: border-box !important;
-    gap: 32px !important;
-    flex-grow: 1 !important; /* Ensure it fills flex containers */
+    overflow: hidden !important;
+    position: relative !important; /* Anchor for absolute children */
 }
 
 .premium-match-row:hover {
@@ -399,15 +402,20 @@ header.namespaced-header .ns-user-avatar {
 .match-meta-info {
     display: flex !important;
     flex-direction: column !important;
-    gap: 4px !important;
-    flex: 0 0 240px !important; /* Fixed width for alignment */
-    min-width: 240px !important;
+    gap: 2px !important;
+    width: 240px !important;
+    flex-shrink: 0 !important;
 }
 
 .match-round-info {
-    flex: 0 0 160px !important; /* Fixed width for alignment */
-    min-width: 160px !important;
-    text-align: right !important;
+    position: absolute !important;
+    right: 40px !important; /* Fixed offset from right edge */
+    top: 0 !important;
+    bottom: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    width: 120px !important;
 }
 
 .match-tournament-tag {
@@ -436,19 +444,44 @@ header.namespaced-header .ns-user-avatar {
     font-size: 14px !important;
     margin-left: 4px !important;
 }
-/* --- SHARED SECTION HEADERS (Namespaced to Dashboards) --- */
-.admin-tournament .matches-header, .admin-dashboard .matches-header {
+/* --- UNIFIED DASHBOARD SECTION HEADERS (Matches, Tournaments, etc.) --- */
+.admin-tournament .matches-section, 
+.admin-dashboard .matches-section {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 40px 0 0 0 !important;
+    padding: 0 !important;
     display: flex !important;
-    flex-direction: row !important; /* Force Horizontal */
-    flex-wrap: nowrap !important; /* Prevent wrapping */
+    flex-direction: column !important;
+    gap: 24px !important;
+}
+
+.admin-tournament .matches-header, 
+.admin-dashboard .matches-header {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
     justify-content: space-between !important;
     align-items: center !important;
     width: 100% !important;
-    max-width: 1100px !important; /* Align with match rows */
-    margin: 40px auto 24px auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important; /* Managed by parent .frame padding */
 }
 
-.admin-tournament .heading-2, .admin-dashboard .heading-2 {
+/* Vertical Stacking for Match Lists */
+.admin-tournament .container-16, 
+.admin-dashboard .container-16 {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 16px !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin-top: 24px !important;
+}
+
+.admin-tournament .heading-2, 
+.admin-dashboard .heading-2 {
     display: flex !important;
     align-items: center !important;
     gap: 12px !important;
@@ -472,21 +505,35 @@ header.namespaced-header .ns-user-avatar {
     margin: 0 !important;
 }
 
-.admin-tournament .button, .admin-dashboard .button, 
-.admin-tournament .dashboard-link-btn, .admin-dashboard .dashboard-link-btn {
+/* Unified "View All" Links */
+.admin-tournament .dashboard-link-btn, 
+.admin-dashboard .dashboard-link-btn {
     display: flex !important;
     align-items: center !important;
     gap: 8px !important;
     background: none !important;
     border: none !important;
-    color: #ff8c00 !important; /* Restore Orange branding */
+    color: #ff8c00 !important; /* Orange branding */
     font-weight: 700 !important;
     cursor: pointer !important;
     font-size: 14px !important;
     padding: 0 !important;
     text-decoration: none !important;
-    margin: 0 !important; /* Neutralize legacy margins */
-    position: relative !important;
+    margin: 0 !important;
+    transition: all 0.2s ease !important;
+}
+
+.admin-tournament .dashboard-link-btn:hover, 
+.admin-dashboard .dashboard-link-btn:hover {
+    opacity: 0.8 !important;
+    transform: translateX(4px) !important;
+}
+
+.admin-tournament .dashboard-link-btn img, 
+.admin-dashboard .dashboard-link-btn img {
+    width: 16px !important;
+    height: 16px !important;
+    filter: invert(56%) sepia(87%) saturate(5419%) hue-rotate(1deg) brightness(103%) contrast(106%) !important; /* Match #ff8c00 */
 }
 
 .admin-tournament .text-wrapper-7, .admin-dashboard .text-wrapper-7 {
