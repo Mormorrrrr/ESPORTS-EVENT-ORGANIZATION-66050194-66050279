@@ -256,25 +256,33 @@
                         return;
                     }
                     matches.forEach(m => {
-                        const card = document.createElement('div');
-                        card.style.cssText = 'display:flex;align-items:center;gap:20px;padding:20px 24px;background:#fff;border-radius:16px;border:1px solid #f1f5f9;box-shadow:0 1px 4px rgba(0,0,0,0.06);width:100%;box-sizing:border-box;';
+                        const banner1 = m.team1_banner_url || '../../icons/user.svg';
+                        const banner2 = m.team2_banner_url || '../../icons/user.svg';
                         const tourName = m.Tournament ? m.Tournament.tournament_name : 'Tournament';
-                        card.innerHTML = `
-                            <div style="flex:1;min-width:0;">
-                                <span style="font-size:11px;font-weight:700;color:#ff8c00;letter-spacing:0.5px;text-transform:uppercase;">${tourName}</span>
-                                <div style="display:flex;align-items:center;justify-content:center;gap:24px;margin-top:12px;">
-                                    <span style="font-size:16px;font-weight:700;color:#0f172a;flex:1;text-align:right;">${m.team1_name||'TBD'}</span>
-                                    <span style="font-size:18px;font-weight:800;color:#94a3b8;padding:6px 16px;background:#f8fafc;border-radius:8px;">VS</span>
-                                    <span style="font-size:16px;font-weight:700;color:#0f172a;flex:1;text-align:left;">${m.team2_name||'TBD'}</span>
+                        
+                        const row = document.createElement('article');
+                        row.className = 'premium-match-row';
+                        row.innerHTML = `
+                            <div class="match-meta-info">
+                                <span class="match-tournament-tag" style="color: #ff8c00; font-size: 11px;">${tourName}</span>
+                                <span class="match-time-tag">START IN <strong>15:30</strong></span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 32px; flex: 1; justify-content: center;">
+                                <div class="match-team-container" style="justify-content: flex-end;">
+                                    <span class="match-team-name">${m.team1_name || 'TBD'}</span>
+                                    <img class="team-banner-circle" src="${banner1}" onerror="this.src='../../icons/user.svg'" />
                                 </div>
-                                <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-top:10px;">
-                                    <span style="font-size:12px;color:#64748b;">Round ${m.round||'-'}</span>
-                                    ${m.match_date?`<span style="font-size:12px;color:#64748b;">${new Date(m.match_date).toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})}</span>`:''}
-                                    <span style="font-size:11px;font-weight:600;padding:2px 10px;border-radius:99px;background:${m.status==='completed'?'#dcfce7':m.status==='ongoing'?'#fef9c3':'#f1f5f9'};color:${m.status==='completed'?'#15803d':m.status==='ongoing'?'#92400e':'#64748b'};">${(m.status||'Scheduled').toUpperCase()}</span>
+                                <div class="vs-badge-premium">VS</div>
+                                <div class="match-team-container">
+                                    <img class="team-banner-circle" src="${banner2}" onerror="this.src='../../icons/user.svg'" />
+                                    <span class="match-team-name">${m.team2_name || 'TBD'}</span>
                                 </div>
                             </div>
+                            <div class="match-round-info">
+                                <span class="match-round-tag">ROUND <strong>${m.round || 1}</strong></span>
+                            </div>
                         `;
-                        container.appendChild(card);
+                        container.appendChild(row);
                     });
                 } catch (err) {
                     container.innerHTML = `<p style="padding:40px;text-align:center;color:#ef4444;">Failed to load: ${err.message}</p>`;

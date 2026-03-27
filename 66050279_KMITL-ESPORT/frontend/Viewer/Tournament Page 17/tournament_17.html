@@ -444,26 +444,28 @@
                                     foundMatches = true;
                                     upcoming.slice(0, 3).forEach(m => {
                                         const row = document.createElement('article');
-                                        row.className = 'background-border';
+                                        row.className = 'premium-match-row';
+                                        const banner1 = m.team1_banner_url || '../../icons/user.svg';
+                                        const banner2 = m.team2_banner_url || '../../icons/user.svg';
+                                        
                                         row.innerHTML = `
-                                            <div class="match-info-left">
-                                                <span class="match-label">START IN</span>
-                                                <span class="match-time">15:30</span>
+                                            <div class="match-meta-info">
+                                                <span class="match-tournament-tag" style="color: #ff8c00; font-size: 11px;">${t.tournament_name}</span>
+                                                <span class="match-time-tag">START IN <strong>15:30</strong></span>
                                             </div>
-                                            <div class="match-teams-center">
-                                                <div class="team-item" style="justify-content: flex-end;">
-                                                    <span class="team-name">${m.team1_name || 'TBD'}</span>
-                                                    <div class="team-icon">
-                                                        <img src="../../icons/user.svg" style="width: 16px; height: 16px; opacity: 0.5;" />
-                                                    </div>
+                                            <div style="display: flex; align-items: center; gap: 32px; flex: 1; justify-content: center;">
+                                                <div class="match-team-container" style="justify-content: flex-end;">
+                                                    <span class="match-team-name">${m.team1_name || 'TBD'}</span>
+                                                    <img class="team-banner-circle" src="${banner1}" onerror="this.src='../../icons/user.svg'" />
                                                 </div>
-                                                <div class="vs-badge-circle">VS</div>
-                                                <div class="team-item">
-                                                    <div class="team-icon">
-                                                        <img src="../../icons/user.svg" style="width: 16px; height: 16px; opacity: 0.5;" />
-                                                    </div>
-                                                    <span class="team-name">${m.team2_name || 'TBD'}</span>
+                                                <div class="vs-badge-premium">VS</div>
+                                                <div class="match-team-container">
+                                                    <img class="team-banner-circle" src="${banner2}" onerror="this.src='../../icons/user.svg'" />
+                                                    <span class="match-team-name">${m.team2_name || 'TBD'}</span>
                                                 </div>
+                                            </div>
+                                            <div class="match-round-info">
+                                                <span class="match-round-tag">ROUND <strong>${m.round || 1}</strong></span>
                                             </div>
                                         `;
                                         matchListContainer.appendChild(row);

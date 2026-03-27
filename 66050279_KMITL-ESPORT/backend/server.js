@@ -374,9 +374,36 @@ app.get("/tournaments/:id/matches", async (req, res) => {
   try {
     const matches = await prisma.match.findMany({
       where: { tournament_id: tournamentId },
-      orderBy: [{ round: 'asc' }, { position: 'asc' }]
+      orderBy: [
+        { round: "asc" },
+        { position: "asc" }
+      ]
     });
-    res.json(matches);
+
+    // Fetch team banners by name
+    const teamNames = new Set();
+    matches.forEach(m => {
+      if (m.team1_name) teamNames.add(m.team1_name);
+      if (m.team2_name) teamNames.add(m.team2_name);
+    });
+
+    const teams = await prisma.team.findMany({
+      where: { team_name: { in: Array.from(teamNames) } },
+      select: { team_name: true, team_banner_url: true }
+    });
+
+    const teamMap = {};
+    teams.forEach(t => {
+      teamMap[t.team_name] = t.team_banner_url;
+    });
+
+    const matchesWithBanners = matches.map(m => ({
+      ...m,
+      team1_banner_url: teamMap[m.team1_name] || null,
+      team2_banner_url: teamMap[m.team2_name] || null
+    }));
+
+    res.json(matchesWithBanners);
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "ดึงข้อมูลการแข่งขันไม่สำเร็จ" });
@@ -395,12 +422,12 @@ app.post("/tournaments/:id/matches/save", async (req, res) => {
       await prisma.match.createMany({
         data: matches.map(m => ({
           tournament_id: tournamentId,
-          team1_name: m.team1_name,
-          team2_name: m.team2_name,
-          score1: m.score1,
-          score2: m.score2,
+          team1_name: m.team1_name || null,
+          team2_name: m.team2_name || null,
           round: m.round,
-          position: m.position
+          position: m.position,
+          score1: m.score1,
+          score2: m.score2
         }))
       });
     }

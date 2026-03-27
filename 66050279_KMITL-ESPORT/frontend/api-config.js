@@ -115,18 +115,54 @@ async function _sbRoute(path, method, body) {
 
     // GET /matches (all matches with tournament info)
     if (path === '/matches' && method === 'GET') {
-        const { data, error } = await sb.from('Match').select('*, Tournament(tournament_name, tournament_banner)').order('match_id');
+        const { data: matches, error } = await sb.from('Match').select('*, Tournament(tournament_name, tournament_banner)').order('match_id');
         if (error) return _mockRes({ message: error.message }, 500);
-        return _mockRes(data || []);
+        
+        // Fetch teams to get banners
+        const teamNames = new Set();
+        (matches || []).forEach(m => {
+            if (m.team1_name) teamNames.add(m.team1_name);
+            if (m.team2_name) teamNames.add(m.team2_name);
+        });
+        
+        if (teamNames.size > 0) {
+            const { data: teams } = await sb.from('Team').select('team_name, team_banner_url').in('team_name', Array.from(teamNames));
+            const teamMap = {};
+            (teams || []).forEach(t => teamMap[t.team_name] = t.team_banner_url);
+            matches.forEach(m => {
+                m.team1_banner_url = teamMap[m.team1_name] || null;
+                m.team2_banner_url = teamMap[m.team2_name] || null;
+            });
+        }
+        
+        return _mockRes(matches || []);
     }
 
     // GET /tournaments/:id/matches
     var matchesM = path.match(/^\/tournaments\/(\d+)\/matches$/);
     if (matchesM && method === 'GET') {
         var tid = parseInt(matchesM[1]);
-        const { data, error } = await sb.from('Match').select('*').eq('tournament_id', tid).order('round').order('position');
+        const { data: matches, error } = await sb.from('Match').select('*').eq('tournament_id', tid).order('round').order('position');
         if (error) return _mockRes({ message: error.message }, 500);
-        return _mockRes(data || []);
+        
+        // Fetch teams to get banners
+        const teamNames = new Set();
+        (matches || []).forEach(m => {
+            if (m.team1_name) teamNames.add(m.team1_name);
+            if (m.team2_name) teamNames.add(m.team2_name);
+        });
+        
+        if (teamNames.size > 0) {
+            const { data: teams } = await sb.from('Team').select('team_name, team_banner_url').in('team_name', Array.from(teamNames));
+            const teamMap = {};
+            (teams || []).forEach(t => teamMap[t.team_name] = t.team_banner_url);
+            matches.forEach(m => {
+                m.team1_banner_url = teamMap[m.team1_name] || null;
+                m.team2_banner_url = teamMap[m.team2_name] || null;
+            });
+        }
+        
+        return _mockRes(matches || []);
     }
 
     // POST /tournaments/:id/matches/save
@@ -153,6 +189,8 @@ async function _sbRoute(path, method, body) {
             const s2 = Array.isArray(m.score2) ? m.score2[1] : m.score2;
             return {
                 tournament_id: tid,
+                team1_name: m.team1_name || null,
+                team2_name: m.team2_name || null,
                 round: m.round,
                 position: m.position,
                 score1: toInt(s1),

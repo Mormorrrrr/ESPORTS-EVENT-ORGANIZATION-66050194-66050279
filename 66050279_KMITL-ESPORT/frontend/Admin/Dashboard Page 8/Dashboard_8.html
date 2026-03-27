@@ -121,7 +121,7 @@
                     </article>
                 </section>
 
-                <!-- Upcoming Matches -->
+                <!-- Upcoming Matches (Restored Structure) -->
                 <section class="section" aria-label="Upcoming Matches">
                     <div class="matches-header">
                         <div class="heading-2">
@@ -138,10 +138,9 @@
                         </button>
                     </div>
 
-                    <div class="container-11" id="recent-matches-container">
+                    <div class="container-11" id="recent-matches-container" style="align-items: stretch !important;">
                         <!-- Matches will be injected here -->
-                        <p style="color:#94a3b8; padding: 20px; text-align: center; width: 100%;">No matches scheduled
-                            yet.</p>
+                        <p style="color:#94a3b8; padding: 20px; text-align: center; width: 100%;">No matches scheduled yet.</p>
                     </div>
                 </section>
             </div>
@@ -538,15 +537,31 @@
                                 if (upcoming.length > 0) {
                                     foundMatches = true;
                                     upcoming.slice(0, 3).forEach(m => {
-                                        const row = document.createElement('div');
-                                        row.className = 'match-row';
-                                        row.style.cssText = 'display: flex; align-items: center; justify-content: space-between; padding: 16px; background: #f8fafc; border-radius: 12px; margin-bottom: 8px; border: 1px solid #f1f5f9;';
+                                        const banner1 = m.team1_banner_url || '../../icons/user.svg';
+                                        const banner2 = m.team2_banner_url || '../../icons/user.svg';
+                                        
+                                        const row = document.createElement('article');
+                                        row.className = 'premium-match-row';
+                                        row.style.width = '100%';
                                         row.innerHTML = `
-                                            <div style="display: flex; flex-direction: column; gap: 4px;">
-                                                <span style="font-size: 10px; color: #94a3b8; font-weight: 700;">T-ID: ${t.tournament_id}</span>
-                                                <span style="font-weight: 700; color: #0f172a;">${m.team1_name || 'TBD'} vs ${m.team2_name || 'TBD'}</span>
+                                            <div class="match-meta-info">
+                                                <span class="match-tournament-tag" style="color: #ff8c00; font-size: 11px;">${t.tournament_name}</span>
+                                                <span class="match-time-tag">START IN <strong>15:30</strong></span>
                                             </div>
-                                            <span style="font-size: 12px; color: #64748b; font-weight: 600;">Upcoming</span>
+                                            <div style="display: flex; align-items: center; gap: 32px; flex: 1; justify-content: center;">
+                                                <div class="match-team-container" style="justify-content: flex-end;">
+                                                    <span class="match-team-name">${m.team1_name || 'TBD'}</span>
+                                                    <img class="team-banner-circle" src="${banner1}" onerror="this.src='../../icons/user.svg'" />
+                                                </div>
+                                                <div class="vs-badge-premium">VS</div>
+                                                <div class="match-team-container">
+                                                    <img class="team-banner-circle" src="${banner2}" onerror="this.src='../../icons/user.svg'" />
+                                                    <span class="match-team-name">${m.team2_name || 'TBD'}</span>
+                                                </div>
+                                            </div>
+                                            <div class="match-round-info">
+                                                <span class="match-round-tag">ROUND <strong>${m.round || 1}</strong></span>
+                                            </div>
                                         `;
                                         matchesContainer.appendChild(row);
                                     });
