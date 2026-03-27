@@ -192,9 +192,11 @@ header.namespaced-header .ns-user-avatar {
 }
 
 /* Global Content Layout Consistency */
-.frame, .standardized-main-content, main.frame {
+.frame, .standardized-main-content, main.frame, .main-content {
     margin-left: 260px !important;
     width: calc(100% - 260px) !important;
+    max-width: 1200px !important;
+    margin-right: auto !important;
     margin-top: 73px !important;
     padding: 40px !important;
     box-sizing: border-box !important;
@@ -437,6 +439,8 @@ header.namespaced-header .ns-user-avatar {
 /* --- SHARED SECTION HEADERS (Namespaced to Dashboards) --- */
 .admin-tournament .matches-header, .admin-dashboard .matches-header {
     display: flex !important;
+    flex-direction: row !important; /* Force Horizontal */
+    flex-wrap: nowrap !important; /* Prevent wrapping */
     justify-content: space-between !important;
     align-items: center !important;
     width: 100% !important;
@@ -475,7 +479,7 @@ header.namespaced-header .ns-user-avatar {
     gap: 8px !important;
     background: none !important;
     border: none !important;
-    color: #64748b !important; /* Gray text as per screenshot */
+    color: #ff8c00 !important; /* Restore Orange branding */
     font-weight: 700 !important;
     cursor: pointer !important;
     font-size: 14px !important;
