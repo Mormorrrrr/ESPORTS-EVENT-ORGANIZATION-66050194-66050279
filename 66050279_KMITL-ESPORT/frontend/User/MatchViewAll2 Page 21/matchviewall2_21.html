@@ -252,24 +252,42 @@
             const container = document.getElementById('match-list-container');
             async function loadMatches() {
                 try {
-                    const res = await fetch(`${API_BASE_URL}/matches`);
-                    if (!res.ok) throw new Error('HTTP ' + res.status);
-                    const matches = await res.json();
+                    const tRes = await fetch(`${API_BASE_URL}/tournaments`);
+                    if (!tRes.ok) throw new Error('Failed to fetch tournaments');
+                    const tournaments = await tRes.json();
+                    
                     container.innerHTML = '';
-                    if (!matches || matches.length === 0) {
+                    let allUpcomingMatches = [];
+
+                    for (const t of tournaments) {
+                        try {
+                            const mRes = await fetch(`${API_BASE_URL}/tournaments/${t.tournament_id}/matches`);
+                            if (mRes.ok) {
+                                const matches = await mRes.json();
+                                const upcoming = matches.filter(m => m.score1 === null && m.score2 === null);
+                                upcoming.forEach(m => {
+                                    allUpcomingMatches.push({ ...m, tournament_name: t.tournament_name });
+                                });
+                            }
+                        } catch (e) {}
+                    }
+
+                    if (allUpcomingMatches.length === 0) {
                         container.innerHTML = '<p style="padding:40px;text-align:center;color:#64748b;font-size:16px;">ยังไม่มีการแข่งขันที่กำหนดไว้</p>';
                         return;
                     }
-                    matches.forEach(m => {
+
+                    allUpcomingMatches.sort((a, b) => (a.round || 0) - (b.round || 0));
+
+                    allUpcomingMatches.forEach(m => {
                         const banner1 = m.team1_banner_url || '../../icons/user.svg';
                         const banner2 = m.team2_banner_url || '../../icons/user.svg';
-                        const tourName = m.Tournament ? m.Tournament.tournament_name : 'Tournament';
                         
                         const row = document.createElement('article');
                         row.className = 'premium-match-row';
                         row.innerHTML = `
                             <div class="match-meta-info">
-                                <span class="match-tournament-tag" style="color: #ff8c00; font-size: 11px;">${tourName}</span>
+                                <span class="match-tournament-tag" style="color: #ff8c00; font-size: 11px;">${m.tournament_name}</span>
                                 <span class="match-time-tag">START IN <strong>15:30</strong></span>
                             </div>
                             <div style="display: flex; align-items: center; gap: 32px; flex: 1; justify-content: center;">
