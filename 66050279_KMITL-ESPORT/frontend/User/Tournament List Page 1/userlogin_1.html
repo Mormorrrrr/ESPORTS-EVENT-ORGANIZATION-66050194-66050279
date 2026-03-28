@@ -306,7 +306,7 @@
                     if (!tournaments || tournaments.length === 0) {
                         listContainer.innerHTML = '<p style="padding: 40px; text-align: center; color: #64748b;">No tournaments available in the database.</p>';
                     } else {
-                        tournaments.forEach(t => {
+                        tournaments.slice(0, 3).forEach(t => {
                             const article = document.createElement('article');
                             article.className = 'background-shadow';
                             const bannerSrc = t.tournament_banner || 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800'; 
