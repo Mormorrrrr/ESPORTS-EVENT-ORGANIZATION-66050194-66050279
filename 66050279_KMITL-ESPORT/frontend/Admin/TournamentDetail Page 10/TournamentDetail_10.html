@@ -885,6 +885,7 @@
 
                 const teams = (tournament.Application || tournament.applications || [])
                     .filter(app => app.status === 'Approved')
+                    .sort((a, b) => (a.app_id || 0) - (b.app_id || 0))
                     .map(app => (app.Team || app.team || {}).team_name)
                     .filter(name => name);
 
@@ -1155,6 +1156,10 @@
 
                 // Manual Save Handling — use localMatches updated by iframe save callback
                 $('#save-bracket-btn').on('click', function () {
+                    const iframe = $bracket.find('iframe')[0];
+                    if (iframe && iframe.contentWindow && iframe.contentWindow.document.activeElement) {
+                        iframe.contentWindow.document.activeElement.blur();
+                    }
                     saveMatchesToDB(localMatches, currentFormat);
                 });
 

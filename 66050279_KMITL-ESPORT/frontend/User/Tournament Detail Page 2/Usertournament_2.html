@@ -369,6 +369,7 @@
 
                 const teams = (tournament.Application || tournament.applications || [])
                     .filter(app => app.status === 'Approved')
+                    .sort((a, b) => (a.app_id || 0) - (b.app_id || 0))
                     .map(app => (app.Team || app.team || {}).team_name)
                     .filter(n => n);
 
@@ -402,9 +403,27 @@
                     });
                     bracketData = { teams: bracketTeams, results: [wb, lb, finals] };
                 } else {
+                    let slotTeams = Array.from({ length: numTeams }, (_, i) => teams[i] || 'BYE');
                     const numRounds = Math.log2(numTeams);
-                    const results = Array.from({ length: numRounds }, (_, r) => Array.from({ length: numTeams / Math.pow(2, r + 1) }, () => [null, null]));
-                    matches.forEach(m => { if (results[m.round - 1]?.[m.position] !== undefined) results[m.round - 1][m.position] = [m.score1, m.score2]; });
+                    const results = [];
+                    for (let r = 0; r < numRounds; r++) {
+                        const roundArr = [], nextSlot = [];
+                        const matchCount = slotTeams.length / 2;
+                        for (let m = 0; m < matchCount; m++) {
+                            const t1 = slotTeams[m * 2], t2 = slotTeams[m * 2 + 1];
+                            const md = matches.find(x => x.round === r + 1 && x.position === m);
+                            let score = md ? [md.score1, md.score2] : [null, null];
+                            if (score[0] === null && score[1] === null) {
+                                if (t1 !== 'BYE' && t2 === 'BYE') score = [1, 0];
+                                else if (t1 === 'BYE' && t2 !== 'BYE') score = [0, 1];
+                            }
+                            const winner = (t1 === 'BYE' && t2 === 'BYE') ? 'BYE' : (score[0] !== null && score[1] !== null) ? (score[0] >= score[1] ? t1 : t2) : 'TBD';
+                            nextSlot.push(winner);
+                            roundArr.push(score);
+                        }
+                        results.push(roundArr);
+                        slotTeams = nextSlot;
+                    }
                     bracketData = { teams: bracketTeams, results };
                 }
 
