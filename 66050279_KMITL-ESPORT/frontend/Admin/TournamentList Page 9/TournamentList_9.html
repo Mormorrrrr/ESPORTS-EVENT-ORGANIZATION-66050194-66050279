@@ -78,7 +78,7 @@
         </aside>
         <!-- Main Content -->
         <main class="tournaments-list-wrapper"
-            style="max-width: 1400px; width: 100%; display: flex; flex-direction: column;">
+            style="width: 100%; display: flex; flex-direction: column;">
             <section style="position: relative; margin-top: 32px; display: flex;" aria-label="Tournament List">
                 <div
                     style="display: flex; justify-content: space-between; align-items: center; width: 100%; padding-bottom: 24px;">
@@ -268,6 +268,7 @@
         }
         #admin-tournaments-list .premium-match-row {
             border: 1px solid #f1f5f9 !important;
+            padding: 0 48px !important;
         }
         
         .modal-box {
@@ -386,7 +387,9 @@
             padding: 14px 16px;
             border: 1px solid #e2e8f0;
             border-radius: 12px;
-                .explore-item:hover {
+        }
+
+        .explore-item:hover {
             background: #f8fafc;
         }
 
@@ -503,7 +506,7 @@
                             </div>
                         </div>
 
-                        <!-- Column 2: Tournament Title & Metadata -->
+                        <!-- Column 2: Tournament Title & Metadata (Centered) -->
                         <div style="display:flex; flex: 1; flex-direction:column; gap:8px; justify-content:center; padding: 0 16px; min-width: 0;">
                             <span style="font-size: 20px; font-weight: 800; color: #0f172a; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${t.tournament_name}</span>
                             <div style="display:flex; align-items:center; gap:8px;">
@@ -514,8 +517,8 @@
                             </div>
                         </div>
 
-                        <!-- Column 3: Action Icons (Standardized and pushed right) -->
-                        <div class="match-round-info" style="display:flex; align-items:center; justify-content:flex-end; gap: 12px; width: 120px !important; flex-shrink: 0 !important;">
+                        <!-- Column 3: Action Icons (Pushed to the right with safe padding) -->
+                        <div class="match-round-info" style="display:flex; align-items:center; justify-content:flex-end; gap: 12px; width: 140px !important; flex-shrink: 0 !important; padding-right: 16px;">
                             <button onclick="window.location.href='../TournamentDetail Page 10/TournamentDetail_10.html?id=${t.tournament_id}'" 
                                 style="width: 44px; height: 44px; border-radius: 14px; background-color: #f8fafc; border: 1px solid #e2e8f0; cursor: pointer; display:flex; align-items:center; justify-content:center; transition: all 0.2s;">
                                 <img src="../../icons/pencil.svg" style="width: 20px; height: 20px; opacity: 0.7;">

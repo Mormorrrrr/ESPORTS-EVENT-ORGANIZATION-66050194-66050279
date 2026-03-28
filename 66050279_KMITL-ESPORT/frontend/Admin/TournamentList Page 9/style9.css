@@ -1,17 +1,19 @@
 .admin-tournament {
     position: relative;
-    width: 1440px;
+    width: 100%;
+    max-width: 100vw;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     background-color: #ffffff;
+    overflow-x: hidden;
 }
 
 .admin-tournament .header-top {
     position: fixed;
     top: 0;
     left: 0;
-    width: 1440px;
+    width: 100%;
     height: 73px;
     z-index: 3;
     background-color: #ffffff;
@@ -404,11 +406,12 @@
 
 .admin-tournament .tournaments-list-wrapper {
     z-index: 2;
-    margin-left: 320px;
-    margin-right: 128px;
+    margin-left: 280px;
+    margin-right: 64px;
     flex: 1 0 auto;
     margin-top: 97px;
     display: flex;
+    max-width: calc(100% - 344px);
 }
 
 .admin-tournament .tournaments-list {
@@ -688,7 +691,7 @@
 
 .admin-tournament .footer-footer {
     z-index: 1;
-    width: 1440px;
+    width: 100%;
     height: 95px;
     margin-top: auto;
     display: flex;
@@ -774,7 +777,7 @@
 
 .admin-tournament {
     position: relative;
-    width: 1440px;
+    width: 100%;
     height: 1024px;
     display: flex;
     flex-direction: column;
@@ -785,7 +788,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 1440px;
+    width: 100%;
     height: 73px;
     z-index: 3;
     background-color: #ffffff;
