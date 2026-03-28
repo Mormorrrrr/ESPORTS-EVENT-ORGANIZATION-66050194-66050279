@@ -1158,9 +1158,13 @@
                 $('#save-bracket-btn').on('click', function () {
                     const iframe = $bracket.find('iframe')[0];
                     if (iframe && iframe.contentWindow && iframe.contentWindow.document.activeElement) {
-                        iframe.contentWindow.document.activeElement.blur();
+                        try { iframe.contentWindow.document.activeElement.blur(); } catch(e) {}
                     }
-                    saveMatchesToDB(localMatches, currentFormat);
+                    // Wait a tiny bit for jquery-bracket's 'blur' event handler to process and fire the save() callback
+                    setTimeout(() => {
+                        const type = $('#format-toggle').val();
+                        saveMatchesToDB(localMatches, type);
+                    }, 100);
                 });
 
             } catch (error) {
