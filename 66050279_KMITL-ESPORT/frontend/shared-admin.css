@@ -224,11 +224,16 @@ header.namespaced-header .ns-user-avatar {
     margin-right: auto !important;
     margin-top: 73px !important;
     padding: 40px !important;
+    padding-bottom: 80px !important;
     box-sizing: border-box !important;
     display: flex !important;
     flex-direction: column !important;
     min-height: calc(100vh - 73px) !important;
     background-color: #ffffff !important;
+}
+
+main {
+    padding-bottom: 80px !important;
 }
 
 /* --- GOLD STANDARD CARD UI (TOURNAMENT & TEAM LISTS) --- */
