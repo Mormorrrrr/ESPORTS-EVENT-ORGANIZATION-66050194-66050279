@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="../../Admin/TournamentList Page 9/styleguide9.css" />
     <link rel="stylesheet" href="../../Admin/TournamentList Page 9/style9.css?v=3" />
     <link rel="stylesheet" href="./style1.css?v=3" />
-    <link rel="stylesheet" href="../../shared-admin.css?v=4" />
+    <link rel="stylesheet" href="../../shared-admin.css?v=5" />
 </head>
 
 <body>
@@ -98,9 +98,6 @@
             <section class="section-2" id="upcoming-matches-section" aria-labelledby="upcoming-matches-heading" style="display: none;">
                 <div class="matches-header">
                     <div class="heading-2">
-                        <div class="icon-wrapper">
-                            <img class="icon-7" src="../../icons/calendar-day.svg" alt="Upcoming matches icon" />
-                        </div>
                         <h2 class="text-wrapper-5" id="upcoming-matches-heading">Upcoming Matches</h2>
                     </div>
                     <a href="../MatchViewAll2 Page 21/matchviewall2_21.html" class="dashboard-link-btn">
@@ -338,52 +335,60 @@
                     }
 
                     // Matches rendering (Upgraded to match mockup)
-                    let foundMatches = false;
                     matchListContainer.innerHTML = '';
+                    let allMatches = [];
                     for (const t of tournaments) {
                         try {
                             const mRes = await fetch(`${API_BASE_URL}/tournaments/${t.tournament_id}/matches`);
                             if (mRes.ok) {
                                 const matches = await mRes.json();
-                                // Include all matches that have teams, or at least show finished ones
                                 if (matches.length > 0) {
-                                    foundMatches = true;
-                                    matches.slice(0, 3).forEach(m => {
-                                        const banner1 = m.team1_banner_url || '../../icons/user.svg';
-                                        const banner2 = m.team2_banner_url || '../../icons/user.svg';
-                                        
-                                        const hasScore = m.score1 !== null && m.score2 !== null;
-                                        const vsContent = hasScore ? `<div class="results-badge-premium">${m.score1} - ${m.score2}</div>` : '<div class="vs-badge-premium">VS</div>';
-
-                                        const row = document.createElement('article');
-                                        row.className = 'premium-match-row';
-                                        row.innerHTML = `
-                                            <div class="match-meta-info">
-                                                <span class="match-tournament-tag" style="color: #ff8c00; font-size: 11px;">${t.tournament_name}</span>
-                                                <span class="match-time-tag">${hasScore ? 'FINISHED' : 'START IN <strong>15:30</strong>'}</span>
-                                            </div>
-                                            <div style="display: flex; align-items: center; gap: 32px; flex: 1; justify-content: center;">
-                                                <div class="match-team-container" style="justify-content: flex-end;">
-                                                    <span class="match-team-name">${m.team1_name || 'TBD'}</span>
-                                                    <img class="team-banner-circle" src="${banner1}" onerror="this.src='../../icons/user.svg'" />
-                                                </div>
-                                                ${vsContent}
-                                                <div class="match-team-container">
-                                                    <img class="team-banner-circle" src="${banner2}" onerror="this.src='../../icons/user.svg'" />
-                                                    <span class="match-team-name">${m.team2_name || 'TBD'}</span>
-                                                </div>
-                                            </div>
-                                            <div class="match-round-info">
-                                                <span class="match-round-tag">ROUND <strong>${m.round || 1}</strong></span>
-                                            </div>
-                                        `;
-                                        matchListContainer.appendChild(row);
+                                    matches.forEach(m => {
+                                        allMatches.push({ ...m, tournament_name: t.tournament_name });
                                     });
                                 }
                             }
                         } catch (e) {
                             console.warn('Failed to fetch matches for tournament', t.tournament_id);
                         }
+                    }
+
+                    let foundMatches = allMatches.length > 0;
+                    if (foundMatches) {
+                        allMatches.sort((a, b) => {
+                            if (a.round !== b.round) return (a.round || 0) - (b.round || 0);
+                            return (a.position || 0) - (b.position || 0);
+                        });
+                        allMatches.slice(0, 4).forEach(m => {
+                            const banner1 = m.team1_banner_url || '../../icons/user.svg';
+                            const banner2 = m.team2_banner_url || '../../icons/user.svg';
+                            const hasScore = m.score1 !== null && m.score2 !== null;
+                            const vsContent = hasScore ? `<div class="results-badge-premium">${m.score1} - ${m.score2}</div>` : '<div class="vs-badge-premium">VS</div>';
+
+                            const row = document.createElement('article');
+                            row.className = 'premium-match-row';
+                            row.innerHTML = `
+                                <div class="match-meta-info">
+                                    <span class="match-tournament-tag" style="color: #ff8c00; font-size: 11px;">${m.tournament_name}</span>
+                                    <span class="match-time-tag">${hasScore ? 'FINISHED' : 'START IN <strong>15:30</strong>'}</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 32px; flex: 1; justify-content: center;">
+                                    <div class="match-team-container" style="justify-content: flex-end;">
+                                        <span class="match-team-name">${m.team1_name || 'TBD'}</span>
+                                        <img class="team-banner-circle" src="${banner1}" onerror="this.src='../../icons/user.svg'" />
+                                    </div>
+                                    ${vsContent}
+                                    <div class="match-team-container">
+                                        <img class="team-banner-circle" src="${banner2}" onerror="this.src='../../icons/user.svg'" />
+                                        <span class="match-team-name">${m.team2_name || 'TBD'}</span>
+                                    </div>
+                                </div>
+                                <div class="match-round-info">
+                                    <span class="match-round-tag">ROUND <strong>${m.round || 1}</strong></span>
+                                </div>
+                            `;
+                            matchListContainer.appendChild(row);
+                        });
                     }
                     
                     // Final visibility toggle

@@ -227,6 +227,8 @@ header.namespaced-header .ns-user-avatar {
     box-sizing: border-box !important;
     display: flex !important;
     flex-direction: column !important;
+    min-height: calc(100vh - 73px) !important;
+    background-color: #ffffff !important;
 }
 
 /* --- GOLD STANDARD CARD UI (TOURNAMENT & TEAM LISTS) --- */
