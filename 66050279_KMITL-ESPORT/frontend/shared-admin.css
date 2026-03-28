@@ -576,3 +576,176 @@ header.namespaced-header .ns-user-avatar {
     height: 16px !important;
     filter: invert(56%) sepia(87%) saturate(1915%) hue-rotate(1deg) brightness(104%) contrast(106%) !important; /* Orange filter */
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   RESPONSIVE LAYOUT
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Hamburger button — hidden on desktop */
+.sidebar-hamburger {
+    display: none !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 40px !important;
+    height: 40px !important;
+    background: none !important;
+    border: none !important;
+    cursor: pointer !important;
+    padding: 8px !important;
+    border-radius: 8px !important;
+    flex-shrink: 0 !important;
+    order: -1 !important;
+    transition: background 0.2s !important;
+}
+.sidebar-hamburger:hover {
+    background: #f1f5f9 !important;
+}
+.sidebar-hamburger .hb-bar {
+    width: 18px;
+    height: 2px;
+    background: #1e293b;
+    display: block;
+    position: relative;
+    transition: all 0.2s;
+}
+.sidebar-hamburger .hb-bar::before,
+.sidebar-hamburger .hb-bar::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 2px;
+    background: #1e293b;
+    left: 0;
+    transition: all 0.2s;
+}
+.sidebar-hamburger .hb-bar::before { top: -5px; }
+.sidebar-hamburger .hb-bar::after  { top:  5px; }
+
+/* Sidebar overlay for mobile */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+    cursor: pointer;
+}
+.sidebar-overlay.open {
+    display: block;
+}
+
+/* ── Tablet: 769px – 1024px ──────────────────────────────────────────────── */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .aside-sidebar {
+        width: 200px !important;
+    }
+    .frame, main.frame, .standardized-main-content, .main-content {
+        margin-left: 200px !important;
+        width: calc(100% - 200px) !important;
+        padding: 24px !important;
+    }
+    header.namespaced-header .ns-main-nav {
+        gap: 12px !important;
+    }
+    header.namespaced-header .ns-nav-link {
+        font-size: 13px !important;
+    }
+    header.namespaced-header .ns-search-input {
+        width: 140px !important;
+    }
+    .tournament-card-wrapper {
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)) !important;
+        gap: 20px !important;
+    }
+}
+
+/* ── Mobile: ≤768px ──────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    /* Sidebar slides off-screen; toggled open by .sidebar-open class */
+    .aside-sidebar {
+        transform: translateX(-100%) !important;
+        transition: transform 0.3s ease !important;
+        z-index: 1002 !important;
+        box-shadow: none !important;
+        width: 260px !important;
+    }
+    .aside-sidebar.sidebar-open {
+        transform: translateX(0) !important;
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    /* Main content: full width, no left offset */
+    .frame, main.frame, .standardized-main-content, .main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+        padding: 16px !important;
+        margin-top: 73px !important;
+    }
+
+    /* Show hamburger */
+    .sidebar-hamburger {
+        display: flex !important;
+    }
+
+    /* Header */
+    header.namespaced-header {
+        padding: 0 12px !important;
+    }
+    header.namespaced-header .ns-header-left {
+        gap: 8px !important;
+        margin-left: 0 !important;
+    }
+    header.namespaced-header .ns-logo-img {
+        width: 70px !important;
+        height: 37px !important;
+    }
+    header.namespaced-header .ns-title-wrap {
+        display: none !important;
+    }
+    header.namespaced-header .ns-main-nav {
+        display: none !important;
+    }
+    header.namespaced-header .ns-search-box {
+        display: none !important;
+    }
+    header.namespaced-header .ns-header-right {
+        gap: 12px !important;
+    }
+
+    /* Cards: single column */
+    .tournament-card-wrapper {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+
+    /* Section control bar: stack vertically */
+    .container-2 {
+        flex-direction: column !important;
+        gap: 12px !important;
+        align-items: stretch !important;
+        margin-bottom: 20px !important;
+    }
+    .container-2 .button {
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    /* Match rows on mobile */
+    .premium-match-row {
+        padding: 0 16px !important;
+        height: auto !important;
+        min-height: 72px !important;
+        border-radius: 16px !important;
+    }
+    .match-meta-info {
+        display: none !important;
+    }
+    .match-round-info {
+        position: static !important;
+        width: auto !important;
+        margin-left: auto !important;
+    }
+    .match-team-name {
+        font-size: 14px !important;
+    }
+}
