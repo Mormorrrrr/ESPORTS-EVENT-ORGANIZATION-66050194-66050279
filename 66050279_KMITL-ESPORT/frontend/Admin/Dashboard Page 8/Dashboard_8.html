@@ -310,6 +310,13 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
         }
 
+        .admin-dashboard .container-7 {
+            display: flex;
+            width: 100%;
+            max-width: 1400px; /* Increased from 1200px */
+            margin: 0 auto;
+        }
+
         .modal-header {
             display: flex;
             align-items: center;
@@ -557,7 +564,7 @@
                                     <span class="match-tournament-tag" style="color: #ff8c00; font-size: 11px;">${m.tournament_name}</span>
                                     <span class="match-time-tag">${hasScore ? 'FINISHED' : 'START IN <strong>15:30</strong>'}</span>
                                 </div>
-                                <div style="display: flex; align-items: center; gap: 32px; flex: 1; justify-content: center;">
+                                <div style="display: flex; align-items: center; gap: 32px; flex: 1; justify-content: center; min-width: 0;">
                                     <div class="match-team-container" style="justify-content: flex-end;">
                                         <span class="match-team-name">${m.team1_name || 'TBD'}</span>
                                         <img class="team-banner-circle" src="${banner1}" onerror="this.src='../../icons/user.svg'" />

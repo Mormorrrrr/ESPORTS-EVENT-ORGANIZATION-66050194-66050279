@@ -220,7 +220,7 @@ header.namespaced-header .ns-user-avatar {
 .frame, .standardized-main-content, main.frame, .main-content {
     margin-left: 260px !important;
     width: calc(100% - 260px) !important;
-    max-width: 1200px !important;
+    max-width: 1400px !important; /* Increased for wider screen presentation */
     margin-right: auto !important;
     margin-top: 73px !important;
     padding: 40px !important;
@@ -368,7 +368,7 @@ main {
 .premium-match-row {
     display: flex !important; /* Switch to flex for easier absolute positioning of children */
     align-items: center !important;
-    padding: 0 40px !important;
+    padding: 0 24px !important;
     background: #ffffff !important;
     border-radius: 999px !important;
     margin-bottom: 12px !important;
@@ -440,14 +440,11 @@ main {
 }
 
 .match-round-info {
-    position: absolute !important;
-    right: 40px !important; /* Fixed offset from right edge */
-    top: 0 !important;
-    bottom: 0 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: flex-end !important;
     width: 120px !important;
+    flex-shrink: 0 !important;
 }
 
 .match-tournament-tag {

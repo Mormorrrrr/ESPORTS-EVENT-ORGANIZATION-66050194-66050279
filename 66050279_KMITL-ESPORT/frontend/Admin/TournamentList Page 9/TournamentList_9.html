@@ -78,7 +78,7 @@
         </aside>
         <!-- Main Content -->
         <main class="tournaments-list-wrapper"
-            style="max-width: 928px; width: 100%; display: flex; flex-direction: column;">
+            style="max-width: 1400px; width: 100%; display: flex; flex-direction: column;">
             <section style="position: relative; margin-top: 32px; display: flex;" aria-label="Tournament List">
                 <div
                     style="display: flex; justify-content: space-between; align-items: center; width: 100%; padding-bottom: 24px;">
@@ -386,11 +386,7 @@
             padding: 14px 16px;
             border: 1px solid #e2e8f0;
             border-radius: 12px;
-            cursor: pointer;
-            transition: background 0.15s;
-        }
-
-        .explore-item:hover {
+                .explore-item:hover {
             background: #f8fafc;
         }
 
@@ -481,7 +477,7 @@
                 listContainer.innerHTML = '';
 
                 if (tournaments.length === 0) {
-                    listContainer.innerHTML = '<li style="color:white; padding: 20px;">No tournaments found.</li>';
+                    listContainer.innerHTML = '<li style="color:#64748b; padding: 20px; text-align: center; width: 100%;">No tournaments found.</li>';
                     return;
                 }
 
@@ -496,33 +492,32 @@
                     const fallbackBanner = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800';
                     const displayBanner = t.tournament_banner || fallbackBanner;
 
+                    // Standardizing the inner HTML for consistent alignment
                     article.innerHTML = `
-                        <!-- Column 1: Meta/Banner -->
-                        <div class="match-meta-info" style="flex-direction: row; align-items: center; gap: 16px; border: none !important;">
-                            <img src="${displayBanner}" class="team-banner-circle" style="width: 56px; height: 56px; border: 2px solid #f1f5f9;" onerror="this.src='${fallbackBanner}'">
-                            <div style="display:flex; flex-direction:column; gap:2px; border: none !important;">
-                                <span style="font-size: 11px; font-weight: 800; color: #94a3b8; text-transform: uppercase; border: none !important;">Dates</span>
-                                <span style="font-size: 12px; color: #64748b; font-weight: 600; border: none !important;">${startDateText}</span>
+                        <!-- Column 1: Dates & Banner -->
+                        <div class="match-meta-info" style="display: flex; align-items: center; gap: 16px; width: 260px !important; flex-shrink: 0 !important; border: none !important;">
+                            <img src="${displayBanner}" class="team-banner-circle" style="width: 56px; height: 56px; border: 2px solid #f1f5f9; object-fit: cover;" onerror="this.src='${fallbackBanner}'">
+                            <div style="display:flex; flex-direction:column; gap:2px;">
+                                <span style="font-size: 11px; font-weight: 800; color: #94a3b8; text-transform: uppercase;">Dates</span>
+                                <span style="font-size: 13px; color: #64748b; font-weight: 700;">${startDateText}</span>
                             </div>
                         </div>
 
-                        <!-- Column 2: Main Info -->
-                        <div style="display:flex; flex-direction:column; gap:8px; justify-content:center;">
-                            <span style="font-size: 20px; font-weight: 800; color: #0f172a; letter-spacing: -0.01em;">${t.tournament_name}</span>
+                        <!-- Column 2: Tournament Title & Metadata -->
+                        <div style="display:flex; flex: 1; flex-direction:column; gap:8px; justify-content:center; padding: 0 16px; min-width: 0;">
+                            <span style="font-size: 20px; font-weight: 800; color: #0f172a; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${t.tournament_name}</span>
                             <div style="display:flex; align-items:center; gap:8px;">
                                 <span style="background: #ff8c001a; color: #ff8c00; padding: 4px 12px; border-radius: 999px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; border: 1px solid #ff8c0033;">
                                     ${t.tournament_type}
                                 </span>
-                                <span style="font-size: 12px; color: #94a3b8;">${endDateText} (End)</span>
+                                <span style="font-size: 12px; color: #94a3b8;">End: ${endDateText}</span>
                             </div>
                         </div>
 
-                        <!-- Column 3: Actions -->
-                        <div class="match-round-info" style="display:flex; align-items:center; justify-content:flex-end; gap: 12px;">
+                        <!-- Column 3: Action Icons (Standardized and pushed right) -->
+                        <div class="match-round-info" style="display:flex; align-items:center; justify-content:flex-end; gap: 12px; width: 120px !important; flex-shrink: 0 !important;">
                             <button onclick="window.location.href='../TournamentDetail Page 10/TournamentDetail_10.html?id=${t.tournament_id}'" 
-                                style="width: 44px; height: 44px; border-radius: 14px; background-color: #f8fafc; border: 1px solid #e2e8f0; cursor: pointer; display:flex; align-items:center; justify-content:center; transition: all 0.2s;"
-                                onmouseover="this.style.borderColor='#ff8c00';this.style.backgroundColor='#fff7ed'"
-                                onmouseout="this.style.borderColor='#e2e8f0';this.style.backgroundColor='#f8fafc'">
+                                style="width: 44px; height: 44px; border-radius: 14px; background-color: #f8fafc; border: 1px solid #e2e8f0; cursor: pointer; display:flex; align-items:center; justify-content:center; transition: all 0.2s;">
                                 <img src="../../icons/pencil.svg" style="width: 20px; height: 20px; opacity: 0.7;">
                             </button>
                             <button onclick="deleteTournament(${t.tournament_id})" 
