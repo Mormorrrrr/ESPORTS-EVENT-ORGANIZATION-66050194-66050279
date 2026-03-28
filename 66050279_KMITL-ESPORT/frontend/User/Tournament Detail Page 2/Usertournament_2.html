@@ -367,10 +367,16 @@
                 const matchesRes = await fetch(`${API_BASE_URL}/tournaments/${id}/matches`);
                 const matches = await matchesRes.json();
 
+                const seenCounts = {};
                 const teams = (tournament.Application || tournament.applications || [])
                     .filter(app => app.status === 'Approved')
                     .sort((a, b) => (a.app_id || 0) - (b.app_id || 0))
-                    .map(app => (app.Team || app.team || {}).team_name)
+                    .map(app => {
+                        const name = (app.Team || app.team || {}).team_name;
+                        if (!name) return null;
+                        seenCounts[name] = (seenCounts[name] || 0) + 1;
+                        return name + '\u200B'.repeat(seenCounts[name] - 1);
+                    })
                     .filter(n => n);
 
                 if (!matches || matches.length === 0) {
