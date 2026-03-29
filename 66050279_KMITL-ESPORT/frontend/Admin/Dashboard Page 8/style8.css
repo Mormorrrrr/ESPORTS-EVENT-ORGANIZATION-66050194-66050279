@@ -445,18 +445,20 @@
     left: 25px;
 }
 
-.admin-dashboard .overlay {
+.admin-dashboard .stats-grid .overlay {
     display: flex;
     width: 48px;
     height: 48px;
     align-items: center;
     justify-content: center;
     position: relative;
-    background-color: #ff8c001a;
-    border-radius: 48px;
+    background-color: #f9f9f9 !important; /* Force light gray */
+    border-radius: 12px !important; /* Force rounded square */
+    border: 1px solid #e2e8f0 !important; /* Adding thin border as requested */
 }
 
 .admin-dashboard .icon-5 {
+    filter: none !important;
     position: relative;
     width: 24.96px;
     height: 17.5px;
@@ -1427,7 +1429,7 @@
 }
 
 .admin-dashboard .icon-5 {
-    position: relative;
+    filter: none !important;    filter: grayscale(1) brightness(0.5);    position: relative;
     width: 24.96px;
     height: 17.5px;
 }
