@@ -222,6 +222,11 @@
                         </div>
 
                         <div class="form-group">
+                            <label class="label-modern" for="tournament-description">Description (Optional)</label>
+                            <textarea class="input-modern" id="tournament-description" rows="4" style="resize: vertical; min-height: 100px;" placeholder="Briefly describe the rules, prize pool, and format..."></textarea>
+                        </div>
+
+                        <div class="form-group">
                             <label class="label-modern">Tournament Type</label>
                             <div class="format-grid">
                                 <label class="format-option format-card" data-type="single-elimination">
@@ -464,6 +469,7 @@
                 const t = await res.json();
 
                 if (t.tournament_name) document.getElementById('tournament-name').value = t.tournament_name;
+                if (t.description) document.getElementById('tournament-description').value = t.description;
                 if (t.match_date) document.getElementById('match-date').value = t.match_date.substring(0, 10);
                 if (t.start_date) document.getElementById('start-date').value = t.start_date.substring(0, 10);
                 if (t.end_date) document.getElementById('end-date').value = t.end_date.substring(0, 10);
@@ -496,6 +502,7 @@
             document.getElementById('submit-edit-btn').addEventListener('click', async (e) => {
                 e.preventDefault();
                 const name = document.getElementById('tournament-name').value;
+                const description = document.getElementById('tournament-description').value;
                 const startDate = document.getElementById('start-date').value;
                 const endDate = document.getElementById('end-date').value;
                 const checkedRadio = document.querySelector('input[name="tournament-type"]:checked');
@@ -511,6 +518,7 @@
                         body: JSON.stringify({
                             tournament_name: name,
                             tournament_type: finalType,
+                            description: description,
                             match_date: document.getElementById('match-date').value,
                             start_date: startDate,
                             end_date: endDate

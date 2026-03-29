@@ -34,6 +34,7 @@ model Tournament {
   tournament_id     Int           @id @default(autoincrement())
   tournament_name   String
   tournament_type   String
+  description       String?
   match_date        DateTime?
   start_date        DateTime
   end_date          DateTime
