@@ -10,6 +10,46 @@
     <link rel="stylesheet" href="style18.css?v=3" />
 
     <link rel="stylesheet" href="../../shared-admin.css?v=4" />
+    <style>
+        /* Reset box-sizing for jquery-bracket */
+        #match-list-container,
+        #match-list-container * {
+            box-sizing: content-box !important;
+        }
+
+        #bracket-iframe {
+            display: block !important;
+        }
+
+        /* jQuery Bracket Double Elimination Overrides */
+        .jQBracket * {
+            box-sizing: content-box !important;
+        }
+
+        .jQBracket .team {
+            background-color: #ffffff !important;
+            border: 1px solid #e2e8f0 !important;
+            border-radius: 4px !important;
+            color: #334155 !important;
+        }
+
+        .jQBracket .win {
+            color: #15803d !important;
+            background-color: #dcfce7 !important;
+            border-color: #86efac !important;
+            font-weight: 700 !important;
+        }
+
+        .jQBracket .score {
+            color: #2563eb !important;
+            background: #f8fafc !important;
+            font-weight: 600 !important;
+        }
+
+        .jQBracket .connector {
+            border-color: #cbd5e1 !important;
+        }
+    </style>
 </head>
 
 <body>
@@ -652,10 +692,16 @@
                     + '\x3Clink rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.css"\x3E'
                     + '\x3Cscript src="https://code.jquery.com/jquery-3.6.0.min.js"\x3E\x3C/script\x3E'
                     + '\x3Cscript src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.js"\x3E\x3C/script\x3E'
-                    + '\x3Cstyle\x3Ebody{margin:0;padding:16px;background:transparent;overflow-x:auto;}'
+                    + '\x3Cstyle\x3E'
+                    + 'body{margin:0;padding:16px;background:transparent;overflow-x:auto;}'
                     + '.jQBracket .tools{display:none!important;}'
+                    + '.jQBracket .team{background-color:#ffffff!important;border:1px solid #e2e8f0!important;border-radius:4px!important;color:#334155!important;}'
+                    + '.jQBracket .win{color:#15803d!important;background-color:#dcfce7!important;border-color:#86efac!important;font-weight:700!important;}'
+                    + '.jQBracket .score{color:#2563eb!important;background:#f8fafc!important;font-weight:600!important;pointer-events:none!important;}'
+                    + '.jQBracket .connector{border-color:#cbd5e1!important;}'
                     + '.jQBracket input[type=text]{pointer-events:none!important;cursor:default!important;background:#f1f5f9!important;border-color:#e2e8f0!important;color:#374151!important;}'
-                    + '.jQBracket .score{pointer-events:none!important;}\x3C/style\x3E'
+                    + '.jQBracket .loser{margin-top:8px!important;}'
+                    + '\x3C/style\x3E'
                     + '\x3C/head\x3E\x3Cbody\x3E\x3Cdiv id="bc"\x3E\x3C/div\x3E\x3C/body\x3E\x3C/html\x3E';
 
                 const iframe = document.createElement('iframe');
@@ -668,12 +714,41 @@
                     const win = iframe.contentWindow;
                     if (!win || !win.jQuery) return;
                     win.jQuery('#bc').bracket({ init: bracketData, save: function () { } });
-                    // Disable all inputs after render
+                    
+                    // Disable and beautify after render
                     setTimeout(() => {
-                        win.document.querySelectorAll('input').forEach(inp => { inp.disabled = true; inp.style.pointerEvents = 'none'; });
+                        win.document.querySelectorAll('input').forEach(inp => { 
+                            inp.disabled = true; 
+                            inp.style.pointerEvents = 'none'; 
+                        });
+
+                        if (isDouble) {
+                            const bracket = win.document.querySelector('.bracket');
+                            const loserBracket = win.document.querySelector('.loserBracket');
+                            if (bracket && loserBracket) {
+                                // LB Alignment Fix (match admin logic)
+                                const wbMatches = bracket.querySelectorAll('.match');
+                                let wbBottom = bracket.getBoundingClientRect().top;
+                                wbMatches.forEach(m => { const r = m.getBoundingClientRect(); if (r.bottom > wbBottom) wbBottom = r.bottom; });
+                                
+                                const lbMatches = loserBracket.querySelectorAll('.match');
+                                let lbTop = loserBracket.getBoundingClientRect().bottom;
+                                lbMatches.forEach(m => { const r = m.getBoundingClientRect(); if (r.top < lbTop) lbTop = r.top; });
+                                
+                                const gap = lbTop - wbBottom;
+                                if (gap > 20) {
+                                    const loserStyle = win.getComputedStyle(loserBracket);
+                                    if (loserStyle.position === 'absolute') {
+                                        loserBracket.style.top = (parseInt(loserStyle.top) - (gap - 20)) + 'px';
+                                    } else {
+                                        loserBracket.style.marginTop = (parseInt(loserStyle.marginTop || 0) - (gap - 20)) + 'px';
+                                    }
+                                }
+                            }
+                        }
                         const h = win.document.body.scrollHeight;
                         if (h > 0) iframe.style.minHeight = (h + 40) + 'px';
-                    }, 600);
+                    }, 1200);
                 };
 
             } catch (error) {

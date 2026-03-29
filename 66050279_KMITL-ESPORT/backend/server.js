@@ -415,29 +415,31 @@ app.get("/tournaments/:id/matches", async (req, res) => {
 });
 
 // SAVE/UPDATE MATCHES FOR TOURNAMENT
-
 app.post("/tournaments/:id/matches/save", async (req, res) => {
   const tournamentId = parseInt(req.params.id);
   const { matches } = req.body;
 
   try {
-    await prisma.match.deleteMany({ where: { tournament_id: tournamentId } });
-    if (matches && matches.length > 0) {
-      await prisma.match.createMany({
-        data: matches.map(m => ({
-          tournament_id: tournamentId,
-          team1_name: m.team1_name || null,
-          team2_name: m.team2_name || null,
-          round: m.round,
-          position: m.position,
-          score1: m.score1,
-          score2: m.score2
-        }))
-      });
-    }
+    // ใช้ Transaction เพื่อความปลอดภัยของข้อมูล (Atomic operations)
+    await prisma.$transaction(async (tx) => {
+      await tx.match.deleteMany({ where: { tournament_id: tournamentId } });
+      if (matches && matches.length > 0) {
+        await tx.match.createMany({
+          data: matches.map(m => ({
+            tournament_id: tournamentId,
+            team1_name: m.team1_name || null,
+            team2_name: m.team2_name || null,
+            round: m.round,
+            position: m.position,
+            score1: m.score1,
+            score2: m.score2
+          }))
+        });
+      }
+    });
     res.json({ message: "บันทึกข้อมูลการแข่งขันสำเร็จ" });
   } catch (error) {
-    console.error(error);
+    console.error("[Backend Match Save Error]", error);
     res.status(500).json({ error: "บันทึกข้อมูลการแข่งขันไม่สำเร็จ" });
   }
 });

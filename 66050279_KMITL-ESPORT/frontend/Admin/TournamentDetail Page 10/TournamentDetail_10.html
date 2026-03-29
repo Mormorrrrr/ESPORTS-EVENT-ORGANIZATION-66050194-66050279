@@ -987,8 +987,12 @@
 
                 const saveMatchesToDB = (matchesToSave, tournamentType) => {
                     const $status = $('#save-status');
-                    $status.text('Saving...').css('color', '#6b7280');
-                    fetch(`${API_BASE_URL}/tournaments/${tournamentId}/matches/save`, {
+                    const $btn = $('#save-bracket-btn');
+                    
+                    $status.text('⏳ กำลังบันทึกข้อมูล...').css('color', '#6b7280');
+                    $btn.prop('disabled', true).css({'opacity': '0.7', 'cursor': 'not-allowed'});
+
+                    return fetch(`${API_BASE_URL}/tournaments/${tournamentId}/matches/save`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
@@ -1001,13 +1005,17 @@
                             return res.json();
                         })
                         .then(res => {
-                            isDirty = false; // Reset dirty state on successful save
-                            $status.text('Saved successfully!').css('color', '#10b981');
+                            isDirty = false;
+                            $status.text('✅ บันทึกสำเร็จ!').css('color', '#10b981');
+                            $btn.prop('disabled', false).css({'opacity': '1', 'cursor': 'pointer'});
                             setTimeout(() => $status.text(''), 3000);
+                            return res;
                         })
                         .catch(err => {
                             console.error('[Save Match]', err);
-                            $status.text('Save failed: ' + err.message).css('color', '#ef4444');
+                            $status.text('❌ บันทึกล้มเหลว: ' + err.message).css('color', '#ef4444');
+                            $btn.prop('disabled', false).css({'opacity': '1', 'cursor': 'pointer'});
+                            throw err;
                         });
                 };
 
@@ -1330,7 +1338,7 @@
                 });
 
                 // Manual Save Handling — use localMatches updated by iframe save callback
-                $('#save-bracket-btn').on('click', function () {
+                $('#save-bracket-btn').on('click', async function () {
                     const iframe = $bracket.find('iframe')[0];
                     if (iframe && iframe.contentWindow) {
                         try {
@@ -1338,12 +1346,17 @@
                             inputs.forEach(inp => inp.blur());
                         } catch (e) { }
                     }
-                    // Wait a tiny bit for jquery-bracket's 'blur' event handler to process all saves
-                    setTimeout(() => {
-                        const type = $('#format-toggle').val();
-                        saveMatchesToDB(localMatches, type);
-                        alert(`✅ เซฟข้อมูลเรียบร้อยแล้ว!\nระบบพบการอัพเดททั้งหมด ${localMatches.length} แมตช์\n\nให้แอดมินเปิดหน้า User แล้วกดปุ่มโหลดหน้าเว็บใหม่ (Refresh) 1 รอบครับ`);
-                    }, 200);
+                    
+                    // รอจังหวะให้ jquery-bracket ประมวลผลการเปลี่ยนค่าสักครู่
+                    setTimeout(async () => {
+                        try {
+                            const type = $('#format-toggle').val();
+                            await saveMatchesToDB(localMatches, type);
+                            alert(`✅ บันทึกคะแนนเรียบร้อยแล้ว!\nระบบบันทึกข้อมูลทั้งหมด ${localMatches.length} แมตช์ลงฐานข้อมูลแล้ว\n\nข้อมูลของคุณปลอดภัยแล้วครับ แอดมินสามารถรีเฟรชหน้าเว็บได้เลย`);
+                        } catch (err) {
+                            alert(`❌ เกิดข้อผิดพลาดในการบันทึก: ${err.message}`);
+                        }
+                    }, 300);
                 });
 
             } catch (error) {
