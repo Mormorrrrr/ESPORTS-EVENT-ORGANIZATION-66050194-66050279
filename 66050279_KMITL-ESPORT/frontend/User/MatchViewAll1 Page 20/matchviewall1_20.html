@@ -259,7 +259,11 @@
                     tournaments.forEach(t => {
                         const article = document.createElement('article');
                         const bannerSrc = t.tournament_banner || fallback;
-                        article.style.cssText = 'display:flex;align-items:center;gap:20px;padding:16px 20px;background:#fff;border-radius:16px;border:1px solid #f1f5f9;box-shadow:0 1px 4px rgba(0,0,0,0.06);width:100%;box-sizing:border-box;';
+                        article.style.cssText = 'display:flex;align-items:center;gap:20px;padding:16px 24px;background:#fff;border-radius:16px;border:1px solid #f1f5f9;box-shadow:0 1px 4px rgba(0,0,0,0.06);width:100%;box-sizing:border-box;cursor:pointer;transition:all 0.2s ease;';
+                        article.onmouseover = () => { article.style.transform = 'translateY(-2px)'; article.style.boxShadow = '0 6px 12px rgba(0,0,0,0.08)'; article.style.borderColor = '#e2e8f0'; };
+                        article.onmouseout = () => { article.style.transform = 'translateY(0)'; article.style.boxShadow = '0 1px 4px rgba(0,0,0,0.06)'; article.style.borderColor = '#f1f5f9'; };
+                        article.onclick = () => window.location.href = `../Tournament Detail Page 2/Usertournament_2.html?id=${t.tournament_id}`;
+                        
                         article.innerHTML = `
                             <div style="width:140px;height:90px;border-radius:12px;overflow:hidden;flex-shrink:0;background:#1e293b;">
                                 <img src="${bannerSrc}" onerror="this.src='${fallback}'" style="width:100%;height:100%;object-fit:cover;">
@@ -277,6 +281,11 @@
                                         <span>${t._count?.applications||0} Teams</span>
                                     </div>
                                 </div>
+                            </div>
+                            <div style="flex-shrink:0;">
+                                <button style="background:#ff8c00;color:white;border:none;border-radius:48px;padding:10px 24px;font-size:14px;font-weight:700;cursor:pointer;transition:background 0.2s;" onmouseover="this.style.background='#e67e00'" onmouseout="this.style.background='#ff8c00'">
+                                    View
+                                </button>
                             </div>
                         `;
                         listContainer.appendChild(article);
