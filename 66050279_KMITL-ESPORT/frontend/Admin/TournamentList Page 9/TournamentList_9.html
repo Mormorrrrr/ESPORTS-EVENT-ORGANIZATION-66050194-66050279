@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="globals9.css" />
     <link rel="stylesheet" href="styleguide9.css" />
     <link rel="stylesheet" href="style9.css?v=3" />
-    <link rel="stylesheet" href="../../shared-admin.css?v=4" />
+    <link rel="stylesheet" href="../../shared-admin.css?v=7" />
 </head>
 
 <body>
@@ -485,48 +485,48 @@
                 }
 
                 tournaments.forEach(t => {
-                    const startDateText = new Date(t.start_date).toLocaleDateString();
-                    const endDateText = new Date(t.end_date).toLocaleDateString();
+                    const startDateText = new Date(t.start_date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short' });
 
                     const article = document.createElement('div');
-                    article.className = 'premium-match-row';
-                    article.style.cursor = 'default';
+                    article.className = 'premium-list-row';
+                    article.style.cursor = 'pointer';
+                    article.onclick = (e) => {
+                        if (e.target.closest('button')) return;
+                        window.location.href = `../TournamentDetail Page 10/TournamentDetail_10.html?id=${t.tournament_id}`;
+                    };
 
                     const fallbackBanner = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800';
                     const displayBanner = t.tournament_banner || fallbackBanner;
 
-                    // Standardizing the inner HTML for consistent alignment
+                    // Building the Viewer-Equivalent Row for Admin
                     article.innerHTML = `
-                        <!-- Column 1: Dates & Banner -->
-                        <div class="match-meta-info" style="display: flex; align-items: center; gap: 16px; width: 260px !important; flex-shrink: 0 !important; border: none !important;">
-                            <img src="${displayBanner}" class="team-banner-circle" style="width: 56px; height: 56px; border: 2px solid #f1f5f9; object-fit: cover;" onerror="this.src='${fallbackBanner}'">
-                            <div style="display:flex; flex-direction:column; gap:2px;">
-                                <span style="font-size: 11px; font-weight: 800; color: #94a3b8; text-transform: uppercase;">Dates</span>
-                                <span style="font-size: 13px; color: #64748b; font-weight: 700;">${startDateText}</span>
+                        <!-- Column 1: Image -->
+                        <div class="row-image-container">
+                            <img src="${displayBanner}" class="row-image-rect" onerror="this.src='${fallbackBanner}'">
+                        </div>
+
+                        <!-- Column 2: Tournament Title & Metadata -->
+                        <div class="row-main-content">
+                            <h2 class="row-title" title="${t.tournament_name}">${t.tournament_name}</h2>
+                            <p class="row-subtitle">${(t.tournament_type || '').split(' • ')[0] || 'Tournament'}</p>
+                            <div class="row-meta-wrap">
+                                <div class="row-meta-item">
+                                    <img src="../../icons/calendar-clock.svg" alt="calendar" />
+                                    <span>${startDateText}</span>
+                                </div>
+                                <div class="row-meta-item">
+                                    <img src="../../icons/users.svg" alt="teams" />
+                                    <span>${t._count?.applications || 0} Teams</span>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- Column 2: Tournament Title & Metadata (Centered) -->
-                        <div style="display:flex; flex: 1; flex-direction:column; gap:8px; justify-content:center; padding: 0 16px; min-width: 0;">
-                            <span style="font-size: 20px; font-weight: 800; color: #0f172a; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${t.tournament_name}</span>
-                            <div style="display:flex; align-items:center; gap:8px;">
-                                <span style="background: #ff8c001a; color: #ff8c00; padding: 4px 12px; border-radius: 999px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; border: 1px solid #ff8c0033;">
-                                    ${t.tournament_type}
-                                </span>
-                                <span style="font-size: 12px; color: #94a3b8;">End: ${endDateText}</span>
-                            </div>
-                        </div>
-
-                        <!-- Column 3: Action Icons (Pushed to the right with safe padding) -->
-                        <div class="match-round-info" style="display:flex; align-items:center; justify-content:flex-end; gap: 12px; width: 140px !important; flex-shrink: 0 !important; padding-right: 16px;">
-                            <button onclick="window.location.href='../TournamentDetail Page 10/TournamentDetail_10.html?id=${t.tournament_id}'" 
-                                style="width: 44px; height: 44px; border-radius: 14px; background-color: #f8fafc; border: 1px solid #e2e8f0; cursor: pointer; display:flex; align-items:center; justify-content:center; transition: all 0.2s;">
-                                <img src="../../icons/pencil.svg" style="width: 20px; height: 20px; opacity: 0.7;">
+                        <!-- Column 3: Actions (Preserving Admin Functionality) -->
+                        <div class="row-actions-wrap">
+                            <button class="row-icon-btn" onclick="window.location.href='../EditTournament Page 21/EditTournament_21.html?id=${t.tournament_id}'" title="Edit Tournament">
+                                <img src="../../icons/pencil.svg" style="width: 18px; height: 18px; opacity: 0.7;">
                             </button>
-                            <button onclick="deleteTournament(${t.tournament_id})" 
-                                style="width: 44px; height: 44px; border-radius: 14px; background-color: #fef2f2; border: 1px solid #fee2e2; cursor: pointer; display:flex; align-items:center; justify-content:center; transition: all 0.2s;"
-                                onmouseover="this.style.borderColor='#ef4444';this.style.backgroundColor='#fee2e2'"
-                                onmouseout="this.style.borderColor='#fee2e2';this.style.backgroundColor='#fef2f2'">
+                            <button class="row-icon-btn delete" onclick="deleteTournament(${t.tournament_id})" title="Delete Tournament">
                                 <img src="../../icons/trash.svg" style="width: 18px; height: 18px; filter: invert(34%) sepia(87%) saturate(3078%) hue-rotate(345deg) brightness(98%) contrast(92%);">
                             </button>
                         </div>
