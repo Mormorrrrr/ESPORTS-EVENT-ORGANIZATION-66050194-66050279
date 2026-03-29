@@ -306,6 +306,8 @@
                         tournaments.slice(0, 3).forEach(t => {
                             const article = document.createElement('article');
                             article.className = 'background-shadow';
+                            article.style.cursor = 'pointer';
+                            article.onclick = () => window.location.href=`../Tournament Detail Page 2/Usertournament_2.html?id=${t.tournament_id}`;
                             const bannerSrc = t.tournament_banner || 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800'; 
 
                             article.innerHTML = `
