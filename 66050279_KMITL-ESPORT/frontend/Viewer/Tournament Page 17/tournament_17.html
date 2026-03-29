@@ -523,15 +523,115 @@
 
                     let foundMatches = allMatches.length > 0;
                     if (foundMatches) {
+                        // 1. Fetch ALL teams to have a banner map
+                        const teamRes = await fetch(`${API_BASE_URL}/teams`);
+                        const allTeams = teamRes.ok ? await teamRes.json() : [];
+                        const bannerMap = {};
+                        allTeams.forEach(t => { if (t.team_name) bannerMap[t.team_name] = t.team_banner_url; });
+
+                        // 2. Resolve missing team names/banners by following winners
+                        const tournamentGroups = {};
+                        allMatches.forEach(m => {
+                            if (!tournamentGroups[m.tournament_id]) tournamentGroups[m.tournament_id] = [];
+                            tournamentGroups[m.tournament_id].push(m);
+                        });
+
+                        for (const tMatches of Object.values(tournamentGroups)) {
+                            const tid = tMatches[0].tournament_id;
+                            const nameMap = {};
+                            tMatches.forEach(m => { nameMap[`${m.round}:${m.position}`] = { t1: m.team1_name, t2: m.team2_name }; });
+
+                            // 2a. Fetch initial teams for seeds if needed
+                            try {
+                                const tdRes = await fetch(`${API_BASE_URL}/tournaments/${tid}`);
+                                if (tdRes.ok) {
+                                    const td = await tdRes.json();
+                                    const approvedTeams = (td.applications || [])
+                                        .filter(a => a.status === 'Approved')
+                                        .sort((a, b) => a.app_id - b.app_id)
+                                        .map(a => (a.team || {}).team_name);
+                                    
+                                    // Populate Round 1 Winner Bracket if names are null
+                                    const r1Matches = tMatches.filter(m => m.round === 1);
+                                    r1Matches.forEach(m => {
+                                        const key = `1:${m.position}`;
+                                        if (!nameMap[key].t1) nameMap[key].t1 = approvedTeams[m.position * 2] || null;
+                                        if (!nameMap[key].t2) nameMap[key].t2 = approvedTeams[m.position * 2 + 1] || null;
+                                    });
+                                }
+                            } catch (e) { console.warn('Could not fetch tournament details for name resolution', tid); }
+
+                            // 2b. Propagate Winners
+                            const sortedMatches = [...tMatches].sort((a,b) => {
+                                const order = (r) => (r > 0 && r < 100) ? 1 : (r < 0) ? 2 : 3;
+                                if (order(a.round) !== order(b.round)) return order(a.round) - order(b.round);
+                                return Math.abs(a.round) - Math.abs(b.round) || a.position - b.position;
+                            });
+
+                            sortedMatches.forEach(m => {
+                                const names = nameMap[`${m.round}:${m.position}`] || { t1: null, t2: null };
+                                if (m.score1 !== null && m.score2 !== null) {
+                                    const winner = m.score1 >= m.score2 ? names.t1 : names.t2;
+                                    const loser = m.score1 >= m.score2 ? names.t2 : names.t1;
+                                    if (!winner) return;
+
+                                    if (m.round > 0 && m.round < 100) {
+                                        const nextKey = `${m.round + 1}:${Math.floor(m.position / 2)}`;
+                                        if (!nameMap[nextKey]) nameMap[nextKey] = { t1: null, t2: null };
+                                        if (m.position % 2 === 0) nameMap[nextKey].t1 = winner; else nameMap[nextKey].t2 = winner;
+                                        
+                                        if (loser) {
+                                            if (m.round === 1) {
+                                                const lbKey = `-1:${Math.floor(m.position / 2)}`;
+                                                if (!nameMap[lbKey]) nameMap[lbKey] = { t1: null, t2: null };
+                                                if (m.position % 2 === 0) nameMap[lbKey].t1 = loser; else nameMap[lbKey].t2 = loser;
+                                            } else {
+                                                const lbKey = `-${2 * m.round - 2}:${m.position}`;
+                                                if (!nameMap[lbKey]) nameMap[lbKey] = { t1: null, t2: null };
+                                                nameMap[lbKey].t2 = loser;
+                                            }
+                                        }
+                                    } else if (m.round < 0) {
+                                        const isDoubleRound = (Math.abs(m.round) % 2 === 0);
+                                        const nextR = m.round - 1;
+                                        const nextP = isDoubleRound ? Math.floor(m.position / 2) : m.position;
+                                        const nextKey = `${nextR}:${nextP}`;
+                                        if (!nameMap[nextKey]) nameMap[nextKey] = { t1: null, t2: null };
+                                        if (isDoubleRound) {
+                                            if (m.position % 2 === 0) nameMap[nextKey].t1 = winner; else nameMap[nextKey].t2 = winner;
+                                        } else {
+                                            nameMap[nextKey].t1 = winner;
+                                        }
+                                    }
+                                }
+                            });
+                            
+                            tMatches.forEach(m => {
+                                const n = nameMap[`${m.round}:${m.position}`] || {};
+                                if (!m.team1_name && n.t1) m.team1_name = n.t1;
+                                if (!m.team2_name && n.t2) m.team2_name = n.t2;
+                                if (!m.team1_banner_url && m.team1_name) m.team1_banner_url = bannerMap[m.team1_name];
+                                if (!m.team2_banner_url && m.team2_name) m.team2_banner_url = bannerMap[m.team2_name];
+                            });
+                        }
+
                         allMatches.sort((a, b) => {
                             if (a.round !== b.round) return (a.round || 0) - (b.round || 0);
                             return (a.position || 0) - (b.position || 0);
                         });
+
                         allMatches.slice(0, 4).forEach(m => {
                             const banner1 = m.team1_banner_url || '../../icons/user.svg';
                             const banner2 = m.team2_banner_url || '../../icons/user.svg';
                             const hasScore = m.score1 !== null && m.score2 !== null;
                             const vsContent = hasScore ? `<div class="results-badge-premium">${m.score1} - ${m.score2}</div>` : '<div class="vs-badge-premium">VS</div>';
+
+                            const getRoundLabel = (r) => {
+                                if (!r) return 'R1';
+                                if (r > 100) return 'Grand Finals';
+                                if (r < 0) return `LB R${Math.abs(r)}`;
+                                return `R${r}`;
+                            };
 
                             const row = document.createElement('article');
                             row.className = 'premium-match-row';
@@ -552,7 +652,7 @@
                                     </div>
                                 </div>
                                 <div class="match-round-info">
-                                    <span class="match-round-tag">ROUND <strong>${m.round || 1}</strong></span>
+                                    <span class="match-round-tag">ROUND <strong>${getRoundLabel(m.round)}</strong></span>
                                 </div>
                             `;
                             matchListContainer.appendChild(row);
