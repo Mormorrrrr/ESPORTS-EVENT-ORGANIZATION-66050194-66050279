@@ -423,7 +423,8 @@
     z-index: 2;
     margin-left: 411px;
     width: 896px;
-    height: 1157px;
+    min-height: 1157px;
+    padding-bottom: 64px;
     margin-top: 144px;
     display: flex;
     flex-direction: column;
@@ -661,17 +662,11 @@
 }
 
 .admin-create .format-rules {
-    display: flex;
+    display: block;
     margin-left: 33px;
     margin-right: 33px;
-    flex: 1;
-    max-height: 196px;
     position: relative;
     width: 830px;
-    height: 196px;
-    align-items: flex-start;
-    justify-content: center;
-    gap: 32px;
 }
 
 .admin-create .container-10 {
@@ -999,9 +994,9 @@
     margin-left: 33px;
     margin-right: 33px;
     flex: 1;
-    max-height: 106px;
+    max-height: none;
     width: 830px;
-    height: 106px;
+    height: auto;
     align-items: flex-start;
     justify-content: center;
     gap: 24px;

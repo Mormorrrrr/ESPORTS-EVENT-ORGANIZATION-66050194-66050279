@@ -6,13 +6,13 @@
     <meta charset="utf-8" />
     <title>KMITL Esport - Tournament</title>
     <link rel="stylesheet" href="globals2.css" />
-    
-        <link rel="stylesheet" href="../../shared-admin.css?v=4" />
+
+    <link rel="stylesheet" href="../../shared-admin.css?v=4" />
 </head>
 
 <body>
     <div class="admin-tournament">
-                                                        <!-- Header -->
+        <!-- Header -->
         <header class="header-top namespaced-header" role="banner">
             <div class="ns-header-left">
                 <img class="ns-logo-img" src="img/Logo.png" alt="KMITL ESPORT Logo" />
@@ -30,19 +30,22 @@
                     <div class="ns-search-bg">
                         <img class="ns-search-icon" src="img/search.svg" alt="Search icon" />
                     </div>
-                    <input class="ns-search-input" placeholder="Search tournaments..." type="search" aria-label="Search tournaments" />
+                    <input class="ns-search-input" placeholder="Search tournaments..." type="search"
+                        aria-label="Search tournaments" />
                 </label>
-                <div class="ns-user-area" style="position:relative;display:flex;align-items:center;gap:8px;cursor:pointer;" onclick="logoutUser()" title="ออกจากระบบ">
-                <span id="header-username" style="font-size:13px;font-weight:600;color:#334155;"></span>
-                <img class="ns-user-avatar" src="../../icons/user.svg" alt="User profile" style="cursor:pointer;" />
-            </div>
-            <script>
-            (function(){var u=JSON.parse(localStorage.getItem("user")||"null");if(u&&u.username)document.getElementById("header-username").textContent=u.username;})();
-            function logoutUser(){if(confirm("ต้องการออกจากระบบ?")){localStorage.removeItem("user");window.location.href="../../Viewer/Tournament Page 17/tournament_17.html";}}
-            </script>
+                <div class="ns-user-area"
+                    style="position:relative;display:flex;align-items:center;gap:8px;cursor:pointer;"
+                    onclick="logoutUser()" title="ออกจากระบบ">
+                    <span id="header-username" style="font-size:13px;font-weight:600;color:#334155;"></span>
+                    <img class="ns-user-avatar" src="../../icons/user.svg" alt="User profile" style="cursor:pointer;" />
+                </div>
+                <script>
+                    (function () { var u = JSON.parse(localStorage.getItem("user") || "null"); if (u && u.username) document.getElementById("header-username").textContent = u.username; })();
+                    function logoutUser() { if (confirm("ต้องการออกจากระบบ?")) { localStorage.removeItem("user"); window.location.href = "../../Viewer/Tournament Page 17/tournament_17.html"; } }
+                </script>
             </div>
         </header>
-                                                        <!-- Sidebar -->
+        <!-- Sidebar -->
         <aside class="aside-sidebar" aria-label="Sidebar navigation">
             <nav class="sidebar-nav-container">
                 <a class="link" href="../../User/Tournament List Page 1/userlogin_1.html" aria-label="Tournament">
@@ -66,60 +69,100 @@
         <!-- Main Content Wrapper -->
         <main class="frame" style="padding-bottom: 80px;">
             <!-- Hero Section -->
-            <section class="tournament-hero" style="position: relative; width: 100%; height: 320px; border-radius: 24px; overflow: hidden; margin-bottom: 40px; background: #0f172a;">
-                <img class="image-2" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200" alt="Tournament banner" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.6;" />
-                <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 0.8) 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 40px;">
-                    <h1 id="tournament-display-name" style="color: white; font-size: 48px; font-weight: 800; margin: 0 0 16px 0; letter-spacing: -1px;">Tournament Details</h1>
-                    <button class="join-button" onclick="window.location.href='../Team(noHave) Page 3/Teamnohave_3.html'" style="width: fit-content; padding: 14px 40px; background: #ff8c00; color: white; border: none; border-radius: 999px; cursor: pointer; font-weight: 700; font-size: 16px; box-shadow: 0 10px 15px -3px rgba(255, 140, 0, 0.3); transition: all 0.2s;">JOIN TOURNAMENT</button>
+            <section class="tournament-hero"
+                style="position: relative; width: 100%; height: 320px; border-radius: 24px; overflow: hidden; margin-bottom: 40px; background: #0f172a;">
+                <img class="image-2" src="https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200"
+                    alt="Tournament banner" style="width: 100%; height: 100%; object-fit: cover; opacity: 0.6;" />
+                <div
+                    style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 0.8) 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 40px;">
+                    <h1 id="tournament-display-name"
+                        style="color: white; font-size: 48px; font-weight: 800; margin: 0 0 16px 0; letter-spacing: -1px;">
+                        Tournament Details</h1>
+                    <button class="join-button"
+                        onclick="window.location.href='../Team(noHave) Page 3/Teamnohave_3.html'"
+                        style="width: fit-content; padding: 14px 40px; background: #ff8c00; color: white; border: none; border-radius: 999px; cursor: pointer; font-weight: 700; font-size: 16px; box-shadow: 0 10px 15px -3px rgba(255, 140, 0, 0.3); transition: all 0.2s;">JOIN
+                        TOURNAMENT</button>
                 </div>
             </section>
-            
+
             <div style="display: flex; flex-direction: column; gap: 32px;">
-                    <!-- Tournament Details Card -->
-                    <section class="section" style="background: white; padding: 32px; border-radius: 20px; border: 1px solid #f1f5f9; box-shadow: 0 1px 2px rgba(0,0,0,0.05); width: 100%; box-sizing: border-box;">
-                        <div class="heading" style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
-                            <img src="img/info-accent.svg" alt="" style="width: 24px; height: 24px;" />
-                            <h2 style="margin: 0; font-size: 20px; font-weight: 700; color: #0f172a;">Tournament Information</h2>
-                        </div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-                            <div style="display: flex; gap: 16px;">
-                                <div style="width: 48px; height: 48px; background: #ff8c001a; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                                    <img src="img/gamepad.svg" style="width: 24px; height: 24px;" />
-                                </div>
-                                <div>
-                                    <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Type</div>
-                                    <div id="detail-type" style="font-size: 16px; font-weight: 600; color: #0f172a;">5v5 Squads</div>
-                                </div>
+                <!-- Tournament Details Card -->
+                <section class="section"
+                    style="background: white; padding: 32px; border-radius: 20px; border: 1px solid #f1f5f9; box-shadow: 0 1px 2px rgba(0,0,0,0.05); width: 100%; box-sizing: border-box;">
+                    <div class="heading" style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px;">
+                        <img src="img/info-accent.svg" alt="" style="width: 24px; height: 24px;" />
+                        <h2 style="margin: 0; font-size: 20px; font-weight: 700; color: #0f172a;">Tournament Information
+                        </h2>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                        <div style="display: flex; gap: 16px;">
+                            <div
+                                style="width: 48px; height: 48px; background: #ff8c001a; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <img src="img/gamepad.svg" style="width: 24px; height: 24px;" />
                             </div>
-                            <div style="display: flex; gap: 16px;">
-                                <div style="width: 48px; height: 48px; background: #ff8c001a; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                                    <img src="img/daily-calendar.svg" style="width: 24px; height: 24px;" />
-                                </div>
-                                <div>
-                                    <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Duration</div>
-                                    <div id="detail-duration" style="font-size: 16px; font-weight: 600; color: #0f172a;">10 Days</div>
-                                </div>
-                            </div>
-                            <div style="display: flex; gap: 16px;">
-                                <div style="width: 48px; height: 48px; background: #ff8c001a; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                                    <img src="img/age-alt.svg" style="width: 24px; height: 24px;" />
-                                </div>
-                                <div>
-                                    <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Age Range</div>
-                                    <div id="detail-age" style="font-size: 16px; font-weight: 600; color: #0f172a;">15 - 25 Years</div>
-                                </div>
-                            </div>
-                            <div style="display: flex; gap: 16px;">
-                                <div style="width: 48px; height: 48px; background: #ff8c001a; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
-                                    <img src="img/employees.svg" style="width: 24px; height: 24px;" />
-                                </div>
-                                <div>
-                                    <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Format</div>
-                                    <div id="detail-format" style="font-size: 16px; font-weight: 600; color: #0f172a;">Single Elimination</div>
-                                </div>
+                            <div>
+                                <div
+                                    style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+                                    Type</div>
+                                <div id="detail-type" style="font-size: 16px; font-weight: 600; color: #0f172a;">5v5
+                                    Squads</div>
                             </div>
                         </div>
-                    </section>
+                        <div style="display: flex; gap: 16px;">
+                            <div
+                                style="width: 48px; height: 48px; background: #ff8c001a; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <img src="img/daily-calendar.svg" style="width: 24px; height: 24px;" />
+                            </div>
+                            <div>
+                                <div
+                                    style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+                                    Duration</div>
+                                <div id="detail-duration" style="font-size: 16px; font-weight: 600; color: #0f172a;">10
+                                    Days</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 16px;">
+                            <div
+                                style="width: 48px; height: 48px; background: #ff8c001a; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <img src="img/age-alt.svg" style="width: 24px; height: 24px;" />
+                            </div>
+                            <div>
+                                <div
+                                    style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+                                    Age Range</div>
+                                <div id="detail-age" style="font-size: 16px; font-weight: 600; color: #0f172a;">15 - 25
+                                    Years</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 16px;">
+                            <div
+                                style="width: 48px; height: 48px; background: #ff8c001a; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <img src="img/employees.svg" style="width: 24px; height: 24px;" />
+                            </div>
+                            <div>
+                                <div
+                                    style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+                                    Format</div>
+                                <div id="detail-format" style="font-size: 16px; font-weight: 600; color: #0f172a;">
+                                    Single Elimination</div>
+                            </div>
+                        </div>
+                        <!-- New: Match Start Date -->
+                        <div style="display: flex; gap: 16px;">
+                            <div
+                                style="width: 48px; height: 48px; background: #ff8c001a; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                                <img src="img/daily-calendar.svg" style="width: 24px; height: 24px;" />
+                            </div>
+                            <div>
+                                <div
+                                    style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+                                    Match Start Date (วันที่เริ่มแข่ง)</div>
+                                <div id="detail-match-date" style="font-size: 16px; font-weight: 600; color: #0f172a;">
+                                    TBD</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
 
             <!-- Bracket Section -->
@@ -137,314 +180,506 @@
             </section>
         </main>
 
-    <!-- ===== MODALS ===== -->
-    <div id="modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9000;align-items:center;justify-content:center;" onclick="if(event.target===this)closeModal()">
+        <!-- ===== MODALS ===== -->
+        <div id="modal-overlay"
+            style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9000;align-items:center;justify-content:center;"
+            onclick="if(event.target===this)closeModal()">
 
-        <!-- About Modal -->
-        <div id="about-modal" class="modal-box" style="display:none;">
-            <div class="modal-header">
-                <h2 class="modal-title">About KMITL ESPORT</h2>
-                <button class="modal-close" onclick="closeModal()">✕</button>
+            <!-- About Modal -->
+            <div id="about-modal" class="modal-box" style="display:none;">
+                <div class="modal-header">
+                    <h2 class="modal-title">About KMITL ESPORT</h2>
+                    <button class="modal-close" onclick="closeModal()">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+                        <img src="../../icons/Logo.png" alt="Logo"
+                            style="width:64px;height:64px;border-radius:12px;object-fit:contain;" />
+                        <div>
+                            <div style="font-size:20px;font-weight:800;color:#1e293b;">KMITL ESPORT</div>
+                            <div style="font-size:13px;color:#64748b;">Official Esports Event Platform</div>
+                        </div>
+                    </div>
+                    <p style="color:#475569;line-height:1.7;margin-bottom:16px;">
+                        KMITL ESPORT เป็นแพลตฟอร์มจัดการการแข่งขัน Esports
+                        อย่างเป็นทางการของสถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง (KMITL)
+                        ออกแบบมาเพื่อรองรับการจัดการแข่งขัน การลงทะเบียนทีม และการติดตามผลการแข่งขันอย่างครบวงจร
+                    </p>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;">
+                        <div
+                            style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px;text-align:center;">
+                            <div style="font-size:24px;font-weight:800;color:#ff8c00;">100+</div>
+                            <div style="font-size:12px;color:#64748b;margin-top:4px;">Teams Registered</div>
+                        </div>
+                        <div
+                            style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px;text-align:center;">
+                            <div style="font-size:24px;font-weight:800;color:#ff8c00;">20+</div>
+                            <div style="font-size:12px;color:#64748b;margin-top:4px;">Tournaments Held</div>
+                        </div>
+                    </div>
+                    <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:16px;">
+                        <div style="font-weight:700;color:#c2410c;margin-bottom:8px;">ติดต่อเรา</div>
+                        <div style="font-size:13px;color:#7c2d12;line-height:1.8;">
+                            📧 esport@kmitl.ac.th<br>
+                            🌐 kmitl.ac.th<br>
+                            📍 KMITL, ลาดกระบัง, กรุงเทพฯ 10520
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
-                    <img src="../../icons/Logo.png" alt="Logo" style="width:64px;height:64px;border-radius:12px;object-fit:contain;" />
-                    <div>
-                        <div style="font-size:20px;font-weight:800;color:#1e293b;">KMITL ESPORT</div>
-                        <div style="font-size:13px;color:#64748b;">Official Esports Event Platform</div>
+
+            <!-- Settings Modal -->
+            <div id="settings-modal" class="modal-box" style="display:none;">
+                <div class="modal-header">
+                    <h2 class="modal-title">Settings</h2>
+                    <button class="modal-close" onclick="closeModal()">✕</button>
+                </div>
+                <div class="modal-body">
+                    <div class="settings-group">
+                        <div class="settings-label">ภาษา / Language</div>
+                        <select class="settings-select" id="lang-select">
+                            <option value="th">ภาษาไทย</option>
+                            <option value="en">English</option>
+                        </select>
+                    </div>
+                    <div class="settings-group">
+                        <div class="settings-label">ธีม / Theme</div>
+                        <div style="display:flex;gap:10px;">
+                            <button class="theme-btn active" id="theme-light" onclick="setTheme('light')">☀️
+                                Light</button>
+                            <button class="theme-btn" id="theme-dark" onclick="setTheme('dark')">🌙 Dark</button>
+                        </div>
+                    </div>
+                    <div class="settings-group">
+                        <div class="settings-label">การแจ้งเตือน / Notifications</div>
+                        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
+                            <input type="checkbox" id="notif-match" style="width:16px;height:16px;accent-color:#ff8c00;"
+                                checked>
+                            <span style="font-size:14px;color:#475569;">แจ้งเตือนการแข่งขันที่กำลังจะมาถึง</span>
+                        </label>
+                        <label style="display:flex;align-items:center;gap:10px;cursor:pointer;margin-top:10px;">
+                            <input type="checkbox" id="notif-news" style="width:16px;height:16px;accent-color:#ff8c00;"
+                                checked>
+                            <span style="font-size:14px;color:#475569;">แจ้งเตือนข่าวสารและประกาศ</span>
+                        </label>
+                    </div>
+                    <div class="settings-group" style="border-bottom:none;">
+                        <div class="settings-label">เวอร์ชัน / Version</div>
+                        <span style="font-size:14px;color:#94a3b8;">KMITL ESPORT v1.0.0</span>
+                    </div>
+                    <button onclick="saveSettings()"
+                        style="width:100%;padding:12px;background:#ff8c00;color:#fff;border:none;border-radius:48px;font-size:14px;font-weight:700;cursor:pointer;margin-top:8px;">บันทึกการตั้งค่า</button>
+                </div>
+            </div>
+
+            <!-- Explore Modal -->
+            <div id="explore-modal" class="modal-box" style="display:none;">
+                <div class="modal-header">
+                    <h2 class="modal-title">Explore</h2>
+                    <button class="modal-close" onclick="closeModal()">✕</button>
+                </div>
+                <div class="modal-body">
+                    <p style="color:#64748b;font-size:14px;margin-bottom:20px;">ค้นหาและสำรวจการแข่งขัน Esports
+                        ทั้งหมดของ KMITL</p>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;" id="explore-filters">
+                        <button class="filter-tag active" onclick="filterExplore(this,'all')">ทั้งหมด</button>
+                        <button class="filter-tag" onclick="filterExplore(this,'ongoing')">กำลังแข่ง</button>
+                        <button class="filter-tag" onclick="filterExplore(this,'upcoming')">กำลังจะมาถึง</button>
+                        <button class="filter-tag" onclick="filterExplore(this,'ended')">จบแล้ว</button>
+                    </div>
+                    <div id="explore-list"
+                        style="display:flex;flex-direction:column;gap:12px;max-height:340px;overflow-y:auto;">
+                        <div style="text-align:center;padding:40px;color:#94a3b8;font-size:14px;">กำลังโหลด...</div>
                     </div>
                 </div>
-                <p style="color:#475569;line-height:1.7;margin-bottom:16px;">
-                    KMITL ESPORT เป็นแพลตฟอร์มจัดการการแข่งขัน Esports อย่างเป็นทางการของสถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง (KMITL) ออกแบบมาเพื่อรองรับการจัดการแข่งขัน การลงทะเบียนทีม และการติดตามผลการแข่งขันอย่างครบวงจร
-                </p>
-                <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;">
-                    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px;text-align:center;">
-                        <div style="font-size:24px;font-weight:800;color:#ff8c00;">100+</div>
-                        <div style="font-size:12px;color:#64748b;margin-top:4px;">Teams Registered</div>
-                    </div>
-                    <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:16px;text-align:center;">
-                        <div style="font-size:24px;font-weight:800;color:#ff8c00;">20+</div>
-                        <div style="font-size:12px;color:#64748b;margin-top:4px;">Tournaments Held</div>
-                    </div>
+            </div>
+
+            <!-- News Modal -->
+            <div id="news-modal" class="modal-box" style="display:none;">
+                <div class="modal-header">
+                    <h2 class="modal-title">News &amp; Announcements</h2>
+                    <button class="modal-close" onclick="closeModal()">✕</button>
                 </div>
-                <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:16px;">
-                    <div style="font-weight:700;color:#c2410c;margin-bottom:8px;">ติดต่อเรา</div>
-                    <div style="font-size:13px;color:#7c2d12;line-height:1.8;">
-                        📧 esport@kmitl.ac.th<br>
-                        🌐 kmitl.ac.th<br>
-                        📍 KMITL, ลาดกระบัง, กรุงเทพฯ 10520
+                <div class="modal-body">
+                    <div style="display:flex;flex-direction:column;gap:16px;max-height:420px;overflow-y:auto;">
+                        <div class="news-card">
+                            <div class="news-badge new">NEW</div>
+                            <div class="news-title">🏆 KMITL ESPORT Season 2 เปิดรับสมัครแล้ว!</div>
+                            <div class="news-date">27 มีนาคม 2026</div>
+                            <div class="news-desc">การแข่งขัน Esports ประจำปีการศึกษา 2026 เปิดรับสมัครทีมแล้ววันนี้
+                                พร้อมเงินรางวัลรวมกว่า 50,000 บาท สมัครได้เลย!</div>
+                        </div>
+                        <div class="news-card">
+                            <div class="news-badge">UPDATE</div>
+                            <div class="news-title">📋 กติกาและระเบียบการแข่งขันใหม่</div>
+                            <div class="news-date">20 มีนาคม 2026</div>
+                            <div class="news-desc">ทีมงานได้อัพเดทกติกาการแข่งขันให้ครอบคลุมและชัดเจนยิ่งขึ้น
+                                กรุณาอ่านและทำความเข้าใจก่อนสมัครเข้าร่วม</div>
+                        </div>
+                        <div class="news-card">
+                            <div class="news-badge">EVENT</div>
+                            <div class="news-title">🎮 ผลการแข่งขัน KMITL CUP 2025</div>
+                            <div class="news-date">15 กุมภาพันธ์ 2026</div>
+                            <div class="news-desc">ขอแสดงความยินดีกับทีม Dragon Slayer ที่คว้าแชมป์รายการ KMITL CUP 2025
+                                พร้อมเงินรางวัล 20,000 บาท</div>
+                        </div>
+                        <div class="news-card">
+                            <div class="news-badge">INFO</div>
+                            <div class="news-title">🔧 ระบบปรับปรุงใหม่ พร้อมฟีเจอร์ติดตามการแข่งขันแบบ Real-time</div>
+                            <div class="news-date">1 กุมภาพันธ์ 2026</div>
+                            <div class="news-desc">KMITL ESPORT Platform อัพเดทระบบใหม่
+                                รองรับการดูผลการแข่งขันแบบเรียลไทม์ และระบบแบรคเก็ตที่แสดงผลแบบอัตโนมัติ</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Settings Modal -->
-        <div id="settings-modal" class="modal-box" style="display:none;">
-            <div class="modal-header">
-                <h2 class="modal-title">Settings</h2>
-                <button class="modal-close" onclick="closeModal()">✕</button>
-            </div>
-            <div class="modal-body">
-                <div class="settings-group">
-                    <div class="settings-label">ภาษา / Language</div>
-                    <select class="settings-select" id="lang-select">
-                        <option value="th">ภาษาไทย</option>
-                        <option value="en">English</option>
-                    </select>
-                </div>
-                <div class="settings-group">
-                    <div class="settings-label">ธีม / Theme</div>
-                    <div style="display:flex;gap:10px;">
-                        <button class="theme-btn active" id="theme-light" onclick="setTheme('light')">☀️ Light</button>
-                        <button class="theme-btn" id="theme-dark" onclick="setTheme('dark')">🌙 Dark</button>
-                    </div>
-                </div>
-                <div class="settings-group">
-                    <div class="settings-label">การแจ้งเตือน / Notifications</div>
-                    <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
-                        <input type="checkbox" id="notif-match" style="width:16px;height:16px;accent-color:#ff8c00;" checked>
-                        <span style="font-size:14px;color:#475569;">แจ้งเตือนการแข่งขันที่กำลังจะมาถึง</span>
-                    </label>
-                    <label style="display:flex;align-items:center;gap:10px;cursor:pointer;margin-top:10px;">
-                        <input type="checkbox" id="notif-news" style="width:16px;height:16px;accent-color:#ff8c00;" checked>
-                        <span style="font-size:14px;color:#475569;">แจ้งเตือนข่าวสารและประกาศ</span>
-                    </label>
-                </div>
-                <div class="settings-group" style="border-bottom:none;">
-                    <div class="settings-label">เวอร์ชัน / Version</div>
-                    <span style="font-size:14px;color:#94a3b8;">KMITL ESPORT v1.0.0</span>
-                </div>
-                <button onclick="saveSettings()" style="width:100%;padding:12px;background:#ff8c00;color:#fff;border:none;border-radius:48px;font-size:14px;font-weight:700;cursor:pointer;margin-top:8px;">บันทึกการตั้งค่า</button>
-            </div>
-        </div>
+        <style>
+            .modal-box {
+                background: #fff;
+                border-radius: 20px;
+                width: 520px;
+                max-width: calc(100vw - 32px);
+                max-height: 85vh;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            }
 
-        <!-- Explore Modal -->
-        <div id="explore-modal" class="modal-box" style="display:none;">
-            <div class="modal-header">
-                <h2 class="modal-title">Explore</h2>
-                <button class="modal-close" onclick="closeModal()">✕</button>
-            </div>
-            <div class="modal-body">
-                <p style="color:#64748b;font-size:14px;margin-bottom:20px;">ค้นหาและสำรวจการแข่งขัน Esports ทั้งหมดของ KMITL</p>
-                <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;" id="explore-filters">
-                    <button class="filter-tag active" onclick="filterExplore(this,'all')">ทั้งหมด</button>
-                    <button class="filter-tag" onclick="filterExplore(this,'ongoing')">กำลังแข่ง</button>
-                    <button class="filter-tag" onclick="filterExplore(this,'upcoming')">กำลังจะมาถึง</button>
-                    <button class="filter-tag" onclick="filterExplore(this,'ended')">จบแล้ว</button>
-                </div>
-                <div id="explore-list" style="display:flex;flex-direction:column;gap:12px;max-height:340px;overflow-y:auto;">
-                    <div style="text-align:center;padding:40px;color:#94a3b8;font-size:14px;">กำลังโหลด...</div>
-                </div>
-            </div>
-        </div>
+            .modal-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 20px 24px;
+                border-bottom: 1px solid #e2e8f0;
+            }
 
-        <!-- News Modal -->
-        <div id="news-modal" class="modal-box" style="display:none;">
-            <div class="modal-header">
-                <h2 class="modal-title">News &amp; Announcements</h2>
-                <button class="modal-close" onclick="closeModal()">✕</button>
-            </div>
-            <div class="modal-body">
-                <div style="display:flex;flex-direction:column;gap:16px;max-height:420px;overflow-y:auto;">
-                    <div class="news-card">
-                        <div class="news-badge new">NEW</div>
-                        <div class="news-title">🏆 KMITL ESPORT Season 2 เปิดรับสมัครแล้ว!</div>
-                        <div class="news-date">27 มีนาคม 2026</div>
-                        <div class="news-desc">การแข่งขัน Esports ประจำปีการศึกษา 2026 เปิดรับสมัครทีมแล้ววันนี้ พร้อมเงินรางวัลรวมกว่า 50,000 บาท สมัครได้เลย!</div>
-                    </div>
-                    <div class="news-card">
-                        <div class="news-badge">UPDATE</div>
-                        <div class="news-title">📋 กติกาและระเบียบการแข่งขันใหม่</div>
-                        <div class="news-date">20 มีนาคม 2026</div>
-                        <div class="news-desc">ทีมงานได้อัพเดทกติกาการแข่งขันให้ครอบคลุมและชัดเจนยิ่งขึ้น กรุณาอ่านและทำความเข้าใจก่อนสมัครเข้าร่วม</div>
-                    </div>
-                    <div class="news-card">
-                        <div class="news-badge">EVENT</div>
-                        <div class="news-title">🎮 ผลการแข่งขัน KMITL CUP 2025</div>
-                        <div class="news-date">15 กุมภาพันธ์ 2026</div>
-                        <div class="news-desc">ขอแสดงความยินดีกับทีม Dragon Slayer ที่คว้าแชมป์รายการ KMITL CUP 2025 พร้อมเงินรางวัล 20,000 บาท</div>
-                    </div>
-                    <div class="news-card">
-                        <div class="news-badge">INFO</div>
-                        <div class="news-title">🔧 ระบบปรับปรุงใหม่ พร้อมฟีเจอร์ติดตามการแข่งขันแบบ Real-time</div>
-                        <div class="news-date">1 กุมภาพันธ์ 2026</div>
-                        <div class="news-desc">KMITL ESPORT Platform อัพเดทระบบใหม่ รองรับการดูผลการแข่งขันแบบเรียลไทม์ และระบบแบรคเก็ตที่แสดงผลแบบอัตโนมัติ</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+            .modal-title {
+                font-size: 18px;
+                font-weight: 800;
+                color: #1e293b;
+                margin: 0;
+            }
 
-    <style>
-        .modal-box { background:#fff;border-radius:20px;width:520px;max-width:calc(100vw - 32px);max-height:85vh;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,0.25); }
-        .modal-header { display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid #e2e8f0; }
-        .modal-title { font-size:18px;font-weight:800;color:#1e293b;margin:0; }
-        .modal-close { background:#f1f5f9;border:none;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:14px;color:#475569;display:flex;align-items:center;justify-content:center; }
-        .modal-close:hover { background:#e2e8f0; }
-        .modal-body { padding:24px;overflow-y:auto; }
-        .settings-group { padding:16px 0;border-bottom:1px solid #f1f5f9; }
-        .settings-label { font-size:13px;font-weight:700;color:#94a3b8;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:10px; }
-        .settings-select { width:100%;padding:10px 14px;border:1px solid #e2e8f0;border-radius:10px;font-size:14px;color:#1e293b;background:#f8fafc;outline:none; }
-        .theme-btn { padding:8px 20px;border:2px solid #e2e8f0;border-radius:48px;font-size:13px;font-weight:700;cursor:pointer;background:#f8fafc;color:#475569; }
-        .theme-btn.active { border-color:#ff8c00;background:#fff7ed;color:#c2410c; }
-        .filter-tag { padding:6px 16px;border:1px solid #e2e8f0;border-radius:48px;font-size:13px;font-weight:600;cursor:pointer;background:#f8fafc;color:#64748b; }
-        .filter-tag.active { background:#ff8c00;border-color:#ff8c00;color:#fff; }
-        .explore-item { display:flex;align-items:center;gap:14px;padding:14px 16px;border:1px solid #e2e8f0;border-radius:12px;cursor:pointer;transition:background 0.15s; }
-        .explore-item:hover { background:#f8fafc; }
-        .explore-item-img { width:52px;height:52px;border-radius:10px;object-fit:cover;background:#e2e8f0;flex-shrink:0; }
-        .explore-status { font-size:11px;font-weight:700;padding:3px 8px;border-radius:48px; }
-        .status-ongoing { background:#dcfce7;color:#15803d; }
-        .status-upcoming { background:#dbeafe;color:#1d4ed8; }
-        .status-ended { background:#f1f5f9;color:#64748b; }
-        .news-card { padding:16px;border:1px solid #e2e8f0;border-radius:12px; }
-        .news-badge { display:inline-block;font-size:10px;font-weight:800;padding:2px 8px;border-radius:48px;background:#f1f5f9;color:#64748b;margin-bottom:8px;letter-spacing:0.05em; }
-        .news-badge.new { background:#dcfce7;color:#15803d; }
-        .news-title { font-size:15px;font-weight:700;color:#1e293b;margin-bottom:4px; }
-        .news-date { font-size:12px;color:#94a3b8;margin-bottom:8px; }
-        .news-desc { font-size:13px;color:#475569;line-height:1.6; }
-    </style>
+            .modal-close {
+                background: #f1f5f9;
+                border: none;
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                cursor: pointer;
+                font-size: 14px;
+                color: #475569;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-    <script src="../../api-config.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const params = new URLSearchParams(window.location.search);
-            const id = params.get('id');
-            if (!id) return;
+            .modal-close:hover {
+                background: #e2e8f0;
+            }
 
-            const matchListContainer = document.getElementById('match-list-container');
+            .modal-body {
+                padding: 24px;
+                overflow-y: auto;
+            }
 
-            try {
-                // Fetch Tournament Detail
-                const res = await fetch(`${API_BASE_URL}/tournaments/${id}`);
-                const tournament = await res.json();
+            .settings-group {
+                padding: 16px 0;
+                border-bottom: 1px solid #f1f5f9;
+            }
 
-                // Bind Data
-                document.getElementById('tournament-display-name').textContent = tournament.tournament_name;
-                document.getElementById('detail-type').textContent = tournament.tournament_type || 'N/A';
-                document.getElementById('detail-duration').textContent = tournament.duration || 'N/A';
-                document.getElementById('detail-age').textContent = `${tournament.age_min || 0} - ${tournament.age_max || 100} years old`;
-                document.getElementById('detail-format').textContent = tournament.tournament_type || 'N/A';
-                // document.getElementById('open-date').textContent = new Date(tournament.start_date).toLocaleDateString();
-                // document.getElementById('close-date').textContent = new Date(tournament.end_date).toLocaleDateString();
+            .settings-label {
+                font-size: 13px;
+                font-weight: 700;
+                color: #94a3b8;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                margin-bottom: 10px;
+            }
 
-                // Banner Fallback
-                const bannerImg = document.querySelector('.image-2');
-                const fallbackBanner = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200';
-                if (tournament.tournament_banner) {
-                    bannerImg.src = tournament.tournament_banner;
-                    bannerImg.onerror = () => bannerImg.src = fallbackBanner;
-                } else {
-                    bannerImg.src = fallbackBanner;
+            .settings-select {
+                width: 100%;
+                padding: 10px 14px;
+                border: 1px solid #e2e8f0;
+                border-radius: 10px;
+                font-size: 14px;
+                color: #1e293b;
+                background: #f8fafc;
+                outline: none;
+            }
+
+            .theme-btn {
+                padding: 8px 20px;
+                border: 2px solid #e2e8f0;
+                border-radius: 48px;
+                font-size: 13px;
+                font-weight: 700;
+                cursor: pointer;
+                background: #f8fafc;
+                color: #475569;
+            }
+
+            .theme-btn.active {
+                border-color: #ff8c00;
+                background: #fff7ed;
+                color: #c2410c;
+            }
+
+            .filter-tag {
+                padding: 6px 16px;
+                border: 1px solid #e2e8f0;
+                border-radius: 48px;
+                font-size: 13px;
+                font-weight: 600;
+                cursor: pointer;
+                background: #f8fafc;
+                color: #64748b;
+            }
+
+            .filter-tag.active {
+                background: #ff8c00;
+                border-color: #ff8c00;
+                color: #fff;
+            }
+
+            .explore-item {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                padding: 14px 16px;
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+                cursor: pointer;
+                transition: background 0.15s;
+            }
+
+            .explore-item:hover {
+                background: #f8fafc;
+            }
+
+            .explore-item-img {
+                width: 52px;
+                height: 52px;
+                border-radius: 10px;
+                object-fit: cover;
+                background: #e2e8f0;
+                flex-shrink: 0;
+            }
+
+            .explore-status {
+                font-size: 11px;
+                font-weight: 700;
+                padding: 3px 8px;
+                border-radius: 48px;
+            }
+
+            .status-ongoing {
+                background: #dcfce7;
+                color: #15803d;
+            }
+
+            .status-upcoming {
+                background: #dbeafe;
+                color: #1d4ed8;
+            }
+
+            .status-ended {
+                background: #f1f5f9;
+                color: #64748b;
+            }
+
+            .news-card {
+                padding: 16px;
+                border: 1px solid #e2e8f0;
+                border-radius: 12px;
+            }
+
+            .news-badge {
+                display: inline-block;
+                font-size: 10px;
+                font-weight: 800;
+                padding: 2px 8px;
+                border-radius: 48px;
+                background: #f1f5f9;
+                color: #64748b;
+                margin-bottom: 8px;
+                letter-spacing: 0.05em;
+            }
+
+            .news-badge.new {
+                background: #dcfce7;
+                color: #15803d;
+            }
+
+            .news-title {
+                font-size: 15px;
+                font-weight: 700;
+                color: #1e293b;
+                margin-bottom: 4px;
+            }
+
+            .news-date {
+                font-size: 12px;
+                color: #94a3b8;
+                margin-bottom: 8px;
+            }
+
+            .news-desc {
+                font-size: 13px;
+                color: #475569;
+                line-height: 1.6;
+            }
+        </style>
+
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+        <script src="../../api-config.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', async () => {
+                const params = new URLSearchParams(window.location.search);
+                const id = params.get('id');
+                if (!id) return;
+
+                const matchListContainer = document.getElementById('match-list-container');
+
+                try {
+                    // Fetch Tournament Detail
+                    const res = await fetch(`${API_BASE_URL}/tournaments/${id}`);
+                    const tournament = await res.json();
+
+                    // Bind Data
+                    document.getElementById('tournament-display-name').textContent = tournament.tournament_name;
+                    document.getElementById('detail-type').textContent = tournament.tournament_type || 'N/A';
+                    document.getElementById('detail-duration').textContent = tournament.duration || 'N/A';
+                    document.getElementById('detail-age').textContent = `${tournament.age_min || 0} - ${tournament.age_max || 100} years old`;
+                    document.getElementById('detail-format').textContent = tournament.tournament_type || 'N/A';
+                if (tournament.match_date) {
+                    const mDate = new Date(tournament.match_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+                    const matchDateEl = document.getElementById('detail-match-date');
+                    if (matchDateEl) matchDateEl.textContent = mDate;
                 }
+                    // document.getElementById('open-date').textContent = new Date(tournament.start_date).toLocaleDateString();
+                    // document.getElementById('close-date').textContent = new Date(tournament.end_date).toLocaleDateString();
 
-                // Fetch Matches
-                const matchesRes = await fetch(`${API_BASE_URL}/tournaments/${id}/matches`);
-                const matches = await matchesRes.json();
+                    // Banner Fallback
+                    const bannerImg = document.querySelector('.image-2');
+                    const fallbackBanner = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200';
+                    if (tournament.tournament_banner) {
+                        bannerImg.src = tournament.tournament_banner;
+                        bannerImg.onerror = () => bannerImg.src = fallbackBanner;
+                    } else {
+                        bannerImg.src = fallbackBanner;
+                    }
 
-                const seenCounts = {};
-                const teams = (tournament.Application || tournament.applications || [])
-                    .filter(app => app.status === 'Approved')
-                    .sort((a, b) => (a.app_id || 0) - (b.app_id || 0))
-                    .map(app => {
-                        const name = (app.Team || app.team || {}).team_name;
-                        if (!name) return null;
-                        seenCounts[name] = (seenCounts[name] || 0) + 1;
-                        return name + '\u200B'.repeat(seenCounts[name] - 1);
-                    })
-                    .filter(n => n);
+                    // Fetch Matches
+                    const matchesRes = await fetch(`${API_BASE_URL}/tournaments/${id}/matches`);
+                    const matches = await matchesRes.json();
 
-                if (!matches || matches.length === 0) {
-                    matchListContainer.innerHTML = `
+                    const seenCounts = {};
+                    const teams = (tournament.Application || tournament.applications || [])
+                        .filter(app => app.status === 'Approved')
+                        .sort((a, b) => (a.app_id || 0) - (b.app_id || 0))
+                        .map(app => {
+                            const name = (app.Team || app.team || {}).team_name;
+                            if (!name) return null;
+                            seenCounts[name] = (seenCounts[name] || 0) + 1;
+                            return name + '\u200B'.repeat(seenCounts[name] - 1);
+                        })
+                        .filter(n => n);
+
+                    if (!matches || matches.length === 0) {
+                        matchListContainer.innerHTML = `
                         <div style="text-align: center; padding: 40px; background: white; border-radius: 16px; border: 1px dashed #cbd5e1; color: #64748b;">
                             <img src="../../icons/info.svg" style="width: 32px; height: 32px; margin-bottom: 12px; opacity: 0.5;" />
                             <p style="font-weight: 500;">No matches scheduled yet.</p>
                         </div>`;
-                    return;
-                }
-
-                // Build bracket data from saved matches
-                const isDouble = (tournament.tournament_type || '').toLowerCase().includes('double');
-                const numTeams = Math.max(2, Math.pow(2, Math.ceil(Math.log2(Math.max(2, teams.length)))));
-                const bracketTeams = [];
-                for (let i = 0; i < numTeams; i += 2) bracketTeams.push([teams[i] || null, teams[i + 1] || null]);
-
-                let bracketData;
-                if (isDouble) {
-                    const wbRounds = Math.log2(numTeams);
-                    const wb = Array.from({ length: wbRounds }, (_, r) => Array.from({ length: numTeams / Math.pow(2, r + 1) }, () => [null, null]));
-                    const lbRounds = 2 * wbRounds - 2;
-                    let mc = numTeams / 4;
-                    const lb = Array.from({ length: lbRounds }, (_, r) => { const a = Array.from({ length: Math.floor(mc) }, () => [null, null]); if (r % 2 === 1) mc /= 2; return a; });
-                    const finals = [[[null, null]]];
-                    matches.forEach(m => {
-                        if (m.round > 0 && m.round < 100 && wb[m.round - 1]?.[m.position]) wb[m.round - 1][m.position] = [m.score1, m.score2];
-                        else if (m.round < 0 && lb[Math.abs(m.round) - 1]?.[m.position]) lb[Math.abs(m.round) - 1][m.position] = [m.score1, m.score2];
-                        else if (m.round > 100 && finals[m.round - 101]?.[m.position]) finals[m.round - 101][m.position] = [m.score1, m.score2];
-                    });
-                    bracketData = { teams: bracketTeams, results: [wb, lb, finals] };
-                } else {
-                    let slotTeams = Array.from({ length: numTeams }, (_, i) => teams[i] || 'BYE');
-                    const numRounds = Math.log2(numTeams);
-                    const results = [];
-                    for (let r = 0; r < numRounds; r++) {
-                        const roundArr = [], nextSlot = [];
-                        const matchCount = slotTeams.length / 2;
-                        for (let m = 0; m < matchCount; m++) {
-                            const t1 = slotTeams[m * 2], t2 = slotTeams[m * 2 + 1];
-                            const md = matches.find(x => x.round === r + 1 && x.position === m);
-                            let score = md ? [md.score1, md.score2] : [null, null];
-                            if (score[0] === null && score[1] === null) {
-                                if (t1 !== 'BYE' && t2 === 'BYE') score = [1, 0];
-                                else if (t1 === 'BYE' && t2 !== 'BYE') score = [0, 1];
-                            }
-                            const winner = (t1 === 'BYE' && t2 === 'BYE') ? 'BYE' : (score[0] !== null && score[1] !== null) ? (score[0] >= score[1] ? t1 : t2) : 'TBD';
-                            nextSlot.push(winner);
-                            roundArr.push(score);
-                        }
-                        results.push(roundArr);
-                        slotTeams = nextSlot;
+                        return;
                     }
-                    bracketData = { teams: bracketTeams, results };
+
+                    // Build bracket data from saved matches
+                    const isDouble = (tournament.tournament_type || '').toLowerCase().includes('double');
+                    const numTeams = Math.max(2, Math.pow(2, Math.ceil(Math.log2(Math.max(2, teams.length)))));
+                    const bracketTeams = [];
+                    for (let i = 0; i < numTeams; i += 2) bracketTeams.push([teams[i] || null, teams[i + 1] || null]);
+
+                    let bracketData;
+                    if (isDouble) {
+                        const wbRounds = Math.log2(numTeams);
+                        const wb = Array.from({ length: wbRounds }, (_, r) => Array.from({ length: numTeams / Math.pow(2, r + 1) }, () => [null, null]));
+                        const lbRounds = 2 * wbRounds - 2;
+                        let mc = numTeams / 4;
+                        const lb = Array.from({ length: lbRounds }, (_, r) => { const a = Array.from({ length: Math.floor(mc) }, () => [null, null]); if (r % 2 === 1) mc /= 2; return a; });
+                        const finals = [[[null, null]]];
+                        matches.forEach(m => {
+                            if (m.round > 0 && m.round < 100 && wb[m.round - 1]?.[m.position]) wb[m.round - 1][m.position] = [m.score1, m.score2];
+                            else if (m.round < 0 && lb[Math.abs(m.round) - 1]?.[m.position]) lb[Math.abs(m.round) - 1][m.position] = [m.score1, m.score2];
+                            else if (m.round > 100 && finals[m.round - 101]?.[m.position]) finals[m.round - 101][m.position] = [m.score1, m.score2];
+                        });
+                        bracketData = { teams: bracketTeams, results: [wb, lb, finals] };
+                    } else {
+                        let slotTeams = Array.from({ length: numTeams }, (_, i) => teams[i] || 'BYE');
+                        const numRounds = Math.log2(numTeams);
+                        const results = [];
+                        for (let r = 0; r < numRounds; r++) {
+                            const roundArr = [], nextSlot = [];
+                            const matchCount = slotTeams.length / 2;
+                            for (let m = 0; m < matchCount; m++) {
+                                const t1 = slotTeams[m * 2], t2 = slotTeams[m * 2 + 1];
+                                const md = matches.find(x => x.round === r + 1 && x.position === m);
+                                let score = md ? [md.score1, md.score2] : [null, null];
+                                if (score[0] === null && score[1] === null) {
+                                    if (t1 !== 'BYE' && t2 === 'BYE') score = [1, 0];
+                                    else if (t1 === 'BYE' && t2 !== 'BYE') score = [0, 1];
+                                }
+                                const winner = (t1 === 'BYE' && t2 === 'BYE') ? 'BYE' : (score[0] !== null && score[1] !== null) ? (score[0] >= score[1] ? t1 : t2) : 'TBD';
+                                nextSlot.push(winner);
+                                roundArr.push(score);
+                            }
+                            results.push(roundArr);
+                            slotTeams = nextSlot;
+                        }
+                        bracketData = { teams: bracketTeams, results };
+                    }
+
+                    // Render read-only bracket in iframe
+                    matchListContainer.innerHTML = '';
+                    matchListContainer.style.display = 'block';
+                    const iframeHtml = '\x3C!DOCTYPE html\x3E\x3Chtml\x3E\x3Chead\x3E\x3Cmeta charset="utf-8"\x3E'
+                        + '\x3Clink rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.css"\x3E'
+                        + '\x3Cscript src="https://code.jquery.com/jquery-3.6.0.min.js"\x3E\x3C/script\x3E'
+                        + '\x3Cscript src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.js"\x3E\x3C/script\x3E'
+                        + '\x3Cstyle\x3Ebody{margin:0;padding:16px;background:transparent;overflow-x:auto;}'
+                        + '.jQBracket .tools{display:none!important;}'
+                        + '.jQBracket input[type=text]{pointer-events:none!important;cursor:default!important;background:#f1f5f9!important;border-color:#e2e8f0!important;color:#374151!important;}'
+                        + '.jQBracket .score{pointer-events:none!important;}\x3C/style\x3E'
+                        + '\x3C/head\x3E\x3Cbody\x3E\x3Cdiv id="bc"\x3E\x3C/div\x3E\x3C/body\x3E\x3C/html\x3E';
+
+                    const iframe = document.createElement('iframe');
+                    iframe.id = 'bracket-iframe';
+                    iframe.srcdoc = iframeHtml;
+                    iframe.style.cssText = 'width:100%;min-height:500px;border:none;background:transparent;';
+                    matchListContainer.appendChild(iframe);
+
+                    iframe.onload = () => {
+                        const win = iframe.contentWindow;
+                        if (!win || !win.jQuery) return;
+                        win.jQuery('#bc').bracket({ init: bracketData, save: function () { } });
+                        // Disable all inputs after render
+                        setTimeout(() => {
+                            win.document.querySelectorAll('input').forEach(inp => { inp.disabled = true; inp.style.pointerEvents = 'none'; });
+                            const h = win.document.body.scrollHeight;
+                            if (h > 0) iframe.style.minHeight = (h + 40) + 'px';
+                        }, 600);
+                    };
+
+                } catch (error) {
+                    console.error('Error fetching tournament detail:', error);
+                    matchListContainer.innerHTML = `<div style="color: #ef4444; padding: 20px; text-align: center;">Failed to load bracket data. Please try again later.</div>`;
                 }
-
-                // Render read-only bracket in iframe
-                matchListContainer.innerHTML = '';
-                matchListContainer.style.display = 'block';
-                const iframeHtml = '\x3C!DOCTYPE html\x3E\x3Chtml\x3E\x3Chead\x3E\x3Cmeta charset="utf-8"\x3E'
-                    + '\x3Clink rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.css"\x3E'
-                    + '\x3Cscript src="https://code.jquery.com/jquery-3.6.0.min.js"\x3E\x3C/script\x3E'
-                    + '\x3Cscript src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.js"\x3E\x3C/script\x3E'
-                    + '\x3Cstyle\x3Ebody{margin:0;padding:16px;background:transparent;overflow-x:auto;}'
-                    + '.jQBracket .tools{display:none!important;}'
-                    + '.jQBracket input[type=text]{pointer-events:none!important;cursor:default!important;background:#f1f5f9!important;border-color:#e2e8f0!important;color:#374151!important;}'
-                    + '.jQBracket .score{pointer-events:none!important;}\x3C/style\x3E'
-                    + '\x3C/head\x3E\x3Cbody\x3E\x3Cdiv id="bc"\x3E\x3C/div\x3E\x3C/body\x3E\x3C/html\x3E';
-
-                const iframe = document.createElement('iframe');
-                iframe.id = 'bracket-iframe';
-                iframe.srcdoc = iframeHtml;
-                iframe.style.cssText = 'width:100%;min-height:500px;border:none;background:transparent;';
-                matchListContainer.appendChild(iframe);
-
-                iframe.onload = () => {
-                    const win = iframe.contentWindow;
-                    if (!win || !win.jQuery) return;
-                    win.jQuery('#bc').bracket({ init: bracketData, save: function () { } });
-                    // Disable all inputs after render
-                    setTimeout(() => {
-                        win.document.querySelectorAll('input').forEach(inp => { inp.disabled = true; inp.style.pointerEvents = 'none'; });
-                        const h = win.document.body.scrollHeight;
-                        if (h > 0) iframe.style.minHeight = (h + 40) + 'px';
-                    }, 600);
-                };
-
-            } catch (error) {
-                console.error('Error fetching tournament detail:', error);
-                matchListContainer.innerHTML = `<div style="color: #ef4444; padding: 20px; text-align: center;">Failed to load bracket data. Please try again later.</div>`;
-            }
-        });
-    </script>
+            });
+        </script>
     </div>
     <script>
         // ===== MODAL SYSTEM =====
@@ -485,9 +720,9 @@
             const t = document.createElement('div');
             t.textContent = msg;
             Object.assign(t.style, {
-                position:'fixed', bottom:'24px', left:'50%', transform:'translateX(-50%)',
-                background:'#1e293b', color:'#fff', padding:'12px 24px', borderRadius:'48px',
-                fontSize:'14px', fontWeight:'700', zIndex:'9999', transition:'opacity 0.3s'
+                position: 'fixed', bottom: '24px', left: '50%', transform: 'translateX(-50%)',
+                background: '#1e293b', color: '#fff', padding: '12px 24px', borderRadius: '48px',
+                fontSize: '14px', fontWeight: '700', zIndex: '9999', transition: 'opacity 0.3s'
             });
             document.body.appendChild(t);
             setTimeout(() => { t.style.opacity = '0'; setTimeout(() => t.remove(), 300); }, 2000);
@@ -526,8 +761,8 @@
                     const start = t.start_date ? new Date(t.start_date) : null;
                     const end = t.end_date ? new Date(t.end_date) : null;
                     let statusClass = 'status-upcoming', statusLabel = 'กำลังจะมาถึง';
-                    if (start && end && start <= now && end >= now) { statusClass='status-ongoing'; statusLabel='กำลังแข่ง'; }
-                    else if (end && end < now) { statusClass='status-ended'; statusLabel='จบแล้ว'; }
+                    if (start && end && start <= now && end >= now) { statusClass = 'status-ongoing'; statusLabel = 'กำลังแข่ง'; }
+                    else if (end && end < now) { statusClass = 'status-ended'; statusLabel = 'จบแล้ว'; }
                     const banner = t.tournament_banner || 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=200';
                     return `<div class="explore-item" onclick="closeModal();window.location.href='../../Viewer/TournamentDetail Page 18/tournamentdetail_18.html?id=${t.tournament_id}'">
                         <img class="explore-item-img" src="${banner}" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?w=200'" />
@@ -538,13 +773,13 @@
                         <span class="explore-status ${statusClass}">${statusLabel}</span>
                     </div>`;
                 }).join('');
-            } catch(e) {
+            } catch (e) {
                 list.innerHTML = '<div style="text-align:center;padding:40px;color:#ef4444;font-size:14px;">โหลดข้อมูลไม่สำเร็จ</div>';
             }
         }
 
         // Restore saved settings
-        (function() {
+        (function () {
             const lang = localStorage.getItem('kmitl_lang');
             if (lang) document.getElementById('lang-select').value = lang;
             const nm = localStorage.getItem('kmitl_notif_match');
@@ -553,7 +788,7 @@
             if (nn !== null) document.getElementById('notif-news').checked = nn === 'true';
         })();
     </script>
-<script src="../../shared-responsive.js"></script>
+    <script src="../../shared-responsive.js"></script>
 </body>
 
 </html>

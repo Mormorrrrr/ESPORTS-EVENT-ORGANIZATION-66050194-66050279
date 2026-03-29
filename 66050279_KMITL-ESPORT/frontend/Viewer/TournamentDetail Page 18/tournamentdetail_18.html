@@ -43,8 +43,7 @@
         <aside class="aside-sidebar" aria-label="Sidebar navigation">
             <nav class="sidebar-nav-container">
                 <a class="link" href="../Tournament Page 17/tournament_17.html" aria-label="Tournament">
-                    <img src="../../icons/trophy-star.svg"
-                        alt="Tournament icon" style="width:20px; height:20px;" />
+                    <img src="../../icons/trophy-star.svg" alt="Tournament icon" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Tournament</span>
                 </a>
                 <a class="link-2" href="../../Login Page/login.html" aria-label="Teams">
@@ -140,6 +139,21 @@
                                 style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
                                 Format</div>
                             <div id="detail-format"
+                                style="font-size: 16px; font-weight: 600; color: #0f172a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                —</div>
+                        </div>
+                    </div>
+                    <!-- New: Match Start Date -->
+                    <div style="display: flex; align-items: center; gap: 16px; min-width: 0;">
+                        <div
+                            style="width: 48px; height: 48px; background: #ff8c001a; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <img src="img/daily-calendar.svg" style="width: 24px; height: 24px;" />
+                        </div>
+                        <div style="min-width: 0; flex: 1;">
+                            <div
+                                style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+                                Match Start Date (วันที่เริ่มแข่ง)</div>
+                            <div id="detail-match-date"
                                 style="font-size: 16px; font-weight: 600; color: #0f172a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                 —</div>
                         </div>
@@ -535,6 +549,11 @@
                 document.getElementById('detail-duration').textContent = tournament.duration || 'N/A';
                 document.getElementById('detail-age').textContent = `${tournament.age_min || 0} - ${tournament.age_max || 100} years old`;
                 document.getElementById('detail-format').textContent = tournament.tournament_type || 'N/A';
+                if (tournament.match_date) {
+                    const mDate = new Date(tournament.match_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+                    const matchDateEl = document.getElementById('detail-match-date');
+                    if (matchDateEl) matchDateEl.textContent = mDate;
+                }
 
                 const bannerImg = document.querySelector('.image-2');
                 const fallbackBanner = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200';
@@ -758,7 +777,7 @@
             if (nn !== null) document.getElementById('notif-news').checked = nn === 'true';
         })();
     </script>
-<script src="../../shared-responsive.js"></script>
+    <script src="../../shared-responsive.js"></script>
 </body>
 
 </html>

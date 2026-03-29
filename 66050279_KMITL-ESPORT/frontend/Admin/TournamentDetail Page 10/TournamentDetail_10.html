@@ -419,6 +419,20 @@
                                 Squads</span>
                         </div>
                     </div>
+                    <!-- New: Match Start Date -->
+                    <div style="display: flex; align-items: center; gap: 16px; min-width: 0;">
+                        <div
+                            style="width: 48px; height: 48px; background: #f8fafc; border: 1px solid #f1f5f9; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                            <img src="img/daily-calendar.svg" style="width: 24px; height: 24px;" />
+                        </div>
+                        <div style="min-width: 0; flex: 1;">
+                            <div
+                                style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
+                                Match Start Date (วันที่เริ่มแข่ง)</div>
+                            <span id="match-date-display"
+                                style="font-size: 16px; font-weight: 600; color: #0f172a; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">TBD</span>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -873,6 +887,10 @@
                     $('#details-section .p').text(`${tournament.age_min} - ${tournament.age_max} years old`);
                 }
                 $('#details-section .text-7').text(tournament.format || 'TBD');
+                if (tournament.match_date) {
+                    const mDate = new Date(tournament.match_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+                    $('#match-date-display').text(mDate);
+                }
 
                 if (tournament.start_date) {
                     const sDate = new Date(tournament.start_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
@@ -961,7 +979,7 @@
                     fetch(`${API_BASE_URL}/tournaments/${tournamentId}/matches/save`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ 
+                        body: JSON.stringify({
                             matches: matchesToSave,
                             tournament_type: tournamentType
                         })
@@ -1012,9 +1030,9 @@
                                 };
                                 const getS1 = (m) => Array.isArray(m) ? flatScore(Array.isArray(m[0]) ? m[0] : m, 0) : null;
                                 const getS2 = (m) => Array.isArray(m) ? flatScore(Array.isArray(m[0]) ? m[0] : m, 1) : null;
-                                
+
                                 console.log('[bracket save] newData:', JSON.stringify(newData));
-                                
+
                                 if (isDouble) {
                                     const [nwb, nlb, nfinals] = newData.results;
                                     // Winners Bracket
@@ -1164,10 +1182,10 @@
                 $('#save-bracket-btn').on('click', function () {
                     const iframe = $bracket.find('iframe')[0];
                     if (iframe && iframe.contentWindow) {
-                        try { 
+                        try {
                             const inputs = iframe.contentWindow.document.querySelectorAll('input');
-                            inputs.forEach(inp => inp.blur()); 
-                        } catch(e) {}
+                            inputs.forEach(inp => inp.blur());
+                        } catch (e) { }
                     }
                     // Wait a tiny bit for jquery-bracket's 'blur' event handler to process all saves
                     setTimeout(() => {
@@ -1293,7 +1311,7 @@
             if (nn !== null) document.getElementById('notif-news').checked = nn === 'true';
         })();
     </script>
-<script src="../../shared-responsive.js"></script>
+    <script src="../../shared-responsive.js"></script>
 </body>
 
 </html>

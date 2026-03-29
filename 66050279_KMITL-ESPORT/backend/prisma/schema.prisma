@@ -5,7 +5,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -35,6 +34,7 @@ model Tournament {
   tournament_id     Int           @id @default(autoincrement())
   tournament_name   String
   tournament_type   String
+  match_date        DateTime?
   start_date        DateTime
   end_date          DateTime
   tournament_banner String?

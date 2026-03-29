@@ -143,92 +143,103 @@
                     </div>
                 </section>
                 <!-- Format & Rules -->
-                <section class="format-rules" aria-labelledby="format-heading">
+                <section class="format-rules" aria-labelledby="format-heading" style="margin-left: 33px; margin-right: 33px; margin-top: 32px; display: block;">
+                    <div class="div-2">
+                        <span class="text-wrapper-4" id="format-heading">Tournament Type</span>
+                    </div>
+                    <div class="container-11" role="radiogroup" aria-labelledby="format-heading" style="margin-top: 12px; display: flex; gap: 16px;">
+                        <!-- Single Elimination -->
+                        <label class="label-2 format-option active" style="cursor: pointer; display: flex; align-items: center; padding: 12px; border: 2px solid #ff8c00; border-radius: 12px; transition: all 0.2s; background: white; flex: 1;" data-type="single-elimination">
+                            <div class="selection-indicator" style="width: 20px; height: 20px; border-radius: 50%; border: 2px solid #ff8c00; display: flex; align-items: center; justify-content: center; background: #ff8c00;">
+                                <svg class="vector" width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <input type="radio" name="tournament-type" value="single-elimination" class="radio-hidden" checked style="display: none;" />
+                            <div class="div" style="margin-left: 12px;">
+                                <div class="div-2"><span class="text-11" style="font-size: 16px; font-weight: 700; color: #0f172a;">Single Elimination</span></div>
+                                <div class="div-2"><span class="text-12" style="font-size: 12px; color: #64748b;">Losers are out immediately</span></div>
+                            </div>
+                        </label>
+                        <!-- Double Elimination -->
+                        <label class="label-3 format-option" style="cursor: pointer; display: flex; align-items: center; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; transition: all 0.2s; background: white; flex: 1;" data-type="double-elimination">
+                            <div class="selection-indicator" style="width: 20px; height: 20px; border-radius: 50%; border: 2px solid #cbd5e1; display: flex; align-items: center; justify-content: center; background: transparent;">
+                                <svg class="vector" width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                    <path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <input type="radio" name="tournament-type" value="double-elimination" class="radio-hidden" style="display: none;" />
+                            <div class="div" style="margin-left: 12px;">
+                                <div class="div-2"><span class="text-13">Double Elimination</span></div>
+                                <div class="div-2"><span class="text-14" style="font-size: 12px; color: #64748b;">Includes a loser&#39;s bracket</span></div>
+                            </div>
+                        </label>
+                    </div>
+                </section>
+
+                <!-- Match Date & Format Pair -->
+                <section class="registration-window" style="margin-top: 32px; height: auto; max-height: none;">
                     <div class="container-10">
                         <div class="div-2">
-                            <span class="text-wrapper-4" id="format-heading">Tournament Type</span>
+                            <label class="text-wrapper-4" for="match-date">Match Start Date (วันที่เริ่มแข่ง)</label>
                         </div>
-                        <div class="container-11" role="radiogroup" aria-labelledby="format-heading">
-                            <!-- Single Elimination -->
-                            <label class="label-2 format-option active" style="cursor: pointer; display: flex; align-items: center; padding: 12px; border: 2px solid #ff8c00; border-radius: 12px; transition: all 0.2s; background: white;" data-type="single-elimination">
-                                <div class="selection-indicator" style="width: 20px; height: 20px; border-radius: 50%; border: 2px solid #ff8c00; display: flex; align-items: center; justify-content: center; background: #ff8c00;">
-                                    <svg class="vector" width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </div>
-                                <input type="radio" name="tournament-type" value="single-elimination" class="radio-hidden" checked style="display: none;" />
-                                <div class="div" style="margin-left: 12px;">
-                                    <div class="div-2"><span class="text-11" style="font-size: 16px; font-weight: 700; color: #0f172a;">Single Elimination</span></div>
-                                    <div class="div-2"><span class="text-12" style="font-size: 12px; color: #64748b;">Losers are out immediately</span></div>
-                                </div>
-                            </label>
-                            <!-- Double Elimination -->
-                            <label class="label-3 format-option" style="cursor: pointer; display: flex; align-items: center; padding: 12px; border: 2px solid #e2e8f0; border-radius: 12px; transition: all 0.2s; margin-top: 10px; background: white;" data-type="double-elimination">
-                                <div class="selection-indicator" style="width: 20px; height: 20px; border-radius: 50%; border: 2px solid #cbd5e1; display: flex; align-items: center; justify-content: center; background: transparent;">
-                                    <svg class="vector" width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg" style="display: none;">
-                                        <path d="M1 4L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </div>
-                                <input type="radio" name="tournament-type" value="double-elimination" class="radio-hidden" style="display: none;" />
-                                <div class="div" style="margin-left: 12px;">
-                                    <div class="div-2"><span class="text-13">Double Elimination</span></div>
-                                    <div class="div-2"><span class="text-14" style="font-size: 12px; color: #64748b;">Includes a loser&#39;s bracket</span></div>
-                                </div>
-                            </label>
+                        <div class="input-2">
+                            <div class="div-2">
+                                <input class="text-wrapper-5 input-field" id="match-date" type="date" required />
+                            </div>
                         </div>
                     </div>
-                    <div class="container-12">
-                        <div class="container-7">
-                            <div class="div-2">
-                                <label class="text-wrapper-4" for="duration">Duration</label>
-                            </div>
-                            <div class="div-2">
-                                <div class="input-4">
-                                    <div class="container-13">
-                                        <input class="text-wrapper-5 input-field-plain" id="duration" type="text"
-                                            placeholder="e.g. 3 Days" aria-label="Tournament duration" />
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="container-10">
+                        <div class="div-2">
+                            <label class="text-wrapper-4" for="tournament-format">Tournament Format</label>
                         </div>
-                        <div class="container-7">
+                        <div class="input-2">
                             <div class="div-2">
-                                <span class="text-wrapper-4">Age Range</span>
-                            </div>
-                            <div class="container-14" style="display: flex; align-items: center; gap: 12px; width: 100%;">
-                                <div class="input-5" style="display: flex; align-items: center; background: #f8f7f5; border-radius: 32px; border: 1px solid #e2e8f0; padding: 0 16px; flex: 1; height: 56px;">
-                                    <select id="min-age" aria-label="Minimum age" style="width: 100%; border: none; background: transparent; outline: none; font-size: 16px; color: #0f172a; cursor: pointer; height: 100%;">
-                                        <!-- Options populated by JS -->
-                                    </select>
-                                </div>
-                                <div class="div"><span class="text-16">—</span></div>
-                                <div class="input-5" style="display: flex; align-items: center; background: #f8f7f5; border-radius: 32px; border: 1px solid #e2e8f0; padding: 0 16px; flex: 1; height: 56px;">
-                                    <select id="max-age" aria-label="Maximum age" style="width: 100%; border: none; background: transparent; outline: none; font-size: 16px; color: #0f172a; cursor: pointer; height: 100%;">
-                                        <!-- Options populated by JS -->
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="container-7">
-                            <div class="div-2">
-                                <label class="text-wrapper-4" for="tournament-format">Tournament Format</label>
-                            </div>
-                            <div class="div-2">
-                                <div class="input-4">
-                                    <div class="container-13">
-                                        <input class="text-wrapper-5 input-field-plain" id="tournament-format" type="text"
-                                            placeholder="e.g. 5v5 Squads" aria-label="Tournament format" />
-                                    </div>
-                                </div>
+                                <input class="text-wrapper-5 input-field" id="tournament-format" type="text"
+                                    placeholder="e.g. 5v5 Squads" aria-label="Tournament format" />
                             </div>
                         </div>
                     </div>
                 </section>
-                <!-- Registration Window (Used as Start/End Date for backend compatibility) -->
-                <section class="registration-window" aria-labelledby="registration-heading">
+
+                <!-- Duration & Age Pair -->
+                <section class="registration-window" style="margin-top: 16px; height: auto; max-height: none; padding-top: 0;">
                     <div class="container-10">
                         <div class="div-2">
-                            <label class="text-wrapper-4" for="start-date">Start Date</label>
+                            <label class="text-wrapper-4" for="duration">Duration</label>
+                        </div>
+                        <div class="input-2">
+                            <div class="div-2">
+                                <input class="text-wrapper-5 input-field" id="duration" type="text"
+                                    placeholder="e.g. 3 Days" aria-label="Tournament duration" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-10">
+                        <div class="div-2">
+                            <label class="text-wrapper-4" for="min-age">Age Range</label>
+                        </div>
+                        <div class="container-14" style="display: flex; align-items: center; gap: 12px; width: 100%;">
+                            <div class="input-5" style="display: flex; align-items: center; background: #f8f7f5; border-radius: 32px; border: 1px solid #e2e8f0; padding: 0 16px; flex: 1; height: 56px;">
+                                <select id="min-age" aria-label="Minimum age" style="width: 100%; border: none; background: transparent; outline: none; font-size: 16px; color: #0f172a; cursor: pointer; height: 100%;">
+                                    <!-- Options populated by JS -->
+                                </select>
+                            </div>
+                            <div class="div"><span class="text-16">—</span></div>
+                            <div class="input-5" style="display: flex; align-items: center; background: #f8f7f5; border-radius: 32px; border: 1px solid #e2e8f0; padding: 0 16px; flex: 1; height: 56px;">
+                                <select id="max-age" aria-label="Maximum age" style="width: 100%; border: none; background: transparent; outline: none; font-size: 16px; color: #0f172a; cursor: pointer; height: 100%;">
+                                    <!-- Options populated by JS -->
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Registration Window Pair -->
+                <section class="registration-window" aria-labelledby="registration-heading" style="margin-top: 16px; height: auto; max-height: none; padding-top: 0;">
+                    <div class="container-10">
+                        <div class="div-2">
+                            <label class="text-wrapper-4" for="start-date">Registration Start Date</label>
                         </div>
                         <div class="input-2">
                             <div class="div-2">
@@ -238,7 +249,7 @@
                     </div>
                     <div class="container-10">
                         <div class="div-2">
-                            <label class="text-wrapper-4" for="end-date">End Date</label>
+                            <label class="text-wrapper-4" for="end-date">Registration End Date</label>
                         </div>
                         <div class="input-2">
                             <div class="div-2">
@@ -561,6 +572,7 @@
                 const name = document.getElementById('tournament-name').value;
                 const typeEntry = document.querySelector('input[name="tournament-type"]:checked');
                 const type = typeEntry ? typeEntry.value : 'single-elimination';
+                const matchDate = document.getElementById('match-date').value;
                 const startDate = document.getElementById('start-date').value;
                 const endDate = document.getElementById('end-date').value;
                 const duration = document.getElementById('duration').value;
@@ -568,8 +580,8 @@
                 const minAge = minAgeSelect.value;
                 const maxAge = maxAgeSelect.value;
 
-                if (!name || !startDate || !endDate) {
-                    alert('Please fill in required fields (Name, Start Date, End Date)');
+                if (!name || !matchDate || !startDate || !endDate) {
+                    alert('Please fill in required fields (Name, Match Date, Registration Window)');
                     return;
                 }
 
@@ -587,6 +599,7 @@
                         body: JSON.stringify({
                             tournament_name: name,
                             tournament_type: type === 'double-elimination' ? 'Double Elimination' : 'Single Elimination',
+                            match_date: matchDate,
                             start_date: startDate,
                             end_date: endDate,
                             tournament_banner: currentBannerUrl,

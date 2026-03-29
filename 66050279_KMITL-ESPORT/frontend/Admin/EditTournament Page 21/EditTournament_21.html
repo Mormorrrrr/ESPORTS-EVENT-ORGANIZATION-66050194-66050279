@@ -239,13 +239,18 @@
 
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
                             <div class="form-group">
-                                <label class="label-modern" for="start-date">Start Date</label>
+                                <label class="label-modern" for="start-date">Registration Start Date</label>
                                 <input class="input-modern" id="start-date" type="date" required />
                             </div>
                             <div class="form-group">
-                                <label class="label-modern" for="end-date">End Date</label>
+                                <label class="label-modern" for="end-date">Registration End Date</label>
                                 <input class="input-modern" id="end-date" type="date" required />
                             </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="label-modern" for="match-date">Match Start Date (วันที่เริ่มแข่ง)</label>
+                            <input class="input-modern" id="match-date" type="date" required />
                         </div>
 
                         <div class="form-actions">
@@ -459,6 +464,7 @@
                 const t = await res.json();
 
                 if (t.tournament_name) document.getElementById('tournament-name').value = t.tournament_name;
+                if (t.match_date) document.getElementById('match-date').value = t.match_date.substring(0, 10);
                 if (t.start_date) document.getElementById('start-date').value = t.start_date.substring(0, 10);
                 if (t.end_date) document.getElementById('end-date').value = t.end_date.substring(0, 10);
                 if (t.tournament_type) setActiveType(t.tournament_type);
@@ -505,6 +511,7 @@
                         body: JSON.stringify({
                             tournament_name: name,
                             tournament_type: finalType,
+                            match_date: document.getElementById('match-date').value,
                             start_date: startDate,
                             end_date: endDate
                         })

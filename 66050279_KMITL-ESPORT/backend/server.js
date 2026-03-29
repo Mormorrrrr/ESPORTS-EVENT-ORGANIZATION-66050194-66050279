@@ -249,13 +249,14 @@ app.delete("/teams/:id", async (req, res) => {
 // CREATE TOURNAMENT
 
 app.post("/tournaments", async (req, res) => {
-  const { tournament_name, tournament_type, start_date, end_date, tournament_banner, age_min, age_max, duration, format } = req.body;
+  const { tournament_name, tournament_type, match_date, start_date, end_date, tournament_banner, age_min, age_max, duration, format } = req.body;
 
   try {
     const tournament = await prisma.tournament.create({
       data: {
         tournament_name,
         tournament_type,
+        match_date: match_date ? new Date(match_date) : null,
         start_date: new Date(start_date),
         end_date: new Date(end_date),
         tournament_banner,
@@ -319,12 +320,13 @@ app.get("/tournaments/:id", async (req, res) => {
 
 app.put("/tournaments/:id", async (req, res) => {
   const id = parseInt(req.params.id);
-  const { tournament_name, tournament_type, start_date, end_date, tournament_banner, age_min, age_max, duration, format } = req.body;
+  const { tournament_name, tournament_type, match_date, start_date, end_date, tournament_banner, age_min, age_max, duration, format } = req.body;
 
   try {
     const data = {};
     if (tournament_name) data.tournament_name = tournament_name;
     if (tournament_type) data.tournament_type = tournament_type;
+    if (match_date) data.match_date = new Date(match_date);
     if (start_date) data.start_date = new Date(start_date);
     if (end_date) data.end_date = new Date(end_date);
     if (tournament_banner !== undefined) data.tournament_banner = tournament_banner;
