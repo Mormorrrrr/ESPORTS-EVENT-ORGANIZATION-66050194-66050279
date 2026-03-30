@@ -437,7 +437,14 @@ app.post("/tournaments/:id/matches/save", async (req, res) => {
         });
       }
     });
-    res.json({ message: "บันทึกข้อมูลการแข่งขันสำเร็จ" });
+    
+    // Fetch newly saved matches to return to client
+    const updatedMatches = await prisma.match.findMany({
+      where: { tournament_id: tournamentId },
+      orderBy: [{ round: "asc" }, { position: "asc" }]
+    });
+
+    res.json({ message: "บันทึกข้อมูลการแข่งขันสำเร็จ", matches: updatedMatches });
   } catch (error) {
     console.error("[Backend Match Save Error]", error);
     res.status(500).json({ error: "บันทึกข้อมูลการแข่งขันไม่สำเร็จ" });

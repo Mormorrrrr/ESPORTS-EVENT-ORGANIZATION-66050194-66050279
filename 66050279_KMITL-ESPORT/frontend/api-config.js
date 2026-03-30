@@ -209,7 +209,15 @@ async function _sbRoute(path, method, body) {
             return _mockRes({ message: insError.message }, 500);
         }
         console.log('[Supabase] Saved successfully:', rows.length, 'rows');
-        return _mockRes({ message: 'Saved successfully', count: rows.length });
+        
+        // Fetch and return the matches to synchronize frontend
+        const { data: updatedMatches, error: fetchError } = await sb.from('Match').select('*').eq('tournament_id', tid).order('round').order('position');
+        if (fetchError) {
+             console.warn('[Supabase] Sync Fetch Error:', fetchError.message);
+             return _mockRes({ message: 'Saved successfully but failed to re-sync.', count: rows.length });
+        }
+        
+        return _mockRes({ message: 'Saved successfully', count: rows.length, matches: updatedMatches });
     }
 
     // GET /tournaments/:id  OR  PUT/DELETE /tournaments/:id

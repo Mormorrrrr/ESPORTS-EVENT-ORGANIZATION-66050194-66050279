@@ -496,7 +496,7 @@
                 </div>
                 <div style="margin-top:20px; text-align:right;">
                     <span id="save-status" style="margin-right:15px; font-weight:600; font-size:14px;"></span>
-                    <button id="save-bracket-btn"
+                    <button id="save-bracket-btn" type="button"
                         style="background:#2563eb; color:white; border:none; padding:10px 24px; border-radius:10px; font-weight:600; cursor:pointer; transition:all 0.2s;">
                         Save Match Results
                     </button>
@@ -930,8 +930,12 @@
                     bracketTeams.push([teams[i], teams[i + 1] || "TBD"]);
                 }
 
-                const matchesRes = await fetch(`${API_BASE_URL}/tournaments/${tournamentId}/matches`);
+                // Use cache breaker to ensure we get latest matches from server
+                console.log('Fetching matches for tournament:', tournamentId);
+                const matchesRes = await fetch(`${API_BASE_URL}/tournaments/${tournamentId}/matches?t=${Date.now()}`);
                 const matches = await matchesRes.json();
+                let localMatches = Array.isArray(matches) ? [...matches] : [];
+                window.currentMatches = localMatches; // Store globally for sync
 
                 const bracketData = {
                     teams: bracketTeams,
@@ -960,7 +964,6 @@
                 console.log('Rendering Custom Interactive Bracket');
                 $('#bracket-diagnostic').text(`Loaded ${teams.length} teams, ${matches.length} matches.`);
 
-                let localMatches = [...matches];
                 const teamLimits = {
                     'Single Elimination': teams.length,
                     'Double Elimination': teams.length
@@ -1009,6 +1012,14 @@
                             isDirty = false;
                             $status.text('✅ บันทึกสำเร็จ!').css('color', '#10b981');
                             $btn.prop('disabled', false).css({'opacity': '1', 'cursor': 'pointer'});
+                            
+                            // Re-sync local state with server data
+                            if (res && res.matches && Array.isArray(res.matches)) {
+                                console.log('Syncing local state with saved matches:', res.matches.length);
+                                localMatches = [...res.matches];
+                                window.currentMatches = localMatches;
+                            }
+                            
                             setTimeout(() => $status.text(''), 3000);
                             return res;
                         })
@@ -1037,8 +1048,12 @@
                         const win = iframe.contentWindow;
                         if (!win || !win.jQuery) return;
                         win.jQuery('#bc').bracket({
-                            init: data
-                            // Remove unreliable save callback, we now pull data directly from .bracket('data') on button click
+                            init: data,
+                            save: function(data) {
+                                // Placeholder to enable editing. 
+                                // We pull final state via .bracket('data') on the main Save button click.
+                                console.log('Bracket UI updated');
+                            }
                         });
 
                         setTimeout(() => {
@@ -1132,7 +1147,8 @@
                             console.warn('Skipping match load error:', e, m);
                         }
                     });
-                    console.log('Final Prepared Bracket Results [WB, LB, Finals]:', [wb, lb, finals]);
+                    console.log('--- Double Bracket Ready to Render ---');
+                    console.log('Results Structure:', { wb: wb.length, lb: lb.length, finals: finals.length });
                     injectBracket({ teams: bracketTeams, results: [wb, lb, finals] }, true, bracketTeams);
                 };
 
@@ -1200,7 +1216,8 @@
                 });
 
                 // Manual Save Handling — Pull data DIRECTLY from bracket component on click
-                $('#save-bracket-btn').off('click').on('click', async function () {
+                $('#save-bracket-btn').off('click').on('click', async function (e) {
+                    if (e) { e.preventDefault(); e.stopPropagation(); }
                     console.log('--- SAVE INITIATED: Direct State Capture ---');
                     const iframe = $bracket.find('iframe')[0];
                     if (!iframe || !iframe.contentWindow || !iframe.contentWindow.jQuery) {
@@ -1211,6 +1228,16 @@
                     try {
                         const win = iframe.contentWindow;
                         const $ = win.jQuery;
+                        
+                        // CRITICAL: Force blur on ANY focused input inside the iframe
+                        // This ensures the bracket library's internal 'data' is updated
+                        // with the value currently being typed.
+                        const activeEl = win.document.activeElement;
+                        if (activeEl && (activeEl.tagName === 'INPUT' || activeEl.contentEditable === 'true')) {
+                            activeEl.blur();
+                            console.log('Forced blur on active element in bracket iframe');
+                        }
+                        
                         const $bc = $('#bc');
                         
                         // Extract RAW data directly from jquery-bracket internal state
@@ -1231,11 +1258,13 @@
 
                         const flatScore = (v, idx) => {
                             if (v === null || v === undefined || v === '') return null;
-                            const val = Array.isArray(v) ? v[idx] : v;
-                            return (val !== null && val !== undefined && val !== '') ? parseInt(val) : null;
+                            // If v is like [2, 1], return v[idx]. If v is like [[2, 1], meta], nested access v[0][idx]
+                            const val = Array.isArray(v) ? (Array.isArray(v[0]) ? v[0][idx] : v[idx]) : v;
+                            const parsed = parseInt(val);
+                            return isNaN(parsed) ? null : parsed;
                         };
-                        const getS1 = (m) => Array.isArray(m) ? flatScore(Array.isArray(m[0]) ? m[0] : m, 0) : null;
-                        const getS2 = (m) => Array.isArray(m) ? flatScore(Array.isArray(m[0]) ? m[0] : m, 1) : null;
+                        const getS1 = (m) => flatScore(m, 0);
+                        const getS2 = (m) => flatScore(m, 1);
 
                         const nameMap = {};
                         const bracketTeams = newData.teams || [];
@@ -1285,16 +1314,24 @@
                                 }
                             }));
 
-                            nfinals.forEach((round, r) => round.forEach((m, p) => {
-                                const rNum = 101 + r, s1 = getS1(m), s2 = getS2(m);
-                                const names = nameMap[`${rNum}:${p}`] || { t1: null, t2: null };
-                                finalMatches.push({ round: rNum, position: p, score1: s1, score2: s2, team1_name: names.t1, team2_name: names.t2 });
-                                if (s1 !== null && s2 !== null && nfinals[r + 1]) {
-                                    const winner = s1 >= s2 ? names.t1 : names.t2;
-                                    const loser = s1 >= s2 ? names.t2 : names.t1;
-                                    if (!nameMap[`${rNum + 1}:0`]) nameMap[`${rNum + 1}:0`] = { t1: winner, t2: loser };
-                                }
-                            }));
+                            // In Double Elimination, results[2] (nfinals) is an array of matches directly, not an array of rounds
+                            // But for consistency with our DB structure, we wrap it
+                            (Array.isArray(nfinals[0]) && !Array.isArray(nfinals[0][0]) ? [nfinals] : nfinals).forEach((round, r) => {
+                                if (!Array.isArray(round)) return;
+                                round.forEach((m, p) => {
+                                    const rNum = (round === nfinals && !Array.isArray(nfinals[0][0])) ? 101 : (101 + r);
+                                    const s1 = getS1(m), s2 = getS2(m);
+                                    const names = nameMap[`${rNum}:${p}`] || { t1: null, t2: null };
+                                    finalMatches.push({ round: rNum, position: p, score1: s1, score2: s2, team1_name: names.t1, team2_name: names.t2 });
+                                    if (s1 !== null && s2 !== null) {
+                                        const winner = s1 >= s2 ? names.t1 : names.t2;
+                                        const loser = s1 >= s2 ? names.t2 : names.t1;
+                                        if (rNum === 101) {
+                                            if (!nameMap[`102:0`]) nameMap[`102:0`] = { t1: winner, t2: loser };
+                                        }
+                                    }
+                                });
+                            });
                         } else {
                             // single mapping logic ...
                             nwb.forEach((round, r) => round.forEach((match, m) => {
@@ -1311,14 +1348,16 @@
                             }));
                         }
 
-                        console.log('Mapped Final Matches for DB Insertion:', finalMatches);
+                        console.log('Mapped Final Matches for DB Insertion:', finalMatches.length);
+                        if (finalMatches.length > 0) console.log('Sample match:', finalMatches[0]);
+
                         if (finalMatches.length === 0) {
                             throw new Error('ไม่พบข้อมูลที่จะบันทึก (Mapped matches are empty)');
                         }
 
                         await saveMatchesToDB(finalMatches, type);
-                        alert(`✅ บันทึกคะแนนเรียบร้อยแล้ว!\nระบบบันทึกข้อมูล ${finalMatches.length} แมตช์เรียบร้อยแล้วครับ แอดมินสามารถรีเฟรชหน้าเว็บได้เลย`);
-                        localMatches = [...finalMatches]; // Update local state to match DB
+                        alert(`✅ บันทึกคะแนนเรียบร้อยแล้ว!\nระบบบันทึกข้อมูล ${finalMatches.length} แมตช์เรียบร้อยแล้วครับ`);
+                        // localMatches is updated inside saveMatchesToDB.then now
                     } catch (err) {
                         console.error('CRITICAL SAVE ERROR:', err);
                         alert(`❌ เกิดข้อผิดพลาดในการบันทึก: ${err.message}`);
