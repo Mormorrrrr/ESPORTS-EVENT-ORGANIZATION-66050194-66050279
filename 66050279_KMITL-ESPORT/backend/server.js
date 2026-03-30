@@ -444,6 +444,26 @@ app.post("/tournaments/:id/matches/save", async (req, res) => {
   }
 });
 
+// UPDATE SINGLE MATCH SCORE
+app.patch("/matches/:id", async (req, res) => {
+  const id = parseInt(req.params.id);
+  const { score1, score2 } = req.body;
+
+  try {
+    const match = await prisma.match.update({
+      where: { match_id: id },
+      data: {
+        score1: score1 !== undefined ? parseInt(score1) : undefined,
+        score2: score2 !== undefined ? parseInt(score2) : undefined,
+      },
+    });
+    res.json({ message: "อัปเดตคะแนนสำเร็จ", match });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "อัปเดตคะแนนไม่สำเร็จ" });
+  }
+});
+
 
 // APPLY TOURNAMENT
 

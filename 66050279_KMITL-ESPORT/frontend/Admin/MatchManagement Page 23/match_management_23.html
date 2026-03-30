@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <title>KMITL ESPORT - Match Management</title>
+    <link rel="stylesheet" href="../../shared-admin.css?v=10" />
+    <style>
+        .score-input {
+            width: 50px;
+            height: 32px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 800;
+            font-size: 14px;
+            color: #0f172a;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .score-input:focus {
+            border-color: #ff8c00;
+        }
+
+        .save-match-btn {
+            background: #ff8c00;
+            color: white;
+            border: none;
+            border-radius: 48px;
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.2s;
+            margin-left: 12px;
+        }
+
+        .save-match-btn:hover {
+            background: #e67e00;
+            transform: scale(1.05);
+        }
+
+        .save-match-btn:active {
+            transform: scale(0.95);
+        }
+
+        .status-badge {
+            font-size: 11px;
+            font-weight: 800;
+            padding: 4px 12px;
+            border-radius: 999px;
+            text-transform: uppercase;
+        }
+
+        .status-finished {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .status-pending {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-match-management">
+        <!-- Header -->
+        <header class="header-top namespaced-header" role="banner">
+            <div class="ns-header-left">
+                <img class="ns-logo-img" src="../../icons/Logo.png" alt="KMITL ESPORT Logo" />
+                <div class="ns-title-wrap">
+                    <span class="ns-title-text">KMITL ESPORT</span>
+                </div>
+                <nav class="ns-main-nav" aria-label="Main navigation">
+                    <a href="../Dashboard Page 8/Dashboard_8.html" class="ns-nav-link">Home</a>
+                    <a href="#" class="ns-nav-link" onclick="openModal('explore-modal');return false;">Explore</a>
+                    <a href="#" class="ns-nav-link" onclick="openModal('news-modal');return false;">News</a>
+                </nav>
+            </div>
+            <div class="ns-header-right">
+                <div class="ns-user-area" style="position:relative;display:flex;align-items:center;gap:8px;cursor:pointer;" onclick="logoutUser()" title="ออกจากระบบ">
+                    <span id="header-username" style="font-size:13px;font-weight:600;color:#334155;"></span>
+                    <img class="ns-user-avatar" src="../../icons/user.svg" alt="User profile" />
+                </div>
+            </div>
+        </header>
+
+        <!-- Sidebar -->
+        <aside class="aside-sidebar">
+            <nav class="sidebar-nav-container">
+                <a class="link-2" href="../Dashboard Page 8/Dashboard_8.html">
+                    <img src="../../icons/stats.svg" alt="stats" />
+                    <span class="sidebar-text">Dashboard</span>
+                </a>
+                <a class="link" href="../TournamentList Page 9/TournamentList_9.html">
+                    <img src="../../icons/trophy-star.svg" alt="trophy" />
+                    <span class="sidebar-text">Tournament</span>
+                </a>
+                <a class="link-2" href="../TeamList Page 12/TeamList_12.html">
+                    <img src="../../icons/users.svg" alt="teams" />
+                    <span class="sidebar-text">Teams</span>
+                </a>
+                <a class="link-2" href="#" onclick="openModal('about-modal');return false;">
+                    <img src="../../icons/info.svg" alt="info" />
+                    <span class="sidebar-text">About</span>
+                </a>
+                <a class="link-2" href="#" onclick="openModal('settings-modal');return false;">
+                    <img src="../../icons/settings.svg" alt="settings" />
+                    <span class="sidebar-text">Settings</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="frame">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px;">
+                <div>
+                    <h1 id="tournament-title" style="font-size: 28px; font-weight: 800; color: #0f172a; margin: 0 0 8px;">Match Management</h1>
+                    <p id="tournament-subtitle" style="font-size: 14px; color: #64748b; margin: 0;">Update match scores and manage tournament progression.</p>
+                </div>
+                <button onclick="goToBracket()" class="save-match-btn" style="height: 44px; padding: 0 24px; font-size: 14px; border-radius: 12px;">
+                    View Bracket View
+                </button>
+            </div>
+
+            <div id="match-list-container" style="display: flex; flex-direction: column; gap: 16px; width: 100%;">
+                <p style="padding: 40px; text-align: center; color: #94a3b8;">Loading matches...</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals (Reused from Dashboard) -->
+    <div id="modal-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:9000;align-items:center;justify-content:center;" onclick="if(event.target===this)closeModal()">
+        <div id="about-modal" class="modal-box" style="display:none; background:white; padding:24px; border-radius:20px; width:400px;">
+            <h2>About</h2>
+            <button onclick="closeModal()">Close</button>
+        </div>
+        <div id="settings-modal" class="modal-box" style="display:none; background:white; padding:24px; border-radius:20px; width:400px;">
+            <h2>Settings</h2>
+            <button onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script src="../../api-config.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const tournamentId = urlParams.get('id');
+
+        (function () { 
+            const u = JSON.parse(localStorage.getItem("user") || "null"); 
+            if (u && u.username) document.getElementById("header-username").textContent = u.username; 
+            else window.location.href = "../../Login Page/login.html";
+        })();
+
+        function logoutUser() { if (confirm("ต้องการออกจากระบบ?")) { localStorage.removeItem("user"); window.location.href = "../../Login Page/login.html"; } }
+        function closeModal() { document.getElementById('modal-overlay').style.display = 'none'; }
+        function openModal(id) { 
+            document.getElementById('modal-overlay').style.display = 'flex';
+            document.querySelectorAll('.modal-box').forEach(m => m.style.display = 'none');
+            document.getElementById(id).style.display = 'block';
+        }
+
+        function goToBracket() {
+            window.location.href = `../TournamentDetail Page 10/TournamentDetail_10.html?id=${tournamentId}`;
+        }
+
+        async function loadMatches() {
+            if (!tournamentId) {
+                alert('Tournament ID is missing');
+                return;
+            }
+
+            const container = document.getElementById('match-list-container');
+            try {
+                // Fetch Tournament Detail
+                const tRes = await fetch(`${API_BASE_URL}/tournaments/${tournamentId}`);
+                if (tRes.ok) {
+                    const t = await tRes.json();
+                    document.getElementById('tournament-title').textContent = t.tournament_name + ' - Match Management';
+                }
+
+                // Fetch Matches
+                const mRes = await fetch(`${API_BASE_URL}/tournaments/${tournamentId}/matches`);
+                if (!mRes.ok) throw new Error('Failed to fetch matches');
+                const matches = await mRes.json();
+
+                if (matches.length === 0) {
+                    container.innerHTML = '<p style="padding: 60px; text-align: center; color: #94a3b8; font-size: 16px;">No matches generated for this tournament yet.</p>';
+                    return;
+                }
+
+                // Fetch Teams for banners and Fallback names
+                const teamRes = await fetch(`${API_BASE_URL}/teams`);
+                const allTeams = teamRes.ok ? await teamRes.json() : [];
+                const bannerMap = {};
+                allTeams.forEach(t => { if (t.team_name) bannerMap[t.team_name] = t.team_banner_url; });
+
+                // Propagation Logic (Simplified for List View display labels)
+                const nameMap = {};
+                matches.forEach(m => { nameMap[`${m.round}:${m.position}`] = { t1: m.team1_name, t2: m.team2_name }; });
+
+                // Seed Propagation
+                const tdRes = await fetch(`${API_BASE_URL}/tournaments/${tournamentId}`);
+                if (tdRes.ok) {
+                    const td = await tdRes.json();
+                    const approvedTeams = (td.applications || [])
+                        .filter(a => a.status === 'Approved')
+                        .sort((a, b) => (a.app_id || 0) - (b.app_id || 0))
+                        .map(a => (a.team || {}).team_name);
+                    
+                    matches.filter(m => m.round === 1).forEach(m => {
+                        const key = `1:${m.position}`;
+                        if (!nameMap[key].t1) nameMap[key].t1 = approvedTeams[m.position * 2] || null;
+                        if (!nameMap[key].t2) nameMap[key].t2 = approvedTeams[m.position * 2 + 1] || null;
+                    });
+                }
+
+                // Sort matches
+                matches.sort((a, b) => {
+                    const rankA = a.round > 0 && a.round < 100 ? 0 : a.round > 100 ? 1 : 2;
+                    const rankB = b.round > 0 && b.round < 100 ? 0 : b.round > 100 ? 1 : 2;
+                    if (rankA !== rankB) return rankA - rankB;
+                    return Math.abs(a.round || 0) - Math.abs(b.round || 0) || (a.position || 0) - (b.position || 0);
+                });
+
+                container.innerHTML = '';
+                matches.forEach(m => {
+                    const n = nameMap[`${m.round}:${m.position}`] || {};
+                    const team1 = m.team1_name || n.t1 || 'TBD';
+                    const team2 = m.team2_name || n.t2 || 'TBD';
+                    const banner1 = bannerMap[team1] || '../../icons/user.svg';
+                    const banner2 = bannerMap[team2] || '../../icons/user.svg';
+                    const isFinished = m.score1 !== null && m.score2 !== null;
+
+                    const row = document.createElement('article');
+                    row.className = 'premium-match-row';
+                    row.style.height = '110px'; 
+                    row.style.padding = '0 32px';
+                    row.innerHTML = `
+                        <div style="display: flex; align-items: center; gap: 24px; flex: 1; justify-content: center;">
+                            <!-- Team 1 -->
+                            <div class="match-team-container" style="justify-content: flex-end; flex: 2;">
+                                <span class="match-team-name">${team1}</span>
+                                <img class="team-banner-circle" src="${banner1}" onerror="this.src='../../icons/user.svg'" />
+                            </div>
+                            
+                            <!-- Score & Meta -->
+                            <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <span class="status-badge ${isFinished ? 'status-finished' : 'status-pending'}" style="font-size: 9px; padding: 2px 8px;">${isFinished ? 'Finished' : 'Pending'}</span>
+                                    <span class="match-round-tag" style="font-size: 9px;">ROUND <strong>${m.round > 100 ? 'Finals' : m.round < 0 ? 'LB '+Math.abs(m.round) : m.round}</strong></span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 8px; background: #f8fafc; padding: 8px 16px; border-radius: 12px; border: 1px solid #e2e8f0;">
+                                    <input type="number" class="score-input" id="score1-${m.match_id}" value="${m.score1 !== null ? m.score1 : ''}" placeholder="0">
+                                    <span style="font-weight: 800; color: #94a3b8;">-</span>
+                                    <input type="number" class="score-input" id="score2-${m.match_id}" value="${m.score2 !== null ? m.score2 : ''}" placeholder="0">
+                                </div>
+                            </div>
+
+                            <!-- Team 2 -->
+                            <div class="match-team-container" style="flex: 2; justify-content: flex-start;">
+                                <span class="match-team-name">${team2}</span>
+                                <img class="team-banner-circle" src="${banner2}" onerror="this.src='../../icons/user.svg'" />
+                            </div>
+                        </div>
+                        <div class="match-round-info" style="width: 80px; display: flex; justify-content: flex-end;">
+                            <button class="save-match-btn" onclick="saveScore(${m.match_id}, ${m.round}, ${m.position})">Save</button>
+                        </div>
+                    `;
+                    container.appendChild(row);
+                });
+
+            } catch (err) {
+                container.innerHTML = `<p style="padding: 40px; text-align: center; color: #ef4444;">Error: ${err.message}</p>`;
+            }
+        }
+
+        async function saveScore(matchId, round, position) {
+            const s1 = document.getElementById(`score1-${matchId}`).value;
+            const s2 = document.getElementById(`score2-${matchId}`).value;
+
+            if (s1 === '' || s2 === '') {
+                alert('โปรดระบุคะแนนทั้งสองทีม');
+                return;
+            }
+
+            try {
+                const saveRes = await fetch(`${API_BASE_URL}/matches/${matchId}`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        score1: parseInt(s1),
+                        score2: parseInt(s2)
+                    })
+                });
+
+                if (saveRes.ok) {
+                    alert('บันทึกคะแนนเรียบร้อย');
+                    loadMatches(); // Reload to refresh and show finished status
+                } else {
+                    const error = await saveRes.json();
+                    alert('เกิดข้อผิดพลาด: ' + (error.error || 'Failed to save'));
+                }
+            } catch (e) {
+                console.error(e);
+                alert('เกิดข้อผิดพลาดในการเชื่อมต่อ');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', loadMatches);
+    </script>
+</body>
+
+</html>
