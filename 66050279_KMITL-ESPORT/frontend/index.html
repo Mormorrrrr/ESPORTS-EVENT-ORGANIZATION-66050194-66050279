@@ -5,7 +5,10 @@
     <script>
         // Redirect to tournament page if at root
         if (window.location.pathname === '/' || window.location.pathname.endsWith('index.html')) {
-            window.location.href = "./Viewer/Tournament Page 17/tournament_17.html";
+            const target = "./Viewer/Tournament Page 17/tournament_17.html";
+            if (!window.location.href.includes('tournament_17.html')) {
+                window.location.href = target;
+            }
         }
     </script>
     <link rel="stylesheet" href="shared-admin.css?v=4" />

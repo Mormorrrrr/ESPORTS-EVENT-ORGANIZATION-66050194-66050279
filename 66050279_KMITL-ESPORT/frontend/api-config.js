@@ -97,10 +97,13 @@ async function _sbRoute(path, method, body) {
     const sb = _sb;
     if (!sb) throw new Error('Supabase client not initialized');
 
-    console.log('[Supabase]', method, path);
+    // Strip query string for route matching (keep path intact for query param extraction)
+    const cleanPath = path.split('?')[0];
+
+    console.log('[Supabase]', method, cleanPath);
 
     // GET /tournaments
-    if (path === '/tournaments' && method === 'GET') {
+    if (cleanPath === '/tournaments' && method === 'GET') {
         const { data, error } = await sb
             .from('Tournament')
             .select('*, Application(count)')
@@ -114,7 +117,7 @@ async function _sbRoute(path, method, body) {
     }
 
     // GET /matches (all matches with tournament info)
-    if (path === '/matches' && method === 'GET') {
+    if (cleanPath === '/matches' && method === 'GET') {
         const { data: matches, error } = await sb.from('Match').select('*, Tournament(tournament_name, tournament_banner)').order('match_id');
         if (error) return _mockRes({ message: error.message }, 500);
         
@@ -139,7 +142,7 @@ async function _sbRoute(path, method, body) {
     }
 
     // GET /tournaments/:id/matches
-    var matchesM = path.match(/^\/tournaments\/(\d+)\/matches$/);
+    var matchesM = cleanPath.match(/^\/tournaments\/(\d+)\/matches$/);
     if (matchesM && method === 'GET') {
         var tid = parseInt(matchesM[1]);
         const { data: matches, error } = await sb.from('Match').select('*').eq('tournament_id', tid).order('round').order('position');
@@ -166,7 +169,7 @@ async function _sbRoute(path, method, body) {
     }
 
     // POST /tournaments/:id/matches/save
-    var matchesSaveM = path.match(/^\/tournaments\/(\d+)\/matches\/save$/);
+    var matchesSaveM = cleanPath.match(/^\/tournaments\/(\d+)\/matches\/save$/);
     if (matchesSaveM && method === 'POST') {
         var tid = parseInt(matchesSaveM[1]);
         var matches = (body && body.matches) || [];
@@ -221,7 +224,7 @@ async function _sbRoute(path, method, body) {
     }
 
     // GET /tournaments/:id  OR  PUT/DELETE /tournaments/:id
-    var tournM = path.match(/^\/tournaments\/(\d+)$/);
+    var tournM = cleanPath.match(/^\/tournaments\/(\d+)$/);
     if (tournM) {
         var id = parseInt(tournM[1]);
         if (method === 'GET') {
@@ -242,15 +245,15 @@ async function _sbRoute(path, method, body) {
     }
 
     // POST /tournaments
-    if (path === '/tournaments' && method === 'POST') {
+    if (cleanPath === '/tournaments' && method === 'POST') {
         const { data, error } = await sb.from('Tournament').insert(body).select().single();
         if (error) return _mockRes({ message: error.message }, 500);
         return _mockRes(data, 201);
     }
 
     // Teams
-    var teamM = path.match(/^\/teams\/(\d+)$/);
-    if (path === '/teams' && method === 'GET') {
+    var teamM = cleanPath.match(/^\/teams\/(\d+)$/);
+    if (cleanPath === '/teams' && method === 'GET') {
         const { data, error } = await sb.from('Team').select('*').order('team_id');
         if (error) return _mockRes({ message: error.message }, 500);
         return _mockRes(data || []);
@@ -276,20 +279,20 @@ async function _sbRoute(path, method, body) {
             return _mockRes({ message: 'Deleted' });
         }
     }
-    if (path === '/teams' && method === 'POST') {
+    if (cleanPath === '/teams' && method === 'POST') {
         const { data, error } = await sb.from('Team').insert(body).select().single();
         if (error) return _mockRes({ message: error.message }, 500);
         return _mockRes(data, 201);
     }
 
     // Applications
-    var appStatusM = path.match(/^\/applications\/(\d+)\/status$/);
+    var appStatusM = cleanPath.match(/^\/applications\/(\d+)\/status$/);
     if (appStatusM && method === 'PATCH') {
         const { data, error } = await sb.from('Application').update({ status: body.status }).eq('app_id', parseInt(appStatusM[1])).select().single();
         if (error) return _mockRes({ message: error.message }, 500);
         return _mockRes(data);
     }
-    if (path.startsWith('/applications') && method === 'GET') {
+    if (cleanPath.startsWith('/applications') && method === 'GET') {
         var teamIdParam = new URLSearchParams((path.split('?')[1]) || '').get('team_id');
         var q = sb.from('Application').select('*, Tournament(*), Team(*)');
         if (teamIdParam) q = q.eq('team_id', parseInt(teamIdParam));
@@ -297,14 +300,26 @@ async function _sbRoute(path, method, body) {
         if (error) return _mockRes({ message: error.message }, 500);
         return _mockRes(data || []);
     }
-    if (path === '/applications' && method === 'POST') {
+    if (cleanPath === '/applications' && method === 'POST') {
         const { data, error } = await sb.from('Application').insert(body).select().single();
         if (error) return _mockRes({ message: error.message }, 500);
         return _mockRes(data, 201);
     }
 
+    // PATCH /matches/:id — update score for a single match
+    var matchIdM = cleanPath.match(/^\/matches\/(\d+)$/);
+    if (matchIdM && method === 'PATCH') {
+        var matchId = parseInt(matchIdM[1]);
+        const updateData = {};
+        if (body.score1 !== undefined) updateData.score1 = (body.score1 !== null && body.score1 !== '') ? parseInt(body.score1) : null;
+        if (body.score2 !== undefined) updateData.score2 = (body.score2 !== null && body.score2 !== '') ? parseInt(body.score2) : null;
+        const { data, error } = await sb.from('Match').update(updateData).eq('match_id', matchId).select().single();
+        if (error) return _mockRes({ error: 'อัปเดตคะแนนไม่สำเร็จ' }, 500);
+        return _mockRes({ message: 'อัปเดตคะแนนสำเร็จ', match: data });
+    }
+
     // Users
-    if (path === '/users' && method === 'GET') {
+    if (cleanPath === '/users' && method === 'GET') {
         const { data, error } = await sb.from('User').select('user_id, username, email, role');
         if (error) return _mockRes({ message: error.message }, 500);
         return _mockRes(data || []);

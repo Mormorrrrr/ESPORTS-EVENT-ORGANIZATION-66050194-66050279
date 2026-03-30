@@ -63,6 +63,7 @@
                     <img src="../../icons/users.svg" alt="Teams icon" style="width:20px; height:20px;" />
                     <span class="sidebar-text">Teams</span>
                 </a>
+                <a class="link-2" href="#" aria-label="About" onclick="openModal('about-modal');return false;">
                     <img src="../../icons/info.svg" alt="About icon" style="width:20px; height:20px;" />
                     <span class="sidebar-text">About</span>
                 </a>
@@ -302,6 +303,7 @@
 
                     // Render the card using pure robust styles to bypass any style12.css conflicts
                     const article = document.createElement('div');
+                    article.id = `team-card-${team.team_id}`;
                     article.style.display = 'flex';
                     article.style.alignItems = 'center';
                     article.style.justifyContent = 'space-between';
@@ -346,11 +348,11 @@
                                 <span style="color: ${badgeText}; font-size: 11px; font-weight: 700; ">${status}</span>
                             </div>
                             <!-- Edit Button -->
-                            <button onclick="editTeam(${team.team_id})" style="width: 36px; height: 36px; border-radius: 50%; background-color: #f1f5f9; border: none; cursor: pointer; display:flex; align-items:center; justify-content:center; padding:0;">
+                            <button onclick="event.stopPropagation(); editTeam(${team.team_id})" style="width: 36px; height: 36px; border-radius: 50%; background-color: #f1f5f9; border: none; cursor: pointer; display:flex; align-items:center; justify-content:center; padding:0;">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
                             </button>
                             <!-- Delete Button -->
-                            <button onclick="deleteTeam(${team.team_id})" style="width: 36px; height: 36px; border-radius: 50%; background-color: #f1f5f9; border: none; cursor: pointer; display:flex; align-items:center; justify-content:center; padding:0;">
+                            <button onclick="event.stopPropagation(); deleteTeam(${team.team_id})" style="width: 36px; height: 36px; border-radius: 50%; background-color: #f1f5f9; border: none; cursor: pointer; display:flex; align-items:center; justify-content:center; padding:0;">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                             </button>
                         </div>
@@ -372,8 +374,19 @@
                     method: 'DELETE'
                 });
                 if (res.ok) {
-                    alert('Team deleted successfully');
-                    location.reload();
+                    showToast('Team deleted successfully ✓');
+                    const card = document.getElementById(`team-card-${teamId}`);
+                    if (card) {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateX(20px)';
+                        card.style.transition = 'all 0.4s ease';
+                        setTimeout(() => {
+                            card.remove();
+                            if (listContainer.children.length === 0) {
+                                listContainer.innerHTML = '<p style="color:#64748b; font-size: 18px; text-align: center; padding: 40px; width: 100%;">ยังไม่มีข้อมูลทีมในระบบ</p>';
+                            }
+                        }, 400);
+                    }
                 } else {
                     const err = await res.json();
                     alert('Delete failed: ' + err.error);

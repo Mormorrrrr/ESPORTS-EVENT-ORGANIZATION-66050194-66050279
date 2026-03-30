@@ -447,7 +447,14 @@
                             });
                             const result = await res.json();
                             if (res.ok) {
-                                window.location.reload();
+                                showToast('Status updated to Approved ✓');
+                                const badgeText = badge.querySelector('.status-text');
+                                if (badgeText) badgeText.textContent = 'Approved';
+                                badge.style.background = '#dcfce7'; 
+                                badge.style.color = '#15803d';
+                                // Disable further clicks to prevent redundant updates
+                                badge.style.cursor = 'default';
+                                badge.onclick = null;
                             } else {
                                 alert('Error: ' + (result.error || 'Unknown'));
                             }

@@ -489,6 +489,7 @@
 
                     const article = document.createElement('div');
                     article.className = 'premium-list-row';
+                    article.id = `tournament-card-${t.tournament_id}`;
                     article.style.cursor = 'pointer';
                     article.onclick = (e) => {
                         if (e.target.closest('button')) return;
@@ -523,13 +524,13 @@
 
                         <!-- Column 3: Actions (Preserving Admin Functionality) -->
                         <div class="row-actions-wrap">
-                            <button class="row-icon-btn" onclick="window.location.href='../EditTournament Page 21/EditTournament_21.html?id=${t.tournament_id}'" title="Edit Tournament">
+                            <button class="row-icon-btn" onclick="event.stopPropagation(); window.location.href='../EditTournament Page 21/EditTournament_21.html?id=${t.tournament_id}'" title="Edit Tournament">
                                 <img src="../../icons/pencil.svg" style="width: 18px; height: 18px; opacity: 0.7;">
                             </button>
-                            <button class="row-icon-btn" onclick="window.location.href='../TournamentDetail%20Page%2010/TournamentDetail_10.html?id=${t.tournament_id}'" title="Manage Matches & Scores">
+                            <button class="row-icon-btn" onclick="event.stopPropagation(); window.location.href='../TournamentDetail%20Page%2010/TournamentDetail_10.html?id=${t.tournament_id}'" title="Manage Matches & Scores">
                                 <img src="../../icons/gamepad.svg" style="width: 18px; height: 18px; opacity: 0.7;">
                             </button>
-                            <button class="row-icon-btn delete" onclick="deleteTournament(${t.tournament_id})" title="Delete Tournament">
+                            <button class="row-icon-btn delete" onclick="deleteTournament(event, ${t.tournament_id})" title="Delete Tournament">
                                 <img src="../../icons/trash.svg" style="width: 18px; height: 18px; filter: invert(34%) sepia(87%) saturate(3078%) hue-rotate(345deg) brightness(98%) contrast(92%);">
                             </button>
                         </div>
@@ -542,15 +543,30 @@
             }
         });
 
-        window.deleteTournament = async function (id) {
+        window.deleteTournament = async function (event, id) {
+            if (event) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
             if (!confirm('Are you sure you want to delete this tournament?')) return;
             try {
                 const res = await fetch(`${API_BASE_URL}/tournaments/${id}`, {
                     method: 'DELETE'
                 });
                 if (res.ok) {
-                    alert('Tournament deleted successfully');
-                    window.location.reload();
+                    showToast('Tournament deleted successfully ✓');
+                    const card = document.getElementById(`tournament-card-${id}`);
+                    if (card) {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateX(20px)';
+                        card.style.transition = 'all 0.4s ease';
+                        setTimeout(() => {
+                            card.remove();
+                            if (listContainer.children.length === 0) {
+                                listContainer.innerHTML = '<li style="color:#64748b; padding: 20px; text-align: center; width: 100%;">No tournaments found.</li>';
+                            }
+                        }, 400);
+                    }
                 } else {
                     const data = await res.json();
                     alert('Error: ' + (data.error || 'Failed to delete'));

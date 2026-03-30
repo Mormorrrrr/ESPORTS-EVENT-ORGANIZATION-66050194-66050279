@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import authRoutes from './routes/auth.routes.js';
 import tournamentRoutes from './routes/tournament.routes.js';
+import { updateMatchScore } from './controllers/tournament.controller.js';
 
 const app = express();
 
@@ -13,6 +14,9 @@ app.use(express.json());
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/tournaments', tournamentRoutes);
+
+// PATCH /matches/:matchId — update score for a single match
+app.patch('/matches/:matchId', updateMatchScore);
 
 // Health check route
 app.get('/health', (_req, res) => {

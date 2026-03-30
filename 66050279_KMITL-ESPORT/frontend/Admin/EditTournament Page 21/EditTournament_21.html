@@ -215,7 +215,7 @@
                         <p>Update the details for your esport event.</p>
                     </div>
 
-                    <form id="edit-tournament-form">
+                    <form id="edit-tournament-form" onsubmit="event.preventDefault(); return false;">
                         <div class="form-group">
                             <label class="label-modern" for="tournament-name">Tournament Name</label>
                             <input class="input-modern" id="tournament-name" type="text" required />
@@ -259,7 +259,7 @@
                         </div>
 
                         <div class="form-actions">
-                            <button class="btn-cancel" type="button" onclick="location.href='../TournamentList Page 9/TournamentList_9.html'">Cancel</button>
+                            <button class="btn-cancel" type="button" onclick="window.history.back()">Cancel</button>
                             <button class="btn-submit" type="button" id="submit-edit-btn">Update Tournament</button>
                         </div>
                     </form>
