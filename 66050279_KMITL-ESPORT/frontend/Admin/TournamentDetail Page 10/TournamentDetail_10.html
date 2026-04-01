@@ -1039,7 +1039,13 @@
                         + '\x3Clink rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.css"\x3E'
                         + '\x3Cscript src="https://code.jquery.com/jquery-3.6.0.min.js"\x3E\x3C/script\x3E'
                         + '\x3Cscript src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.js"\x3E\x3C/script\x3E'
-                        + '\x3Cstyle\x3Ebody{margin:0;padding:16px;background:transparent;overflow-x:auto;}.jQBracket .tools{display:none!important;}.jQBracket .loser{margin-top:8px!important;}\x3C/style\x3E'
+                        + '\x3Cstyle\x3E'
+                        + 'body{margin:0;padding:16px;background:transparent;overflow-x:auto;}'
+                        + '.jQBracket .tools{display:none!important;}'
+                        + '.jQBracket .loser{margin-top:8px!important;}'
+                        + '/* Fix Conflict with style10.css .match class */'
+                        + '.jQBracket .match { position: relative !important; top: auto !important; left: auto !important; display: block !important; }'
+                        + '\x3C/style\x3E'
                         + '\x3C/head\x3E\x3Cbody\x3E\x3Cdiv id="bc"\x3E\x3C/div\x3E\x3C/body\x3E\x3C/html\x3E';
 
                     const iframe = document.createElement('iframe');
@@ -1102,6 +1108,16 @@
                     $('#single-controls').css('display', 'flex');
                     $('#save-bracket-btn').show();
 
+                    // Auto-detect required bracket size from saved matches so that
+                    // a refresh never shrinks the bracket below what was saved.
+                    const maxWBRound = localMatches
+                        .filter(m => m.round > 0 && m.round < 100)
+                        .reduce((max, m) => Math.max(max, m.round), 0);
+                    if (maxWBRound > 0) {
+                        const requiredNTeams = Math.pow(2, maxWBRound);
+                        teamLimits['Double Elimination'] = Math.max(teamLimits['Double Elimination'], requiredNTeams);
+                    }
+
                     const nTeams = Math.pow(2, Math.ceil(Math.log2(Math.max(2, teamLimits['Double Elimination']))));
                     const bracketTeams = [];
                     for (let i = 0; i < nTeams; i += 2) {
@@ -1148,8 +1164,8 @@
                             console.warn('Skipping match load error:', e, m);
                         }
                     });
-                    console.log('[Loading Double] Prepared results:', [wb, lb, finals]);
-                    injectBracket({ teams: bracketTeams, results: [wb, lb, finals] }, true, bracketTeams);
+                    console.log('[Loading Double] Prepared results:', [wb, lb, [finals]]);
+                    injectBracket({ teams: bracketTeams, results: [wb, lb, [finals]] }, true, bracketTeams);
                 };
 
                 const renderSingleBracket = () => {
@@ -1243,6 +1259,10 @@
                         // Extract RAW data directly from jquery-bracket internal state
                         const newData = $bc.bracket('data');
                         window.debugData = newData; // For console inspection
+                        console.log('[DEBUG] results[0] (WB) rounds:', newData.results[0]?.length, 'first round matches:', newData.results[0]?.[0]?.length);
+                        console.log('[DEBUG] results[1] (LB) rounds:', newData.results[1]?.length, 'first round matches:', newData.results[1]?.[0]?.length);
+                        console.log('[DEBUG] results[2] (Finals):', JSON.stringify(newData.results[2]));
+                        console.log('[DEBUG] teams count:', newData.teams?.length, 'sample team:', JSON.stringify(newData.teams?.[0]));
                         
                         const type = currentFormat;
                         const isDouble = (type === 'Double Elimination');
@@ -1322,11 +1342,15 @@
                             });
 
                             // Process Finals
-                            (Array.isArray(nfinals[0]) && !Array.isArray(nfinals[0][0]) ? [nfinals] : nfinals).forEach((round, r) => {
+                            // nfinals = [GF1_match, GF2_match]
+                            // Each match = [[game1_s1, game1_s2], [game2_s1, game2_s2], ...]
+                            // nfinals = [GF_Round]
+                            // GF_Round = [GF1_match, GF2_match]
+                            nfinals.forEach((round, ri) => {
                                 if (!Array.isArray(round)) return;
-                                round.forEach((m, p) => {
-                                    const rNum = 101 + p; 
-                                    const s1 = getS1(m), s2 = getS2(m);
+                                round.forEach((match, mi) => {
+                                    const rNum = 101 + mi; // 0 -> 101, 1 -> 102
+                                    const s1 = getS1(match), s2 = getS2(match);
                                     const names = nameMap[`${rNum}:0`] || { t1: null, t2: null };
                                     finalMatches.push({ round: rNum, position: 0, score1: s1, score2: s2, team1_name: names.t1, team2_name: names.t2 });
                                     if (s1 !== null && s2 !== null) {

@@ -34,8 +34,6 @@ model Tournament {
   tournament_id     Int           @id @default(autoincrement())
   tournament_name   String
   tournament_type   String
-  description       String?
-  match_date        DateTime?
   start_date        DateTime
   end_date          DateTime
   tournament_banner String?
@@ -43,6 +41,8 @@ model Tournament {
   age_max           Int?
   duration          String?
   format            String?
+  match_date        DateTime?
+  description       String?
   applications      Application[]
   matches           Match[]
 }
