@@ -48,11 +48,11 @@ async function _sbLogin(body) {
     var { data: user, error } = await q.maybeSingle();
 
     if (error) return _mockRes({ message: 'DB error: ' + error.message, error: error.message }, 500);
-    if (!user)  return _mockRes({ message: 'ไม่พบผู้ใช้งาน', error: 'ไม่พบผู้ใช้งาน' }, 401);
+    if (!user)  return _mockRes({ message: 'User not found', error: 'User not found' }, 401);
 
     // Compare password directly (plain-text stored in DB)
     if (String(user.password) !== password) {
-        return _mockRes({ message: 'รหัสผ่านไม่ถูกต้อง', error: 'รหัสผ่านไม่ถูกต้อง' }, 401);
+        return _mockRes({ message: 'Incorrect password', error: 'Incorrect password' }, 401);
     }
 
     // Build a simple session token (base64 of user info)
@@ -89,7 +89,7 @@ async function _sbRegister(body) {
     });
 
     if (error) return _mockRes({ message: error.message, error: error.message }, 400);
-    return _mockRes({ message: 'สมัครสมาชิกสำเร็จ' });
+    return _mockRes({ message: 'Signup successful' });
 }
 
 // ── Supabase router ──────────────────────────────────────────────────────────
@@ -314,8 +314,8 @@ async function _sbRoute(path, method, body) {
         if (body.score1 !== undefined) updateData.score1 = (body.score1 !== null && body.score1 !== '') ? parseInt(body.score1) : null;
         if (body.score2 !== undefined) updateData.score2 = (body.score2 !== null && body.score2 !== '') ? parseInt(body.score2) : null;
         const { data, error } = await sb.from('Match').update(updateData).eq('match_id', matchId).select().single();
-        if (error) return _mockRes({ error: 'อัปเดตคะแนนไม่สำเร็จ' }, 500);
-        return _mockRes({ message: 'อัปเดตคะแนนสำเร็จ', match: data });
+        if (error) return _mockRes({ error: 'Failed to update score' }, 500);
+        return _mockRes({ message: 'Score updated successfully', match: data });
     }
 
     // Users
@@ -370,7 +370,7 @@ window.fetch = async function(input, init) {
     window.addEventListener('beforeunload', (e) => {
         if (isEditing) {
             e.preventDefault();
-            e.returnValue = 'คุณมีข้อมูลที่ยกรอกค้างไว้ ต้องการออกจากหน้านี้ใช่หรือไม่?';
+            e.returnValue = 'You have unsaved changes. Are you sure you want to leave?';
         }
     });
     // Enable guard as soon as user starts interacting with any input

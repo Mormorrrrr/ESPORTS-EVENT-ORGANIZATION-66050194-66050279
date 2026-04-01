@@ -195,7 +195,7 @@
                         <div style="min-width: 0; flex: 1;">
                             <div
                                 style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">
-                                Match Start Date (วันที่เริ่มแข่ง)</div>
+                                Match Start Date</div>
                             <div id="detail-match-date"
                                 style="font-size: 16px; font-weight: 600; color: #0f172a; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
                                 —</div>
@@ -241,9 +241,7 @@
                     </div>
                 </div>
                 <p style="color:#475569;line-height:1.7;margin-bottom:16px;">
-                    KMITL ESPORT เป็นแพลตฟอร์มจัดการการแข่งขัน Esports
-                    อย่างเป็นทางการของสถาบันเทคโนโลยีพระจอมเกล้าเจ้าคุณทหารลาดกระบัง (KMITL)
-                    ออกแบบมาเพื่อรองรับการจัดการแข่งขัน การลงทะเบียนทีม และการติดตามผลการแข่งขันอย่างครบวงจร
+                    KMITL ESPORT is the official Esports competition platform of KMITL, designed for tournament management, team registration, and tracking.
                 </p>
                 <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px;">
                     <div
@@ -258,11 +256,11 @@
                     </div>
                 </div>
                 <div style="background:#fff7ed;border:1px solid #fed7aa;border-radius:12px;padding:16px;">
-                    <div style="font-weight:700;color:#c2410c;margin-bottom:8px;">ติดต่อเรา</div>
+                    <div style="font-weight:700;color:#c2410c;margin-bottom:8px;">Contact Us</div>
                     <div style="font-size:13px;color:#7c2d12;line-height:1.8;">
                         📧 esport@kmitl.ac.th<br>
                         🌐 kmitl.ac.th<br>
-                        📍 KMITL, ลาดกระบัง, กรุงเทพฯ 10520
+                        📍 KMITL, Ladkrabang, Bangkok 10520
                     </div>
                 </div>
             </div>
@@ -276,38 +274,38 @@
             </div>
             <div class="modal-body">
                 <div class="settings-group">
-                    <div class="settings-label">ภาษา / Language</div>
+                    <div class="settings-label">Language</div>
                     <select class="settings-select" id="lang-select">
-                        <option value="th">ภาษาไทย</option>
+                        <option value="th">Thai</option>
                         <option value="en">English</option>
                     </select>
                 </div>
                 <div class="settings-group">
-                    <div class="settings-label">ธีม / Theme</div>
+                    <div class="settings-label">Theme</div>
                     <div style="display:flex;gap:10px;">
                         <button class="theme-btn active" id="theme-light" onclick="setTheme('light')">☀️ Light</button>
                         <button class="theme-btn" id="theme-dark" onclick="setTheme('dark')">🌙 Dark</button>
                     </div>
                 </div>
                 <div class="settings-group">
-                    <div class="settings-label">การแจ้งเตือน / Notifications</div>
+                    <div class="settings-label">Notifications</div>
                     <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
                         <input type="checkbox" id="notif-match" style="width:16px;height:16px;accent-color:#ff8c00;"
                             checked>
-                        <span style="font-size:14px;color:#475569;">แจ้งเตือนการแข่งขันที่กำลังจะมาถึง</span>
+                        <span style="font-size:14px;color:#475569;">Notify upcoming matches</span>
                     </label>
                     <label style="display:flex;align-items:center;gap:10px;cursor:pointer;margin-top:10px;">
                         <input type="checkbox" id="notif-news" style="width:16px;height:16px;accent-color:#ff8c00;"
                             checked>
-                        <span style="font-size:14px;color:#475569;">แจ้งเตือนข่าวสารและประกาศ</span>
+                        <span style="font-size:14px;color:#475569;">Notify news and announcements</span>
                     </label>
                 </div>
                 <div class="settings-group" style="border-bottom:none;">
-                    <div class="settings-label">เวอร์ชัน / Version</div>
+                    <div class="settings-label">Version</div>
                     <span style="font-size:14px;color:#94a3b8;">KMITL ESPORT v1.0.0</span>
                 </div>
                 <button onclick="saveSettings()"
-                    style="width:100%;padding:12px;background:#ff8c00;color:#fff;border:none;border-radius:48px;font-size:14px;font-weight:700;cursor:pointer;margin-top:8px;">บันทึกการตั้งค่า</button>
+                    style="width:100%;padding:12px;background:#ff8c00;color:#fff;border:none;border-radius:48px;font-size:14px;font-weight:700;cursor:pointer;margin-top:8px;">Save Settings</button>
             </div>
         </div>
 
@@ -318,17 +316,16 @@
                 <button class="modal-close" onclick="closeModal()">✕</button>
             </div>
             <div class="modal-body">
-                <p style="color:#64748b;font-size:14px;margin-bottom:20px;">ค้นหาและสำรวจการแข่งขัน Esports ทั้งหมดของ
-                    KMITL</p>
+                <p style="color:#64748b;font-size:14px;margin-bottom:20px;">Search and explore all KMITL Esports tournaments.</p>
                 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;" id="explore-filters">
-                    <button class="filter-tag active" onclick="filterExplore(this,'all')">ทั้งหมด</button>
-                    <button class="filter-tag" onclick="filterExplore(this,'ongoing')">กำลังแข่ง</button>
-                    <button class="filter-tag" onclick="filterExplore(this,'upcoming')">กำลังจะมาถึง</button>
-                    <button class="filter-tag" onclick="filterExplore(this,'ended')">จบแล้ว</button>
+                    <button class="filter-tag active" onclick="filterExplore(this,'all')">All</button>
+                    <button class="filter-tag" onclick="filterExplore(this,'ongoing')">Ongoing</button>
+                    <button class="filter-tag" onclick="filterExplore(this,'upcoming')">Upcoming</button>
+                    <button class="filter-tag" onclick="filterExplore(this,'ended')">Ended</button>
                 </div>
                 <div id="explore-list"
                     style="display:flex;flex-direction:column;gap:12px;max-height:340px;overflow-y:auto;">
-                    <div style="text-align:center;padding:40px;color:#94a3b8;font-size:14px;">กำลังโหลด...</div>
+                    <div style="text-align:center;padding:40px;color:#94a3b8;font-size:14px;">Loading...</div>
                 </div>
             </div>
         </div>
@@ -343,31 +340,27 @@
                 <div style="display:flex;flex-direction:column;gap:16px;max-height:420px;overflow-y:auto;">
                     <div class="news-card">
                         <div class="news-badge new">NEW</div>
-                        <div class="news-title">🏆 KMITL ESPORT Season 2 เปิดรับสมัครแล้ว!</div>
-                        <div class="news-date">27 มีนาคม 2026</div>
-                        <div class="news-desc">การแข่งขัน Esports ประจำปีการศึกษา 2026 เปิดรับสมัครทีมแล้ววันนี้
-                            พร้อมเงินรางวัลรวมกว่า 50,000 บาท สมัครได้เลย!</div>
+                        <div class="news-title">🏆 KMITL ESPORT Season 2 Registration Open!</div>
+                        <div class="news-date">March 27, 2026</div>
+                        <div class="news-desc">Registration for the 2026 Esports competition is now open! Total prize pool over 50,000 THB. Apply now!</div>
                     </div>
                     <div class="news-card">
                         <div class="news-badge">UPDATE</div>
-                        <div class="news-title">📋 กติกาและระเบียบการแข่งขันใหม่</div>
-                        <div class="news-date">20 มีนาคม 2026</div>
-                        <div class="news-desc">ทีมงานได้อัพเดทกติกาการแข่งขันให้ครอบคลุมและชัดเจนยิ่งขึ้น
-                            กรุณาอ่านและทำความเข้าใจก่อนสมัครเข้าร่วม</div>
+                        <div class="news-title">📋 New Rules & Regulations</div>
+                        <div class="news-date">March 20, 2026</div>
+                        <div class="news-desc">The team has updated the rules to be clearer. Please read before joining!</div>
                     </div>
                     <div class="news-card">
                         <div class="news-badge">EVENT</div>
-                        <div class="news-title">🎮 ผลการแข่งขัน KMITL CUP 2025</div>
-                        <div class="news-date">15 กุมภาพันธ์ 2026</div>
-                        <div class="news-desc">ขอแสดงความยินดีกับทีม Dragon Slayer ที่คว้าแชมป์รายการ KMITL CUP 2025
-                            พร้อมเงินรางวัล 20,000 บาท</div>
+                        <div class="news-title">🎮 KMITL CUP 2025 Results</div>
+                        <div class="news-date">February 15, 2026</div>
+                        <div class="news-desc">Congrats to Dragon Slayer for winning KMITL CUP 2025 and 20,000 THB!</div>
                     </div>
                     <div class="news-card">
                         <div class="news-badge">INFO</div>
-                        <div class="news-title">🔧 ระบบปรับปรุงใหม่ พร้อมฟีเจอร์ติดตามการแข่งขันแบบ Real-time</div>
-                        <div class="news-date">1 กุมภาพันธ์ 2026</div>
-                        <div class="news-desc">KMITL ESPORT Platform อัพเดทระบบใหม่ รองรับการดูผลการแข่งขันแบบเรียลไทม์
-                            และระบบแบรคเก็ตที่แสดงผลแบบอัตโนมัติ</div>
+                        <div class="news-title">🔧 System Update: Real-time Match Tracking</div>
+                        <div class="news-date">February 1, 2026</div>
+                        <div class="news-desc">KMITL ESPORT Platform updated! Supports real-time results and automated brackets.</div>
                     </div>
                 </div>
             </div>
@@ -794,7 +787,7 @@
             localStorage.setItem('kmitl_notif_match', notifMatch);
             localStorage.setItem('kmitl_notif_news', notifNews);
             closeModal();
-            showToast('บันทึกการตั้งค่าเรียบร้อย ✓');
+            showToast('Settings saved successfully ✓');
         }
 
         function showToast(msg) {
@@ -817,7 +810,7 @@
 
         async function loadExplore(filter) {
             const list = document.getElementById('explore-list');
-            list.innerHTML = '<div style="text-align:center;padding:40px;color:#94a3b8;font-size:14px;">กำลังโหลด...</div>';
+            list.innerHTML = '<div style="text-align:center;padding:40px;color:#94a3b8;font-size:14px;">Loading...</div>';
             try {
                 let tournaments = allTournamentsCache;
                 if (!tournaments.length) {
@@ -835,27 +828,27 @@
                     return true;
                 });
                 if (!filtered.length) {
-                    list.innerHTML = '<div style="text-align:center;padding:40px;color:#94a3b8;font-size:14px;">ไม่พบการแข่งขัน</div>';
+                    list.innerHTML = '<div style="text-align:center;padding:40px;color:#94a3b8;font-size:14px;">No tournaments found</div>';
                     return;
                 }
                 list.innerHTML = filtered.map(t => {
                     const start = t.start_date ? new Date(t.start_date) : null;
                     const end = t.end_date ? new Date(t.end_date) : null;
-                    let statusClass = 'status-upcoming', statusLabel = 'กำลังจะมาถึง';
-                    if (start && end && start <= now && end >= now) { statusClass = 'status-ongoing'; statusLabel = 'กำลังแข่ง'; }
-                    else if (end && end < now) { statusClass = 'status-ended'; statusLabel = 'จบแล้ว'; }
+                    let statusClass = 'status-upcoming', statusLabel = 'Upcoming';
+                    if (start && end && start <= now && end >= now) { statusClass = 'status-ongoing'; statusLabel = 'Ongoing'; }
+                    else if (end && end < now) { statusClass = 'status-ended'; statusLabel = 'Ended'; }
                     const banner = t.tournament_banner || 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=200';
                     return `<div class="explore-item" onclick="closeModal();window.location.href='../TournamentDetail Page 18/tournamentdetail_18.html?id=${t.tournament_id}'">
                         <img class="explore-item-img" src="${banner}" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?w=200'" />
                         <div style="flex:1;min-width:0;">
                             <div style="font-size:14px;font-weight:700;color:#1e293b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${t.tournament_name}</div>
-                            <div style="font-size:12px;color:#94a3b8;margin-top:3px;">${t.tournament_type || ''} • ${t._count?.applications || 0} ทีม</div>
+                            <div style="font-size:12px;color:#94a3b8;margin-top:3px;">${t.tournament_type || ''} • ${t._count?.applications || 0} Teams</div>
                         </div>
                         <span class="explore-status ${statusClass}">${statusLabel}</span>
                     </div>`;
                 }).join('');
             } catch (e) {
-                list.innerHTML = '<div style="text-align:center;padding:40px;color:#ef4444;font-size:14px;">โหลดข้อมูลไม่สำเร็จ</div>';
+                list.innerHTML = '<div style="text-align:center;padding:40px;color:#ef4444;font-size:14px;">Failed to load data</div>';
             }
         }
 

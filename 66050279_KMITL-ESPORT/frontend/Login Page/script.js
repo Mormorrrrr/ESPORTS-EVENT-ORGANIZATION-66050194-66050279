@@ -85,10 +85,10 @@ form.addEventListener('submit', async (e) => {
                 localStorage.setItem('user', JSON.stringify(data.user));
                 window.location.href = data.redirectUrl;
             } else {
-                alert('ล้มเหลว: ' + data.error);
+                alert('Failed: ' + data.error);
             }
         } catch (err) {
-            alert('ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้: ' + err.message);
+            alert('Could not connect to server: ' + err.message);
         }
     } else {
         const email = emailInput.value;
@@ -96,11 +96,11 @@ form.addEventListener('submit', async (e) => {
         const terms = document.getElementById('terms').checked;
 
         if (password !== confirmData) {
-            alert('รหัสผ่านไม่ตรงกัน!');
+            alert('Passwords do not match!');
             return;
         }
         if (!terms) {
-            alert('กรุณายอมรับเงื่อนไขการใช้บริการ');
+            alert('Please accept terms of service');
             return;
         }
 
@@ -115,10 +115,10 @@ form.addEventListener('submit', async (e) => {
                 alert(data.message);
                 setLoginMode();
             } else {
-                alert('ล้มเหลว: ' + data.error);
+                alert('Failed: ' + data.error);
             }
         } catch (err) {
-            alert('ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้: ' + err.message);
+            alert('Could not connect to server: ' + err.message);
         }
     }
 });
