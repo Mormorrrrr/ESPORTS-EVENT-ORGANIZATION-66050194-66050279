@@ -488,9 +488,9 @@
                 </div>
                 <div style="position: relative; min-height: 400px; padding-left: 50px;">
                     <div class="bracket-controls" id="single-controls" style="position: absolute; left: 0; top: 20px;">
-                        <button class="control-btn" id="btn-plus" title="Add Team">+</button>
-                        <button class="control-btn" id="btn-minus" title="Remove Team">-</button>
-                        <button class="control-btn" id="btn-reset" title="Reset to Defaults">re</button>
+                        <button class="control-btn" id="btn-plus" type="button" title="Add Team">+</button>
+                        <button class="control-btn" id="btn-minus" type="button" title="Remove Team">-</button>
+                        <button class="control-btn" id="btn-reset" type="button" title="Reset to Defaults">re</button>
                     </div>
                     <div id="bracket" style="margin: 0; padding: 0;"></div>
                 </div>
@@ -1018,6 +1018,9 @@
                                 console.log('Syncing local state with saved matches:', res.matches.length);
                                 localMatches = [...res.matches];
                                 window.currentMatches = localMatches;
+                                
+                                // REMOVED renderCurrentBracket() here to prevent unnecessary UI flicker
+                                // since the bracket already shows the values the user typed.
                             }
                             
                             setTimeout(() => $status.text(''), 3000);
@@ -1099,11 +1102,7 @@
                     $('#single-controls').css('display', 'flex');
                     $('#save-bracket-btn').show();
 
-                    let nTeams = 1;
-                    const limit = teamLimits['Double Elimination'];
-                    while (nTeams < limit) nTeams *= 2;
-                    if (nTeams < 4) nTeams = 4;
-
+                    const nTeams = Math.pow(2, Math.ceil(Math.log2(Math.max(2, teamLimits['Double Elimination']))));
                     const bracketTeams = [];
                     for (let i = 0; i < nTeams; i += 2) {
                         bracketTeams.push([teams[i] || null, teams[i + 1] || null]);
@@ -1111,21 +1110,23 @@
 
                     const wbRoundsCount = Math.log2(nTeams);
                     const wb = [];
+                    let mCount = nTeams / 2;
                     for (let r = 0; r < wbRoundsCount; r++) {
-                        let roundArr = [];
-                        for (let m = 0; m < nTeams / Math.pow(2, r + 1); m++) roundArr.push([null, null]);
-                        wb.push(roundArr);
+                        wb.push(Array.from({ length: mCount }, () => [null, null]));
+                        mCount /= 2;
                     }
+
+                    const lbRoundsCount = (wbRoundsCount > 1) ? (2 * wbRoundsCount - 2) : 0;
                     const lb = [];
-                    const lbRoundsCount = 2 * wbRoundsCount - 2;
-                    let mCount = nTeams / 4;
+                    let lbc = nTeams / 4;
                     for (let r = 0; r < lbRoundsCount; r++) {
-                        let roundArr = [];
-                        for (let m = 0; m < Math.floor(mCount); m++) roundArr.push([null, null]);
-                        lb.push(roundArr);
-                        if (r % 2 === 1) mCount /= 2;
+                        lb.push(Array.from({ length: Math.floor(lbc) }, () => [null, null]));
+                        if (r % 2 === 1) lbc /= 2;
                     }
-                    const finals = [[[null, null]]];
+
+                    const finals = [[null, null], [null, null]];
+                    console.log(`[Loading Double] Rounds - WB: ${wbRoundsCount}, LB: ${lbRoundsCount}. Matches: ${localMatches.length}`);
+                    
                     localMatches.forEach(m => {
                         try {
                             if (m.round > 0 && m.round < 100) {
@@ -1137,18 +1138,17 @@
                                 if (lb[ri] && lb[ri][m.position] !== undefined) {
                                     lb[ri][m.position] = [m.score1, m.score2];
                                 }
-                            } else if (m.round > 100) {
-                                let ri = m.round - 101;
-                                if (finals[ri] && finals[ri][m.position] !== undefined) {
-                                    finals[ri][m.position] = [m.score1, m.score2];
+                            } else if (m.round >= 101) {
+                                let matchIdx = m.round - 101; 
+                                if (finals[matchIdx] !== undefined) {
+                                    finals[matchIdx] = [m.score1, m.score2];
                                 }
                             }
                         } catch (e) {
                             console.warn('Skipping match load error:', e, m);
                         }
                     });
-                    console.log('--- Double Bracket Ready to Render ---');
-                    console.log('Results Structure:', { wb: wb.length, lb: lb.length, finals: finals.length });
+                    console.log('[Loading Double] Prepared results:', [wb, lb, finals]);
                     injectBracket({ teams: bracketTeams, results: [wb, lb, finals] }, true, bracketTeams);
                 };
 
@@ -1238,27 +1238,20 @@
                             console.log('Forced blur on active element in bracket iframe');
                         }
                         
-                        const $bc = $('#bc');
+                        const $bc = $('#bc', win.document);
                         
                         // Extract RAW data directly from jquery-bracket internal state
                         const newData = $bc.bracket('data');
-                        console.log('Extracted Data from Bracket:', newData);
-
-                        if (!newData || !newData.results) {
-                            throw new Error('ไม่สามารถดึงข้อมูลผลการแข่งขันจาก Bracket ได้ (Data is malformed)');
-                        }
-
+                        window.debugData = newData; // For console inspection
+                        
                         const type = currentFormat;
                         const isDouble = (type === 'Double Elimination');
                         
-                        // Structure results based on type
-                        const [nwb, nlb, nfinals] = isDouble ? 
-                            (newData.results.length === 3 ? newData.results : [newData.results[0] || [], newData.results[1] || [], newData.results[2] || []]) : 
-                            [newData.results, [], []];
-
+                        const nTeams = Math.pow(2, Math.ceil(Math.log2(Math.max(2, teamLimits[type] || teams.length))));
+                        const wbRoundsCount = Math.log2(nTeams);
+                        
                         const flatScore = (v, idx) => {
                             if (v === null || v === undefined || v === '') return null;
-                            // If v is like [2, 1], return v[idx]. If v is like [[2, 1], meta], nested access v[0][idx]
                             const val = Array.isArray(v) ? (Array.isArray(v[0]) ? v[0][idx] : v[idx]) : v;
                             const parsed = parseInt(val);
                             return isNaN(parsed) ? null : parsed;
@@ -1271,58 +1264,70 @@
                         const finalMatches = [];
 
                         if (isDouble) {
-                            // double mapping logic ...
-                            nwb[0].forEach((m, p) => {
+                            // 1. Initial State for Double
+                            const nwb = newData.results[0] || [];
+                            const nlb = newData.results[1] || [];
+                            const nfinals = newData.results[2] || [];
+
+                            // Seed Round 1
+                            nwb[0]?.forEach((m, p) => {
                                 nameMap[`1:${p}`] = {
                                     t1: bracketTeams[p] ? bracketTeams[p][0] : null,
                                     t2: bracketTeams[p] ? bracketTeams[p][1] : null
                                 };
                             });
 
-                            nwb.forEach((round, r) => round.forEach((m, p) => {
-                                const rNum = r + 1, s1 = getS1(m), s2 = getS2(m);
-                                const names = nameMap[`${rNum}:${p}`] || { t1: null, t2: null };
-                                finalMatches.push({ round: rNum, position: p, score1: s1, score2: s2, team1_name: names.t1, team2_name: names.t2 });
-                                if (s1 !== null && s2 !== null) {
-                                    const winner = s1 >= s2 ? names.t1 : names.t2;
-                                    const loser = s1 >= s2 ? names.t2 : names.t1;
-                                    const nextWBR = rNum + 1, nextWBP = Math.floor(p / 2);
-                                    if (nwb[r + 1]) {
-                                        if (!nameMap[`${nextWBR}:${nextWBP}`]) nameMap[`${nextWBR}:${nextWBP}`] = { t1: null, t2: null };
-                                        if (p % 2 === 0) nameMap[`${nextWBR}:${nextWBP}`].t1 = winner; else nameMap[`${nextWBR}:${nextWBP}`].t2 = winner;
-                                    } else { if (!nameMap[`101:0`]) nameMap[`101:0`] = { t1: null, t2: null }; nameMap[`101:0`].t1 = winner; }
-                                    const lbR = (rNum === 1) ? -1 : -(2 * rNum - 2);
-                                    const lbP = (rNum === 1) ? Math.floor(p / 2) : p;
-                                    if (!nameMap[`${lbR}:${lbP}`]) nameMap[`${lbR}:${lbP}`] = { t1: null, t2: null };
-                                    if (rNum === 1) { if (p % 2 === 0) nameMap[`${lbR}:${lbP}`].t1 = loser; else nameMap[`${lbR}:${lbP}`].t2 = loser; } else { nameMap[`${lbR}:${lbP}`].t2 = loser; }
-                                }
-                            }));
+                            // Process WB
+                            nwb.forEach((round, r) => {
+                                if (!Array.isArray(round)) return;
+                                round.forEach((m, p) => {
+                                    const rNum = r + 1, s1 = getS1(m), s2 = getS2(m);
+                                    const names = nameMap[`${rNum}:${p}`] || { t1: null, t2: null };
+                                    finalMatches.push({ round: rNum, position: p, score1: s1, score2: s2, team1_name: names.t1, team2_name: names.t2 });
+                                    if (s1 !== null && s2 !== null) {
+                                        const winner = s1 >= s2 ? names.t1 : names.t2;
+                                        const loser = s1 >= s2 ? names.t2 : names.t1;
+                                        const nextWBR = rNum + 1, nextWBP = Math.floor(p / 2);
+                                        if (nwb[r + 1]) {
+                                            if (!nameMap[`${nextWBR}:${nextWBP}`]) nameMap[`${nextWBR}:${nextWBP}`] = { t1: null, t2: null };
+                                            if (p % 2 === 0) nameMap[`${nextWBR}:${nextWBP}`].t1 = winner; else nameMap[`${nextWBR}:${nextWBP}`].t2 = winner;
+                                        } else { if (!nameMap[`101:0`]) nameMap[`101:0`] = { t1: null, t2: null }; nameMap[`101:0`].t1 = winner; }
+                                        const lbR = (rNum === 1) ? -1 : -(2 * rNum - 2);
+                                        const lbP = (rNum === 1) ? Math.floor(p / 2) : p;
+                                        if (!nameMap[`${lbR}:${lbP}`]) nameMap[`${lbR}:${lbP}`] = { t1: null, t2: null };
+                                        if (rNum === 1) { if (p % 2 === 0) nameMap[`${lbR}:${lbP}`].t1 = loser; else nameMap[`${lbR}:${lbP}`].t2 = loser; } else { nameMap[`${lbR}:${lbP}`].t2 = loser; }
+                                    }
+                                });
+                            });
 
-                            nlb.forEach((round, r) => round.forEach((m, p) => {
-                                const rNum = -(r + 1), s1 = getS1(m), s2 = getS2(m);
-                                const names = nameMap[`${rNum}:${p}`] || { t1: null, t2: null };
-                                finalMatches.push({ round: rNum, position: p, score1: s1, score2: s2, team1_name: names.t1, team2_name: names.t2 });
-                                if (s1 !== null && s2 !== null) {
-                                    const winner = s1 >= s2 ? names.t1 : names.t2;
-                                    const nextLBR = rNum - 1;
-                                    if (nlb[r + 1]) {
-                                        const isDoubleRound = (Math.abs(rNum) % 2 === 0);
-                                        const nextLBP = isDoubleRound ? Math.floor(p / 2) : p;
-                                        if (!nameMap[`${nextLBR}:${nextLBP}`]) nameMap[`${nextLBR}:${nextLBP}`] = { t1: null, t2: null };
-                                        if (isDoubleRound) { if (p % 2 === 0) nameMap[`${nextLBR}:${nextLBP}`].t1 = winner; else nameMap[`${nextLBR}:${nextLBP}`].t2 = winner; } else { nameMap[`${nextLBR}:${nextLBP}`].t1 = winner; }
-                                    } else { if (!nameMap[`101:0`]) nameMap[`101:0`] = { t1: null, t2: null }; nameMap[`101:0`].t2 = winner; }
-                                }
-                            }));
+                            // Process LB
+                            nlb.forEach((round, r) => {
+                                if (!Array.isArray(round)) return;
+                                round.forEach((m, p) => {
+                                    const rNum = -(r + 1), s1 = getS1(m), s2 = getS2(m);
+                                    const names = nameMap[`${rNum}:${p}`] || { t1: null, t2: null };
+                                    finalMatches.push({ round: rNum, position: p, score1: s1, score2: s2, team1_name: names.t1, team2_name: names.t2 });
+                                    if (s1 !== null && s2 !== null) {
+                                        const winner = s1 >= s2 ? names.t1 : names.t2;
+                                        const nextLBR = rNum - 1;
+                                        if (nlb[r + 1]) {
+                                            const isDoubleRound = (Math.abs(rNum) % 2 === 0);
+                                            const nextLBP = isDoubleRound ? Math.floor(p / 2) : p;
+                                            if (!nameMap[`${nextLBR}:${nextLBP}`]) nameMap[`${nextLBR}:${nextLBP}`] = { t1: null, t2: null };
+                                            if (isDoubleRound) { if (p % 2 === 0) nameMap[`${nextLBR}:${nextLBP}`].t1 = winner; else nameMap[`${nextLBR}:${nextLBP}`].t2 = winner; } else { nameMap[`${nextLBR}:${nextLBP}`].t1 = winner; }
+                                        } else { if (!nameMap[`101:0`]) nameMap[`101:0`] = { t1: null, t2: null }; nameMap[`101:0`].t2 = winner; }
+                                    }
+                                });
+                            });
 
-                            // In Double Elimination, results[2] (nfinals) is an array of matches directly, not an array of rounds
-                            // But for consistency with our DB structure, we wrap it
+                            // Process Finals
                             (Array.isArray(nfinals[0]) && !Array.isArray(nfinals[0][0]) ? [nfinals] : nfinals).forEach((round, r) => {
                                 if (!Array.isArray(round)) return;
                                 round.forEach((m, p) => {
-                                    const rNum = (round === nfinals && !Array.isArray(nfinals[0][0])) ? 101 : (101 + r);
+                                    const rNum = 101 + p; 
                                     const s1 = getS1(m), s2 = getS2(m);
-                                    const names = nameMap[`${rNum}:${p}`] || { t1: null, t2: null };
-                                    finalMatches.push({ round: rNum, position: p, score1: s1, score2: s2, team1_name: names.t1, team2_name: names.t2 });
+                                    const names = nameMap[`${rNum}:0`] || { t1: null, t2: null };
+                                    finalMatches.push({ round: rNum, position: 0, score1: s1, score2: s2, team1_name: names.t1, team2_name: names.t2 });
                                     if (s1 !== null && s2 !== null) {
                                         const winner = s1 >= s2 ? names.t1 : names.t2;
                                         const loser = s1 >= s2 ? names.t2 : names.t1;
