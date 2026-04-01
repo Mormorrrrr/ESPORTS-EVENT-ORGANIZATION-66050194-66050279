@@ -1263,11 +1263,12 @@
                         const bracketTeams = newData.teams || [];
                         const finalMatches = [];
 
+                        const nwb = newData.results[0] || [];
+                        const nlb = newData.results[1] || [];
+                        const nfinals = newData.results[2] || [];
+
                         if (isDouble) {
                             // 1. Initial State for Double
-                            const nwb = newData.results[0] || [];
-                            const nlb = newData.results[1] || [];
-                            const nfinals = newData.results[2] || [];
 
                             // Seed Round 1
                             nwb[0]?.forEach((m, p) => {
