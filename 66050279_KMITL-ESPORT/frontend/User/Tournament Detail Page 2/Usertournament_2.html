@@ -664,13 +664,16 @@
                         const lbRounds = 2 * wbRounds - 2;
                         let mc = numTeams / 4;
                         const lb = Array.from({ length: lbRounds }, (_, r) => { const a = Array.from({ length: Math.floor(mc) }, () => [null, null]); if (r % 2 === 1) mc /= 2; return a; });
-                        const finals = [[[null, null]]];
+                        const finals = [[null, null], [null, null]];
                         matches.forEach(m => {
                             if (m.round > 0 && m.round < 100 && wb[m.round - 1]?.[m.position]) wb[m.round - 1][m.position] = [m.score1, m.score2];
                             else if (m.round < 0 && lb[Math.abs(m.round) - 1]?.[m.position]) lb[Math.abs(m.round) - 1][m.position] = [m.score1, m.score2];
-                            else if (m.round > 100 && finals[m.round - 101]?.[m.position]) finals[m.round - 101][m.position] = [m.score1, m.score2];
+                            else if (m.round >= 101) {
+                                let matchIdx = m.round - 101;
+                                if (finals[matchIdx] !== undefined) finals[matchIdx] = [m.score1, m.score2];
+                            }
                         });
-                        bracketData = { teams: bracketTeams, results: [wb, lb, finals] };
+                        bracketData = { teams: bracketTeams, results: [wb, lb, [finals]] };
                     } else {
                         let slotTeams = Array.from({ length: numTeams }, (_, i) => teams[i] || 'BYE');
                         const numRounds = Math.log2(numTeams);
