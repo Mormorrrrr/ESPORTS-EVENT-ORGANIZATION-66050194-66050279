@@ -207,10 +207,10 @@
                 const tdRes = await fetch(`${API_BASE_URL}/tournaments/${tournamentId}`);
                 if (tdRes.ok) {
                     const td = await tdRes.json();
-                    const approvedTeams = (td.applications || [])
+                    const approvedTeams = (td.Application || td.applications || [])
                         .filter(a => a.status === 'Approved')
                         .sort((a, b) => (a.app_id || 0) - (b.app_id || 0))
-                        .map(a => (a.team || {}).team_name);
+                        .map(a => (a.Team || a.team || {}).team_name);
                     
                     matches.filter(m => m.round === 1).forEach(m => {
                         const key = `1:${m.position}`;

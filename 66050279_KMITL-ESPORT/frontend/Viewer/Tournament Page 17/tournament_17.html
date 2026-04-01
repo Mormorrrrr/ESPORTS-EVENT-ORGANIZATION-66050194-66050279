@@ -541,10 +541,10 @@
                                 const tdRes = await fetch(`${API_BASE_URL}/tournaments/${tid}`);
                                 if (tdRes.ok) {
                                     const td = await tdRes.json();
-                                    const approvedTeams = (td.applications || [])
+                                    const approvedTeams = (td.Application || td.applications || [])
                                         .filter(a => a.status === 'Approved')
-                                        .sort((a, b) => a.app_id - b.app_id)
-                                        .map(a => (a.team || {}).team_name);
+                                        .sort((a, b) => (a.app_id || 0) - (b.app_id || 0))
+                                        .map(a => (a.Team || a.team || {}).team_name);
                                     
                                     // Populate Round 1 Winner Bracket if names are null
                                     const r1Matches = tMatches.filter(m => m.round === 1);

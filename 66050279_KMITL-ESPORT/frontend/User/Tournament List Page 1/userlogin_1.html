@@ -383,7 +383,7 @@
                                     const approvedTeams = (td.applications || td.Application || [])
                                         .filter(a => a.status === 'Approved')
                                         .sort((a, b) => (a.app_id || 0) - (b.app_id || 0))
-                                        .map(a => (a.team || {}).team_name);
+                                        .map(a => (a.Team || a.team || {}).team_name);
                                     
                                     const r1Matches = tMatches.filter(m => m.round === 1);
                                     r1Matches.forEach(m => {

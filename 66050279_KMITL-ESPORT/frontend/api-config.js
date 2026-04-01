@@ -120,25 +120,94 @@ async function _sbRoute(path, method, body) {
     if (cleanPath === '/matches' && method === 'GET') {
         const { data: matches, error } = await sb.from('Match').select('*, Tournament(tournament_name, tournament_banner)').order('match_id');
         if (error) return _mockRes({ message: error.message }, 500);
-        
-        // Fetch teams to get banners
-        const teamNames = new Set();
-        (matches || []).forEach(m => {
-            if (m.team1_name) teamNames.add(m.team1_name);
-            if (m.team2_name) teamNames.add(m.team2_name);
+        if (!matches || matches.length === 0) return _mockRes([]);
+
+        // Group by tournament_id and resolve names for each group
+        var byTid = {};
+        matches.forEach(function(m) {
+            if (!byTid[m.tournament_id]) byTid[m.tournament_id] = [];
+            byTid[m.tournament_id].push(m);
         });
-        
-        if (teamNames.size > 0) {
-            const { data: teams } = await sb.from('Team').select('team_name, team_banner_url').in('team_name', Array.from(teamNames));
-            const teamMap = {};
-            (teams || []).forEach(t => teamMap[t.team_name] = t.team_banner_url);
-            matches.forEach(m => {
-                m.team1_banner_url = teamMap[m.team1_name] || null;
-                m.team2_banner_url = teamMap[m.team2_name] || null;
+
+        for (var tidKey in byTid) {
+            var tMatches = byTid[tidKey];
+            var tidNum = parseInt(tidKey);
+
+            // Fetch approved teams (fallback to all apps)
+            var approvedTeams2 = [];
+            try {
+                const { data: td2 } = await sb.from('Tournament').select('*, Application(*, Team(*))').eq('tournament_id', tidNum).single();
+                if (td2) {
+                    var apps2 = (td2.Application || td2.applications || []).slice().sort(function(a,b){return(a.app_id||0)-(b.app_id||0);});
+                    var appr2 = apps2.filter(function(a){return a.status==='Approved';});
+                    var seed2 = appr2.length > 0 ? appr2 : apps2;
+                    approvedTeams2 = seed2.map(function(a){return(a.Team||a.team||{}).team_name;}).filter(function(n){return!!n;});
+                }
+            } catch(e) {}
+
+            var nm2 = {};
+            tMatches.forEach(function(m){ nm2[m.round+':'+m.position]={t1:(m.team1_name&&m.team1_name!=='TBD')?m.team1_name:null,t2:(m.team2_name&&m.team2_name!=='TBD')?m.team2_name:null}; });
+
+            // Seed round 1
+            tMatches.filter(function(m){return m.round===1;}).forEach(function(m){
+                var k='1:'+m.position;
+                if(!nm2[k].t1) nm2[k].t1=approvedTeams2[m.position*2]||null;
+                if(!nm2[k].t2) nm2[k].t2=approvedTeams2[m.position*2+1]||null;
+            });
+
+            // Propagate winners
+            var sorted2 = tMatches.slice().sort(function(a,b){
+                var ord=function(r){return(r>0&&r<100)?1:(r<0)?2:3;};
+                if(ord(a.round)!==ord(b.round))return ord(a.round)-ord(b.round);
+                return Math.abs(a.round)-Math.abs(b.round)||a.position-b.position;
+            });
+            sorted2.forEach(function(m){
+                var ns=nm2[m.round+':'+m.position]||{t1:null,t2:null};
+                if(m.score1!==null&&m.score2!==null){
+                    var win=m.score1>=m.score2?ns.t1:ns.t2;
+                    var los=m.score1>=m.score2?ns.t2:ns.t1;
+                    if(!win)return;
+                    if(m.round>0&&m.round<100){
+                        var nk=(m.round+1)+':'+Math.floor(m.position/2);
+                        if(!nm2[nk])nm2[nk]={t1:null,t2:null};
+                        if(m.position%2===0)nm2[nk].t1=win;else nm2[nk].t2=win;
+                        if(los){
+                            if(m.round===1){var lk='-1:'+Math.floor(m.position/2);if(!nm2[lk])nm2[lk]={t1:null,t2:null};if(m.position%2===0)nm2[lk].t1=los;else nm2[lk].t2=los;}
+                            else{var lk2='-'+(2*m.round-2)+':'+m.position;if(!nm2[lk2])nm2[lk2]={t1:null,t2:null};nm2[lk2].t2=los;}
+                        }
+                    } else if(m.round<0){
+                        var idr=(Math.abs(m.round)%2===0);var nr=m.round-1;var np=idr?Math.floor(m.position/2):m.position;
+                        var lnk=nr+':'+np;if(!nm2[lnk])nm2[lnk]={t1:null,t2:null};
+                        if(idr){if(m.position%2===0)nm2[lnk].t1=win;else nm2[lnk].t2=win;}else{nm2[lnk].t1=win;}
+                    }
+                }
+            });
+
+            // Apply resolved names
+            tMatches.forEach(function(m){
+                var n=nm2[m.round+':'+m.position]||{};
+                if((!m.team1_name||m.team1_name==='TBD')&&n.t1)m.team1_name=n.t1;
+                if((!m.team2_name||m.team2_name==='TBD')&&n.t2)m.team2_name=n.t2;
             });
         }
-        
-        return _mockRes(matches || []);
+
+        // Fetch all banners
+        var allNames2 = new Set();
+        matches.forEach(function(m){if(m.team1_name)allNames2.add(m.team1_name);if(m.team2_name)allNames2.add(m.team2_name);});
+        if(allNames2.size>0){
+            const{data:teams2}=await sb.from('Team').select('team_name, team_banner_url').in('team_name',Array.from(allNames2));
+            var tm2={};(teams2||[]).forEach(function(t){tm2[t.team_name]=t.team_banner_url;});
+            matches.forEach(function(m){m.team1_banner_url=(m.team1_name&&tm2[m.team1_name])||null;m.team2_banner_url=(m.team2_name&&tm2[m.team2_name])||null;});
+        }
+
+        // Filter out meaningless matches (both TBD, no score)
+        var result = matches.filter(function(m){
+            var hasTeam=(m.team1_name&&m.team1_name!=='TBD')||(m.team2_name&&m.team2_name!=='TBD');
+            var hasScore=m.score1!==null&&m.score2!==null;
+            return hasTeam||hasScore;
+        });
+
+        return _mockRes(result);
     }
 
     // GET /tournaments/:id/matches
@@ -147,25 +216,108 @@ async function _sbRoute(path, method, body) {
         var tid = parseInt(matchesM[1]);
         const { data: matches, error } = await sb.from('Match').select('*').eq('tournament_id', tid).order('round').order('position');
         if (error) return _mockRes({ message: error.message }, 500);
-        
-        // Fetch teams to get banners
-        const teamNames = new Set();
-        (matches || []).forEach(m => {
-            if (m.team1_name) teamNames.add(m.team1_name);
-            if (m.team2_name) teamNames.add(m.team2_name);
+        if (!matches || matches.length === 0) return _mockRes([]);
+
+        // 1. Fetch teams to seed round 1 names if missing
+        const { data: tournData } = await sb.from('Tournament').select('*, Application(*, Team(*))').eq('tournament_id', tid).single();
+        const rawApps = tournData ? (tournData.Application || tournData.applications || []) : [];
+        const sortedApps = rawApps.slice().sort(function(a, b) { return (a.app_id || 0) - (b.app_id || 0); });
+        // Prefer Approved teams; fall back to all applicants if none are Approved yet
+        var approvedApps = sortedApps.filter(function(a) { return a.status === 'Approved'; });
+        var seedApps = approvedApps.length > 0 ? approvedApps : sortedApps;
+        const approvedTeams = seedApps
+            .map(function(a) { return (a.Team || a.team || {}).team_name; })
+            .filter(function(n) { return !!n; });
+
+        // 2. Build nameMap from DB values (treat literal 'TBD' as null so seeding can override)
+        var nameMap = {};
+        matches.forEach(function(m) {
+            nameMap[m.round + ':' + m.position] = {
+                t1: (m.team1_name && m.team1_name !== 'TBD') ? m.team1_name : null,
+                t2: (m.team2_name && m.team2_name !== 'TBD') ? m.team2_name : null
+            };
         });
-        
-        if (teamNames.size > 0) {
-            const { data: teams } = await sb.from('Team').select('team_name, team_banner_url').in('team_name', Array.from(teamNames));
-            const teamMap = {};
-            (teams || []).forEach(t => teamMap[t.team_name] = t.team_banner_url);
-            matches.forEach(m => {
-                m.team1_banner_url = teamMap[m.team1_name] || null;
-                m.team2_banner_url = teamMap[m.team2_name] || null;
+
+        // 3. Seed round 1 from approved teams if names are null
+        matches.filter(function(m) { return m.round === 1; }).forEach(function(m) {
+            var key = '1:' + m.position;
+            if (!nameMap[key].t1) nameMap[key].t1 = approvedTeams[m.position * 2] || null;
+            if (!nameMap[key].t2) nameMap[key].t2 = approvedTeams[m.position * 2 + 1] || null;
+        });
+
+        // 4. Propagate winners through bracket
+        var sorted = matches.slice().sort(function(a, b) {
+            var order = function(r) { return (r > 0 && r < 100) ? 1 : (r < 0) ? 2 : 3; };
+            if (order(a.round) !== order(b.round)) return order(a.round) - order(b.round);
+            return Math.abs(a.round) - Math.abs(b.round) || a.position - b.position;
+        });
+        sorted.forEach(function(m) {
+            var names = nameMap[m.round + ':' + m.position] || { t1: null, t2: null };
+            if (m.score1 !== null && m.score2 !== null) {
+                var winner = m.score1 >= m.score2 ? names.t1 : names.t2;
+                var loser  = m.score1 >= m.score2 ? names.t2 : names.t1;
+                if (!winner) return;
+                if (m.round > 0 && m.round < 100) {
+                    var nextKey = (m.round + 1) + ':' + Math.floor(m.position / 2);
+                    if (!nameMap[nextKey]) nameMap[nextKey] = { t1: null, t2: null };
+                    if (m.position % 2 === 0) nameMap[nextKey].t1 = winner; else nameMap[nextKey].t2 = winner;
+                    if (loser) {
+                        if (m.round === 1) {
+                            var lbKey = '-1:' + Math.floor(m.position / 2);
+                            if (!nameMap[lbKey]) nameMap[lbKey] = { t1: null, t2: null };
+                            if (m.position % 2 === 0) nameMap[lbKey].t1 = loser; else nameMap[lbKey].t2 = loser;
+                        } else {
+                            var lbKey2 = '-' + (2 * m.round - 2) + ':' + m.position;
+                            if (!nameMap[lbKey2]) nameMap[lbKey2] = { t1: null, t2: null };
+                            nameMap[lbKey2].t2 = loser;
+                        }
+                    }
+                } else if (m.round < 0) {
+                    var isDoubleRound = (Math.abs(m.round) % 2 === 0);
+                    var nextR = m.round - 1;
+                    var nextP = isDoubleRound ? Math.floor(m.position / 2) : m.position;
+                    var lbNextKey = nextR + ':' + nextP;
+                    if (!nameMap[lbNextKey]) nameMap[lbNextKey] = { t1: null, t2: null };
+                    if (isDoubleRound) {
+                        if (m.position % 2 === 0) nameMap[lbNextKey].t1 = winner; else nameMap[lbNextKey].t2 = winner;
+                    } else {
+                        nameMap[lbNextKey].t1 = winner;
+                    }
+                }
+            }
+        });
+
+        // 5. Apply resolved names back to matches
+        matches.forEach(function(m) {
+            var n = nameMap[m.round + ':' + m.position] || {};
+            if ((!m.team1_name || m.team1_name === 'TBD') && n.t1) m.team1_name = n.t1;
+            if ((!m.team2_name || m.team2_name === 'TBD') && n.t2) m.team2_name = n.t2;
+        });
+
+        // 6. Fetch all team banners (including newly resolved names)
+        var allNames = new Set();
+        matches.forEach(function(m) {
+            if (m.team1_name) allNames.add(m.team1_name);
+            if (m.team2_name) allNames.add(m.team2_name);
+        });
+        if (allNames.size > 0) {
+            const { data: teams } = await sb.from('Team').select('team_name, team_banner_url').in('team_name', Array.from(allNames));
+            var teamMap = {};
+            (teams || []).forEach(function(t) { teamMap[t.team_name] = t.team_banner_url; });
+            matches.forEach(function(m) {
+                m.team1_banner_url = (m.team1_name && teamMap[m.team1_name]) || null;
+                m.team2_banner_url = (m.team2_name && teamMap[m.team2_name]) || null;
             });
         }
-        
-        return _mockRes(matches || []);
+
+        // 7. Only return matches that have at least one known team or a score
+        var meaningfulMatches = matches.filter(function(m) {
+            var hasTeam = (m.team1_name && m.team1_name !== 'TBD') || (m.team2_name && m.team2_name !== 'TBD');
+            var hasScore = m.score1 !== null && m.score2 !== null;
+            return hasTeam || hasScore;
+        });
+
+        return _mockRes(meaningfulMatches);
     }
 
     // POST /tournaments/:id/matches/save
