@@ -607,9 +607,44 @@
                     if (matchDateEl) matchDateEl.textContent = mDate;
                 }
 
+                // Banner Fallback
                 const bannerImg = document.querySelector('.image-2');
                 const fallbackBanner = 'https://images.unsplash.com/photo-1542751371-adc38448a05e?w=1200';
-                const nTeams = Math.pow(2, Math.ceil(Math.log2(Math.max(2, teams.length))));
+                if (tournament.tournament_banner) {
+                    bannerImg.src = tournament.tournament_banner;
+                    bannerImg.onerror = () => bannerImg.src = fallbackBanner;
+                } else {
+                    bannerImg.src = fallbackBanner;
+                }
+
+                // Fetch Matches
+                const matchesRes = await fetch(`${API_BASE_URL}/tournaments/${id}/matches`);
+                const matches = await matchesRes.json();
+
+                const seenCounts = {};
+                const teams = (tournament.Application || tournament.applications || [])
+                    .filter(app => app.status === 'Approved')
+                    .sort((a, b) => (a.app_id || 0) - (b.app_id || 0))
+                    .map(app => {
+                        const name = (app.Team || app.team || {}).team_name;
+                        if (!name) return null;
+                        seenCounts[name] = (seenCounts[name] || 0) + 1;
+                        return name + '\u200B'.repeat(seenCounts[name] - 1);
+                    })
+                    .filter(n => n);
+
+                if (!matches || matches.length === 0) {
+                    matchListContainer.innerHTML = `
+                    <div style="text-align: center; padding: 40px; background: white; border-radius: 16px; border: 1px dashed #cbd5e1; color: #64748b;">
+                        <img src="../../icons/info.svg" style="width: 32px; height: 32px; margin-bottom: 12px; opacity: 0.5;" />
+                        <p style="font-weight: 500;">No matches scheduled yet.</p>
+                    </div>`;
+                    return;
+                }
+
+                // Build bracket data from saved matches
+                const isDouble = (tournament.tournament_type || '').toLowerCase().includes('double');
+                const numTeams = Math.max(2, Math.pow(2, Math.ceil(Math.log2(Math.max(2, teams.length)))));
                 const bracketTeams = [];
                 for (let i = 0; i < numTeams; i += 2) bracketTeams.push([teams[i] || null, teams[i + 1] || null]);
 
