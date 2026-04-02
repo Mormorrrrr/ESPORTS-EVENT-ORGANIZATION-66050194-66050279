@@ -893,8 +893,10 @@
                 }
                 $('#details-section .text-7').text(tournament.format || 'TBD');
                 if (tournament.match_date) {
-                    const mDate = new Date(tournament.match_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-                    $('#match-date-display').text(mDate);
+                    const mDateObj = new Date(tournament.match_date);
+                    const mDate = mDateObj.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+                    const mTime = mDateObj.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+                    $('#match-date-display').text(`${mDate} · ${mTime}`);
                 }
 
                 if (tournament.start_date) {

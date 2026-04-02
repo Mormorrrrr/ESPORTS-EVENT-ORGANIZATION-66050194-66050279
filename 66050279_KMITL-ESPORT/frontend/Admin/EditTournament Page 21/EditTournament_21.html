@@ -262,6 +262,29 @@
                             <input class="input-modern" id="match-time" type="time" required />
                         </div>
 
+                        <div class="form-group">
+                            <label class="label-modern">Tournament Banner</label>
+                            <div id="banner-dropzone" style="border: 2px dashed #e2e8f0; border-radius: 12px; min-height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; overflow: hidden; background: #f8fafc;">
+                                <div id="upload-placeholder" style="display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 24px;">
+                                    <img src="../../icons/cloud-upload-alt.svg" alt="Upload" style="width: 40px; height: 40px; opacity: 0.4;" />
+                                    <p style="color: #94a3b8; font-size: 13px; margin: 0;">Click button to enter Image URL</p>
+                                    <button id="select-url-btn" type="button" style="padding: 8px 20px; background: #ff8c00; color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer;">Select File</button>
+                                </div>
+                                <div id="url-input-container" style="display: none; width: 80%; padding: 16px; background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+                                    <div style="font-size: 13px; font-weight: 700; color: #475569; margin-bottom: 8px;">Paste Image URL:</div>
+                                    <div style="display: flex; gap: 8px;">
+                                        <input type="text" id="banner-url-input" placeholder="https://example.com/image.jpg" style="flex: 1; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 13px; outline: none; background: white; color: #0f172a;" />
+                                        <button id="confirm-url-btn" type="button" style="padding: 8px 16px; background: #ff8c00; color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer;">Add</button>
+                                    </div>
+                                    <button id="cancel-url-btn" type="button" style="margin-top: 8px; background: none; border: none; color: #64748b; font-size: 12px; cursor: pointer; text-decoration: underline;">Cancel</button>
+                                </div>
+                                <div id="banner-preview-container" style="display: none; position: absolute; inset: 0; width: 100%; height: 100%;">
+                                    <img id="banner-preview-img" style="width: 100%; height: 100%; object-fit: cover; border-radius: 10px;" />
+                                    <button id="remove-banner-btn" type="button" style="position: absolute; top: 10px; right: 10px; background: rgba(255,140,0,0.9); color: white; border: none; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer;">Change URL</button>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-actions">
                             <button class="btn-cancel" type="button" onclick="window.history.back()">Cancel</button>
                             <button class="btn-submit" type="button" id="submit-edit-btn">Update Tournament</button>
@@ -447,6 +470,54 @@
         document.addEventListener('DOMContentLoaded', async () => {
             const urlParams = new URLSearchParams(window.location.search);
             const tournamentId = urlParams.get('id');
+
+            // Banner logic
+            let currentBannerUrl = '';
+            const uploadPlaceholder = document.getElementById('upload-placeholder');
+            const urlInputContainer = document.getElementById('url-input-container');
+            const bannerPreviewContainer = document.getElementById('banner-preview-container');
+            const bannerPreviewImg = document.getElementById('banner-preview-img');
+            const bannerUrlInput = document.getElementById('banner-url-input');
+
+            function showBannerPreview(url) {
+                currentBannerUrl = url;
+                bannerPreviewImg.src = url;
+                uploadPlaceholder.style.display = 'none';
+                urlInputContainer.style.display = 'none';
+                bannerPreviewContainer.style.display = 'block';
+            }
+
+            document.getElementById('select-url-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                uploadPlaceholder.style.display = 'none';
+                urlInputContainer.style.display = 'block';
+                bannerUrlInput.focus();
+            });
+
+            document.getElementById('cancel-url-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                urlInputContainer.style.display = 'none';
+                uploadPlaceholder.style.display = currentBannerUrl ? 'none' : 'flex';
+                if (currentBannerUrl) bannerPreviewContainer.style.display = 'block';
+            });
+
+            document.getElementById('confirm-url-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                const url = bannerUrlInput.value.trim();
+                if (url) showBannerPreview(url);
+            });
+
+            bannerUrlInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') { e.preventDefault(); document.getElementById('confirm-url-btn').click(); }
+            });
+
+            document.getElementById('remove-banner-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                currentBannerUrl = '';
+                bannerPreviewContainer.style.display = 'none';
+                uploadPlaceholder.style.display = 'flex';
+                bannerUrlInput.value = '';
+            });
             if(!tournamentId) {
                 alert('No Tournament ID specified');
                 location.href = '../TournamentList Page 9/TournamentList_9.html';
@@ -481,6 +552,7 @@
                 if (t.start_date) document.getElementById('start-date').value = t.start_date.substring(0, 10);
                 if (t.end_date) document.getElementById('end-date').value = t.end_date.substring(0, 10);
                 if (t.tournament_type) setActiveType(t.tournament_type);
+                if (t.tournament_banner) showBannerPreview(t.tournament_banner);
             } catch (err) { 
                 console.error(err);
                 alert('Error loading tournament: ' + err.message); 
@@ -528,7 +600,8 @@
                             description: description,
                             match_date: document.getElementById('match-date').value + 'T' + (document.getElementById('match-time').value || '00:00'),
                             start_date: startDate,
-                            end_date: endDate
+                            end_date: endDate,
+                            tournament_banner: currentBannerUrl || null
                         })
                     });
                     if(res.ok) {
