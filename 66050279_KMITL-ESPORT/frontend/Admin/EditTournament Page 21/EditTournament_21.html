@@ -257,6 +257,10 @@
                             <label class="label-modern" for="match-date">Match Start Date</label>
                             <input class="input-modern" id="match-date" type="date" required />
                         </div>
+                        <div class="form-group">
+                            <label class="label-modern" for="match-time">Match Start Time</label>
+                            <input class="input-modern" id="match-time" type="time" required />
+                        </div>
 
                         <div class="form-actions">
                             <button class="btn-cancel" type="button" onclick="window.history.back()">Cancel</button>
@@ -470,7 +474,10 @@
 
                 if (t.tournament_name) document.getElementById('tournament-name').value = t.tournament_name;
                 if (t.description) document.getElementById('tournament-description').value = t.description;
-                if (t.match_date) document.getElementById('match-date').value = t.match_date.substring(0, 10);
+                if (t.match_date) {
+                    document.getElementById('match-date').value = t.match_date.substring(0, 10);
+                    document.getElementById('match-time').value = t.match_date.substring(11, 16);
+                }
                 if (t.start_date) document.getElementById('start-date').value = t.start_date.substring(0, 10);
                 if (t.end_date) document.getElementById('end-date').value = t.end_date.substring(0, 10);
                 if (t.tournament_type) setActiveType(t.tournament_type);
@@ -519,7 +526,7 @@
                             tournament_name: name,
                             tournament_type: finalType,
                             description: description,
-                            match_date: document.getElementById('match-date').value,
+                            match_date: document.getElementById('match-date').value + 'T' + (document.getElementById('match-time').value || '00:00'),
                             start_date: startDate,
                             end_date: endDate
                         })

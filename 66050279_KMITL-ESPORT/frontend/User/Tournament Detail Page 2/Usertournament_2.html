@@ -604,9 +604,11 @@
                     document.getElementById('detail-age').textContent = `${tournament.age_min || 0} - ${tournament.age_max || 100} years old`;
                     document.getElementById('detail-format').textContent = tournament.tournament_type || 'N/A';
                 if (tournament.match_date) {
-                    const mDate = new Date(tournament.match_date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+                    const mDateObj = new Date(tournament.match_date);
+                    const mDate = mDateObj.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+                    const mTime = mDateObj.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
                     const matchDateEl = document.getElementById('detail-match-date');
-                    if (matchDateEl) matchDateEl.textContent = mDate;
+                    if (matchDateEl) matchDateEl.textContent = `${mDate} · ${mTime}`;
                 }
 
                     // Hide JOIN button if registration has closed (end_date passed)

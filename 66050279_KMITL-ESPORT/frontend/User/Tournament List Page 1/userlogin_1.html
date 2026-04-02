@@ -351,7 +351,7 @@
                                 const matches = await mRes.json();
                                 if (matches.length > 0) {
                                     matches.forEach(m => {
-                                        allMatches.push({ ...m, tournament_name: t.tournament_name });
+                                        allMatches.push({ ...m, tournament_name: t.tournament_name, tournament_match_date: t.match_date });
                                     });
                                 }
                             }
@@ -469,7 +469,7 @@
                             row.innerHTML = `
                                 <div class="match-meta-info">
                                     <span class="match-tournament-tag" style="color: #ff8c00; font-size: 11px;">${m.tournament_name}</span>
-                                    <span class="match-time-tag">${hasScore ? 'FINISHED' : 'START IN <strong>15:30</strong>'}</span>
+                                    <span class="match-time-tag">${hasScore ? 'FINISHED' : `START IN <strong>${m.tournament_match_date ? new Date(m.tournament_match_date).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' }) : 'TBD'}</strong>`}</span>
                                 </div>
                                 <div style="display: flex; align-items: center; gap: 32px; flex: 1; justify-content: center; min-width: 0;">
                                     <div class="match-team-container" style="justify-content: flex-end;">

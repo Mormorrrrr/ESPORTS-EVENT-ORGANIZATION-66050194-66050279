@@ -191,6 +191,16 @@
                     </div>
                     <div class="container-10">
                         <div class="div-2">
+                            <label class="text-wrapper-4" for="match-time">Match Start Time</label>
+                        </div>
+                        <div class="input-2">
+                            <div class="div-2">
+                                <input class="text-wrapper-5 input-field" id="match-time" type="time" required />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container-10">
+                        <div class="div-2">
                             <label class="text-wrapper-4" for="tournament-format">Tournament Format</label>
                         </div>
                         <div class="input-2">
@@ -574,6 +584,7 @@
                 const typeEntry = document.querySelector('input[name="tournament-type"]:checked');
                 const type = typeEntry ? typeEntry.value : 'single-elimination';
                 const matchDate = document.getElementById('match-date').value;
+                const matchTime = document.getElementById('match-time').value || '00:00';
                 const startDate = document.getElementById('start-date').value;
                 const endDate = document.getElementById('end-date').value;
                 const duration = document.getElementById('duration').value;
@@ -601,7 +612,7 @@
                             tournament_name: name,
                             tournament_type: type === 'double-elimination' ? 'Double Elimination' : 'Single Elimination',
                             description: description,
-                            match_date: matchDate,
+                            match_date: matchDate + 'T' + matchTime,
                             start_date: startDate,
                             end_date: endDate,
                             tournament_banner: currentBannerUrl,
