@@ -59,3 +59,67 @@
         init();
     }
 })();
+
+// ===== HEADER SEARCH =====
+(function () {
+    function initSearch() {
+        var searchInput = document.querySelector('.ns-search-input');
+        if (!searchInput) return;
+
+        var currentQuery = '';
+
+        // Watch #explore-list for changes (loadExplore is async — apply filter after it populates)
+        function watchExploreList() {
+            var exploreList = document.getElementById('explore-list');
+            if (!exploreList) return;
+            new MutationObserver(function () {
+                if (currentQuery) applyFilter(currentQuery);
+            }).observe(exploreList, { childList: true });
+        }
+
+        function applyFilter(query) {
+            var exploreList = document.getElementById('explore-list');
+            if (!exploreList) return;
+            exploreList.querySelectorAll('.explore-item').forEach(function (item) {
+                var text = item.textContent.toLowerCase();
+                item.style.display = (!query || text.includes(query)) ? '' : 'none';
+            });
+        }
+
+        function triggerSearch() {
+            currentQuery = searchInput.value.trim().toLowerCase();
+            var overlay = document.getElementById('modal-overlay');
+            var exploreModal = document.getElementById('explore-modal');
+            if (!overlay || !exploreModal) return;
+
+            var isOpen = overlay.style.display === 'flex' && exploreModal.style.display !== 'none';
+            if (!isOpen) {
+                if (typeof openModal === 'function') openModal('explore-modal');
+                // MutationObserver will apply filter after loadExplore finishes
+            } else {
+                applyFilter(currentQuery);
+            }
+        }
+
+        var debounceTimer;
+        searchInput.addEventListener('input', function () {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(triggerSearch, 300);
+        });
+
+        searchInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                clearTimeout(debounceTimer);
+                triggerSearch();
+            }
+        });
+
+        watchExploreList();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initSearch);
+    } else {
+        initSearch();
+    }
+})();
