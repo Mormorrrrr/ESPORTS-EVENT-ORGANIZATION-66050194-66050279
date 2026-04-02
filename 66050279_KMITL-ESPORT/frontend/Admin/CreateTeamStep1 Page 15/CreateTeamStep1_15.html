@@ -810,7 +810,9 @@
             try {
                 const response = await fetch(`${API_BASE_URL}/tournaments`);
                 allTournaments = await response.json();
-                renderTournaments(allTournaments);
+                const now = new Date();
+                const openTournaments = allTournaments.filter(t => !t.end_date || new Date(t.end_date) >= now);
+                renderTournaments(openTournaments);
             } catch (error) {
                 console.error('Error fetching tournaments:', error);
                 tournamentsContainer.innerHTML = '<div style="padding: 20px; color: #ef4444; text-align: center; font-size: 14px;">Failed to load tournaments</div>';

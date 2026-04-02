@@ -121,10 +121,12 @@
                     <div id="tournament-description-banner" 
                         style="color: rgba(255,255,255,0.9); font-size: 16px; line-height: 1.5; max-width: 600px; white-space: pre-wrap; display: none; margin-bottom: 24px;">
                     </div>
-                    <button class="join-button"
+                    <button id="join-tournament-btn" class="join-button"
                         onclick="window.location.href='../Team(noHave) Page 3/Teamnohave_3.html'"
                         style="width: fit-content; padding: 14px 40px; background: #ff8c00; color: white; border: none; border-radius: 999px; cursor: pointer; font-weight: 700; font-size: 16px; box-shadow: 0 10px 15px -3px rgba(255, 140, 0, 0.3); transition: all 0.2s;">JOIN
                         TOURNAMENT</button>
+                    <div id="registration-closed-badge" style="display: none; width: fit-content; padding: 14px 40px; background: #64748b; color: white; border-radius: 999px; font-weight: 700; font-size: 16px;">
+                        REGISTRATION CLOSED</div>
                 </div>
             </section>
 
@@ -606,6 +608,16 @@
                     const matchDateEl = document.getElementById('detail-match-date');
                     if (matchDateEl) matchDateEl.textContent = mDate;
                 }
+
+                    // Hide JOIN button if registration has closed (end_date passed)
+                    if (tournament.end_date) {
+                        const now = new Date();
+                        const endDate = new Date(tournament.end_date);
+                        if (now > endDate) {
+                            document.getElementById('join-tournament-btn').style.display = 'none';
+                            document.getElementById('registration-closed-badge').style.display = 'block';
+                        }
+                    }
                     // document.getElementById('open-date').textContent = new Date(tournament.start_date).toLocaleDateString();
                     // document.getElementById('close-date').textContent = new Date(tournament.end_date).toLocaleDateString();
 

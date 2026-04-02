@@ -376,8 +376,10 @@
             try {
                 const res = await fetch(`${API_BASE_URL}/tournaments`);
                 const tournaments = await res.json();
-                tournamentSelect.innerHTML = '<option value="">Choose an active event</option>' + 
-                    tournaments.map(t => `<option value="${t.tournament_id}">${t.tournament_name}</option>`).join('');
+                const now = new Date();
+                const openTournaments = tournaments.filter(t => !t.end_date || new Date(t.end_date) >= now);
+                tournamentSelect.innerHTML = '<option value="">Choose an active event</option>' +
+                    openTournaments.map(t => `<option value="${t.tournament_id}">${t.tournament_name}</option>`).join('');
             } catch (e) {
                 console.error('Failed to fetch tournaments', e);
                 tournamentSelect.innerHTML = '<option value="">Failed to load tournaments</option>';
