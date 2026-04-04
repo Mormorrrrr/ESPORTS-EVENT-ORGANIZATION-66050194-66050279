@@ -1,8 +1,11 @@
 import { PrismaClient } from '@prisma/client';
+import { PrismaPg } from '@prisma/adapter-pg';
+import pg from 'pg';
 
-// Use a singleton pattern to ensure we don't create multiple Prisma instances
-// in development when the server hot-reloads
-const prisma = global.prisma || new PrismaClient();
+const pool = new pg.Pool({ connectionString: process.env.DATABASE_URL });
+const adapter = new PrismaPg(pool);
+
+const prisma = global.prisma || new PrismaClient({ adapter });
 
 if (process.env.NODE_ENV !== 'production') {
     global.prisma = prisma;
