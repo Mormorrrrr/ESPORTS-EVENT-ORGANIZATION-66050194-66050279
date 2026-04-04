@@ -9,11 +9,14 @@
                     if (!res.ok) throw new Error('Server responded with ' + res.status);
                     const tournaments = await res.json();
 
+                    const now = new Date();
+                    const openTournaments = tournaments.filter(t => !t.end_date || new Date(t.end_date) >= now);
+
                     listContainer.innerHTML = '';
-                    if (!tournaments || tournaments.length === 0) {
+                    if (!openTournaments || openTournaments.length === 0) {
                         listContainer.innerHTML = '<p style="padding: 40px; text-align: center; color: #64748b;">No tournaments available.</p>';
                     } else {
-                        tournaments.slice(0, 3).forEach(t => {
+                        openTournaments.slice(0, 3).forEach(t => {
                             const article = document.createElement('article');
                             article.className = 'background-shadow';
                             article.style.cursor = 'pointer';
