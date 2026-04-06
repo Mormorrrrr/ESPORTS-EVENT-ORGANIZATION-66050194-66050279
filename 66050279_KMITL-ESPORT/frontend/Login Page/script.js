@@ -95,6 +95,10 @@ form.addEventListener('submit', async (e) => {
         const confirmData = confirmPassInput.value;
         const terms = document.getElementById('terms').checked;
 
+        if (!email.endsWith('@kmitl.ac.th') && !email.endsWith('@gmail.com')) {
+            alert('Please use your KMITL email (@kmitl.ac.th) or Gmail (@gmail.com)');
+            return;
+        }
         if (password !== confirmData) {
             alert('Passwords do not match!');
             return;

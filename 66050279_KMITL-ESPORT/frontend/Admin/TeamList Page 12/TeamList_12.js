@@ -20,21 +20,33 @@ document.addEventListener('DOMContentLoaded', async () => {
                     return;
                 }
 
-                allTeams.forEach(async (team) => {
-                    // Fetch application status for this team
+                // Fetch all statuses concurrently, then sort pending first
+                const teamsWithStatus = await Promise.all(allTeams.map(async (team) => {
                     let status = 'No Apply';
-                    let statusColor = '#94a3b8'; // Grey
+                    let statusColor = '#94a3b8';
                     try {
                         const appRes = await fetch(`${API_BASE_URL}/applications?team_id=${team.team_id}`);
                         const apps = await appRes.json();
                         if (apps.length > 0) {
                             status = apps[0].status.toUpperCase();
-                            if (status === 'APPROVED') statusColor = '#4ade80'; // Green
-                            else if (status === 'PENDING') statusColor = '#fbbf24'; // Yellow
+                            if (status === 'APPROVED') statusColor = '#4ade80';
+                            else if (status === 'PENDING') statusColor = '#fbbf24';
                         }
                     } catch (e) {
                         console.error('Error fetching status for team', team.team_id, e);
                     }
+                    return { ...team, status, statusColor };
+                }));
+
+                // Sort: PENDING first, then others
+                teamsWithStatus.sort((a, b) => {
+                    if (a.status === 'PENDING' && b.status !== 'PENDING') return -1;
+                    if (a.status !== 'PENDING' && b.status === 'PENDING') return 1;
+                    return 0;
+                });
+
+                teamsWithStatus.forEach((team) => {
+                    const { status, statusColor } = team;
 
                     // Render the card using pure robust styles to bypass any style12.css conflicts
                     const article = document.createElement('div');
