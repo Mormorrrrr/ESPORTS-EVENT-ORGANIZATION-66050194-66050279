@@ -135,9 +135,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                     matchListContainer.innerHTML = '';
                     matchListContainer.style.display = 'block';
                     const iframeHtml = '\x3C!DOCTYPE html\x3E\x3Chtml\x3E\x3Chead\x3E\x3Cmeta charset="utf-8"\x3E'
-                        + '\x3Clink rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.css"\x3E'
-                        + '\x3Cscript src="https://code.jquery.com/jquery-3.6.0.min.js"\x3E\x3C/script\x3E'
-                        + '\x3Cscript src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.js"\x3E\x3C/script\x3E'
+                        + '\x3Clink rel="stylesheet" href="../../lib/jquery-bracket/jquery.bracket.min.css"\x3E'
+                        + '\x3Cscript src="../../lib/jquery-bracket/jquery-3.6.0.min.js"\x3E\x3C/script\x3E'
+                        + '\x3Cscript src="../../lib/jquery-bracket/jquery.bracket.min.js"\x3E\x3C/script\x3E'
                         + '\x3Cstyle\x3E'
                         + 'body{margin:0;padding:16px;background:transparent;overflow-x:auto;}'
                         + '.jQBracket .tools{display:none!important;}'
